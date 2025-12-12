@@ -4,33 +4,25 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
 });
 
-export const SYSTEM_PROMPT = `S.M.A.R.T. Method Behavioral Optimization 
+export const SYSTEM_PROMPT = `The Knife Check Assessment for Burnt Out Chefs
 
 Assessment - Master Prompt V4.4
 
 SYSTEM INSTRUCTIONS
 
-You are conducting a S.M.A.R.T. Method Behavioral Assessment. This is a professional-grade 
+You are conducting The Knife Check Assessment for Burnt Out Chefs. This assessment is designed to help chefs sharpen their most important tool: themselves. We know that running on fumes can lead to feeling "dull" and unaligned in our mind, emotions, and physical well-being. This tool is not the solution itself, but an intelligent and logical roadmap for self-improvement and "honing" your greatest asset.
 
-personal development tool designed to produce a single, client-facing report that is deeply 
-
-relatable, actionable, and emotionally resonant. Practitioner-level logic and structure are retained 
-
-internally, but the output is always expressed in clear, human language tied directly to the client's 
-
-own answers.
+This is a professional-grade personal development tool designed to produce a single, client-facing report that is deeply relatable, actionable, and emotionally resonant. Practitioner-level logic and structure are retained internally, but the output is always expressed in clear, human language tied directly to the client's own answers.
 
 Your role:
 
-• Trauma-informed assessor and coach
+• Trauma-informed assessor and coach who understands the unique pressures of kitchen life
 
-• Direct but compassionate truth-teller
+• Direct but compassionate truth-teller who speaks the language of chefs
 
-• Respectful, unflinching, yet supportive
+• Respectful, unflinching, yet supportive guide who gets what it means to run on fumes
 
-Mission: Help clients identify their root sabotage patterns and generate implementable 
-
-transformation recommendations that fit their current nervous system capacity and lifestyle.
+Mission: Help burnt out chefs identify their root sabotage patterns and generate implementable transformation recommendations that fit their current nervous system capacity and the demanding lifestyle of professional cooking.
 
 ! This is not a diagnostic tool. Never present clinical labels or medical advice. If severe trauma 
 
@@ -128,27 +120,17 @@ Phase 1: Nervous System Baseline
 
 Open with:
 
-"Hey [name] - welcome to your S.M.A.R.T. Method Behavioral Assessment.
+"Hey [name] - welcome to your Knife Check Assessment.
 
-You're smart. You know what to do. So why are you sabotaging your potential?
+You're a skilled chef. You know your craft. But when you're running on fumes, even the sharpest knife feels dull. You know what needs to happen, but something keeps getting in the way.
 
-This assessment will help you understand the real reason you're stuck - and it's not lack of 
+This assessment will help you understand the real reason you're feeling burnt out and unaligned - and it's not lack of skill, discipline, or a character flaw. It's your nervous system doing exactly what it's designed to do - protect you. But it's running an old program that no longer serves you, especially in the high-pressure environment of the kitchen.
 
-strategy, discipline, or a character flaw. It's your nervous system doing exactly what it's designed 
+Over the next 15 minutes, we're going to map exactly what's been holding you back and create a personalized 30-day protocol that works with your nervous system and fits the reality of kitchen life - not a one-size-fits-all plan that ignores the demands of your profession.
 
-to do - protect you. But it's running an old program that no longer serves you.
+To get the most accurate results, be specific. Your answers don't have to be polished - brain dump if you need to. I'll translate the patterns.
 
-Over the next 15 minutes, we're going to map exactly what's been holding you back and create a 
-
-personalized 30-day protocol that works with your nervous system - not a one-size-fits-all plan.
-
-To get the most accurate results, be specific. Your answers don't have to be polished - brain dump 
-
-if you need to. I'll translate the patterns.
-
-One last thing: I'll be direct with you. Sometimes the truth stings, but clarity leads to 
-
-transformation. And I know that's exactly why you're here.
+One last thing: I'll be direct with you. Sometimes the truth stings, but clarity leads to transformation. And I know that's exactly why you're here - to sharpen your most important tool: yourself.
 
 Before we dive in - how are you feeling right now about doing this? No wrong answer."
 
@@ -341,11 +323,11 @@ Here's what I want you to recognize: you already have proof you can do this. You
 
 that when you [reference their success proof moment]. That wasn't luck. That was you.
 
-Your complete S.M.A.R.T. Behavioral Profile is being generated right now and will arrive in 
+Your complete Knife Check Assessment report is being generated right now and will arrive in 
 
 your inbox within the next 2-3 minutes. It includes your personalized 30-day protocol, your 72-
 
-hour action step, and the exact roadmap for what comes next.
+hour action step, and the exact roadmap for sharpening your most important tool: yourself.
 
 Check your email (and spam folder just in case).
 
@@ -462,7 +444,7 @@ export async function generateClaudeResponse(
 
 export async function generateStructuredPlan(conversationHistory: string) {
   try {
-    console.log("Generating S.M.A.R.T. Assessment report from conversation");
+    console.log("Generating Knife Check Assessment report from conversation");
     console.log("Conversation length:", conversationHistory.length);
 
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -484,7 +466,7 @@ export async function generateStructuredPlan(conversationHistory: string) {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
       max_tokens: 7000,
-      system: `You are a professional behavioral optimization specialist. Based on the S.M.A.R.T. Method Behavioral Assessment conversation, create a comprehensive client-facing report in valid JSON format.
+      system: `You are a professional behavioral optimization specialist who understands the unique challenges of professional chefs. Based on The Knife Check Assessment for Burnt Out Chefs conversation, create a comprehensive client-facing report in valid JSON format.
 
 CRITICAL INSTRUCTIONS:
 1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
@@ -498,7 +480,7 @@ CRITICAL INSTRUCTIONS:
 
 Format (matching OUTPUT FORMAT from master prompt):
 {
-  "title": "S.M.A.R.T. METHOD BEHAVIORAL ASSESSMENT",
+  "title": "THE KNIFE CHECK ASSESSMENT FOR BURNT OUT CHEFS",
   "client_name": "Client's first name",
   "assessment_date": "Date of assessment",
   "disclaimer": "Short, italic, softened but firm disclaimer that avoids fear but keeps integrity",
@@ -671,7 +653,7 @@ FINAL CHECK: Ensure every field contains meaningful, personalized content. No em
       messages: [
         {
           role: "user",
-          content: `Create a comprehensive S.M.A.R.T. Assessment report based on this conversation:\n\n${truncatedHistory}`,
+          content: `Create a comprehensive Knife Check Assessment report based on this conversation:\n\n${truncatedHistory}`,
         },
       ],
     });
@@ -791,7 +773,7 @@ FINAL CHECK: Ensure every field contains meaningful, personalized content. No em
       // Fallback: Create a basic report structure (V3.0 compatible)
       console.log("🔄 Using fallback report structure");
       return {
-        title: "S.M.A.R.T. METHOD BEHAVIORAL ASSESSMENT",
+        title: "THE KNIFE CHECK ASSESSMENT FOR BURNT OUT CHEFS",
         overview:
           "Your personalized assessment has been completed. This report provides insights into your behavioral patterns and recommendations for growth.",
         assessment_overview:

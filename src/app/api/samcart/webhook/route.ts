@@ -302,7 +302,7 @@ export async function POST(request: NextRequest) {
 
     // Send magic link email
     let emailed = false;
-    let emailError: any = null;
+    let emailError: Error | null = null;
 
     try {
       console.log(

@@ -61,10 +61,10 @@ export default function SuccessPage() {
             className="text-xl mb-12 max-w-2xl mx-auto"
             style={{ color: "#1A1A1A", fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
           >
-            Your personalized S.M.A.R.T. Assessment is ready to begin. In just
+            Your personalized Knife Check Assessment is ready to begin. In just
             minutes, you're going to uncover the exact patterns that have been
-            keeping you stuck—and get a protocol built specifically to break
-            through them.
+            keeping you stuck—and get a protocol built specifically to help you
+            sharpen your most important tool: yourself.
           </p>
 
           {/* Email Confirmation */}
@@ -99,11 +99,11 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> "Your S.M.A.R.T. Assessment Link –
+                  <strong>Subject line:</strong> "Your Knife Check Assessment Link –
                   Ready to Begin"
                 </p>
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>From:</strong> thesmartmethod.co
+                  <strong>From:</strong> wydahowarriors.com
                 </p>
               </div>
               <p className="text-xs sm:text-sm" style={{ color: "#666" }}>
@@ -207,7 +207,7 @@ export default function SuccessPage() {
             <p>
               Need help?{" "}
               <a
-                href="mailto:info@thesmartmethod.co"
+                href="mailto:info@wydahowarriors.com"
                 className="hover:underline"
                 style={{ color: "#4A5D23" }}
               >

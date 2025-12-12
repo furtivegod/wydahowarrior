@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The S.M.A.R.T. Method",
-  description: "Your personalized S.M.A.R.T. Assessment and transformation journey",
+  title: "The Knife Check Assessment for Burnt Out Chefs",
+  description: "This assessment is designed to help chefs sharpen their most important tool: themselves. We know that running on fumes can lead to feeling \"dull\" and unaligned in our mind, emotions, and physical well-being. This tool is not the solution itself, but an intelligent and logical roadmap for self-improvement and \"honing\" your greatest asset.",
 };
 
 export default function RootLayout({

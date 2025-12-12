@@ -8,8 +8,8 @@ const nextConfig = {
 }
 
 export default withSentryConfig(nextConfig, {
-  org: 'Becomeyou', // Replace with your Sentry org
-  project: 'becomeyou-project', // Replace with your Sentry project
+  org: 'wydahowarriors', // Replace with your Sentry org
+  project: 'knife-check-assessment', // Replace with your Sentry project
   silent: true,
   widenClientFileUpload: true,
   hideSourceMaps: true,

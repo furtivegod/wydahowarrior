@@ -1,5 +1,6 @@
 import { Resend } from "resend";
 import jwt from "jsonwebtoken";
+import { PlanData } from "./pdf";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -36,10 +37,10 @@ export async function sendMagicLink(
   try {
     console.log("Sending email via Resend...");
     const { data, error } = await resend.emails.send({
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
-      subject: "Your S.M.A.R.T. Assessment Is Ready",
+      subject: "Your Knife Check Assessment Is Ready",
       html: `
         <!DOCTYPE html>
 
@@ -48,7 +49,7 @@ export async function sendMagicLink(
             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your S.M.A.R.T. Assessment Is Ready</title>
+            <title>Your Knife Check Assessment Is Ready</title>
             <style>
                 @media only screen and (min-width: 600px) {
                     .cta-button:hover {
@@ -96,7 +97,7 @@ export async function sendMagicLink(
 
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -207,12 +208,14 @@ export async function sendMagicLink(
   }
 }
 
+import { PlanData } from "./pdf";
+
 export async function sendReportEmail(
   email: string,
   userName: string,
   pdfUrl: string,
   pdfBuffer?: Buffer,
-  planData?: any
+  planData?: PlanData
 ) {
   console.log("Sending report email to:", email);
 
@@ -302,11 +305,11 @@ export async function sendReportEmail(
       }
     }
 
-    const emailData: any = {
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+    const emailData = {
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
-      subject: "Your S.M.A.R.T. Summary is ready",
+      subject: "Your Knife Check Assessment Report is ready",
       html: `
         <!DOCTYPE html>
         <html>
@@ -330,7 +333,7 @@ export async function sendReportEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -419,7 +422,7 @@ export async function sendReportEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@thesmartmethod.co" style="color: #C9A875; text-decoration: underline;">info@thesmartmethod.co</a>
+                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
                                     </p>
                                 </td>
                             </tr>
@@ -467,7 +470,7 @@ export async function sendReportEmail(
 export async function sendPatternRecognitionEmail(
   email: string,
   userName: string,
-  planData?: any
+  planData?: PlanData
 ) {
   console.log("Sending pattern recognition email to:", email);
 
@@ -514,7 +517,7 @@ export async function sendPatternRecognitionEmail(
     }
 
     const { data, error } = await resend.emails.send({
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
       subject: "You probably already noticed it",
@@ -541,7 +544,7 @@ export async function sendPatternRecognitionEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -629,7 +632,7 @@ export async function sendPatternRecognitionEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@thesmartmethod.co" style="color: #C9A875; text-decoration: underline;">info@thesmartmethod.co</a>
+                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
                                     </p>
                                 </td>
                             </tr>
@@ -664,7 +667,7 @@ export async function sendPatternRecognitionEmail(
 export async function sendEvidence7DayEmail(
   email: string,
   userName: string,
-  planData?: any
+  planData?: PlanData
 ) {
   console.log("Sending evidence 7-day email to:", email);
 
@@ -705,7 +708,7 @@ export async function sendEvidence7DayEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
       subject: "The shift you might not be noticing",
@@ -732,7 +735,7 @@ export async function sendEvidence7DayEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -831,7 +834,7 @@ export async function sendEvidence7DayEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@thesmartmethod.co" style="color: #C9A875; text-decoration: underline;">info@thesmartmethod.co</a>
+                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
                                     </p>
                                 </td>
                             </tr>
@@ -866,7 +869,7 @@ export async function sendEvidence7DayEmail(
 export async function sendIntegrationThresholdEmail(
   email: string,
   userName: string,
-  planData?: any
+  planData?: PlanData
 ) {
   console.log("Sending integration threshold email to:", email);
 
@@ -894,7 +897,7 @@ export async function sendIntegrationThresholdEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
       subject: "You're at the make-or-break point",
       html: `
@@ -920,7 +923,7 @@ export async function sendIntegrationThresholdEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1019,7 +1022,7 @@ export async function sendIntegrationThresholdEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@thesmartmethod.co" style="color: #C9A875; text-decoration: underline;">info@thesmartmethod.co</a>
+                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
                                     </p>
                                 </td>
                             </tr>
@@ -1054,7 +1057,7 @@ export async function sendIntegrationThresholdEmail(
 export async function sendCompoundEffectEmail(
   email: string,
   userName: string,
-  planData?: any
+  planData?: PlanData
 ) {
   console.log("Sending compound effect email to:", email);
 
@@ -1080,7 +1083,7 @@ export async function sendCompoundEffectEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
       subject: "Three weeks in—this is where it gets real",
       html: `
@@ -1106,7 +1109,7 @@ export async function sendCompoundEffectEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1215,7 +1218,7 @@ export async function sendCompoundEffectEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@thesmartmethod.co" style="color: #C9A875; text-decoration: underline;">info@thesmartmethod.co</a>
+                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
                                     </p>
                                 </td>
                             </tr>
@@ -1250,7 +1253,7 @@ export async function sendCompoundEffectEmail(
 export async function sendDirectInvitationEmail(
   email: string,
   userName: string,
-  planData?: any
+  planData?: PlanData
 ) {
   console.log("Sending direct invitation email to:", email);
 
@@ -1273,7 +1276,7 @@ export async function sendDirectInvitationEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The S.M.A.R.T. Method <noreply@thesmartmethod.co>",
+      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
       subject: "30 days later—what's actually different?",
       html: `
@@ -1299,7 +1302,7 @@ export async function sendDirectInvitationEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The S.M.A.R.T. Method Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1325,7 +1328,7 @@ export async function sendDirectInvitationEmail(
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               <strong>${userName},</strong><br><br>
-              It's been a month since you took your S.M.A.R.T. Assessment.
+              It's been a month since you took your Knife Check Assessment.
             </p>
             
 
@@ -1424,7 +1427,7 @@ export async function sendDirectInvitationEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@thesmartmethod.co" style="color: #C9A875; text-decoration: underline;">info@thesmartmethod.co</a>
+                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
                                     </p>
                                 </td>
                             </tr>

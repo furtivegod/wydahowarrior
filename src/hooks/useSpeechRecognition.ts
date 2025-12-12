@@ -46,14 +46,14 @@ export function useSpeechRecognition(): SpeechRecognitionHook {
         trackEvent('voice_input_started')
       }
       
-      recognition.onresult = (event: any) => {
+      recognition.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = event.results[0][0].transcript
         setTranscript(transcript)
         setIsListening(false)
         trackEvent('voice_input_completed', { transcriptLength: transcript.length })
       }
       
-      recognition.onerror = (event: any) => {
+      recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
         console.error('Speech recognition error:', event.error)
         setError(`Speech recognition error: ${event.error}`)
         setIsListening(false)

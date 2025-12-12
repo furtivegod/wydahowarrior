@@ -20,7 +20,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
             fontWeight: 700,
           }}
         >
-          Welcome to The S.M.A.R.T. Method
+          Welcome to The Knife Check Assessment
         </h1>
 
         <div className="space-y-6">
@@ -36,10 +36,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
               About Your Assessment
             </h2>
             <p className="leading-relaxed" style={{ color: "#1A1A1A" }}>
-              This assessment is designed to help you discover your path to
-              personal transformation. Through a series of thoughtful questions,
-              we&apos;ll create a personalized 30-day protocol tailored
-              specifically to your goals and challenges.
+              This assessment is designed to help chefs sharpen their most important tool: themselves. We know that running on fumes can lead to feeling "dull" and unaligned in our mind, emotions, and physical well-being. Through a series of thoughtful questions, we&apos;ll create a personalized 30-day protocol tailored specifically to your goals and challenges as a chef.
             </p>
           </div>
 

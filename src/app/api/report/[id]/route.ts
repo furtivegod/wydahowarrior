@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
+import { PlanData } from "@/lib/pdf";
 
 export async function GET(
   request: NextRequest,
@@ -164,8 +165,10 @@ async function getSignedPDFUrl(sessionId: string): Promise<string | null> {
   }
 }
 
+import { PlanData } from "@/lib/pdf";
+
 function generateHTMLReport(
-  planData: any,
+  planData: PlanData,
   sessionId: string,
   signedPdfUrl?: string | null,
   userName?: string,
@@ -474,7 +477,7 @@ function generateHTMLReport(
   ];
 
   // Book selection logic - match PDF structure
-  function getAssessmentText(pd: any): string {
+  function getAssessmentText(pd: PlanData): string {
     try {
       const parts = [
         pd?.assessment_overview,
@@ -503,7 +506,7 @@ function generateHTMLReport(
     }
   }
 
-  function selectTopOneBook(pd: any) {
+  function selectTopOneBook(pd: PlanData) {
     const text = getAssessmentText(pd);
     const scored = allBooks.map((b: { id: string; tags: string[] }) => {
       const score = b.tags.reduce(
@@ -550,7 +553,7 @@ function generateHTMLReport(
     const top = scored
       .filter((s: { score: number }) => s.score > 0)
       .slice(0, 1)
-      .map((s: { book: any }) => s.book);
+      .map((s: { book: { id: string; title: string; author: string; url: string; why: string; tags: string[] } }) => s.book);
     if (top.length < 1) {
       // sensible default
       const defaults = allBooks
@@ -597,7 +600,7 @@ function generateHTMLReport(
     <head>
       <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>S.M.A.R.T. Assessment - ${clientName}</title>
+        <title>Knife Check Assessment - ${clientName}</title>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
       <style>
             * {
@@ -1085,8 +1088,8 @@ function generateHTMLReport(
         <!-- PAGE 1: COVER (V3.0) -->
         <div class="page cover">
             <div class="cover-content">
-                <div class="logo-mark">THE S.M.A.R.T. METHOD</div>
-                <h1>S.M.A.R.T. METHOD<br>BEHAVIORAL<br>ASSESSMENT</h1>
+                <div class="logo-mark">THE KNIFE CHECK ASSESSMENT</div>
+                <h1>THE KNIFE CHECK<br>ASSESSMENT FOR<br>BURNT OUT CHEFS</h1>
                 <div class="client-name">${clientName}</div>
                 <div style="font-size: 12px; color: #666; margin-top: 20px; font-family: 'Inter', sans-serif;">${assessmentDate}</div>
                 <div class="cover-tagline">Your transformation begins here</div>
@@ -1094,12 +1097,12 @@ function generateHTMLReport(
             </div>
         </div>
 
-        <!-- PAGE 2: YOUR S.M.A.R.T. SUMMARY (V3.0) -->
+        <!-- PAGE 2: YOUR KNIFE CHECK SUMMARY (V3.0) -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Your Summary</div>
-                    <div class="section-title">Your S.M.A.R.T.<br>Summary</div>
+                    <div class="section-title">Your Knife Check<br>Summary</div>
                 </div>
                 
                 <div class="sabotage-content">
@@ -1135,12 +1138,12 @@ function generateHTMLReport(
             </div>
         </div>
         
-        <!-- PAGE 3: YOUR ROADMAP / S.M.A.R.T. SUMMARY (V3.0) -->
+        <!-- PAGE 3: YOUR ROADMAP / KNIFE CHECK SUMMARY (V3.0) -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Your Roadmap</div>
-                    <div class="section-title">Your S.M.A.R.T.<br>Summary</div>
+                    <div class="section-title">Your Knife Check<br>Summary</div>
                 </div>
                 
                 <div class="roadmap-flow">
@@ -1294,12 +1297,12 @@ function generateHTMLReport(
             </div>
         </div>
 
-        <!-- PAGE 6: YOUR S.M.A.R.T. PROTOCOL (V3.0) -->
+        <!-- PAGE 6: YOUR KNIFE CHECK PROTOCOL (V3.0) -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Start Now</div>
-                    <div class="section-title">Your S.M.A.R.T.<br>Protocol</div>
+                    <div class="section-title">Your Knife Check<br>Protocol</div>
                 </div>
                 
                 ${urgencyStatement ? `<div style="font-size: 14px; line-height: 1.8; margin-bottom: 40px; font-style: italic; color: var(--deep-charcoal);">${urgencyStatement}</div>` : ""}
@@ -1459,9 +1462,8 @@ function generateHTMLReport(
                 <div class="content-block" style="margin-top: 60px;">
                     <div class="block-title">RECOMMENDED NEXT STEPS</div>
                     <div class="block-content">
-                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join The S.M.A.R.T. Method Community:</strong> Connect with other solopreneurs who are building six-figure businesses without chasing trends or burning out on content. Get live weekly coaching, access to proven frameworks, and strategic support as you implement your protocol.</p>
-                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><a href="https://www.skool.com/become-u-4484/about?ref=ade2178e19214f7983f06d6cabed88eb" style="color: var(--lime-green); text-decoration: none; font-weight: 600;">→ Join the Community</a></p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Email <a href="mailto:info@thesmartmethod.co" style="color: var(--lime-green); text-decoration: none;">info@thesmartmethod.co</a></p>
+                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join The Knife Check Community:</strong> Connect with other chefs who are sharpening their most important tool: themselves. Get support, share experiences, and access resources as you implement your protocol.</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Email <a href="mailto:info@wydahowarriors.com" style="color: var(--lime-green); text-decoration: none;">info@wydahowarriors.com</a></p>
                     </div>
                 </div>
             </div>
