@@ -165,8 +165,6 @@ async function getSignedPDFUrl(sessionId: string): Promise<string | null> {
   }
 }
 
-import { PlanData } from "@/lib/pdf";
-
 function generateHTMLReport(
   planData: PlanData,
   sessionId: string,
