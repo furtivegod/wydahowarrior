@@ -244,7 +244,7 @@ export async function sendReportEmail(
       // Check for specific stuck pattern (highest priority)
       if (sabotageAnalysis?.protective_pattern) {
         const patternText = sabotageAnalysis.protective_pattern;
-        personalizedPS = `You mentioned "${patternText}". If you want help designing the environment and structure that makes change automatic instead of exhausting, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You mentioned "${patternText}". If you want help designing the environment and structure that makes change automatic instead of exhausting, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for business/financial goals
       else if (
@@ -266,7 +266,7 @@ export async function sendReportEmail(
             .includes("income"))
       ) {
         const goalText = thirtyDayProtocol.thirty_day_approach;
-        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for relationship concerns
       else if (
@@ -306,7 +306,7 @@ export async function sendReportEmail(
           domainBreakdown.relationships_meaning.key_strengths ||
           domainBreakdown.relationships_meaning.current_level ||
           "";
-        personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for physical/body disconnect
       else if (
@@ -342,16 +342,16 @@ export async function sendReportEmail(
           domainBreakdown.body.key_strengths ||
           domainBreakdown.body.current_level ||
           "";
-        personalizedPS = `You described your relationship with your body as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You described your relationship with your body as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Fallback for general transformation goals
       else if (thirtyDayProtocol?.thirty_day_approach) {
         const goalText = thirtyDayProtocol.thirty_day_approach;
-        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Final fallback
       else {
-        personalizedPS = `Your assessment revealed important patterns. If you want to understand how these patterns are affecting your progress, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `Your assessment revealed important patterns. If you want to understand how these patterns are affecting your progress, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
     }
 
@@ -548,27 +548,27 @@ export async function sendPatternRecognitionEmail(
           pattern.includes("overthinking")
         ) {
           personalizedPS =
-            'In a Discovery Call, we map the exact moments your nervous system shifts into protection mode—and build specific interrupts that work with your wiring. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+            'In a Discovery Call, we map the exact moments your nervous system shifts into protection mode—and build specific interrupts that work with your wiring. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
         } else if (
           pattern.includes("dorsal") ||
           pattern.includes("avoidance") ||
           pattern.includes("numbing")
         ) {
           personalizedPS =
-            'In a Discovery Call, we identify what safety looks like for your nervous system—so action doesn\'t require forcing yourself through shutdown. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+            'In a Discovery Call, we identify what safety looks like for your nervous system—so action doesn\'t require forcing yourself through shutdown. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
         } else if (
           pattern.includes("ventral") ||
           pattern.includes("regulation")
         ) {
           personalizedPS =
-            'In a Discovery Call, we design practices that help you stay regulated under pressure—not just when life is calm. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+            'In a Discovery Call, we design practices that help you stay regulated under pressure—not just when life is calm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
         } else {
           personalizedPS =
-            'In a Discovery Call, we design pattern interrupts tailored to your nervous system. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
+            'In a Discovery Call, we design pattern interrupts tailored to your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
         }
       } else {
         personalizedPS =
-          'In a Discovery Call, we design pattern interrupts tailored to your nervous system. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
+          'In a Discovery Call, we design pattern interrupts tailored to your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
       }
     }
 
@@ -743,24 +743,24 @@ export async function sendEvidence7DayEmail(
           pattern.includes("perfectionism") ||
           pattern.includes("overthinking")
         ) {
-          personalizedPS = `You mentioned struggling with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+          personalizedPS = `You mentioned struggling with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
         } else if (
           pattern.includes("avoidance") ||
           pattern.includes("procrastination")
         ) {
-          personalizedPS = `You shared that you struggle with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+          personalizedPS = `You shared that you struggle with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
         } else if (
           pattern.includes("people-pleasing") ||
           pattern.includes("conflict")
         ) {
-          personalizedPS = `You described struggling with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+          personalizedPS = `You described struggling with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
         } else {
           personalizedPS =
-            'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+            'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
         }
       } else {
         personalizedPS =
-          'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -941,15 +941,15 @@ export async function sendIntegrationThresholdEmail(
       const goals = planData.goals;
       if (goals?.business_goal || goals?.financial_goal) {
         const businessGoal = goals.business_goal || goals.financial_goal;
-        personalizedPS = `You're building toward ${businessGoal}. In a Discovery Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You're building toward ${businessGoal}. In a Discovery Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else if (goals?.relationship_goal) {
-        personalizedPS = `You want ${goals.relationship_goal}. In a Discovery Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You want ${goals.relationship_goal}. In a Discovery Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else if (goals?.body_goal || goals?.health_goal) {
         const bodyGoal = goals.body_goal || goals.health_goal;
-        personalizedPS = `You described wanting ${bodyGoal}. In a Discovery Call, we rebuild your relationship with your body without punishment or force. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You described wanting ${bodyGoal}. In a Discovery Call, we rebuild your relationship with your body without punishment or force. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else {
         personalizedPS =
-          'A Discovery Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'A Discovery Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -1128,14 +1128,14 @@ export async function sendCompoundEffectEmail(
     if (planData) {
       const protocol = planData.thirty_day_protocol;
       if (protocol?.specific_action) {
-        personalizedPS = `You committed to ${protocol.specific_action}. Whether you did it once or daily, that's data. In a Discovery Call, we use that data to design what's actually sustainable for your nervous system. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You committed to ${protocol.specific_action}. Whether you did it once or daily, that's data. In a Discovery Call, we use that data to design what's actually sustainable for your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else if (protocol?.environmental_change) {
-        personalizedPS = `You identified ${protocol.environmental_change}. In a Discovery Call, we refine your environment so the default choice is the right choice—no willpower required. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You identified ${protocol.environmental_change}. In a Discovery Call, we refine your environment so the default choice is the right choice—no willpower required. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else if (protocol?.weekly_practice) {
-        personalizedPS = `You planned ${protocol.weekly_practice}. In a Discovery Call, we figure out why it stuck or why it didn't—and adjust from there. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You planned ${protocol.weekly_practice}. In a Discovery Call, we figure out why it stuck or why it didn't—and adjust from there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else {
         personalizedPS =
-          'Three weeks of data is enough to see your patterns clearly. In a Discovery Call, we turn that data into a sustainable system. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'Three weeks of data is enough to see your patterns clearly. In a Discovery Call, we turn that data into a sustainable system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -1325,10 +1325,10 @@ export async function sendDirectInvitationEmail(
       const futureVision =
         planData.future_vision || planData.goals?.future_state;
       if (futureVision) {
-        personalizedPS = `You described a Tuesday where ${futureVision}. That version of you exists—you just need the path to get there. <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a> to map it out together.`;
+        personalizedPS = `You described a Tuesday where ${futureVision}. That version of you exists—you just need the path to get there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> to map it out together.`;
       } else {
         personalizedPS =
-          'You\'ve had the map for 30 days. Ready to build the path? <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'You\'ve had the map for 30 days. Ready to build the path? <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -1455,7 +1455,7 @@ export async function sendDirectInvitationEmail(
             </p>
             
             <div style="text-align: center; margin: 40px 0;">
-              <a href="https://calendly.com/matthewpaetz/discovery-call" style="background-color: #4A5D23; color: white; padding: 18px 36px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+              <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="background-color: #4A5D23; color: white; padding: 18px 36px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
                 Book Your Discovery Call
               </a>
             </div>
