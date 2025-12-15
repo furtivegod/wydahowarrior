@@ -37,10 +37,10 @@ export async function sendMagicLink(
   try {
     console.log("Sending email via Resend...");
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
-      subject: "Your Knife Check Assessment Is Ready",
+      subject: "Your Are You Burnt? Assessment Is Ready",
       html: `
         <!DOCTYPE html>
 
@@ -49,7 +49,7 @@ export async function sendMagicLink(
             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your Knife Check Assessment Is Ready</title>
+            <title>Your Are You Burnt? Assessment Is Ready</title>
             <style>
                 @media only screen and (min-width: 600px) {
                     .cta-button:hover {
@@ -97,7 +97,7 @@ export async function sendMagicLink(
 
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -271,35 +271,77 @@ export async function sendReportEmail(
       // Check for relationship concerns
       else if (
         domainBreakdown?.relationships_meaning &&
-        (domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("relationship") ||
-          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("partner") ||
-          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("family") ||
-          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("connection") ||
-          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("intimacy") ||
-          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("relationship") ||
-          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("partner") ||
-          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("family") ||
-          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("connection") ||
-          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("intimacy"))
+        (domainBreakdown.relationships_meaning.current_level
+          ?.toLowerCase()
+          .includes("relationship") ||
+          domainBreakdown.relationships_meaning.current_level
+            ?.toLowerCase()
+            .includes("partner") ||
+          domainBreakdown.relationships_meaning.current_level
+            ?.toLowerCase()
+            .includes("family") ||
+          domainBreakdown.relationships_meaning.current_level
+            ?.toLowerCase()
+            .includes("connection") ||
+          domainBreakdown.relationships_meaning.current_level
+            ?.toLowerCase()
+            .includes("intimacy") ||
+          domainBreakdown.relationships_meaning.key_strengths
+            ?.toLowerCase()
+            .includes("relationship") ||
+          domainBreakdown.relationships_meaning.key_strengths
+            ?.toLowerCase()
+            .includes("partner") ||
+          domainBreakdown.relationships_meaning.key_strengths
+            ?.toLowerCase()
+            .includes("family") ||
+          domainBreakdown.relationships_meaning.key_strengths
+            ?.toLowerCase()
+            .includes("connection") ||
+          domainBreakdown.relationships_meaning.key_strengths
+            ?.toLowerCase()
+            .includes("intimacy"))
       ) {
-        const relationshipText = domainBreakdown.relationships_meaning.key_strengths || domainBreakdown.relationships_meaning.current_level || "";
+        const relationshipText =
+          domainBreakdown.relationships_meaning.key_strengths ||
+          domainBreakdown.relationships_meaning.current_level ||
+          "";
         personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for physical/body disconnect
       else if (
         domainBreakdown?.body &&
-        (domainBreakdown.body.current_level?.toLowerCase().includes("disconnect") ||
+        (domainBreakdown.body.current_level
+          ?.toLowerCase()
+          .includes("disconnect") ||
           domainBreakdown.body.current_level?.toLowerCase().includes("body") ||
-          domainBreakdown.body.current_level?.toLowerCase().includes("physical") ||
-          domainBreakdown.body.current_level?.toLowerCase().includes("health") ||
-          domainBreakdown.body.current_level?.toLowerCase().includes("exercise") ||
-          domainBreakdown.body.key_strengths?.toLowerCase().includes("disconnect") ||
+          domainBreakdown.body.current_level
+            ?.toLowerCase()
+            .includes("physical") ||
+          domainBreakdown.body.current_level
+            ?.toLowerCase()
+            .includes("health") ||
+          domainBreakdown.body.current_level
+            ?.toLowerCase()
+            .includes("exercise") ||
+          domainBreakdown.body.key_strengths
+            ?.toLowerCase()
+            .includes("disconnect") ||
           domainBreakdown.body.key_strengths?.toLowerCase().includes("body") ||
-          domainBreakdown.body.key_strengths?.toLowerCase().includes("physical") ||
-          domainBreakdown.body.key_strengths?.toLowerCase().includes("health") ||
-          domainBreakdown.body.key_strengths?.toLowerCase().includes("exercise"))
+          domainBreakdown.body.key_strengths
+            ?.toLowerCase()
+            .includes("physical") ||
+          domainBreakdown.body.key_strengths
+            ?.toLowerCase()
+            .includes("health") ||
+          domainBreakdown.body.key_strengths
+            ?.toLowerCase()
+            .includes("exercise"))
       ) {
-        const bodyText = domainBreakdown.body.key_strengths || domainBreakdown.body.current_level || "";
+        const bodyText =
+          domainBreakdown.body.key_strengths ||
+          domainBreakdown.body.current_level ||
+          "";
         personalizedPS = `You described your relationship with your body as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Fallback for general transformation goals
@@ -320,10 +362,10 @@ export async function sendReportEmail(
       html: string;
       attachments?: Array<{ filename: string; content: string; type?: string }>;
     } = {
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
-      subject: "Your Knife Check Assessment Report is ready",
+      subject: "Your Are You Burnt? Assessment Report is ready",
       html: `
         <!DOCTYPE html>
         <html>
@@ -347,7 +389,7 @@ export async function sendReportEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -531,7 +573,7 @@ export async function sendPatternRecognitionEmail(
     }
 
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
       subject: "You probably already noticed it",
@@ -558,7 +600,7 @@ export async function sendPatternRecognitionEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -722,7 +764,7 @@ export async function sendEvidence7DayEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
 
       subject: "The shift you might not be noticing",
@@ -749,7 +791,7 @@ export async function sendEvidence7DayEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -911,7 +953,7 @@ export async function sendIntegrationThresholdEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
       subject: "You're at the make-or-break point",
       html: `
@@ -937,7 +979,7 @@ export async function sendIntegrationThresholdEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1097,7 +1139,7 @@ export async function sendCompoundEffectEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
       subject: "Three weeks in—this is where it gets real",
       html: `
@@ -1123,7 +1165,7 @@ export async function sendCompoundEffectEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1290,7 +1332,7 @@ export async function sendDirectInvitationEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: "Are You Burnt? Assessment <noreply@wydahowarriors.com>",
       to: [email],
       subject: "30 days later—what's actually different?",
       html: `
@@ -1316,7 +1358,7 @@ export async function sendDirectInvitationEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/SMART_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Are You Burnt? Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1342,7 +1384,7 @@ export async function sendDirectInvitationEmail(
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               <strong>${userName},</strong><br><br>
-              It's been a month since you took your Knife Check Assessment.
+              It's been a month since you took your Are You Burnt? Assessment.
             </p>
             
 

@@ -61,10 +61,10 @@ export default function SuccessPage() {
             className="text-xl mb-12 max-w-2xl mx-auto"
             style={{ color: "#1A1A1A", fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
           >
-            Your personalized Knife Check Assessment is ready to begin. In just
+            Your personalized Are You Burnt? Assessment is ready to begin. In just
             minutes, you&apos;re going to uncover the exact patterns that have been
             keeping you stuck—and get a protocol built specifically to help you
-            sharpen your most important tool: yourself.
+            recover from burnout and rediscover your purpose as a chef-owner.
           </p>
 
           {/* Email Confirmation */}
@@ -99,7 +99,7 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> &quot;Your Knife Check Assessment Link –
+                  <strong>Subject line:</strong> &quot;Your Are You Burnt? Assessment Link –
                   Ready to Begin&quot;
                 </p>
                 <p style={{ color: "#1A1A1A" }}>

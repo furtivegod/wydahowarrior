@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Knife Check Assessment for Burnt Out Chefs",
-  description: "This assessment is designed to help chefs sharpen their most important tool: themselves. We know that running on fumes can lead to feeling \"dull\" and unaligned in our mind, emotions, and physical well-being. This tool is not the solution itself, but an intelligent and logical roadmap for self-improvement and \"honing\" your greatest asset.",
+  title: "Are You Burnt? Chef-Owner Assessment",
+  description: "A professional-grade, emotionally grounded, chef-culture fluent, Gospel-centered assessment designed for Christian chefs and chef-owners who feel burnt, crushed, spiritually depleted, or on the edge of disappearing.",
 };
 
 export default function RootLayout({

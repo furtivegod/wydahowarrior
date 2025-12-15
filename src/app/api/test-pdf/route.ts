@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     // ⚠️ FAKE SAMPLE DATA FOR TESTING ONLY - DO NOT USE IN PRODUCTION
     // This contains fabricated quotes and responses that don't belong to any real user
     const samplePlanData = {
-      title: "THE KNIFE CHECK ASSESSMENT FOR BURNT OUT CHEFS",
+      title: "ARE YOU BURNT? — CHEF OWNER REALITY CHECK",
       overview:
         "You've been protecting yourself from visibility and the weight of expectation by letting momentum drop halfway through. It's not laziness or lack of capability—it's a nervous system strategy that once kept you safe from judgment and pressure. But now it's keeping you from the sustained success you're capable of. The good news? You already have proof you can push through when someone's counting on you. You just need to rewire the system so you can count on yourself the same way.",
       disclaimer:

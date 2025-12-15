@@ -607,7 +607,7 @@ function generateHTMLReport(
     <head>
       <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Knife Check Assessment - ${clientName}</title>
+        <title>Are You Burnt? Assessment - ${clientName}</title>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
       <style>
             * {
@@ -1095,8 +1095,8 @@ function generateHTMLReport(
         <!-- PAGE 1: COVER (V3.0) -->
         <div class="page cover">
             <div class="cover-content">
-                <div class="logo-mark">THE KNIFE CHECK ASSESSMENT</div>
-                <h1>THE KNIFE CHECK<br>ASSESSMENT FOR<br>BURNT OUT CHEFS</h1>
+                <div class="logo-mark">ARE YOU BURNT?</div>
+                <h1>ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK</h1>
                 <div class="client-name">${clientName}</div>
                 <div style="font-size: 12px; color: #666; margin-top: 20px; font-family: 'Inter', sans-serif;">${assessmentDate}</div>
                 <div class="cover-tagline">Your transformation begins here</div>
@@ -1109,7 +1109,7 @@ function generateHTMLReport(
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Your Summary</div>
-                    <div class="section-title">Your Knife Check<br>Summary</div>
+                    <div class="section-title">Your Reality Check<br>Summary</div>
                 </div>
                 
                 <div class="sabotage-content">
@@ -1150,7 +1150,7 @@ function generateHTMLReport(
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Your Roadmap</div>
-                    <div class="section-title">Your Knife Check<br>Summary</div>
+                    <div class="section-title">Your Reality Check<br>Summary</div>
                 </div>
                 
                 <div class="roadmap-flow">
@@ -1309,7 +1309,7 @@ function generateHTMLReport(
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Start Now</div>
-                    <div class="section-title">Your Knife Check<br>Protocol</div>
+                    <div class="section-title">Your 30-Day<br>Protocol</div>
                 </div>
                 
                 ${urgencyStatement ? `<div style="font-size: 14px; line-height: 1.8; margin-bottom: 40px; font-style: italic; color: var(--deep-charcoal);">${urgencyStatement}</div>` : ""}
@@ -1469,7 +1469,7 @@ function generateHTMLReport(
                 <div class="content-block" style="margin-top: 60px;">
                     <div class="block-title">RECOMMENDED NEXT STEPS</div>
                     <div class="block-content">
-                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join The Knife Check Community:</strong> Connect with other chefs who are sharpening their most important tool: themselves. Get support, share experiences, and access resources as you implement your protocol.</p>
+                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join the Are You Burnt? Community:</strong> Connect with other chef-owners who are recovering from burnout and rediscovering their purpose. Get support, share experiences, and access resources as you implement your protocol.</p>
                         <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Email <a href="mailto:info@wydahowarriors.com" style="color: var(--lime-green); text-decoration: none;">info@wydahowarriors.com</a></p>
                     </div>
                 </div>
