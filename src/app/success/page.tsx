@@ -62,7 +62,7 @@ export default function SuccessPage() {
             style={{ color: "#1A1A1A", fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
           >
             Your personalized Knife Check Assessment is ready to begin. In just
-            minutes, you're going to uncover the exact patterns that have been
+            minutes, you&apos;re going to uncover the exact patterns that have been
             keeping you stuck—and get a protocol built specifically to help you
             sharpen your most important tool: yourself.
           </p>
@@ -81,7 +81,7 @@ export default function SuccessPage() {
             </h2>
             <div className="text-left space-y-3 sm:space-y-4">
               <p className="text-sm sm:text-base" style={{ color: "#1A1A1A" }}>
-                We've sent your assessment link to{" "}
+                We&apos;ve sent your assessment link to{" "}
                 <strong>
                   {isLoading ? (
                     <span className="inline-flex items-center">
@@ -99,15 +99,15 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> "Your Knife Check Assessment Link –
-                  Ready to Begin"
+                  <strong>Subject line:</strong> &quot;Your Knife Check Assessment Link –
+                  Ready to Begin&quot;
                 </p>
                 <p style={{ color: "#1A1A1A" }}>
                   <strong>From:</strong> wydahowarriors.com
                 </p>
               </div>
               <p className="text-xs sm:text-sm" style={{ color: "#666" }}>
-                Can't find it? Check your spam folder or contact support
+                Can&apos;t find it? Check your spam folder or contact support
               </p>
             </div>
           </div>
@@ -170,7 +170,7 @@ export default function SuccessPage() {
                     style={{ color: "#1A1A1A" }}
                   >
                     The AI will ask follow-up questions based on your answers to
-                    map your specific patterns with precision. There's no time
+                    map your specific patterns with precision. There&apos;s no time
                     limit—take breaks if you need them.
                   </p>
                 </div>

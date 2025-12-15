@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export default function TestPDFPage() {
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<any>(null)
+  const [result, setResult] = useState<{ success: boolean; pdfUrl?: string; sessionId?: string; message?: string; error?: string } | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const testSamplePDF = async () => {

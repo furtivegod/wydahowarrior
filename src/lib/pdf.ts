@@ -6,7 +6,7 @@ function formatTextWithParagraphBreaks(text: string | undefined): string {
 
   // Bold any quoted text using double quotes only (Claude now uses double quotes for client quotes)
   // This avoids conflicts with contractions that use single quotes
-  let formattedText = text.replace(/(")([^"]+)\1/g, "<strong>$1$2$1</strong>");
+  const formattedText = text.replace(/(")([^"]+)\1/g, "<strong>$1$2$1</strong>");
 
   // Split by sentences (ending with . ! or ?)
   const sentences = formattedText
@@ -40,6 +40,8 @@ export interface PlanData {
     success_proof?: string;
     anchor?: string;
     support_person?: string;
+    escape_behavior?: string; // Legacy field for escape patterns
+    positive_behavior?: string; // Legacy field for positive alternatives
     // V3.0 fields
     pattern_exact_words?: string; // Client's exact words describing their sabotage behavior
     pattern_reframe?: string; // Reframe in nervous system language ("What I'm hearing")
@@ -119,6 +121,8 @@ export interface PlanData {
     week_4_practice?: string;
     week_4_marker?: string;
     immediate_practice?: string; // Practice from book applied to their specific life
+    environmental_change?: string; // Legacy field for environmental changes
+    weekly_practice?: string; // Legacy field for weekly practice
   };
   reminder_quote?: string;
   development_reminders?: string[];
@@ -146,6 +150,15 @@ export interface PlanData {
   };
   pull_quote?: string; // Direct quote from client's assessment
   quote_attribution?: string; // Quote attribution text
+  goals?: {
+    business_goal?: string;
+    financial_goal?: string;
+    relationship_goal?: string;
+    body_goal?: string;
+    health_goal?: string;
+    future_state?: string;
+  };
+  future_vision?: string; // Legacy field for future vision
 }
 
 export async function generatePDF(

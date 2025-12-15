@@ -23,9 +23,16 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No session found' }, { status: 404 })
     }
 
+    interface UserData {
+      email?: string;
+      user_name?: string;
+    }
+    
+    const users = sessionData.users as UserData;
+    
     return NextResponse.json({ 
-      email: (sessionData.users as any)?.email,
-      userName: (sessionData.users as any)?.user_name,
+      email: users?.email,
+      userName: users?.user_name,
       sessionId: sessionData.id,
       startedAt: sessionData.started_at
     })

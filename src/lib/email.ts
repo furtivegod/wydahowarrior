@@ -208,8 +208,6 @@ export async function sendMagicLink(
   }
 }
 
-import { PlanData } from "./pdf";
-
 export async function sendReportEmail(
   email: string,
   userName: string,
@@ -273,25 +271,35 @@ export async function sendReportEmail(
       // Check for relationship concerns
       else if (
         domainBreakdown?.relationships_meaning &&
-        (domainBreakdown.relationships_meaning.toLowerCase().includes("relationship") ||
-          domainBreakdown.relationships_meaning.toLowerCase().includes("partner") ||
-          domainBreakdown.relationships_meaning.toLowerCase().includes("family") ||
-          domainBreakdown.relationships_meaning.toLowerCase().includes("connection") ||
-          domainBreakdown.relationships_meaning.toLowerCase().includes("intimacy"))
+        (domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("relationship") ||
+          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("partner") ||
+          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("family") ||
+          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("connection") ||
+          domainBreakdown.relationships_meaning.current_level?.toLowerCase().includes("intimacy") ||
+          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("relationship") ||
+          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("partner") ||
+          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("family") ||
+          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("connection") ||
+          domainBreakdown.relationships_meaning.key_strengths?.toLowerCase().includes("intimacy"))
       ) {
-        const relationshipText = domainBreakdown.relationships_meaning;
+        const relationshipText = domainBreakdown.relationships_meaning.key_strengths || domainBreakdown.relationships_meaning.current_level || "";
         personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for physical/body disconnect
       else if (
         domainBreakdown?.body &&
-        (domainBreakdown.body.toLowerCase().includes("disconnect") ||
-          domainBreakdown.body.toLowerCase().includes("body") ||
-          domainBreakdown.body.toLowerCase().includes("physical") ||
-          domainBreakdown.body.toLowerCase().includes("health") ||
-          domainBreakdown.body.toLowerCase().includes("exercise"))
+        (domainBreakdown.body.current_level?.toLowerCase().includes("disconnect") ||
+          domainBreakdown.body.current_level?.toLowerCase().includes("body") ||
+          domainBreakdown.body.current_level?.toLowerCase().includes("physical") ||
+          domainBreakdown.body.current_level?.toLowerCase().includes("health") ||
+          domainBreakdown.body.current_level?.toLowerCase().includes("exercise") ||
+          domainBreakdown.body.key_strengths?.toLowerCase().includes("disconnect") ||
+          domainBreakdown.body.key_strengths?.toLowerCase().includes("body") ||
+          domainBreakdown.body.key_strengths?.toLowerCase().includes("physical") ||
+          domainBreakdown.body.key_strengths?.toLowerCase().includes("health") ||
+          domainBreakdown.body.key_strengths?.toLowerCase().includes("exercise"))
       ) {
-        const bodyText = domainBreakdown.body;
+        const bodyText = domainBreakdown.body.key_strengths || domainBreakdown.body.current_level || "";
         personalizedPS = `You described your relationship with your body as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://calendly.com/matthewpaetz/discovery-call" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Fallback for general transformation goals
@@ -305,7 +313,13 @@ export async function sendReportEmail(
       }
     }
 
-    const emailData = {
+    const emailData: {
+      from: string;
+      to: string[];
+      subject: string;
+      html: string;
+      attachments?: Array<{ filename: string; content: string; type?: string }>;
+    } = {
       from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
       to: [email],
 

@@ -141,11 +141,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Create or get user
-    let { data: user, error: userError } = await supabaseAdmin
+    const { data: userData, error: userError } = await supabaseAdmin
       .from("users")
       .select("id, email, created_at, user_name")
       .eq("email", customerEmail)
       .single();
+
+    let user = userData;
 
     if (userError && userError.code === "PGRST116") {
       // User doesn't exist, create them with name from SamCart
@@ -315,7 +317,7 @@ export async function POST(request: NextRequest) {
       emailed = true;
       console.log("Magic link email sent successfully");
     } catch (emailErr) {
-      emailError = emailErr;
+      emailError = emailErr instanceof Error ? emailErr : new Error(String(emailErr));
       console.error("Failed to send magic link email:", emailErr);
       console.error("Email error details:", {
         message: emailErr instanceof Error ? emailErr.message : String(emailErr),

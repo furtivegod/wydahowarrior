@@ -506,7 +506,16 @@ function generateHTMLReport(
 
   function selectTopOneBook(pd: PlanData) {
     const text = getAssessmentText(pd);
-    const scored = allBooks.map((b: { id: string; tags: string[] }) => {
+    interface Book {
+      id: string;
+      title: string;
+      author: string;
+      url: string;
+      why: string;
+      tags: string[];
+    }
+    
+    const scored: Array<{ book: Book; score: number }> = allBooks.map((b: Book) => {
       const score = b.tags.reduce(
         (acc: number, tag: string) =>
           acc + (text.includes(tag.toLowerCase()) ? 1 : 0),
@@ -551,7 +560,7 @@ function generateHTMLReport(
     const top = scored
       .filter((s: { score: number }) => s.score > 0)
       .slice(0, 1)
-      .map((s: { book: { id: string; title: string; author: string; url: string; why: string; tags: string[] } }) => s.book);
+      .map((s: { book: Book; score: number }) => s.book);
     if (top.length < 1) {
       // sensible default
       const defaults = allBooks
