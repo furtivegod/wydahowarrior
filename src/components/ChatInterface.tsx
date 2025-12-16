@@ -342,9 +342,9 @@ export default function ChatInterface({
                 if (
                   !completionTriggeredRef.current &&
                   (assistantMessage.content.includes(
-                    "Thank you for showing up fully for this assessment"
+                    "thank you for showing up honestly"
                   ) ||
-                    assistantMessage.content.includes("ASSESSMENT COMPLETE") ||
+                    assistantMessage.content.includes("Here’s what I see") ||
                     assistantMessage.content.includes(
                       "You did the hard part. Now let's build on it."
                     ))
@@ -463,7 +463,7 @@ export default function ChatInterface({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Are you ready to begin your Are You Burnt? Assessment?"
+                placeholder="Are you ready to begin your assessment?"
                 className="w-full min-h-[24px] max-h-[200px] border-none outline-none resize-none text-base leading-[1.5] text-[#1F2937] bg-transparent font-inherit placeholder:text-gray-400"
                 rows={1}
               />
@@ -649,8 +649,8 @@ export default function ChatInterface({
                       </h3>
                     </div>
                     <p className="text-green-700 font-medium">
-                      Your Are You Burnt? Assessment report will be generated within a few minutes
-                      and will be delivered to your email.
+                      Your assessment report will be generated within a few
+                      minutes and will be delivered to your email.
                     </p>
                   </div>
                 </div>

@@ -11,7 +11,7 @@ import {
  * Email Queue Management System
  *
  * This module handles the creation and processing of automated email sequences
- * for users who complete the Are You Burnt? Assessment. It schedules follow-up emails
+ * for users who complete The Knife Check Assessment for Burnt Out Chefs. It schedules follow-up emails
  * and processes them via Vercel cron jobs.
  */
 

@@ -321,7 +321,7 @@ async function convertHTMLToPDF(
 ): Promise<Buffer> {
   try {
     // Create footer HTML with PDFShift variables - matching template design
-    const footerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-top: 1px solid #3D4D2E; border-bottom: 1px solid #3D4D2E; font-size: 11px; color: #666; background: #F5F3ED; font-family: 'Inter', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;"><div>${clientName}</div><div>ARE YOU BURNT?</div></div>`;
+    const footerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-top: 1px solid #3D4D2E; border-bottom: 1px solid #3D4D2E; font-size: 11px; color: #666; background: #F5F3ED; font-family: 'Inter', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;"><div>${clientName}</div><div>THE KNIFE CHECK</div></div>`;
 
     const response = await fetch("https://api.pdfshift.io/v3/convert/pdf", {
       method: "POST",
@@ -948,7 +948,7 @@ function generateHTMLReport(
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${planData.title || "Are You Burnt? Assessment Report"}</title>
+      <title>${planData.title || "The Knife Check Assessment Report"}</title>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
       <style>
         * {
@@ -1450,8 +1450,8 @@ function generateHTMLReport(
       <!-- PAGE 1: COVER (V3.0) -->
       <div class="page cover">
         <div class="cover-content">
-          <div class="logo-mark">ARE YOU BURNT?</div>
-          <h1>ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK</h1>
+          <div class="logo-mark">THE KNIFE CHECK</div>
+          <h1>THE KNIFE CHECK<br>ASSESSMENT FOR<br>BURNT OUT CHEFS</h1>
           <div class="client-name">${clientName}</div>
           <div style="font-size: 12px; color: #666; margin-top: 20px; font-family: 'Inter', sans-serif;">${assessmentDate}</div>
           <div class="cover-tagline">Your transformation begins here</div>
@@ -1817,7 +1817,7 @@ function generateHTMLReport(
           <div class="content-block" style="margin-top: 60px;">
             <div class="block-title">RECOMMENDED NEXT STEPS</div>
             <div class="block-content">
-              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join the Are You Burnt? Community:</strong> Connect with other chef-owners who are recovering from burnout and rediscovering their purpose. Get support, share experiences, and access resources as you implement your protocol.</p>
+              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join the Knife Check Community:</strong> Connect with other chefs who are recovering from burnout and rediscovering their purpose. Get support, share experiences, and access resources as you implement your protocol.</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Email <a href="mailto:info@wydahowarriors.com" style="color: var(--lime-green); text-decoration: none;">info@wydahowarriors.com</a></p>
             </div>

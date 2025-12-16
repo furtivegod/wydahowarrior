@@ -20,7 +20,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
             fontWeight: 700,
           }}
         >
-          Welcome to the Are You Burnt? Assessment
+          Welcome to The Knife Check Assessment for Burnt Out Chefs
         </h1>
 
         <div className="space-y-6">
@@ -36,7 +36,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
               About Your Assessment
             </h2>
             <p className="leading-relaxed" style={{ color: "#1A1A1A" }}>
-              This is the Are You Burnt? Assessment — built for chef-owners whose fire has faded. No corporate coaching, no therapy jargon. Just raw truth, one chef to another, grounded in the reality that your worth is settled in Christ — not in your performance. Through a series of thoughtful questions, we&apos;ll create a personalized 30-day protocol tailored specifically to your goals and challenges as a chef-owner.
+              This assessment is designed to help chefs sharpen their most important tool: themselves. We know that running on fumes can lead to feeling &quot;dull&quot; and unaligned in our mind, emotions, and physical well-being. This tool is not the solution itself, but an intelligent and logical roadmap for self-improvement and &quot;honing&quot; your greatest asset.
             </p>
           </div>
 

@@ -278,7 +278,9 @@ export async function generateClaudeResponse(
 
 export async function generateStructuredPlan(conversationHistory: string) {
   try {
-    console.log("Generating Are You Burnt? Assessment report from conversation");
+    console.log(
+      "Generating Are You Burnt? Chef-Owner Assessment report from conversation"
+    );
     console.log("Conversation length:", conversationHistory.length);
 
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -442,7 +444,10 @@ FINAL CHECK: Ensure every field contains meaningful, personalized content. No em
       const planData = JSON.parse(jsonString);
       console.log("✅ Successfully parsed Claude response!");
       console.log("Report title:", planData.title);
-      console.log("Progress markers count:", planData.thirty_day_protocol?.progress_markers?.length || 0);
+      console.log(
+        "Progress markers count:",
+        planData.thirty_day_protocol?.progress_markers?.length || 0
+      );
 
       return planData;
     } catch (parseError) {
@@ -511,42 +516,51 @@ FINAL CHECK: Ensure every field contains meaningful, personalized content. No em
             "Your current patterns help you navigate daily life and challenges.",
           success_proof:
             "You've demonstrated the ability to overcome challenges in the past.",
-          anchor:
-            "Your strongest existing habit that never breaks.",
+          anchor: "Your strongest existing habit that never breaks.",
         },
         domain_breakdown: {
           identity: {
-            current_state: "Your identity shows both strengths and areas for development.",
+            current_state:
+              "Your identity shows both strengths and areas for development.",
             key_strengths: "Key strengths with specific examples",
-            growth_opportunities: "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening"
+            growth_opportunities:
+              "Growth opportunities framed as what's in reach",
+            reality_check: "Reality check - what's actually happening",
           },
           craft: {
-            current_state: "Your craft shows both strengths and areas for development.",
+            current_state:
+              "Your craft shows both strengths and areas for development.",
             key_strengths: "Key strengths with specific examples",
-            growth_opportunities: "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening"
+            growth_opportunities:
+              "Growth opportunities framed as what's in reach",
+            reality_check: "Reality check - what's actually happening",
           },
           purpose: {
-            current_state: "Your purpose shows both strengths and areas for development.",
+            current_state:
+              "Your purpose shows both strengths and areas for development.",
             key_strengths: "Key strengths with specific examples",
-            growth_opportunities: "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening"
+            growth_opportunities:
+              "Growth opportunities framed as what's in reach",
+            reality_check: "Reality check - what's actually happening",
           },
           environment: {
-            current_state: "Your environment shows both strengths and areas for development.",
+            current_state:
+              "Your environment shows both strengths and areas for development.",
             key_strengths: "Key strengths with specific examples",
-            growth_opportunities: "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening"
-          }
+            growth_opportunities:
+              "Growth opportunities framed as what's in reach",
+            reality_check: "Reality check - what's actually happening",
+          },
         },
         energy_assessment: {
-          primary_state: "Your energy shows patterns of both activation and regulation.",
+          primary_state:
+            "Your energy shows patterns of both activation and regulation.",
           regulation_capacity: "Your regulation capacity",
           observable_patterns: "Observable patterns in your responses",
-          real_talk: "Real talk - direct assessment"
+          real_talk: "Real talk - direct assessment",
         },
-        missing_question_summary: "Reflection on what you shared about the missing question.",
+        missing_question_summary:
+          "Reflection on what you shared about the missing question.",
         thirty_day_protocol: {
           seventy_two_hour_action:
             "Start with one small, manageable action that builds on your existing strengths.",
@@ -568,25 +582,25 @@ FINAL CHECK: Ensure every field contains meaningful, personalized content. No em
           "Your identity is not 'chef.' You are loved before you perform.",
           "Healing comes through consistent practice, not more awareness.",
           "Your protective patterns have wisdom—honor them while updating them.",
-          "Identity shifts over time with deliberate practice—you're becoming who God made you to be."
+          "Identity shifts over time with deliberate practice—you're becoming who God made you to be.",
         ],
         book_recommendations: [
           {
             title: "Book title 1",
             author: "Author name",
-            why: "Why this book fits their profile"
+            why: "Why this book fits their profile",
           },
           {
             title: "Book title 2",
             author: "Author name",
-            why: "Why this book fits their profile"
-          }
+            why: "Why this book fits their profile",
+          },
         ],
         next_steps: {
           follow_up_assessment: "6-Month Follow-Up Assessment recommended",
           coaching_options: "Coaching options if available",
-          community: "Community connection options"
-        }
+          community: "Community connection options",
+        },
       };
     }
   } catch (error) {

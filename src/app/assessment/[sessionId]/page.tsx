@@ -212,7 +212,7 @@ export default function AssessmentPage({
             Assessment Complete!
           </h1>
           <p className="mb-6 text-sm sm:text-base" style={{ color: "#1A1A1A" }}>
-            Your personalized Are You Burnt? Assessment report has been generated and sent to your
+            Your personalized assessment report has been generated and sent to your
             email.
           </p>
           <div
