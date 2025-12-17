@@ -191,88 +191,114 @@ function generateHTMLReport(
     planData.disclaimer ||
     "This assessment is a tool for personal development and self-awareness. It is not a diagnostic tool and does not replace professional mental health support. If you are experiencing a mental health crisis, please contact a qualified professional or crisis support service.";
 
-  // Extract data similar to PDF generation
-  const sabotageAnalysis = planData.sabotage_analysis || {};
+  // Extract data similar to PDF generation - NEW 9-PAGE FRAMEWORK
+  const patternAnalysis = planData.pattern_analysis || {};
+  const kitchenTerm = planData.kitchen_term || "burnt";
   const patternExactWords =
-    sabotageAnalysis.pattern_exact_words ||
-    sabotageAnalysis.protective_pattern ||
+    patternAnalysis.pattern_exact_words ||
+    patternAnalysis.protective_pattern ||
     "";
-  let patternReframe = sabotageAnalysis.pattern_reframe || "";
-  // Remove redundant "What I'm hearing:" prefix if present
-  if (patternReframe.toLowerCase().startsWith("what i'm hearing:")) {
-    patternReframe = patternReframe
-      .substring(patternReframe.indexOf(":") + 1)
-      .trim();
-  }
-  const whatItsProtectingFrom = sabotageAnalysis.what_its_protecting_from || "";
-  const whatItsCosting = sabotageAnalysis.what_its_costing || "";
+  const patternReframe = patternAnalysis.pattern_reframe || "";
+  const patternTrigger = patternAnalysis.pattern_trigger || "";
+  const whatItsProtectingFrom = patternAnalysis.what_it_protects_from || "";
+  const whatItsCosting = patternAnalysis.what_it_costs || "";
   const proofWithContext =
-    sabotageAnalysis.proof_with_context || sabotageAnalysis.success_proof || "";
-  const personalizedInsight = sabotageAnalysis.personalized_insight || "";
+    patternAnalysis.proof_with_context || patternAnalysis.success_proof || "";
+  const anchorHabit =
+    patternAnalysis.anchor_habit || patternAnalysis.anchor || "";
+  const personalizedChefTruth = patternAnalysis.personalized_chef_truth || "";
 
-  // Extract smart roadmap
-  const smartRoadmap = planData.smart_roadmap || {};
-  const seeBrief = smartRoadmap.see_brief || "";
-  const mapBrief = smartRoadmap.map_brief || "";
-  const addressBrief = smartRoadmap.address_brief || "";
-  const rewireBrief = smartRoadmap.rewire_brief || "";
-  const transformBrief = smartRoadmap.transform_brief || "";
+  // Extract roadmap briefs
+  const roadmapBriefs = planData.roadmap_briefs || {};
+  const identityBrief = roadmapBriefs.identity_brief || "";
+  const craftBrief = roadmapBriefs.craft_brief || "";
+  const purposeBrief = roadmapBriefs.purpose_brief || "";
+  const environmentBrief = roadmapBriefs.environment_brief || "";
+  const missingBrief = roadmapBriefs.missing_brief || "";
+  const seventyTwoBrief = roadmapBriefs.seventy_two_brief || "";
+  const thirtyDayBrief = roadmapBriefs.thirty_day_brief || "";
 
-  // Extract domain breakdown
+  // Extract domain breakdown (NEW - identity, craft, purpose, environment)
   const domainBreakdown = planData.domain_breakdown || {};
-  const mindDomain = domainBreakdown.mind || {};
-  const bodyDomain = domainBreakdown.body || {};
-  const relationshipsMeaningDomain =
-    domainBreakdown.relationships_meaning || {};
-  const contributionDomain = domainBreakdown.contribution || {};
+  const identityDomain = domainBreakdown.identity || {};
+  const craftDomain = domainBreakdown.craft || {};
+  const purposeDomain = domainBreakdown.purpose || {};
+  const environmentDomain = domainBreakdown.environment || {};
 
-  // Extract nervous system assessment
-  const nervousSystemAssessment = planData.nervous_system_assessment || {};
+  // Extract kitchen energy assessment (NEW)
+  const kitchenEnergy = planData.kitchen_energy_assessment || {};
 
   // Extract protocol data
   const thirtyDayProtocol = planData.thirty_day_protocol || {};
   const urgencyStatement = thirtyDayProtocol.urgency_statement || "";
-  const anchorHabit = thirtyDayProtocol.anchor_habit || "";
+  const protocolAnchorHabit = thirtyDayProtocol.anchor_habit || anchorHabit;
   const specificAction = thirtyDayProtocol.specific_action || "";
   const timeReps = thirtyDayProtocol.time_reps || "";
   const whyThisWorks = thirtyDayProtocol.why_this_works || "";
-  const seventyTwoHourSuggestion =
-    thirtyDayProtocol.seventy_two_hour_suggestion || "";
   const immediatePractice = thirtyDayProtocol.immediate_practice || "";
   const week1Focus = thirtyDayProtocol.week_1_focus || "";
+  const week1Chapters = thirtyDayProtocol.week_1_chapters || "";
   const week1Practice = thirtyDayProtocol.week_1_practice || "";
   const week1Marker = thirtyDayProtocol.week_1_marker || "";
   const week2Focus = thirtyDayProtocol.week_2_focus || "";
+  const week2Chapters = thirtyDayProtocol.week_2_chapters || "";
   const week2Practice = thirtyDayProtocol.week_2_practice || "";
   const week2Marker = thirtyDayProtocol.week_2_marker || "";
   const week3Focus = thirtyDayProtocol.week_3_focus || "";
+  const week3Chapters = thirtyDayProtocol.week_3_chapters || "";
   const week3Practice = thirtyDayProtocol.week_3_practice || "";
   const week3Marker = thirtyDayProtocol.week_3_marker || "";
   const week4Focus = thirtyDayProtocol.week_4_focus || "";
   const week4Practice = thirtyDayProtocol.week_4_practice || "";
   const week4Marker = thirtyDayProtocol.week_4_marker || "";
-  const dailyActions = Array.isArray(thirtyDayProtocol.daily_actions)
-    ? thirtyDayProtocol.daily_actions
-    : [];
-  const thirtyDayApproach = thirtyDayProtocol.thirty_day_approach || "";
 
-  // Extract book recommendation
-  const bookRecommendationText = planData.book_recommendation;
+  // Extract book recommendation (NEW - single book from protocol)
+  const bookRec = thirtyDayProtocol.book_recommendation || {};
+  const bookTitle = bookRec.title || "";
+  const bookAuthor = bookRec.author || "";
+  const bookWhyNow = bookRec.why_now || "";
 
-  // Extract bottom line and pull quote
-  const bottomLine = planData.bottom_line || "";
+  // Extract bottom line breakdown (NEW STRUCTURE)
+  const bottomLineBreakdown = planData.bottom_line_breakdown || {};
+  const patternRestated =
+    bottomLineBreakdown.pattern_restated || patternExactWords;
+  const whatItProtects =
+    bottomLineBreakdown.what_it_protects || whatItsProtectingFrom;
+  const whatItCostsBreakdown =
+    bottomLineBreakdown.what_it_costs || whatItsCosting;
+  const theTruth = bottomLineBreakdown.the_truth || "";
+  const yourProofBreakdown = bottomLineBreakdown.your_proof || proofWithContext;
+  const whatHappensNext = bottomLineBreakdown.what_happens_next || "";
+
+  // Extract bottom line full (3 paragraphs + emphasis)
+  const bottomLineFull = planData.bottom_line_full || {};
+  const bottomLinePara1 = bottomLineFull.paragraph_1 || "";
+  const bottomLinePara2 = bottomLineFull.paragraph_2 || "";
+  const bottomLinePara3 = bottomLineFull.paragraph_3 || "";
+  const bottomLineEmphasis = bottomLineFull.emphasis_statement || "";
+
+  // Extract Steve's story
+  const steveStoryNote = planData.steve_story_note || "";
+
+  // Extract pull quote
   const pullQuote = planData.pull_quote || planData.reminder_quote || "";
-  const quoteAttribution = planData.quote_attribution || "From your assessment";
 
-  // Extract development reminders
+  // Extract development reminders (NEW - 4 core reminders)
   const developmentReminders = Array.isArray(planData.development_reminders)
     ? planData.development_reminders
     : [
-        "Integration comes through consistent practice, not more awareness—you already have the insight; now you need the repetitions",
-        "Your nervous system is the foundation—regulate first, then grow; breath before action, presence before expansion",
-        "Your sabotage patterns have wisdom—honor them while updating them; they kept you safe when safety was scarce",
-        "Identity shifts over time with deliberate practice—you're becoming someone who can hold bigger energies responsibly, one regulated moment at a time",
+        "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+        "Your kitchen energy is the foundation—regulate first, then rebuild",
+        "Your patterns have wisdom—honor them while updating them",
+        "You are not your station—your worth is settled in Christ, not your covers",
       ];
+
+  // Extract next steps
+  const nextSteps = planData.next_steps || {};
+  const sixMonthDate = nextSteps.six_month_date || "";
+  const communityLink = nextSteps.community_link || "";
+  const coachingLink = nextSteps.coaching_link || "";
+  const contactEmail = nextSteps.contact_email || "info@wydahowarriors.com";
 
   // Helper function to format text with paragraph breaks
   function formatTextWithParagraphBreaks(text: string | undefined): string {
@@ -286,319 +312,130 @@ function generateHTMLReport(
     return paragraphs.map((paragraph) => `<p>${paragraph.trim()}</p>`).join("");
   }
 
-  // Handle book recommendation - use provided string or select 1 book from list
-  const allBooks = [
+  // Chef-owner specific book list (9-PAGE FRAMEWORK) - matching PDF structure
+  const chefOwnerBooks = [
+    {
+      id: "kitchen_confidential",
+      title: "Kitchen Confidential",
+      author: "Anthony Bourdain",
+      asin: "0060899220",
+      why: "Raw honesty about kitchen life, reconnects them to why they started",
+      patterns: ["lost passion", "identity crisis", "why did I start"],
+    },
+    {
+      id: "setting_the_table",
+      title: "Setting the Table",
+      author: "Danny Meyer",
+      asin: "0060742763",
+      why: "Meaning-driven hospitality, culture-building, enlightened hospitality model",
+      patterns: ["people management", "staff chaos", "team building"],
+    },
+    {
+      id: "find_your_why",
+      title: "Find Your Why",
+      author: "Simon Sinek",
+      asin: "0143111728",
+      why: "Clarifies original purpose, helps rebuild around meaning",
+      patterns: ["purpose confusion", "why am I doing this", "lost meaning"],
+    },
     {
       id: "body_keeps_score",
       title: "The Body Keeps the Score",
       author: "Bessel van der Kolk",
-      url: "https://amzn.to/4hJB9wT",
-      why: "The definitive text on trauma and nervous system. Directly addresses the core issue for most users stuck in sabotage patterns.",
-      tags: [
-        "trauma",
-        "nervous system",
-        "shutdown",
-        "dorsal",
-        "anxiety",
-        "somatic",
-        "regulation",
-      ],
+      asin: "0143127748",
+      why: "Explains trauma responses, regulation capacity, somatic patterns",
+      patterns: ["burnout", "exhaustion", "nervous system shutdown"],
     },
     {
-      id: "reclaim_nervous_system",
-      title: "Reclaim Your Nervous System",
-      author: "Mastin Kipp",
-      url: "https://amzn.to/47xBpua",
-      why: "Practical, accessible nervous system regulation. Bridges theory to action. Perfect for immediate implementation.",
-      tags: [
-        "regulation",
-        "nervous system",
-        "somatic",
-        "anxiety",
-        "shutdown",
-        "freeze",
-      ],
+      id: "hero_on_mission",
+      title: "Hero on a Mission",
+      author: "Donald Miller",
+      asin: "0785232303",
+      why: "Reframes identity from Victim/Villain to Hero/Guide, story work",
+      patterns: ["identity equals chef", "can't separate self from work"],
     },
     {
-      id: "atomic_habits",
-      title: "Atomic Habits",
-      author: "James Clear",
-      url: "https://amzn.to/431fR7V",
-      why: "The behavior change bible. Supports building evidence through small actions.",
-      tags: [
-        "habits",
-        "behavior",
-        "consistency",
-        "routine",
-        "evidence",
-        "practice",
-      ],
-    },
-    {
-      id: "how_to_do_the_work",
-      title: "How to Do the Work",
-      author: "Dr. Nicole LePera",
-      url: "https://amzn.to/43y2mNa",
-      why: "Combines shadow work, nervous system, and daily practices. Holistic approach.",
-      tags: [
-        "shadow",
-        "trauma",
-        "nervous system",
-        "inner child",
-        "therapy",
-        "regulation",
-      ],
-    },
-    {
-      id: "atlas_of_the_heart",
-      title: "Atlas of the Heart",
-      author: "Brené Brown",
-      url: "https://amzn.to/3JjyTjf",
-      why: "Emotional literacy is foundational—users can't regulate what they can't name.",
-      tags: [
-        "emotion",
-        "feelings",
-        "language",
-        "shame",
-        "naming",
-        "vocabulary",
-      ],
-    },
-    {
-      id: "future_self",
-      title: "Be Your Future Self Now",
-      author: "Dr. Benjamin Hardy",
-      url: "https://amzn.to/4p3Rwaf",
-      why: "Addresses identity transformation (Become). Practical framework for stepping into new identity.",
-      tags: ["identity", "future self", "become", "vision", "self-concept"],
-    },
-    {
-      id: "first_rule_of_mastery",
-      title: "The First Rule of Mastery",
-      author: "Dr. Michael Gervais",
-      url: "https://amzn.to/4hx7Ld3",
-      why: "Performance psychology for overthinkers and high performers.",
-      tags: ["performance", "mind", "fear", "overthinking", "mastery"],
-    },
-    {
-      id: "crucial_conversations",
-      title: "Crucial Conversations",
-      author: "Kerry Patterson",
-      url: "https://amzn.to/49sdXkC",
-      why: "Most relationship/career problems stem from poor communication.",
-      tags: [
-        "communication",
-        "relationship",
-        "conflict",
-        "conversation",
-        "boundaries",
-      ],
-    },
-    {
-      id: "deep_work",
-      title: "Deep Work",
-      author: "Cal Newport",
-      url: "https://amzn.to/48UeonB",
-      why: "Combats distraction and cheap dopamine. Teaches focus.",
-      tags: [
-        "focus",
-        "distraction",
-        "work",
-        "attention",
-        "dopamine",
-        "productivity",
-      ],
+      id: "designing_your_life",
+      title: "Designing Your Life",
+      author: "Bill Burnett & Dave Evans",
+      asin: "1101875321",
+      why: "Wayfinding for chef-owners exploring options outside current situation",
+      patterns: ["considering major life change", "leaving industry"],
     },
     {
       id: "gifts_of_imperfection",
       title: "The Gifts of Imperfection",
       author: "Brené Brown",
-      url: "https://amzn.to/3X35Svi",
-      why: "Addresses perfectionism and shame—big sabotage drivers.",
-      tags: ["perfectionism", "shame", "worthiness", "belonging"],
+      asin: "159285849X",
+      why: "Shame resilience, letting go of 'suffer for your art' mythology",
+      patterns: ["perfectionism", "mistakes spiral"],
     },
     {
-      id: "breath",
-      title: "Breath: The New Science of a Lost Art",
-      author: "James Nestor",
-      url: "https://amzn.to/4ntDahQ",
-      why: "Simple, science-backed practice with immediate nervous system benefits.",
-      tags: ["breath", "breathing", "anxiety", "body", "calm"],
+      id: "set_boundaries",
+      title: "Set Boundaries, Find Peace",
+      author: "Nedra Tawwab",
+      asin: "0593192095",
+      why: "Boundary scripts, practice saying no without guilt",
+      patterns: ["can't say no", "no boundaries"],
     },
     {
-      id: "dose_effect",
-      title: "The DOSE Effect",
-      author: "TJ Power",
-      url: "https://amzn.to/4oPrA1X",
-      why: "Directly addresses dopamine and cheap dopamine loops.",
-      tags: [
-        "dopamine",
-        "addiction",
-        "phone",
-        "scroll",
-        "porn",
-        "games",
-        "Garden Scapes",
-      ],
+      id: "atomic_habits",
+      title: "Atomic Habits",
+      author: "James Clear",
+      asin: "0735211299",
+      why: "Identity-based behavior change, sustainable systems",
+      patterns: ["substance issues", "numbing patterns"],
     },
     {
-      id: "war_of_art",
-      title: "The War of Art",
-      author: "Steven Pressfield",
-      url: "https://amzn.to/4ogrhgI",
-      why: "Short, punchy, confrontational—great for breaking resistance and procrastination.",
-      tags: [
-        "resistance",
-        "procrastination",
-        "creative",
-        "promotion",
-        "visibility",
-        "freeze",
-      ],
-    },
-    {
-      id: "polyvagal_therapy",
-      title: "Polyvagal Theory in Therapy",
-      author: "Deb Dana",
-      url: "https://amzn.to/3Jt9gwr",
-      why: "For dorsal shutdown or severe regulation issues.",
-      tags: ["polyvagal", "shutdown", "dorsal", "therap*", "nervous system"],
-    },
-    {
-      id: "mindset",
-      title: "Mindset: The New Psychology of Success",
-      author: "Carol Dweck",
-      url: "https://amzn.to/47Lmb66",
-      why: "Fixed vs. growth mindset foundational to development.",
-      tags: ["mindset", "fixed", "growth", "beliefs"],
+      id: "essentialism",
+      title: "Essentialism",
+      author: "Greg McKeown",
+      asin: "0804137382",
+      why: "Disciplined pursuit of less, saying no to good to say yes to great",
+      patterns: ["general overwhelm", "in the weeds constantly"],
     },
   ];
 
-  // Book selection logic - match PDF structure
-  function getAssessmentText(pd: PlanData): string {
-    try {
-      const parts = [
-        pd?.assessment_overview,
-        pd?.development_profile,
-        pd?.bottom_line,
-        pd?.sabotage_analysis?.anchor,
-        pd?.sabotage_analysis?.success_proof,
-        pd?.sabotage_analysis?.go_to_patterns,
-        pd?.sabotage_analysis?.escape_behavior,
-        pd?.sabotage_analysis?.positive_behavior,
-        pd?.sabotage_analysis?.protective_pattern,
-        pd?.sabotage_analysis?.what_its_protecting_from,
-        pd?.nervous_system_assessment?.primary_state,
-        pd?.nervous_system_assessment?.regulation_reality,
-        pd?.nervous_system_assessment?.observable_patterns,
-        Array.isArray(pd?.thirty_day_protocol?.weekly_goals)
-          ? pd.thirty_day_protocol.weekly_goals.join(" ")
-          : pd?.thirty_day_protocol?.weekly_goals,
-        Array.isArray(pd?.thirty_day_protocol?.daily_actions)
-          ? pd.thirty_day_protocol.daily_actions.join(" ")
-          : pd?.thirty_day_protocol?.daily_actions,
-      ].filter(Boolean);
-      return String(parts.join(" \n ")).toLowerCase();
-    } catch {
-      return "";
-    }
-  }
-
-  function selectTopOneBook(pd: PlanData) {
-    const text = getAssessmentText(pd);
-    interface Book {
-      id: string;
-      title: string;
-      author: string;
-      url: string;
-      why: string;
-      tags: string[];
-    }
-    
-    const scored: Array<{ book: Book; score: number }> = allBooks.map((b: Book) => {
-      const score = b.tags.reduce(
-        (acc: number, tag: string) =>
-          acc + (text.includes(tag.toLowerCase()) ? 1 : 0),
+  // Select book - use provided book from protocol, or select based on pattern (matching PDF logic)
+  let selectedBook = null;
+  if (bookTitle && bookAuthor) {
+    // Use book from protocol
+    selectedBook = {
+      title: bookTitle,
+      author: bookAuthor,
+      why: bookWhyNow,
+    };
+  } else {
+    // Select based on pattern analysis
+    const patternText = (
+      patternExactWords +
+      " " +
+      whatItsProtectingFrom +
+      " " +
+      personalizedChefTruth
+    ).toLowerCase();
+    const scored = chefOwnerBooks.map((book) => {
+      const score = book.patterns.reduce(
+        (acc: number, pattern: string) =>
+          acc + (patternText.includes(pattern.toLowerCase()) ? 1 : 0),
         0
       );
-      // small boosts for common patterns
-      const boosts =
-        (text.includes("freeze") ||
-        text.includes("resistance") ||
-        text.includes("promotion")
-          ? b.id === "war_of_art" || b.id === "deep_work"
-            ? 1
-            : 0
-          : 0) +
-        (text.includes("porn") ||
-        text.includes("scroll") ||
-        text.includes("garden scapes")
-          ? b.id === "dose_effect"
-            ? 1
-            : 0
-          : 0) +
-        (text.includes("nervous system") ||
-        text.includes("shutdown") ||
-        text.includes("dorsal") ||
-        text.includes("anxiety")
-          ? b.id === "body_keeps_score" || b.id === "reclaim_nervous_system"
-            ? 1
-            : 0
-          : 0) +
-        (text.includes("identity") ||
-        text.includes("become") ||
-        text.includes("future self")
-          ? b.id === "future_self"
-            ? 1
-            : 0
-          : 0);
-      return { book: b, score: score + boosts };
+      return { book, score };
     });
-    scored.sort(
-      (a: { score: number }, b: { score: number }) => b.score - a.score
-    );
-    const top = scored
-      .filter((s: { score: number }) => s.score > 0)
-      .slice(0, 1)
-      .map((s: { book: Book; score: number }) => s.book);
-    if (top.length < 1) {
-      // sensible default
-      const defaults = allBooks
-        .filter((b: { id: string }) => ["atomic_habits"].includes(b.id))
-        .slice(0, 1);
-      return defaults;
-    }
-    return top;
+    scored.sort((a, b) => b.score - a.score);
+    const top = scored.find((s) => s.score > 0);
+    selectedBook = top
+      ? {
+          title: top.book.title,
+          author: top.book.author,
+          why: top.book.why,
+        }
+      : {
+          title: "Kitchen Confidential",
+          author: "Anthony Bourdain",
+          why: "Raw honesty about kitchen life, reconnects you to why you started",
+        };
   }
-
-  // Use provided book_recommendation string if available, otherwise select 1 book
-  // Always select a book so we have the URL for the hyperlink, even if bookRecommendationText is provided
-  let selectedBooks = selectTopOneBook(planData);
-
-  // If bookRecommendationText mentions a specific book, try to match it to ensure title matches description
-  if (bookRecommendationText && selectedBooks && selectedBooks.length > 0) {
-    // Try to find a book mentioned in the bookRecommendationText by checking against allBooks
-    const textLower = bookRecommendationText.toLowerCase();
-    const matchedBook = allBooks.find(
-      (book: { title: string; author: string }) => {
-        const titleLower = book.title.toLowerCase();
-        const authorLower = book.author.toLowerCase();
-        // Check if the text mentions the book title or author
-        return (
-          textLower.includes(titleLower) || textLower.includes(authorLower)
-        );
-      }
-    );
-
-    // If we found a match, use that book instead of the algorithm-selected one
-    if (matchedBook) {
-      selectedBooks = [matchedBook];
-    }
-  }
-
-  // allBooks is already defined above, removing duplicate
-
-  // selectedBooks is already set above with selectTopOneBook logic
 
   return new NextResponse(
     `
@@ -1139,7 +976,7 @@ function generateHTMLReport(
                     </div>
                     
                     <div class="sabotage-section" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.3);">
-                        <div class="sabotage-text">${formatTextWithParagraphBreaks(personalizedInsight)}</div>
+                        <div class="sabotage-text"><strong>Personalized Chef-to-Chef Truth:</strong> ${formatTextWithParagraphBreaks(personalizedChefTruth)}</div>
                     </div>
                 </div>
             </div>
@@ -1155,37 +992,51 @@ function generateHTMLReport(
                 
                 <div class="roadmap-flow">
                     <div class="roadmap-step">
-                        <div class="roadmap-letter">S</div>
+                        <div class="roadmap-letter" style="background: var(--dark-olive);">🔥</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">SEE THE PATTERN</div>
-                        <div class="roadmap-brief">${seeBrief}</div>
+                        <div class="roadmap-label">WHO ARE YOU WITHOUT THE WHITES?</div>
+                        <div class="roadmap-brief">${identityBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
-                        <div class="roadmap-letter">M</div>
+                        <div class="roadmap-letter" style="background: var(--dark-olive);">🛠</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">MAP THE NERVOUS SYSTEM</div>
-                        <div class="roadmap-brief">${mapBrief}</div>
+                        <div class="roadmap-label">DO YOU STILL LOVE THE LINE?</div>
+                        <div class="roadmap-brief">${craftBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
-                        <div class="roadmap-letter">A</div>
+                        <div class="roadmap-letter" style="background: var(--dark-olive);">🎯</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">ADDRESS THE ROOT CAUSE</div>
-                        <div class="roadmap-brief">${addressBrief}</div>
+                        <div class="roadmap-label">WHAT'S YOUR SIGNATURE DISH?</div>
+                        <div class="roadmap-brief">${purposeBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
-                        <div class="roadmap-letter">R</div>
+                        <div class="roadmap-letter" style="background: var(--dark-olive);">⚙️</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">REWIRE THE RESPONSE (72-Hour Action)</div>
-                        <div class="roadmap-brief">${rewireBrief}</div>
+                        <div class="roadmap-label">THE KITCHEN VS. THE LIFE</div>
+                        <div class="roadmap-brief">${environmentBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
-                        <div class="roadmap-letter">T</div>
-                        <div class="roadmap-label">TRANSFORM BEHAVIOR (30-Day Focus)</div>
-                        <div class="roadmap-brief">${transformBrief}</div>
+                        <div class="roadmap-letter" style="background: var(--dark-olive);">🚨</div>
+                        <div class="roadmap-arrow"></div>
+                        <div class="roadmap-label">THE MISSING QUESTION</div>
+                        <div class="roadmap-brief">${missingBrief}</div>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
+                        <div class="roadmap-arrow"></div>
+                        <div class="roadmap-label">72-HOUR ACTION</div>
+                        <div class="roadmap-brief">${seventyTwoBrief}</div>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
+                        <div class="roadmap-label">30-DAY PROTOCOL</div>
+                        <div class="roadmap-brief">${thirtyDayBrief}</div>
                     </div>
                 </div>
             </div>
@@ -1201,34 +1052,34 @@ function generateHTMLReport(
                 
                 <div class="domain-grid">
                     <div class="domain-card">
-                        <div class="domain-card-title">MIND</div>
+                        <div class="domain-card-title">🔥 WHO ARE YOU WITHOUT THE WHITES? (Identity & Story)</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Level</div>
-                            <div class="domain-card-value">${mindDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">Current State</div>
+                            <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
                             <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${mindDomain.block || mindDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Opportunity</div>
-                            <div class="domain-card-value">${mindDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">Growth Edge</div>
+                            <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                     </div>
                     
                     <div class="domain-card">
-                        <div class="domain-card-title">BODY</div>
+                        <div class="domain-card-title">🛠 DO YOU STILL LOVE THE LINE? (Craft & Mastery)</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Level</div>
-                            <div class="domain-card-value">${bodyDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">Current State</div>
+                            <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
                             <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${bodyDomain.block || bodyDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Opportunity</div>
-                            <div class="domain-card-value">${bodyDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">Growth Edge</div>
+                            <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                     </div>
                 </div>
@@ -1240,69 +1091,62 @@ function generateHTMLReport(
             <div class="page-content">
                 <div class="domain-grid" style="margin-top: 0;">
                     <div class="domain-card">
-                        <div class="domain-card-title">RELATIONSHIPS & MEANING</div>
+                        <div class="domain-card-title">🎯 WHAT'S YOUR SIGNATURE DISH? (Purpose & Meaning)</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Level</div>
-                            <div class="domain-card-value">${relationshipsMeaningDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">Current State</div>
+                            <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
                             <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${relationshipsMeaningDomain.block || relationshipsMeaningDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Opportunity</div>
-                            <div class="domain-card-value">${relationshipsMeaningDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">Growth Edge</div>
+                            <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                     </div>
                     
                     <div class="domain-card">
-                        <div class="domain-card-title">CONTRIBUTION</div>
+                        <div class="domain-card-title">⚙️ THE KITCHEN VS. THE LIFE (Environment & Reality)</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Level</div>
-                            <div class="domain-card-value">${contributionDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">Current State</div>
+                            <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
                             <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${contributionDomain.block || contributionDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || "Not specified"}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Opportunity</div>
-                            <div class="domain-card-value">${contributionDomain.growth_opportunities || "Not specified"}</div>
-                        </div>
+                            <div class="domain-card-label">Growth Edge</div>
+                            <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || "Not specified"}</div>
+                </div>
+            </div>
+        </div>
+
+                <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
+                    <div class="block-title">KITCHEN ENERGY ASSESSMENT</div>
+                    <div class="content-block">
+                        <div class="block-title">Primary State</div>
+                        <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.primary_state || "")}</div>
+                </div>
+                    <div class="content-block">
+                        <div class="block-title">How You Handle the Heat</div>
+                        <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.regulation_capacity || "")}</div>
+                </div>
+                <div class="content-block">
+                    <div class="block-title">Observable Patterns</div>
+                        <div class="block-content">
+                            ${Array.isArray(kitchenEnergy.observable_patterns) ? kitchenEnergy.observable_patterns.map((pattern: string) => `<p>• ${pattern}</p>`).join("") : formatTextWithParagraphBreaks(kitchenEnergy.observable_patterns_text || "")}
+                </div>
+                    </div>
+                <div class="content-block">
+                        <div class="block-title">The Energy Reality</div>
+                        <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.energy_reality || "")}</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- PAGE 5: NERVOUS SYSTEM ASSESSMENT (V3.0) -->
-        <div class="page">
-            <div class="page-content">
-                <div class="section-header">
-                    <div class="section-label">Foundation</div>
-                    <div class="section-title">Nervous System<br>Assessment</div>
-                </div>
-                
-                <div class="metric-row">
-                    <div class="metric-label">Primary State</div>
-                    <div class="metric-value">${nervousSystemAssessment.primary_state || "Not specified"}</div>
-                </div>
-                
-                <div class="metric-row">
-                    <div class="metric-label">Regulation Capacity</div>
-                    <div class="metric-value">${nervousSystemAssessment.regulation_capacity || "Not specified"}</div>
-                </div>
-                
-                <div class="content-block">
-                    <div class="block-title">Observable Patterns</div>
-                    <div class="block-content">${formatTextWithParagraphBreaks(nervousSystemAssessment.observable_patterns)}</div>
-                </div>
-                
-                <div class="content-block">
-                    <div class="block-title">The Regulation Reality</div>
-                    <div class="block-content">${formatTextWithParagraphBreaks(nervousSystemAssessment.regulation_reality)}</div>
-                </div>
-            </div>
-        </div>
 
         <!-- PAGE 6: YOUR KNIFE CHECK PROTOCOL (V3.0) -->
         <div class="page">
@@ -1317,24 +1161,23 @@ function generateHTMLReport(
                 <div class="protocol-item">
                     <div class="protocol-timeline">STEP 1: 72-HOUR ACTION</div>
                     <div class="protocol-action">
-                        ${anchorHabit && specificAction ? `After ${anchorHabit}, ${specificAction}${timeReps ? ` for ${timeReps}` : ""}` : formatTextWithParagraphBreaks(seventyTwoHourSuggestion)}
+                        After <strong>${protocolAnchorHabit || anchorHabit}</strong>, <strong>${specificAction}</strong>${timeReps ? ` for ${timeReps}` : ""}
                     </div>
-                    ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;">Why this works: ${whyThisWorks}</div>` : ""}
+                    ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;"><strong>Why this works:</strong> ${whyThisWorks}</div>` : ""}
                 </div>
                 
                 <div class="protocol-item">
                     <div class="protocol-timeline">STEP 2: READ THIS NOW</div>
                     <div class="protocol-action">
                         ${
-                          selectedBooks && selectedBooks.length > 0
+                          selectedBook
                             ? `<div style="margin-bottom: 15px;">
-                                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; font-family: 'Playfair Display', serif;"><a href="${selectedBooks[0].url}" style="color: var(--dark-olive); text-decoration: none;">${selectedBooks[0].title}</a></div>
-                                    <div style="font-size: 14px; color: #666; margin-bottom: 20px;">By ${selectedBooks[0].author}</div>
-                                    <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>Why this book, why now:</strong> ${bookRecommendationText || selectedBooks[0].why}</div>
+                                    <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; font-family: 'Playfair Display', serif;">📖 ${selectedBook.title}</div>
+                                    <div style="font-size: 14px; color: #666; margin-bottom: 20px;">By ${selectedBook.author}</div>
+                                    <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>Why this book, why now:</strong> ${bookWhyNow || selectedBook.why}</div>
+                                    <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 10px;">Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.</div>
                                 </div>`
-                            : bookRecommendationText
-                              ? `<div style="font-size:15px; line-height:1.7; color:#222;">${bookRecommendationText}</div>`
-                              : `<div style="font-size:15px; line-height:1.7; color:#222;">The Body Keeps the Score by Bessel van der Kolk - Understanding trauma and healing. This book directly addresses the core issue for most users stuck in sabotage patterns.</div>`
+                            : `<div style="font-size:15px; line-height:1.7; color:#222;">Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.</div>`
                         }
                     </div>
                 </div>
@@ -1354,7 +1197,8 @@ function generateHTMLReport(
                       week1Focus
                         ? `<div style="margin: 20px 0;">
                         <div style="font-weight: 600; margin-bottom: 8px;">WEEK 1: ${week1Focus}</div>
-                        ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week1Practice}</div>` : ""}
+                        ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
+                        ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week1Practice}</div>` : ""}
                         ${week1Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week1Marker}</div>` : ""}
                     </div>`
                         : ""
@@ -1363,7 +1207,8 @@ function generateHTMLReport(
                       week2Focus
                         ? `<div style="margin: 20px 0;">
                         <div style="font-weight: 600; margin-bottom: 8px;">WEEK 2: ${week2Focus}</div>
-                        ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week2Practice}</div>` : ""}
+                        ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
+                        ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week2Practice}</div>` : ""}
                         ${week2Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week2Marker}</div>` : ""}
                     </div>`
                         : ""
@@ -1372,7 +1217,8 @@ function generateHTMLReport(
                       week3Focus
                         ? `<div style="margin: 20px 0;">
                         <div style="font-weight: 600; margin-bottom: 8px;">WEEK 3: ${week3Focus}</div>
-                        ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week3Practice}</div>` : ""}
+                        ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
+                        ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week3Practice}</div>` : ""}
                         ${week3Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week3Marker}</div>` : ""}
                     </div>`
                         : ""
@@ -1381,31 +1227,9 @@ function generateHTMLReport(
                       week4Focus
                         ? `<div style="margin: 20px 0;">
                         <div style="font-weight: 600; margin-bottom: 8px;">WEEK 4: ${week4Focus}</div>
-                        ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week4Practice}</div>` : ""}
+                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Review key sections that hit hardest</div>
+                        ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week4Practice}</div>` : ""}
                         ${week4Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week4Marker}</div>` : ""}
-                    </div>`
-                        : ""
-                    }
-                    ${
-                      dailyActions && dailyActions.length > 0
-                        ? `<div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.4);">
-                        <div style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 25px; color: var(--dark-olive); letter-spacing: -0.01em;">Daily Actions</div>
-                        <div style="font-size: 11px; color: #999; margin-bottom: 25px; line-height: 1.6; font-style: italic;">Your 30-day roadmap to building the identity of someone who finishes what they start</div>
-                        ${dailyActions.map((action: string, index: number) => {
-                          const dayNumber = index + 1;
-                          return `<div style="display: flex; margin-bottom: 12px; padding: 10px 0; border-bottom: 1px solid rgba(201, 169, 110, 0.1);">
-                            <div style="flex-shrink: 0; width: 80px; font-size: 12px; font-weight: 600; color: var(--soft-gold); letter-spacing: 0.05em; padding-right: 20px;">Day ${dayNumber}</div>
-                            <div style="flex: 1; font-size: 12px; color: var(--deep-charcoal); line-height: 1.7;">${action.replace(/^Day \d+:\s*/i, '')}</div>
-                          </div>`;
-                        }).join("")}
-                    </div>`
-                        : ""
-                    }
-                    ${
-                      thirtyDayApproach
-                        ? `<div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.3);">
-                        <div style="font-weight: 600; margin-bottom: 15px; color: var(--dark-olive);">30-DAY APPROACH</div>
-                        <div style="font-size: 13px; line-height: 1.7; color: var(--deep-charcoal);">${formatTextWithParagraphBreaks(thirtyDayApproach)}</div>
                     </div>`
                         : ""
                     }
@@ -1413,7 +1237,9 @@ function generateHTMLReport(
                 
                 <div style="margin-top: 40px; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
                     <div style="font-size: 13px; line-height: 1.8; font-style: italic;">
-                        Start tonight. This book explains why every strategy you've tried hasn't worked—and what will.
+                        Start tonight. This book explains why grinding harder hasn't worked—and what will.<br><br>
+                        You don't have time to waste, chef. Neither did I.<br>
+                        — Steve Murphy
                     </div>
                 </div>
             </div>
@@ -1429,20 +1255,35 @@ function generateHTMLReport(
                 </div>
                 
                 <div style="margin: 40px 0;">
-                    ${formatTextWithParagraphBreaks(bottomLine)}
+                    <div class="block-content">
+                        ${formatTextWithParagraphBreaks(bottomLinePara1)}
+                        ${formatTextWithParagraphBreaks(bottomLinePara2)}
+                        ${formatTextWithParagraphBreaks(bottomLinePara3)}
+                    </div>
+                    
+                    <div style="margin: 40px 0; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
+                        <div style="font-size: 16px; font-weight: 700; line-height: 1.8; color: var(--dark-olive); font-family: 'Playfair Display', serif;">
+                            ${bottomLineEmphasis}
                 </div>
             </div>
         </div>
         
-        <!-- PAGE 7B: CLIENT'S WORDS (PULL QUOTE) -->
-        <div class="page" style="page-break-before: always; display: flex; align-items: center; justify-content: center;">
-            <div class="page-content" style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%;">
-                <div class="pull-quote" style="text-align: center; width: 100%; margin: 0;">
-                    <div class="pull-quote-text"><strong>"${pullQuote}"</strong></div>
-                    <div style="font-size: 11px; letter-spacing: 0.1em; color: #999; margin-top: 20px;">${quoteAttribution}</div>
+                <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
+                    <div class="block-title">STEVE'S NOTE: WHY I DISAPPEARED</div>
+                    <div class="block-content">${formatTextWithParagraphBreaks(steveStoryNote)}</div>
                 </div>
+                
+                ${
+                  pullQuote
+                    ? `<div style="margin-top: 40px; padding: 30px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
+                    <div class="pull-quote-text" style="font-size: 20px; margin-bottom: 15px;">"${pullQuote}"</div>
+                    <div style="font-size: 11px; letter-spacing: 0.1em; color: #999;">— Your words, from this assessment</div>
+                </div>`
+                    : ""
+                }
             </div>
         </div>
+        
 
         <!-- PAGE 8: WHAT'S NEXT (V3.0) -->
         <div class="page">
@@ -1454,23 +1295,30 @@ function generateHTMLReport(
                 
                 <div style="margin: 40px 0;">
                     <div style="font-size: 14px; line-height: 2; margin-bottom: 30px;">
-                        <div style="margin: 10px 0;">✓ Your pattern mapped</div>
-                        <div style="margin: 10px 0;">✓ Your nervous system understood</div>
+                        <div style="margin: 10px 0;">✓ Your pattern mapped in kitchen language</div>
+                        <div style="margin: 10px 0;">✓ Your kitchen energy understood</div>
+                        <div style="margin: 10px 0;">✓ The four domains assessed</div>
+                        <div style="margin: 10px 0;">✓ The missing question answered</div>
                         <div style="margin: 10px 0;">✓ Your 72-hour action identified</div>
-                        <div style="margin: 10px 0;">✓ Your reading list queued</div>
+                        <div style="margin: 10px 0;">✓ Your reading list (one book, no BS)</div>
                         <div style="margin: 10px 0;">✓ Your 30-day protocol ready</div>
+                        <div style="margin: 10px 0;">✓ Steve's story—proof transformation is possible</div>
                     </div>
                     
                     <div style="font-size: 16px; font-weight: 600; margin: 40px 0; text-align: center; color: var(--dark-olive);">
-                        The Only Thing Left:<br>Take action.
+                        The Only Thing Left:<br>Take action. Every second counts.
                     </div>
                 </div>
                 
                 <div class="content-block" style="margin-top: 60px;">
                     <div class="block-title">RECOMMENDED NEXT STEPS</div>
                     <div class="block-content">
-                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join the Knife Check Community:</strong> Connect with other chefs who are recovering from burnout and rediscovering their purpose. Get support, share experiences, and access resources as you implement your protocol.</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Email <a href="mailto:info@wydahowarriors.com" style="color: var(--lime-green); text-decoration: none;">info@wydahowarriors.com</a></p>
+                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment (\$97):</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">[Coaching Program Link]</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Need support? Email <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
+                        <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>Emergency Resources:</strong> If you're in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line</p>
                     </div>
                 </div>
             </div>

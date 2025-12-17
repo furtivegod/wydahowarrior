@@ -6,7 +6,10 @@ function formatTextWithParagraphBreaks(text: string | undefined): string {
 
   // Bold any quoted text using double quotes only (Claude now uses double quotes for client quotes)
   // This avoids conflicts with contractions that use single quotes
-  const formattedText = text.replace(/(")([^"]+)\1/g, "<strong>$1$2$1</strong>");
+  const formattedText = text.replace(
+    /(")([^"]+)\1/g,
+    "<strong>$1$2$1</strong>"
+  );
 
   // Split by sentences (ending with . ! or ?)
   const sentences = formattedText
@@ -26,85 +29,99 @@ function formatTextWithParagraphBreaks(text: string | undefined): string {
 
 export interface PlanData {
   title: string;
-  overview: string;
-  assessment_overview?: string;
-  development_profile?: string;
-  bottom_line?: string;
+  client_name?: string;
   assessment_date?: string;
   disclaimer?: string;
-  sabotage_analysis?: {
+  kitchen_term?: string; // Their exact kitchen term - "in the weeds", "burnt", "86'd", etc.
+  pattern_analysis?: {
+    pattern_exact_words?: string; // Client's exact words about their frustrating pattern
+    pattern_reframe?: string; // What I'm hearing - reframe in chef-owner burnout context
+    pattern_trigger?: string; // This pattern shows up most when - their specific trigger
+    what_it_protects_from?: string; // Specific fear or emotion - not generic
+    what_it_costs?: string; // Their actual answer - use ONLY their words
+    proof_with_context?: string; // Specific moment of joy/success with context
+    anchor_habit?: string; // The one thing you never skip
+    personalized_chef_truth?: string; // 2-3 sentences connecting pattern → protection → cost → possibility
+    // Legacy fields for backward compatibility
     protective_pattern?: string;
-    what_its_protecting_from?: string;
-    how_it_serves_you?: string;
-    go_to_patterns?: string;
     success_proof?: string;
     anchor?: string;
-    support_person?: string;
-    escape_behavior?: string; // Legacy field for escape patterns
-    positive_behavior?: string; // Legacy field for positive alternatives
-    // V3.0 fields
-    pattern_exact_words?: string; // Client's exact words describing their sabotage behavior
-    pattern_reframe?: string; // Reframe in nervous system language ("What I'm hearing")
-    what_its_costing?: string; // Their actual answer to "What would it cost you to stay exactly where you are for another year?"
-    proof_with_context?: string; // Specific past success with context
-    personalized_insight?: string; // 2-3 sentences connecting pattern → protection → cost → possibility
   };
-  in_the_moment_reset?: string;
+  roadmap_briefs?: {
+    identity_brief?: string;
+    craft_brief?: string;
+    purpose_brief?: string;
+    environment_brief?: string;
+    missing_brief?: string;
+    seventy_two_brief?: string;
+    thirty_day_brief?: string;
+  };
   domain_breakdown?: {
-    mind?: {
+    identity?: {
+      current_state?: string; // In chef language (Victim/Fighting Back/Finding Self)
+      block?: string; // Primary identity obstacle
+      growth_edge?: string; // What's possible when this shifts
+      // Legacy fields
       current_level?: string;
-      current_phase?: string;
       key_strengths?: string;
       growth_opportunities?: string;
-      // V3.0 fields
-      block?: string; // Primary mental obstacle
+      reality_check?: string;
     };
-    body?: {
+    craft?: {
+      current_state?: string; // In chef language (Survival Mode/Rediscovering/Mastering)
+      block?: string; // Primary craft obstacle
+      growth_edge?: string; // How craft reconnection unlocks purpose
+      // Legacy fields
       current_level?: string;
-      current_phase?: string;
       key_strengths?: string;
       growth_opportunities?: string;
-      // V3.0 fields
-      block?: string; // Primary physical/regulation obstacle
+      reality_check?: string;
     };
-    relationships_meaning?: {
+    purpose?: {
+      current_state?: string; // In chef language (Lost/Searching/Clear)
+      block?: string; // Primary purpose obstacle
+      growth_edge?: string; // Path to purpose-driven work
+      // Legacy fields
       current_level?: string;
-      current_phase?: string;
       key_strengths?: string;
       growth_opportunities?: string;
-      // V3.0 fields
-      block?: string; // Primary connection obstacle
+      reality_check?: string;
     };
-    contribution?: {
+    environment?: {
+      current_state?: string; // In chef language (Trapped/Exploring Options/Making Moves)
+      block?: string; // Primary environmental obstacle
+      growth_edge?: string; // What changes when environment aligns
+      // Legacy fields
       current_level?: string;
-      current_phase?: string;
       key_strengths?: string;
       growth_opportunities?: string;
-      // V3.0 fields
-      block?: string; // Primary impact obstacle
+      reality_check?: string;
     };
   };
-  nervous_system_assessment?: {
-    primary_state?: string;
-    regulation_capacity?: string;
-    observable_patterns?: string;
-    regulation_reality?: string;
+  kitchen_energy_assessment?: {
+    primary_state?: string; // In culinary language
+    regulation_capacity?: string; // In kitchen terms
+    observable_patterns?: string[]; // Array of physical/emotional/behavioral cues
+    energy_reality?: string; // 2-3 sentences about kitchen energy state
+    // Legacy fields
+    observable_patterns_text?: string;
+    real_talk?: string;
   };
+  missing_question_summary?: string;
   thirty_day_protocol?: {
-    seventy_two_hour_suggestion?: string;
-    weekly_recommendation?: string;
-    thirty_day_approach?: string;
-    environmental_optimization?: string;
-    support_check_in?: string;
-    progress_markers?: string[];
-    daily_actions?: string[];
-    weekly_goals?: string[];
-    // V3.0 fields
-    anchor_habit?: string; // Anchor habit for 72-hour action
-    specific_action?: string; // Specific action to take
-    time_reps?: string; // Time/reps for action
-    why_this_works?: string; // Brief explanation tied to their pattern
-    urgency_statement?: string; // Cost of waiting another month
+    urgency_statement?: string; // Cost of staying burnt for another month
+    anchor_habit?: string;
+    specific_action?: string;
+    time_reps?: string;
+    why_this_works?: string;
+    book_recommendation?: {
+      title?: string;
+      author?: string;
+      why_now?: string; // 2-4 sentences explaining relevance
+      asin?: string; // Amazon ASIN
+      url?: string; // Affiliate link
+    };
+    immediate_practice?: string; // Practice from book applied to kitchen life
     week_1_focus?: string;
     week_1_chapters?: string;
     week_1_practice?: string;
@@ -120,25 +137,11 @@ export interface PlanData {
     week_4_focus?: string;
     week_4_practice?: string;
     week_4_marker?: string;
-    immediate_practice?: string; // Practice from book applied to their specific life
-    environmental_change?: string; // Legacy field for environmental changes
-    weekly_practice?: string; // Legacy field for weekly practice
-  };
-  reminder_quote?: string;
-  development_reminders?: string[];
-  book_recommendation?: string;
-  resources?: string[];
-  reflection_prompts?: string[];
-  next_assessment?: {
-    stay_connected?: string;
-  };
-  // V3.0 fields
-  smart_roadmap?: {
-    see_brief?: string; // S - SEE THE PATTERN brief
-    map_brief?: string; // M - MAP THE NERVOUS SYSTEM brief
-    address_brief?: string; // A - ADDRESS THE ROOT CAUSE brief
-    rewire_brief?: string; // R - REWIRE THE RESPONSE (72-Hour Action) brief
-    transform_brief?: string; // T - TRANSFORM BEHAVIOR (30-Day Focus) brief
+    // Legacy fields
+    seventy_two_hour_suggestion?: string;
+    weekly_practice?: string;
+    thirty_day_focus?: string;
+    progress_markers?: string[];
   };
   bottom_line_breakdown?: {
     pattern_restated?: string;
@@ -148,17 +151,35 @@ export interface PlanData {
     your_proof?: string;
     what_happens_next?: string;
   };
-  pull_quote?: string; // Direct quote from client's assessment
-  quote_attribution?: string; // Quote attribution text
-  goals?: {
-    business_goal?: string;
-    financial_goal?: string;
-    relationship_goal?: string;
-    body_goal?: string;
-    health_goal?: string;
-    future_state?: string;
+  bottom_line_full?: {
+    paragraph_1?: string; // The pattern and its origin
+    paragraph_2?: string; // What it's costing and why it matters now
+    paragraph_3?: string; // The choice ahead and what's required
+    emphasis_statement?: string; // Bold emphasis statement
   };
-  future_vision?: string; // Legacy field for future vision
+  steve_story_note?: string;
+  pull_quote?: string; // Direct quote from client's assessment
+  development_reminders?: string[];
+  next_steps?: {
+    six_month_date?: string;
+    community_link?: string;
+    coaching_link?: string;
+    contact_email?: string;
+    follow_up_assessment?: string;
+    coaching_options?: string;
+    community?: string;
+  };
+  // Legacy fields for backward compatibility
+  overview?: string;
+  current_state_summary?: string;
+  bottom_line?: string;
+  reminder_quote?: string;
+  book_recommendation?: string; // Legacy string format
+  book_recommendations?: Array<{
+    title: string;
+    author: string;
+    why: string;
+  }>;
 }
 
 export async function generatePDF(
@@ -170,12 +191,8 @@ export async function generatePDF(
     console.log("Plan data received:", {
       title: planData.title,
       overview: planData.overview,
-      daily_actions_count:
-        planData.thirty_day_protocol?.daily_actions?.length || 0,
-      weekly_goals_count:
-        planData.thirty_day_protocol?.weekly_goals?.length || 0,
-      resources_count: planData.resources?.length || 0,
-      reflection_prompts_count: planData.reflection_prompts?.length || 0,
+      client_name: planData.client_name,
+      kitchen_term: planData.kitchen_term,
     });
 
     // Check for PDFShift API key
@@ -219,29 +236,9 @@ export async function generatePDF(
       }
     }
 
-    // Validate data
-    if (
-      !planData.thirty_day_protocol?.daily_actions ||
-      !Array.isArray(planData.thirty_day_protocol.daily_actions)
-    ) {
-      if (!planData.thirty_day_protocol) planData.thirty_day_protocol = {};
-      planData.thirty_day_protocol.daily_actions = [];
-    }
-    if (
-      !planData.thirty_day_protocol?.weekly_goals ||
-      !Array.isArray(planData.thirty_day_protocol.weekly_goals)
-    ) {
-      if (!planData.thirty_day_protocol) planData.thirty_day_protocol = {};
-      planData.thirty_day_protocol.weekly_goals = [];
-    }
-    if (!planData.resources || !Array.isArray(planData.resources)) {
-      planData.resources = [];
-    }
-    if (
-      !planData.reflection_prompts ||
-      !Array.isArray(planData.reflection_prompts)
-    ) {
-      planData.reflection_prompts = [];
+    // Validate data structure
+    if (!planData.thirty_day_protocol) {
+      planData.thirty_day_protocol = {};
     }
 
     // Generate HTML content with client name and session date
@@ -401,8 +398,8 @@ function generateHTMLReport(
   clientName: string = "Client",
   sessionDate: Date | null = null
 ): string {
-  // Extract the real data from the assessment
-  // Use session date if available, otherwise use planData.assessment_date, otherwise use current date
+  // Extract the real data from the assessment - NEW 9-PAGE FRAMEWORK
+  const displayClientName = planData.client_name || clientName;
   const assessmentDate = sessionDate
     ? sessionDate.toLocaleDateString("en-US", {
         year: "numeric",
@@ -418,529 +415,336 @@ function generateHTMLReport(
   const disclaimer =
     planData.disclaimer ||
     "This assessment is a tool for personal development and self-awareness. It is not a diagnostic tool and does not replace professional mental health support. If you are experiencing a mental health crisis, please contact a qualified professional or crisis support service.";
-  const assessmentOverview =
-    planData.assessment_overview ||
-    "Your personalized assessment has been completed. This report provides insights into your behavioral patterns and recommendations for growth.";
-  const developmentProfile =
-    planData.development_profile ||
-    "Based on your responses, you've shown clear patterns of behavior and areas where you're ready for transformation.";
-  const bottomLine =
-    planData.bottom_line ||
-    "You have the capacity for growth and transformation. The key is to start with what's already working and build from there.";
-  const reminderQuote =
-    planData.reminder_quote || "Remember: progress, not perfection.";
 
-  // Extract sabotage analysis (V3.0 compatible)
-  const sabotageAnalysis = planData.sabotage_analysis || {};
-  const protectivePattern =
-    sabotageAnalysis.protective_pattern ||
-    "Based on your responses, you have protective patterns that serve important functions in your life.";
-  const whatItsProtectingFrom =
-    sabotageAnalysis.what_its_protecting_from ||
-    "These patterns protect you from experiences you find challenging.";
-  const howItServesYou =
-    sabotageAnalysis.how_it_serves_you ||
-    "These patterns provide you with safety and comfort in difficult situations.";
-  const goToPatterns =
-    sabotageAnalysis.go_to_patterns ||
-    "Your current patterns help you navigate daily life and challenges.";
-  const successProof =
-    sabotageAnalysis.success_proof ||
-    "You've demonstrated the ability to overcome challenges in the past.";
-  const anchor =
-    sabotageAnalysis.anchor ||
-    "You have existing habits that provide stability and can be leveraged for growth.";
-  const supportPerson =
-    sabotageAnalysis.support_person ||
-    "Identify someone in your life who would support your change.";
-
-  // V3.0 specific fields
+  // Extract pattern analysis (NEW STRUCTURE)
+  const patternAnalysis = planData.pattern_analysis || {};
+  const kitchenTerm = planData.kitchen_term || "burnt";
   const patternExactWords =
-    sabotageAnalysis.pattern_exact_words || protectivePattern;
-  const patternReframe = sabotageAnalysis.pattern_reframe || protectivePattern;
-  const whatItsCosting =
-    sabotageAnalysis.what_its_costing ||
-    "The cost of staying stuck is real, even if you haven't quantified it yet.";
-  const proofWithContext = sabotageAnalysis.proof_with_context || successProof;
-  const personalizedInsight =
-    sabotageAnalysis.personalized_insight || developmentProfile;
+    patternAnalysis.pattern_exact_words ||
+    patternAnalysis.protective_pattern ||
+    "Your pattern keeps showing up";
+  const patternReframe =
+    patternAnalysis.pattern_reframe ||
+    "What I'm hearing: Your pattern in chef-owner burnout context";
+  const patternTrigger =
+    patternAnalysis.pattern_trigger ||
+    "This pattern shows up most when you're in the weeds";
+  const whatItProtectsFrom =
+    patternAnalysis.what_it_protects_from ||
+    "Having to face what's actually burning";
+  const whatItCosts =
+    patternAnalysis.what_it_costs ||
+    "The cost of staying burnt is real, even if you haven't tallied the full bill yet.";
+  const proofWithContext =
+    patternAnalysis.proof_with_context ||
+    patternAnalysis.success_proof ||
+    "You've proven you can change—like when you created that moment of joy. That wasn't luck. That was you.";
+  const anchorHabit =
+    patternAnalysis.anchor_habit ||
+    patternAnalysis.anchor ||
+    "The one thing you never skip";
+  const personalizedChefTruth =
+    patternAnalysis.personalized_chef_truth ||
+    "You're not burnt because you're soft—you're burnt because you've been running on empty while filling everyone else's plates.";
 
-  // Extract in-the-moment reset
-  const inTheMomentReset =
-    planData.in_the_moment_reset ||
-    'When you notice the pattern starting, pause and take 3 deep breaths—in for 4 counts, hold for 4, out for 6. Then ask yourself: "What\'s one small thing I can do right now that moves me forward instead of away?"';
+  // Extract roadmap briefs (NEW STRUCTURE)
+  const roadmapBriefs = planData.roadmap_briefs || {};
+  const identityBrief =
+    roadmapBriefs.identity_brief || "Your identity pattern, what it's costing";
+  const craftBrief =
+    roadmapBriefs.craft_brief ||
+    "Your relationship with craft, where joy still lives";
+  const purposeBrief =
+    roadmapBriefs.purpose_brief || "Your purpose now vs. original why";
+  const environmentBrief =
+    roadmapBriefs.environment_brief ||
+    "Your environment reality, biggest obstacle";
+  const missingBrief =
+    roadmapBriefs.missing_brief || "Where you really are, what you revealed";
+  const seventyTwoBrief =
+    roadmapBriefs.seventy_two_brief ||
+    "One specific action sized to your current state";
+  const thirtyDayBrief =
+    roadmapBriefs.thirty_day_brief ||
+    "The sustained practice that changes everything";
 
-  // Extract domain breakdown with new nested structure
+  // Extract domain breakdown (NEW STRUCTURE - identity, craft, purpose, environment)
   const domainBreakdown = planData.domain_breakdown || {};
-  const mindDomain = domainBreakdown.mind || {
-    current_level:
-      "Your mental approach shows both strengths and areas for development.",
-    current_phase: "Your current phase of development.",
-    key_strengths: "Your key mental strengths and capabilities.",
-    growth_opportunities: "Areas where you can grow and develop further.",
+  const identityDomain = domainBreakdown.identity || {
+    current_state: "Finding Self",
+    block: "Primary identity obstacle",
+    growth_edge: "What's possible when this shifts",
   };
-  const bodyDomain = domainBreakdown.body || {
-    current_level:
-      "Your relationship with your physical self has both supportive and challenging aspects.",
-    current_phase: "Your current phase of physical development.",
-    key_strengths: "Your key physical strengths and capabilities.",
-    growth_opportunities: "Areas where you can grow and develop further.",
+  const craftDomain = domainBreakdown.craft || {
+    current_state: "Rediscovering",
+    block: "Primary craft obstacle",
+    growth_edge: "How craft reconnection unlocks purpose",
   };
-  const relationshipsMeaningDomain = domainBreakdown.relationships_meaning || {
-    current_level:
-      "Your relationships and meaning provide both support and growth opportunities.",
-    current_phase: "Your current phase of relational and meaning development.",
-    key_strengths:
-      "Your key relational and meaning strengths and capabilities.",
-    growth_opportunities: "Areas where you can grow and develop further.",
+  const purposeDomain = domainBreakdown.purpose || {
+    current_state: "Searching",
+    block: "Primary purpose obstacle",
+    growth_edge: "Path to purpose-driven work",
   };
-  const contributionDomain = domainBreakdown.contribution || {
-    current_level:
-      "Your approach to work and contribution shows both current capabilities and potential for expansion.",
-    current_phase: "Your current phase of contribution development.",
-    key_strengths: "Your key contribution strengths and capabilities.",
-    growth_opportunities: "Areas where you can grow and develop further.",
+  const environmentDomain = domainBreakdown.environment || {
+    current_state: "Exploring Options",
+    block: "Primary environmental obstacle",
+    growth_edge: "What changes when environment aligns",
   };
 
-  // Extract nervous system assessment with new structure
-  const nervousSystemAssessment = planData.nervous_system_assessment || {
-    primary_state:
-      "Your nervous system shows patterns of both activation and regulation that we can work with.",
-    regulation_capacity: "Your capacity for regulation and self-regulation.",
-    observable_patterns:
-      "Patterns you can observe in your nervous system responses.",
-    regulation_reality:
-      "The reality of your nervous system regulation capabilities.",
-  };
+  // Extract kitchen energy assessment (NEW STRUCTURE)
+  const kitchenEnergy = planData.kitchen_energy_assessment || {};
+  const primaryEnergyState =
+    kitchenEnergy.primary_state ||
+    "In the Weeds: Running on stress and obligation";
+  const regulationCapacity =
+    kitchenEnergy.regulation_capacity ||
+    "Developing: Can stay loose in low-pressure situations";
+  const observablePatterns = Array.isArray(kitchenEnergy.observable_patterns)
+    ? kitchenEnergy.observable_patterns
+    : kitchenEnergy.observable_patterns_text
+      ? [kitchenEnergy.observable_patterns_text]
+      : ["Physical cue", "Emotional cue", "Behavioral cue"];
+  const energyReality =
+    kitchenEnergy.energy_reality ||
+    "You're not running out of steam—you're running on fumes pretending it's fuel.";
 
-  // Extract 30-day protocol (V3.0 compatible)
+  // Extract 30-day protocol (NEW STRUCTURE)
   const thirtyDayProtocol = planData.thirty_day_protocol || {};
-  const seventyTwoHourSuggestion =
-    thirtyDayProtocol.seventy_two_hour_suggestion ||
-    "Start with one small, manageable action that builds on your existing strengths.";
-  const weeklyRecommendation =
-    thirtyDayProtocol.weekly_recommendation ||
-    "Implement one consistent practice that supports your growth goals.";
-  const supportCheckIn =
-    thirtyDayProtocol.support_check_in ||
-    "Share your progress with someone who supports your change.";
-  const thirtyDayApproach =
-    thirtyDayProtocol.thirty_day_approach ||
-    "Focus on one key area of development that will have the most impact.";
-  const environmentalOptimization =
-    thirtyDayProtocol.environmental_optimization ||
-    "Make one environmental change that supports your goals.";
-
-  // V3.0 specific protocol fields
-  const anchorHabit = thirtyDayProtocol.anchor_habit || anchor;
+  const urgencyStatement =
+    thirtyDayProtocol.urgency_statement ||
+    "This pattern once kept you safe. Now it's keeping you stuck.";
+  const protocolAnchorHabit = thirtyDayProtocol.anchor_habit || anchorHabit;
   const specificAction =
-    thirtyDayProtocol.specific_action || seventyTwoHourSuggestion;
-  const timeReps = thirtyDayProtocol.time_reps || "";
-  const whyThisWorks = thirtyDayProtocol.why_this_works || "";
-  const urgencyStatement = thirtyDayProtocol.urgency_statement || "";
-  const immediatePractice = thirtyDayProtocol.immediate_practice || "";
+    thirtyDayProtocol.specific_action ||
+    "Take 3 deep breaths and ask yourself one question";
+  const timeReps = thirtyDayProtocol.time_reps || "2 minutes";
+  const whyThisWorks =
+    thirtyDayProtocol.why_this_works ||
+    "This builds on your existing anchor and creates a new pattern";
+  const immediatePractice =
+    thirtyDayProtocol.immediate_practice ||
+    "Practice from book applied to your specific kitchen life";
 
-  // V3.0 weekly breakdown
-  const week1Focus = thirtyDayProtocol.week_1_focus || "";
+  // Weekly breakdown
+  const week1Focus = thirtyDayProtocol.week_1_focus || "Foundation";
   const week1Chapters = thirtyDayProtocol.week_1_chapters || "";
   const week1Practice = thirtyDayProtocol.week_1_practice || "";
   const week1Marker = thirtyDayProtocol.week_1_marker || "";
-  const week2Focus = thirtyDayProtocol.week_2_focus || "";
+  const week2Focus = thirtyDayProtocol.week_2_focus || "Pattern Recognition";
   const week2Chapters = thirtyDayProtocol.week_2_chapters || "";
   const week2Practice = thirtyDayProtocol.week_2_practice || "";
   const week2Marker = thirtyDayProtocol.week_2_marker || "";
-  const week3Focus = thirtyDayProtocol.week_3_focus || "";
+  const week3Focus = thirtyDayProtocol.week_3_focus || "Implementation";
   const week3Chapters = thirtyDayProtocol.week_3_chapters || "";
   const week3Practice = thirtyDayProtocol.week_3_practice || "";
   const week3Marker = thirtyDayProtocol.week_3_marker || "";
-  const week4Focus = thirtyDayProtocol.week_4_focus || "";
+  const week4Focus = thirtyDayProtocol.week_4_focus || "Integration";
   const week4Practice = thirtyDayProtocol.week_4_practice || "";
   const week4Marker = thirtyDayProtocol.week_4_marker || "";
 
-  // Ensure arrays are properly validated
+  // Extract book recommendation (NEW - single book from protocol)
+  const bookRec = thirtyDayProtocol.book_recommendation || {};
+  const bookTitle = bookRec.title || "";
+  const bookAuthor = bookRec.author || "";
+  const bookWhyNow = bookRec.why_now || "";
+
+  // Ensure arrays are properly validated (if needed for future use)
   const progressMarkers = Array.isArray(
     planData.thirty_day_protocol?.progress_markers
   )
     ? planData.thirty_day_protocol.progress_markers
-    : [
-        "Notice changes in your daily patterns",
-        "Observe shifts in your stress response",
-        "Track improvements in your target area",
-      ];
+    : [];
 
-  // This variable is no longer used - we use bookRecommendationText and selectedBooks instead
-  // Keeping for reference but it's replaced by the logic below
-
-  const dailyActions = Array.isArray(
-    planData.thirty_day_protocol?.daily_actions
-  )
-    ? planData.thirty_day_protocol.daily_actions
-    : [
-        "Day 1: Start with 5 minutes of morning reflection on your goals",
-        "Day 2: Practice one small action that moves you toward your main objective",
-        "Day 3: Notice one pattern that serves you and one that doesn't",
-      ];
-
-  const weeklyGoals = Array.isArray(planData.thirty_day_protocol?.weekly_goals)
-    ? planData.thirty_day_protocol.weekly_goals
-    : [
-        "Week 1: Establish a daily routine that supports your goals",
-        "Week 2: Practice one new skill or habit consistently",
-      ];
-
-  const resources = Array.isArray(planData.resources)
-    ? planData.resources
-    : [
-        "Daily journal for tracking progress and insights",
-        "Accountability partner or support group",
-      ];
-
-  // Handle book recommendation - use provided string or select 1 book from list
-  const allBooks = [
+  // Chef-owner specific book list (9-PAGE FRAMEWORK)
+  const chefOwnerBooks = [
+    {
+      id: "kitchen_confidential",
+      title: "Kitchen Confidential",
+      author: "Anthony Bourdain",
+      asin: "0060899220",
+      why: "Raw honesty about kitchen life, reconnects them to why they started",
+      patterns: ["lost passion", "identity crisis", "why did I start"],
+    },
+    {
+      id: "setting_the_table",
+      title: "Setting the Table",
+      author: "Danny Meyer",
+      asin: "0060742763",
+      why: "Meaning-driven hospitality, culture-building, enlightened hospitality model",
+      patterns: ["people management", "staff chaos", "team building"],
+    },
+    {
+      id: "find_your_why",
+      title: "Find Your Why",
+      author: "Simon Sinek",
+      asin: "0143111728",
+      why: "Clarifies original purpose, helps rebuild around meaning",
+      patterns: ["purpose confusion", "why am I doing this", "lost meaning"],
+    },
     {
       id: "body_keeps_score",
       title: "The Body Keeps the Score",
       author: "Bessel van der Kolk",
-      url: "https://amzn.to/4hJB9wT",
-      why: "The definitive text on trauma and nervous system. Directly addresses the core issue for most users stuck in sabotage patterns.",
-      tags: [
-        "trauma",
-        "nervous system",
-        "shutdown",
-        "dorsal",
-        "anxiety",
-        "somatic",
-        "regulation",
-      ],
+      asin: "0143127748",
+      why: "Explains trauma responses, regulation capacity, somatic patterns",
+      patterns: ["burnout", "exhaustion", "nervous system shutdown"],
     },
     {
-      id: "reclaim_nervous_system",
-      title: "Reclaim Your Nervous System",
-      author: "Mastin Kipp",
-      url: "https://amzn.to/47xBpua",
-      why: "Practical, accessible nervous system regulation. Bridges theory to action. Perfect for immediate implementation.",
-      tags: [
-        "regulation",
-        "nervous system",
-        "somatic",
-        "anxiety",
-        "shutdown",
-        "freeze",
-      ],
+      id: "hero_on_mission",
+      title: "Hero on a Mission",
+      author: "Donald Miller",
+      asin: "0785232303",
+      why: "Reframes identity from Victim/Villain to Hero/Guide, story work",
+      patterns: ["identity equals chef", "can't separate self from work"],
     },
     {
-      id: "atomic_habits",
-      title: "Atomic Habits",
-      author: "James Clear",
-      url: "https://amzn.to/431fR7V",
-      why: "The behavior change bible. Supports building evidence through small actions.",
-      tags: [
-        "habits",
-        "behavior",
-        "consistency",
-        "routine",
-        "evidence",
-        "practice",
-      ],
-    },
-    {
-      id: "how_to_do_the_work",
-      title: "How to Do the Work",
-      author: "Dr. Nicole LePera",
-      url: "https://amzn.to/43y2mNa",
-      why: "Combines shadow work, nervous system, and daily practices. Holistic approach.",
-      tags: [
-        "shadow",
-        "trauma",
-        "nervous system",
-        "inner child",
-        "therapy",
-        "regulation",
-      ],
-    },
-    {
-      id: "atlas_of_the_heart",
-      title: "Atlas of the Heart",
-      author: "Brené Brown",
-      url: "https://amzn.to/3JjyTjf",
-      why: "Emotional literacy is foundational—users can't regulate what they can't name.",
-      tags: [
-        "emotion",
-        "feelings",
-        "language",
-        "shame",
-        "naming",
-        "vocabulary",
-      ],
-    },
-    {
-      id: "future_self",
-      title: "Be Your Future Self Now",
-      author: "Dr. Benjamin Hardy",
-      url: "https://amzn.to/4p3Rwaf",
-      why: "Addresses identity transformation (Become). Practical framework for stepping into new identity.",
-      tags: ["identity", "future self", "become", "vision", "self-concept"],
-    },
-    {
-      id: "first_rule_of_mastery",
-      title: "The First Rule of Mastery",
-      author: "Dr. Michael Gervais",
-      url: "https://amzn.to/4hx7Ld3",
-      why: "Performance psychology for overthinkers and high performers.",
-      tags: ["performance", "mind", "fear", "overthinking", "mastery"],
-    },
-    {
-      id: "crucial_conversations",
-      title: "Crucial Conversations",
-      author: "Kerry Patterson",
-      url: "https://amzn.to/49sdXkC",
-      why: "Most relationship/career problems stem from poor communication.",
-      tags: [
-        "communication",
-        "relationship",
-        "conflict",
-        "conversation",
-        "boundaries",
-      ],
-    },
-    {
-      id: "deep_work",
-      title: "Deep Work",
-      author: "Cal Newport",
-      url: "https://amzn.to/48UeonB",
-      why: "Combats distraction and cheap dopamine. Teaches focus.",
-      tags: [
-        "focus",
-        "distraction",
-        "work",
-        "attention",
-        "dopamine",
-        "productivity",
-      ],
+      id: "designing_your_life",
+      title: "Designing Your Life",
+      author: "Bill Burnett & Dave Evans",
+      asin: "1101875321",
+      why: "Wayfinding for chef-owners exploring options outside current situation",
+      patterns: ["considering major life change", "leaving industry"],
     },
     {
       id: "gifts_of_imperfection",
       title: "The Gifts of Imperfection",
       author: "Brené Brown",
-      url: "https://amzn.to/3X35Svi",
-      why: "Addresses perfectionism and shame—big sabotage drivers.",
-      tags: ["perfectionism", "shame", "worthiness", "belonging"],
+      asin: "159285849X",
+      why: "Shame resilience, letting go of 'suffer for your art' mythology",
+      patterns: ["perfectionism", "mistakes spiral"],
     },
     {
-      id: "breath",
-      title: "Breath: The New Science of a Lost Art",
-      author: "James Nestor",
-      url: "https://amzn.to/4ntDahQ",
-      why: "Simple, science-backed practice with immediate nervous system benefits.",
-      tags: ["breath", "breathing", "anxiety", "body", "calm"],
+      id: "set_boundaries",
+      title: "Set Boundaries, Find Peace",
+      author: "Nedra Tawwab",
+      asin: "0593192095",
+      why: "Boundary scripts, practice saying no without guilt",
+      patterns: ["can't say no", "no boundaries"],
     },
     {
-      id: "dose_effect",
-      title: "The DOSE Effect",
-      author: "TJ Power",
-      url: "https://amzn.to/4oPrA1X",
-      why: "Directly addresses dopamine and cheap dopamine loops.",
-      tags: [
-        "dopamine",
-        "addiction",
-        "phone",
-        "scroll",
-        "porn",
-        "games",
-        "Garden Scapes",
-      ],
+      id: "atomic_habits",
+      title: "Atomic Habits",
+      author: "James Clear",
+      asin: "0735211299",
+      why: "Identity-based behavior change, sustainable systems",
+      patterns: ["substance issues", "numbing patterns"],
     },
     {
-      id: "war_of_art",
-      title: "The War of Art",
-      author: "Steven Pressfield",
-      url: "https://amzn.to/4ogrhgI",
-      why: "Short, punchy, confrontational—great for breaking resistance and procrastination.",
-      tags: [
-        "resistance",
-        "procrastination",
-        "creative",
-        "promotion",
-        "visibility",
-        "freeze",
-      ],
-    },
-    {
-      id: "polyvagal_therapy",
-      title: "Polyvagal Theory in Therapy",
-      author: "Deb Dana",
-      url: "https://amzn.to/3Jt9gwr",
-      why: "For dorsal shutdown or severe regulation issues.",
-      tags: ["polyvagal", "shutdown", "dorsal", "therap*", "nervous system"],
-    },
-    {
-      id: "mindset",
-      title: "Mindset: The New Psychology of Success",
-      author: "Carol Dweck",
-      url: "https://amzn.to/47Lmb66",
-      why: "Fixed vs. growth mindset foundational to development.",
-      tags: ["mindset", "fixed", "growth", "beliefs"],
+      id: "essentialism",
+      title: "Essentialism",
+      author: "Greg McKeown",
+      asin: "0804137382",
+      why: "Disciplined pursuit of less, saying no to good to say yes to great",
+      patterns: ["general overwhelm", "in the weeds constantly"],
     },
   ];
 
-  function getAssessmentText(pd: PlanData): string {
-    try {
-      const parts = [
-        pd?.assessment_overview,
-        pd?.development_profile,
-        pd?.bottom_line,
-        pd?.sabotage_analysis?.anchor,
-        pd?.sabotage_analysis?.success_proof,
-        pd?.sabotage_analysis?.go_to_patterns,
-        pd?.sabotage_analysis?.escape_behavior,
-        pd?.sabotage_analysis?.positive_behavior,
-        pd?.sabotage_analysis?.protective_pattern,
-        pd?.sabotage_analysis?.what_its_protecting_from,
-        pd?.nervous_system_assessment?.primary_state,
-        pd?.nervous_system_assessment?.regulation_reality,
-        pd?.nervous_system_assessment?.observable_patterns,
-        Array.isArray(pd?.thirty_day_protocol?.weekly_goals)
-          ? pd.thirty_day_protocol.weekly_goals.join(" ")
-          : pd?.thirty_day_protocol?.weekly_goals,
-        Array.isArray(pd?.thirty_day_protocol?.daily_actions)
-          ? pd.thirty_day_protocol.daily_actions.join(" ")
-          : pd?.thirty_day_protocol?.daily_actions,
-      ].filter(Boolean);
-      return String(parts.join(" \n ")).toLowerCase();
-    } catch {
-      return "";
-    }
-  }
-
-  function selectTopOneBook(pd: PlanData) {
-    const text = getAssessmentText(pd);
-    const scored = allBooks.map((b) => {
-      const score = b.tags.reduce(
-        (acc: number, tag: string) =>
-          acc + (text.includes(tag.toLowerCase()) ? 1 : 0),
+  // Select book - use provided book from protocol, or select based on pattern
+  let selectedBook = null;
+  if (bookTitle && bookAuthor) {
+    // Use book from protocol
+    selectedBook = {
+      title: bookTitle,
+      author: bookAuthor,
+      why: bookWhyNow,
+    };
+  } else {
+    // Select based on pattern analysis
+    const patternText = (
+      patternExactWords +
+      " " +
+      whatItProtectsFrom +
+      " " +
+      personalizedChefTruth
+    ).toLowerCase();
+    const scored = chefOwnerBooks.map((book) => {
+      const score = book.patterns.reduce(
+        (acc: number, pattern: string) =>
+          acc + (patternText.includes(pattern.toLowerCase()) ? 1 : 0),
         0
       );
-      // small boosts for common patterns
-      const boosts =
-        (text.includes("freeze") ||
-        text.includes("resistance") ||
-        text.includes("promotion")
-          ? b.id === "war_of_art" || b.id === "deep_work"
-            ? 1
-            : 0
-          : 0) +
-        (text.includes("porn") ||
-        text.includes("scroll") ||
-        text.includes("garden scapes")
-          ? b.id === "dose_effect"
-            ? 1
-            : 0
-          : 0) +
-        (text.includes("nervous system") ||
-        text.includes("shutdown") ||
-        text.includes("dorsal") ||
-        text.includes("anxiety")
-          ? b.id === "body_keeps_score" || b.id === "reclaim_nervous_system"
-            ? 1
-            : 0
-          : 0) +
-        (text.includes("identity") ||
-        text.includes("become") ||
-        text.includes("future self")
-          ? b.id === "future_self"
-            ? 1
-            : 0
-          : 0);
-      return { book: b, score: score + boosts };
+      return { book, score };
     });
     scored.sort((a, b) => b.score - a.score);
-    const top = scored
-      .filter((s) => s.score > 0)
-      .slice(0, 1)
-      .map((s) => s.book);
-    if (top.length < 1) {
-      // sensible default
-      const defaults = allBooks
-        .filter((b) => ["atomic_habits"].includes(b.id))
-        .slice(0, 1);
-      return defaults;
-    }
-    return top;
+    const top = scored.find((s) => s.score > 0);
+    selectedBook = top
+      ? {
+          title: top.book.title,
+          author: top.book.author,
+          why: top.book.why,
+        }
+      : {
+          title: "Kitchen Confidential",
+          author: "Anthony Bourdain",
+          why: "Raw honesty about kitchen life, reconnects you to why you started",
+        };
   }
 
-  // Use provided book_recommendation string if available, otherwise select 1 book
-  const bookRecommendationText = planData.book_recommendation;
-  // Always select a book so we have the URL for the hyperlink, even if bookRecommendationText is provided
-  let selectedBooks = selectTopOneBook(planData);
-
-  // If bookRecommendationText mentions a specific book, try to match it to ensure title matches description
-  if (bookRecommendationText && selectedBooks && selectedBooks.length > 0) {
-    // Try to find a book mentioned in the bookRecommendationText by checking against allBooks
-    const textLower = bookRecommendationText.toLowerCase();
-    const matchedBook = allBooks.find((book) => {
-      const titleLower = book.title.toLowerCase();
-      const authorLower = book.author.toLowerCase();
-      // Check if the text mentions the book title or author
-      return textLower.includes(titleLower) || textLower.includes(authorLower);
-    });
-
-    // If we found a match, use that book instead of the algorithm-selected one
-    if (matchedBook) {
-      selectedBooks = [matchedBook];
-    }
-  }
-
-  const reflectionPrompts = Array.isArray(planData.reflection_prompts)
-    ? planData.reflection_prompts
-    : [
-        "What was one moment today where I felt truly aligned with my values?",
-        "What pattern did I notice in myself today, and how did I respond?",
-      ];
-
-  const developmentReminders = Array.isArray(planData.development_reminders)
-    ? planData.development_reminders
-    : [
-        "Integration comes through consistent practice, not more awareness—you already have the insight; now you need the repetitions",
-        "Your nervous system is the foundation—regulate first, then grow; breath before action, presence before expansion",
-        "Your sabotage patterns have wisdom—honor them while updating them; they kept you safe when safety was scarce",
-        "Identity shifts over time with deliberate practice—you're becoming someone who can hold bigger energies responsibly, one regulated moment at a time",
-      ];
-
-  // V3.0 S.M.A.R.T. Roadmap
-  const smartRoadmap = planData.smart_roadmap || {};
-  const seeBrief =
-    smartRoadmap.see_brief || "What you do, when, why it matters";
-  const mapBrief =
-    smartRoadmap.map_brief || "Your baseline state, regulation capacity";
-  const addressBrief =
-    smartRoadmap.address_brief || "Where this started, what it protected";
-  const rewireBrief =
-    smartRoadmap.rewire_brief || "One specific action to take in 72 hours";
-  const transformBrief =
-    smartRoadmap.transform_brief ||
-    "The sustained practice that changes everything";
-
-  // V3.0 Bottom Line Breakdown
+  // Extract bottom line breakdown (NEW STRUCTURE)
   const bottomLineBreakdown = planData.bottom_line_breakdown || {};
   const patternRestated =
-    bottomLineBreakdown.pattern_restated || protectivePattern;
+    bottomLineBreakdown.pattern_restated || patternExactWords;
   const whatItProtects =
-    bottomLineBreakdown.what_it_protects || whatItsProtectingFrom;
-  const whatItCosts = bottomLineBreakdown.what_it_costs || whatItsCosting;
-  const theTruth = bottomLineBreakdown.the_truth || bottomLine;
-  const yourProof = bottomLineBreakdown.your_proof || proofWithContext;
+    bottomLineBreakdown.what_it_protects || whatItProtectsFrom;
+  const whatItCostsBreakdown = bottomLineBreakdown.what_it_costs || whatItCosts;
+  const theTruth = bottomLineBreakdown.the_truth || "";
+  const yourProofBreakdown = bottomLineBreakdown.your_proof || proofWithContext;
   const whatHappensNext =
     bottomLineBreakdown.what_happens_next ||
-    "Change requires you to act before you feel ready. To follow through when it's uncomfortable. To trust the process when your nervous system screams at you to stop. You've done hard things before. You can do this.";
+    "Change requires you to act before you're ready. To protect your purpose like you protected your sobriety. You've done harder things. You know you have.";
 
-  // V3.0 Pull Quote - prioritize empowering quotes from success_proof, proof_with_context, or personalized_insight
+  // Extract bottom line full (3 paragraphs + emphasis)
+  const bottomLineFull = planData.bottom_line_full || {};
+  const bottomLinePara1 =
+    bottomLineFull.paragraph_1 ||
+    "You built your identity around being the chef who never breaks, never complains, never needs help. That identity served you when you were fighting to prove yourself. But now it's a cage.";
+  const bottomLinePara2 =
+    bottomLineFull.paragraph_2 ||
+    "Staying stuck is costing you. More importantly, it's costing you the life you described—the one with purpose over paper, mission over money.";
+  const bottomLinePara3 =
+    bottomLineFull.paragraph_3 ||
+    "You have a choice: keep managing the chaos until something breaks, or face what's actually burning and 86 it. This isn't about working harder. You've proven you can grind. This is about working differently.";
+  const bottomLineEmphasis =
+    bottomLineFull.emphasis_statement ||
+    "You're not stuck because you don't know what to do. You're stuck because you haven't protected your purpose like you protected your sobriety.";
+
+  // Extract Steve's story
+  const steveStoryNote =
+    planData.steve_story_note ||
+    `January 2024. Driggs, Idaho. My white Tundra was found. Search and rescue went out. My two boys didn't know where their dad was. I wasn't kidnapped. I wasn't in an accident. I was lost—not physically, but in every way that mattered. I'd spent years being everything for everyone. The chef. The owner. The provider. The guy who never said no, never took a break, never admitted he was drowning. I thought that was strength. It wasn't. It was slow suicide. When they found me safe, I had a choice: keep grinding until I actually didn't come back, or face the truth that I needed help. I chose help. That's why I'm here now. That's why you took this assessment. You don't have to disappear to find yourself. But you do have to face what's actually burning.`;
+
+  // Extract pull quote
   const pullQuote =
     planData.pull_quote ||
     proofWithContext ||
-    successProof ||
-    personalizedInsight ||
-    reminderQuote;
-  const quoteAttribution = planData.quote_attribution || "From your assessment";
+    patternExactWords ||
+    "Your words from this assessment";
+
+  // Extract missing question summary
+  const missingQuestionSummary =
+    planData.missing_question_summary ||
+    "Reflection on what you shared about the missing question.";
+
+  // Extract development reminders (NEW - 4 core reminders)
+  const developmentRemindersFinal = Array.isArray(
+    planData.development_reminders
+  )
+    ? planData.development_reminders
+    : [
+        "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+        "Your kitchen energy is the foundation—regulate first, then rebuild",
+        "Your patterns have wisdom—honor them while updating them",
+        "You are not your station—your worth is settled in Christ, not your covers",
+      ];
+
+  // Extract next steps
+  const nextSteps = planData.next_steps || {};
+  const sixMonthDate = nextSteps.six_month_date || "";
+  const communityLink =
+    nextSteps.community_link || "https://wydahowarriors.com/community";
+  const coachingLink =
+    nextSteps.coaching_link || "https://wydahowarriors.com/coaching";
+  const contactEmail = nextSteps.contact_email || "info@wydahowarriors.com";
 
   return `
     <!DOCTYPE html>
@@ -1447,30 +1251,36 @@ function generateHTMLReport(
       </style>
     </head>
     <body>
-      <!-- PAGE 1: COVER (V3.0) -->
+      <!-- PAGE 1: COVER -->
       <div class="page cover">
         <div class="cover-content">
-          <div class="logo-mark">THE KNIFE CHECK</div>
-          <h1>THE KNIFE CHECK<br>ASSESSMENT FOR<br>BURNT OUT CHEFS</h1>
-          <div class="client-name">${clientName}</div>
-          <div style="font-size: 12px; color: #666; margin-top: 20px; font-family: 'Inter', sans-serif;">${assessmentDate}</div>
-          <div class="cover-tagline">Your transformation begins here</div>
-          <div style="font-size: 10px; color: #999; margin-top: 40px; font-style: italic; max-width: 500px; line-height: 1.6; font-family: 'Inter', sans-serif;">${disclaimer}</div>
+          <h1>ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK</h1>
+          <div class="client-name">${displayClientName}</div>
+          <div style="font-size: 18px; font-weight: 500; color: var(--deep-charcoal); margin-top: 60px; font-style: italic; font-family: 'Playfair Display', serif;">Every second counts, chef.</div>
+          <div style="font-size: 12px; color: #666; margin-top: 10px;">— Steve Murphy</div>
+          <div style="font-size: 10px; color: #999; margin-top: 80px; letter-spacing: 0.1em;">Culinary Institute of America</div>
+          <div style="font-size: 10px; color: #999; letter-spacing: 0.1em;">Wydaho Warriors LLC</div>
         </div>
       </div>
         
-      <!-- PAGE 2: YOUR KNIFE CHECK SUMMARY (V3.0) -->
+      <!-- PAGE 2: YOUR CURRENT STATE -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Your Summary</div>
-            <div class="section-title">Your Reality Check<br>Summary</div>
+            <div class="section-label">Where You Are Right Now</div>
+            <div class="section-title">Your Current<br>State</div>
           </div>
           
           <div class="sabotage-content">
             <div class="sabotage-section">
-              <div class="block-title">YOUR PATTERN</div>
-              <div class="sabotage-text">${formatTextWithParagraphBreaks(patternExactWords)}</div>
+              <div class="block-title">YOUR KITCHEN TERM</div>
+              <div class="sabotage-text">You described your life as: <strong>${kitchenTerm}</strong></div>
+            </div>
+            
+            <div class="sabotage-section">
+              <div class="block-title">THE PATTERN THAT KEEPS SHOWING UP</div>
+              <div class="sabotage-text"><strong>Your Pattern:</strong> ${formatTextWithParagraphBreaks(patternExactWords)}</div>
+              <div class="sabotage-text" style="margin-top: 15px;"><strong>This pattern shows up most when:</strong> ${patternTrigger}</div>
             </div>
             
             <div class="sabotage-section">
@@ -1480,216 +1290,223 @@ function generateHTMLReport(
             
             <div class="sabotage-section">
               <div class="block-title">WHAT IT'S PROTECTING YOU FROM</div>
-              <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItsProtectingFrom)}</div>
+              <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItProtectsFrom)}</div>
             </div>
             
             <div class="sabotage-section">
               <div class="block-title">WHAT IT'S COSTING YOU</div>
-              <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItsCosting)}</div>
+              <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItCosts)}</div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">YOUR PROOF YOU CAN CHANGE</div>
+              <div class="block-title">YOUR PROOF YOU'RE NOT DONE</div>
               <div class="sabotage-text">${formatTextWithParagraphBreaks(proofWithContext)}</div>
             </div>
             
+            <div class="sabotage-section">
+              <div class="block-title">YOUR ANCHOR</div>
+              <div class="sabotage-text">The one thing you never skip: <strong>${anchorHabit}</strong></div>
+            </div>
+            
             <div class="sabotage-section" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.3);">
-              <div class="sabotage-text">${formatTextWithParagraphBreaks(personalizedInsight)}</div>
+              <div class="sabotage-text"><strong>Personalized Chef-to-Chef Truth:</strong> ${formatTextWithParagraphBreaks(personalizedChefTruth)}</div>
             </div>
           </div>
         </div>
       </div>
       
-      <!-- PAGE 3: YOUR ROADMAP / KNIFE CHECK SUMMARY (V3.0) -->
+      <!-- PAGE 3: YOUR ROADMAP -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Your Roadmap</div>
-            <div class="section-title">Your Reality Check<br>Summary</div>
+            <div class="section-label">The Way Forward</div>
+            <div class="section-title">Your<br>Roadmap</div>
           </div>
           
           <div class="roadmap-flow">
             <div class="roadmap-step">
-              <div class="roadmap-letter">S</div>
+              <div class="roadmap-letter" style="background: var(--dark-olive);">🔥</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">SEE THE PATTERN</div>
-              <div class="roadmap-brief">${seeBrief}</div>
+              <div class="roadmap-label">WHO ARE YOU WITHOUT THE WHITES?</div>
+              <div class="roadmap-brief">${identityBrief}</div>
             </div>
             
             <div class="roadmap-step">
-              <div class="roadmap-letter">M</div>
+              <div class="roadmap-letter" style="background: var(--dark-olive);">🛠</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">MAP THE NERVOUS SYSTEM</div>
-              <div class="roadmap-brief">${mapBrief}</div>
+              <div class="roadmap-label">DO YOU STILL LOVE THE LINE?</div>
+              <div class="roadmap-brief">${craftBrief}</div>
             </div>
             
             <div class="roadmap-step">
-              <div class="roadmap-letter">A</div>
+              <div class="roadmap-letter" style="background: var(--dark-olive);">🎯</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">ADDRESS THE ROOT CAUSE</div>
-              <div class="roadmap-brief">${addressBrief}</div>
+              <div class="roadmap-label">WHAT'S YOUR SIGNATURE DISH?</div>
+              <div class="roadmap-brief">${purposeBrief}</div>
             </div>
             
             <div class="roadmap-step">
-              <div class="roadmap-letter">R</div>
+              <div class="roadmap-letter" style="background: var(--dark-olive);">⚙️</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">REWIRE THE RESPONSE (72-Hour Action)</div>
-              <div class="roadmap-brief">${rewireBrief}</div>
+              <div class="roadmap-label">THE KITCHEN VS. THE LIFE</div>
+              <div class="roadmap-brief">${environmentBrief}</div>
             </div>
             
             <div class="roadmap-step">
-              <div class="roadmap-letter">T</div>
-              <div class="roadmap-label">TRANSFORM BEHAVIOR (30-Day Focus)</div>
-              <div class="roadmap-brief">${transformBrief}</div>
+              <div class="roadmap-letter" style="background: var(--dark-olive);">🚨</div>
+              <div class="roadmap-arrow"></div>
+              <div class="roadmap-label">THE MISSING QUESTION</div>
+              <div class="roadmap-brief">${missingBrief}</div>
+            </div>
+            
+            <div class="roadmap-step">
+              <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
+              <div class="roadmap-arrow"></div>
+              <div class="roadmap-label">72-HOUR ACTION</div>
+              <div class="roadmap-brief">${seventyTwoBrief}</div>
+            </div>
+            
+            <div class="roadmap-step">
+              <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
+              <div class="roadmap-label">30-DAY PROTOCOL</div>
+              <div class="roadmap-brief">${thirtyDayBrief}</div>
             </div>
           </div>
         </div>
       </div>
         
-      <!-- PAGE 4: DEVELOPMENT DASHBOARD - PART 1 (MIND & BODY) -->
+      <!-- PAGE 4: DOMAIN BREAKDOWN -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Where You Are Now</div>
-            <div class="section-title">Development<br>Dashboard</div>
+            <div class="section-label">The Four Domains - Where You Stand</div>
+            <div class="section-title">Domain<br>Breakdown</div>
           </div>
           
           <div class="domain-grid">
             <div class="domain-card">
-              <div class="domain-card-title">MIND</div>
+              <div class="domain-card-title">🔥 WHO ARE YOU WITHOUT THE WHITES? (Identity & Story)</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Level</div>
-                <div class="domain-card-value">${mindDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">Current State</div>
+                <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || "Not specified"}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${mindDomain.block || mindDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || "Not specified"}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Opportunity</div>
-                <div class="domain-card-value">${mindDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">Growth Edge</div>
+                <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || "Not specified"}</div>
               </div>
             </div>
             
             <div class="domain-card">
-              <div class="domain-card-title">BODY</div>
+              <div class="domain-card-title">🛠 DO YOU STILL LOVE THE LINE? (Craft & Mastery)</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Level</div>
-                <div class="domain-card-value">${bodyDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">Current State</div>
+                <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || "Not specified"}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${bodyDomain.block || bodyDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || "Not specified"}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Opportunity</div>
-                <div class="domain-card-value">${bodyDomain.growth_opportunities || "Not specified"}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-        
-      <!-- PAGE 4B: DEVELOPMENT DASHBOARD - PART 2 (RELATIONSHIPS & MEANING & CONTRIBUTION) -->
-      <div class="page" style="page-break-before: always;">
-        <div class="page-content">
-          <div class="domain-grid" style="margin-top: 0;">
-            <div class="domain-card">
-              <div class="domain-card-title">RELATIONSHIPS & MEANING</div>
-              <div class="domain-card-row">
-                <div class="domain-card-label">Level</div>
-                <div class="domain-card-value">${relationshipsMeaningDomain.current_level || "Not specified"}</div>
-              </div>
-              <div class="domain-card-row">
-                <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${relationshipsMeaningDomain.block || relationshipsMeaningDomain.growth_opportunities || "Not specified"}</div>
-              </div>
-              <div class="domain-card-row">
-                <div class="domain-card-label">Opportunity</div>
-                <div class="domain-card-value">${relationshipsMeaningDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">Growth Edge</div>
+                <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || "Not specified"}</div>
               </div>
             </div>
             
             <div class="domain-card">
-              <div class="domain-card-title">CONTRIBUTION</div>
+              <div class="domain-card-title">🎯 WHAT'S YOUR SIGNATURE DISH? (Purpose & Meaning)</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Level</div>
-                <div class="domain-card-value">${contributionDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">Current State</div>
+                <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || "Not specified"}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${contributionDomain.block || contributionDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || "Not specified"}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Opportunity</div>
-                <div class="domain-card-value">${contributionDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">Growth Edge</div>
+                <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || "Not specified"}</div>
               </div>
+            </div>
+            
+            <div class="domain-card">
+              <div class="domain-card-title">⚙️ THE KITCHEN VS. THE LIFE (Environment & Reality)</div>
+              <div class="domain-card-row">
+                <div class="domain-card-label">Current State</div>
+                <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || "Not specified"}</div>
+              </div>
+              <div class="domain-card-row">
+                <div class="domain-card-label">Block</div>
+                <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || "Not specified"}</div>
+              </div>
+              <div class="domain-card-row">
+                <div class="domain-card-label">Growth Edge</div>
+                <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || "Not specified"}</div>
+              </div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
+            <div class="block-title">KITCHEN ENERGY ASSESSMENT</div>
+            <div class="content-block">
+              <div class="block-title">Primary State</div>
+              <div class="block-content">${formatTextWithParagraphBreaks(primaryEnergyState)}</div>
+            </div>
+            <div class="content-block">
+              <div class="block-title">How You Handle the Heat</div>
+              <div class="block-content">${formatTextWithParagraphBreaks(regulationCapacity)}</div>
+            </div>
+            <div class="content-block">
+              <div class="block-title">Observable Patterns</div>
+              <div class="block-content">
+                ${observablePatterns.map((pattern: string) => `<p>• ${pattern}</p>`).join("")}
+              </div>
+            </div>
+            <div class="content-block">
+              <div class="block-title">The Energy Reality</div>
+              <div class="block-content">${formatTextWithParagraphBreaks(energyReality)}</div>
             </div>
           </div>
         </div>
       </div>
         
-      <!-- PAGE 5: NERVOUS SYSTEM ASSESSMENT (V3.0) -->
+      <!-- PAGE 5: YOUR PROTOCOL -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Foundation</div>
-            <div class="section-title">Nervous System<br>Assessment</div>
+            <div class="section-label">Start Here / Your 30-Day Protocol</div>
+            <div class="section-title">Your<br>Protocol</div>
           </div>
           
-          <div class="metric-row">
-            <div class="metric-label">Primary State</div>
-            <div class="metric-value">${nervousSystemAssessment.primary_state}</div>
+          <div style="font-size: 14px; line-height: 1.8; margin-bottom: 30px; font-style: italic; color: var(--deep-charcoal);">
+            ${urgencyStatement || "This pattern once kept you safe. Now it's keeping you stuck."}<br>
+            The cost of staying burnt for another month: ${whatItCosts}<br>
+            Every second counts, chef. Here's what happens next.
           </div>
-          
-          <div class="metric-row">
-            <div class="metric-label">Regulation Capacity</div>
-            <div class="metric-value">${nervousSystemAssessment.regulation_capacity}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">Observable Patterns</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(nervousSystemAssessment.observable_patterns)}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">The Regulation Reality</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(nervousSystemAssessment.regulation_reality)}</div>
-          </div>
-        </div>
-      </div>
-        
-      <!-- PAGE 6: YOUR KNIFE CHECK PROTOCOL (V3.0) -->
-      <div class="page" style="page-break-before: always;">
-        <div class="page-content">
-          <div class="section-header">
-            <div class="section-label">Start Now</div>
-            <div class="section-title">Your 30-Day<br>Protocol</div>
-          </div>
-          
-          ${urgencyStatement ? `<div style="font-size: 14px; line-height: 1.8; margin-bottom: 40px; font-style: italic; color: var(--deep-charcoal);">${urgencyStatement}</div>` : ""}
           
           <div class="protocol-item">
             <div class="protocol-timeline">STEP 1: 72-HOUR ACTION</div>
             <div class="protocol-action">
-              ${anchorHabit && specificAction ? `After ${anchorHabit}, ${specificAction}${timeReps ? ` for ${timeReps}` : ""}` : formatTextWithParagraphBreaks(seventyTwoHourSuggestion)}
+              After <strong>${anchorHabit}</strong>, <strong>${specificAction}</strong>${timeReps ? ` for ${timeReps}` : ""}
             </div>
-            ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;">Why this works: ${whyThisWorks}</div>` : ""}
+            ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;"><strong>Why this works:</strong> ${whyThisWorks}</div>` : ""}
           </div>
           
           <div class="protocol-item">
             <div class="protocol-timeline">STEP 2: READ THIS NOW</div>
             <div class="protocol-action">
               ${
-                selectedBooks && selectedBooks.length > 0
+                selectedBook
                   ? `<div style="margin-bottom: 15px;">
-                      <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; font-family: 'Playfair Display', serif;"><a href="${selectedBooks[0].url}" style="color: var(--dark-olive); text-decoration: none;">${selectedBooks[0].title}</a></div>
-                      <div style="font-size: 14px; color: #666; margin-bottom: 20px;">By ${selectedBooks[0].author}</div>
-                      <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>Why this book, why now:</strong> ${bookRecommendationText || selectedBooks[0].why}</div>
+                      <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; font-family: 'Playfair Display', serif;">📖 ${selectedBook.title}</div>
+                      <div style="font-size: 14px; color: #666; margin-bottom: 20px;">By ${selectedBook.author}</div>
+                      <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>Why this book, why now:</strong> ${bookWhyNow || selectedBook.why}</div>
+                      <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 10px;">Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.</div>
                     </div>`
-                  : bookRecommendationText
-                    ? `<div style="font-size:15px; line-height:1.7; color:#222;">${bookRecommendationText}</div>`
-                    : `<div style="font-size:15px; line-height:1.7; color:#222;">The Body Keeps the Score by Bessel van der Kolk - Understanding trauma and healing. This book directly addresses the core issue for most users stuck in sabotage patterns.</div>`
+                  : `<div style="font-size:15px; line-height:1.7; color:#222;">Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.</div>`
               }
             </div>
           </div>
@@ -1709,7 +1526,8 @@ function generateHTMLReport(
               week1Focus
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 1: ${week1Focus}</div>
-              ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week1Practice}</div>` : ""}
+              ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
+              ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week1Practice}</div>` : ""}
               ${week1Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week1Marker}</div>` : ""}
             </div>`
                 : ""
@@ -1718,7 +1536,8 @@ function generateHTMLReport(
               week2Focus
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 2: ${week2Focus}</div>
-              ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week2Practice}</div>` : ""}
+              ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
+              ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week2Practice}</div>` : ""}
               ${week2Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week2Marker}</div>` : ""}
             </div>`
                 : ""
@@ -1727,7 +1546,8 @@ function generateHTMLReport(
               week3Focus
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 3: ${week3Focus}</div>
-              ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week3Practice}</div>` : ""}
+              ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
+              ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week3Practice}</div>` : ""}
               ${week3Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week3Marker}</div>` : ""}
             </div>`
                 : ""
@@ -1736,25 +1556,9 @@ function generateHTMLReport(
               week4Focus
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 4: ${week4Focus}</div>
-              ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🎯 Practice: ${week4Practice}</div>` : ""}
+              <div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Review key sections that hit hardest</div>
+              ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week4Practice}</div>` : ""}
               ${week4Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week4Marker}</div>` : ""}
-            </div>`
-                : ""
-            }
-            ${
-              dailyActions && dailyActions.length > 0
-                ? `<div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.4);">
-              <div style="font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 25px; color: var(--dark-olive); letter-spacing: -0.01em;">Daily Actions</div>
-              <div style="font-size: 11px; color: #999; margin-bottom: 25px; line-height: 1.6; font-style: italic;">Your 30-day roadmap to building the identity of someone who finishes what they start</div>
-              ${dailyActions
-                .map((action, index) => {
-                  const dayNumber = index + 1;
-                  return `<div style="display: flex; margin-bottom: 12px; padding: 10px 0; border-bottom: 1px solid rgba(201, 169, 110, 0.1);">
-                  <div style="flex-shrink: 0; width: 80px; font-size: 12px; font-weight: 600; color: var(--soft-gold); letter-spacing: 0.05em; padding-right: 20px;">Day ${dayNumber}</div>
-                  <div style="flex: 1; font-size: 12px; color: var(--deep-charcoal); line-height: 1.7;">${action.replace(/^Day \d+:\s*/i, "")}</div>
-                </div>`;
-                })
-                .join("")}
             </div>`
                 : ""
             }
@@ -1762,70 +1566,132 @@ function generateHTMLReport(
           
           <div style="margin-top: 40px; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
             <div style="font-size: 13px; line-height: 1.8; font-style: italic;">
-              Start tonight. This book explains why every strategy you've tried hasn't worked—and what will.
+              Start tonight. This book explains why grinding harder hasn't worked—and what will.<br><br>
+              You don't have time to waste, chef. Neither did I.<br>
+              — Steve Murphy
             </div>
           </div>
         </div>
       </div>
         
-      <!-- PAGE 7: BOTTOM LINE + REMINDER (V3.0) -->
+      <!-- PAGE 6: BOTTOM LINE (STRUCTURED) -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Remember</div>
+            <div class="section-label">The Reality</div>
             <div class="section-title">Bottom Line</div>
           </div>
           
-          <div style="margin: 40px 0;">
-            ${formatTextWithParagraphBreaks(bottomLine)}
+          <div class="content-block">
+            <div class="block-title">YOUR PATTERN</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(patternRestated)}</div>
+          </div>
+          
+          <div class="content-block">
+            <div class="block-title">WHAT IT'S PROTECTING YOU FROM</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(whatItProtects)}</div>
+          </div>
+          
+          <div class="content-block">
+            <div class="block-title">WHAT IT'S COSTING YOU</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(whatItCostsBreakdown)}</div>
+          </div>
+          
+          <div class="content-block">
+            <div class="block-title">THE TRUTH</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(theTruth)}</div>
+          </div>
+          
+          <div class="content-block">
+            <div class="block-title">YOUR PROOF</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(yourProofBreakdown)}</div>
+          </div>
+          
+          <div class="content-block">
+            <div class="block-title">WHAT HAPPENS NEXT</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(whatHappensNext)}</div>
           </div>
         </div>
       </div>
       
-      <!-- PAGE 7B: CLIENT'S WORDS (PULL QUOTE) -->
-      <div class="page" style="page-break-before: always; display: flex; align-items: center; justify-content: center;">
-        <div class="page-content" style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%;">
-          <div class="pull-quote" style="text-align: center; width: 100%; margin: 0;">
-            <div class="pull-quote-text"><strong>"${pullQuote}"</strong></div>
-            <div style="font-size: 11px; letter-spacing: 0.1em; color: #999; margin-top: 20px;">${quoteAttribution}</div>
-          </div>
-        </div>
-      </div>
-            
-      <!-- PAGE 8: WHAT'S NEXT (V3.0) -->
+      <!-- PAGE 7: BOTTOM LINE + STEVE'S STORY -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Moving Forward</div>
-            <div class="section-title">You Have Everything<br>You Need</div>
+            <div class="section-label">The Reality</div>
+            <div class="section-title">Bottom Line</div>
+          </div>
+          
+          <div style="margin: 40px 0;">
+            <div class="block-content">
+              ${formatTextWithParagraphBreaks(bottomLinePara1)}
+              ${formatTextWithParagraphBreaks(bottomLinePara2)}
+              ${formatTextWithParagraphBreaks(bottomLinePara3)}
+            </div>
+            
+            <div style="margin: 40px 0; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
+              <div style="font-size: 16px; font-weight: 700; line-height: 1.8; color: var(--dark-olive); font-family: 'Playfair Display', serif;">
+                ${bottomLineEmphasis}
+              </div>
+            </div>
+          </div>
+          
+          <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
+            <div class="block-title">STEVE'S NOTE: WHY I DISAPPEARED</div>
+            <div class="block-content">${formatTextWithParagraphBreaks(steveStoryNote)}</div>
+          </div>
+          
+          ${
+            pullQuote
+              ? `<div style="margin-top: 40px; padding: 30px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
+            <div class="pull-quote-text" style="font-size: 20px; margin-bottom: 15px;">"${pullQuote}"</div>
+            <div style="font-size: 11px; letter-spacing: 0.1em; color: #999;">— Your words, from this assessment</div>
+          </div>`
+              : ""
+          }
+        </div>
+      </div>
+            
+      <!-- PAGE 8: WHAT'S NEXT -->
+      <div class="page" style="page-break-before: always;">
+        <div class="page-content">
+          <div class="section-header">
+            <div class="section-label">You Have Everything You Need</div>
+            <div class="section-title">What's<br>Next</div>
           </div>
           
           <div style="margin: 40px 0;">
             <div style="font-size: 14px; line-height: 2; margin-bottom: 30px;">
-              <div style="margin: 10px 0;">✓ Your pattern mapped</div>
-              <div style="margin: 10px 0;">✓ Your nervous system understood</div>
+              <div style="margin: 10px 0;">✓ Your pattern mapped in kitchen language</div>
+              <div style="margin: 10px 0;">✓ Your kitchen energy understood</div>
+              <div style="margin: 10px 0;">✓ The four domains assessed</div>
+              <div style="margin: 10px 0;">✓ The missing question answered</div>
               <div style="margin: 10px 0;">✓ Your 72-hour action identified</div>
-              <div style="margin: 10px 0;">✓ Your reading list queued</div>
+              <div style="margin: 10px 0;">✓ Your reading list (one book, no BS)</div>
               <div style="margin: 10px 0;">✓ Your 30-day protocol ready</div>
+              <div style="margin: 10px 0;">✓ Steve's story—proof transformation is possible</div>
             </div>
             
             <div style="font-size: 16px; font-weight: 600; margin: 40px 0; text-align: center; color: var(--dark-olive);">
-              The Only Thing Left:<br>Take action.
+              The Only Thing Left:<br>Take action. Every second counts.
             </div>
           </div>
           
           <div class="content-block" style="margin-top: 60px;">
             <div class="block-title">RECOMMENDED NEXT STEPS</div>
             <div class="block-content">
-              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>Join the Knife Check Community:</strong> Connect with other chefs who are recovering from burnout and rediscovering their purpose. Get support, share experiences, and access resources as you implement your protocol.</p>
+              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment (\$97):</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Email <a href="mailto:info@wydahowarriors.com" style="color: var(--lime-green); text-decoration: none;">info@wydahowarriors.com</a></p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">[Coaching Program Link]</a>` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Need support? Email <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
+              <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>Emergency Resources:</strong> If you're in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- PAGE 9: DEVELOPMENT REMINDERS (V3.0) -->
+      <!-- PAGE 9: DEVELOPMENT REMINDERS -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
@@ -1833,12 +1699,38 @@ function generateHTMLReport(
             <div class="section-title">Development<br>Reminders</div>
           </div>
       
-          ${developmentReminders.map((reminder) => `<div class="reminder-item">→ ${reminder}</div>`).join("")}
+          ${developmentRemindersFinal
+            .map((reminder: string) => {
+              const parts = reminder.split("—");
+              const title = parts[0]?.trim() || "";
+              const description = parts[1]?.trim() || reminder;
+              return `<div class="reminder-item">
+              <div style="font-weight: 600; margin-bottom: 8px; color: var(--dark-olive);">→ ${title}</div>
+              <div style="font-size: 11px; line-height: 1.6; color: #666; padding-left: 20px;">${description}</div>
+            </div>`;
+            })
+            .join("")}
           
-          <div style="background: var(--cream); padding: 60px; text-align: center; max-width: 600px; border-left: 2px solid var(--soft-gold); margin-top: 180px;">
-            <p style="font-size: 13px; line-height: 2.2; font-style: italic;">
-              This assessment was built with care, respect, and the belief that you already have everything you need to become the person you described. The only thing left to do is <em>take action</em>.
-            </p>
+          <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
+            <div class="block-title">A WORD ABOUT REST</div>
+            <div class="block-content" style="font-size: 12px; line-height: 1.8;">
+              God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)
+            </div>
+          </div>
+          
+          <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
+            <div class="block-title">A WORD ABOUT LEAVING</div>
+            <div class="block-content" style="font-size: 12px; line-height: 1.8;">
+              If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.
+            </div>
+          </div>
+          
+          <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
+            <div class="block-title">A WORD ABOUT COMMUNITY</div>
+            <div class="block-content" style="font-size: 12px; line-height: 1.8;">
+              "Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)<br>
+              You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.
+            </div>
           </div>
         </div>
       </div>

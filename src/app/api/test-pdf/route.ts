@@ -32,17 +32,21 @@ export async function GET(request: NextRequest) {
       bottom_line:
         "You've been protecting yourself from the weight of sustained expectation by letting momentum drop halfway through. It's not laziness, lack of discipline, or a character flaw—it's a nervous system strategy that once kept you safe from judgment and the pressure of being watched. Staying in the dip kept the spotlight dimmer, the stakes lower, and the responsibility manageable. It worked when you needed it to. But here's the truth: that pattern is now costing you more than it's protecting you. Every time you lose momentum halfway through, you're reinforcing the belief that you can't sustain what you start. That belief compounds faster than any external success can undo it. It affects how you see yourself, how others see you, and what opportunities you're willing to pursue. The real cost isn't just unfinished projects—it's the identity of someone who starts but doesn't finish becoming your default. And you already know this. That's why you're here. The good news is you have proof you can change. When you've had a clear deadline and someone counting on you, you've locked in and pushed through. External accountability gave you the structure to finish strong—which means the capability is there. You just need to build the internal version of that accountability so you're not dependent on external pressure to follow through. Change requires you to act before you feel ready. To finish when it's uncomfortable. To trust the process when your nervous system screams at you to stop. You've done hard things before. You can do this. The next 30 days aren't about perfection—they're about proving to yourself that you can cross the finish line when it matters. One task at a time. One completed project at a time. Until finishing strong becomes who you are, not just what you do when someone's watching.",
       client_name: "Client",
-      smart_roadmap: {
-        map_brief:
-          "Your nervous system shifts between wired alertness under pressure and foggy shutdown when avoiding—but you recover quickly, which is a real strength.",
-        see_brief:
+      roadmap_briefs: {
+        identity_brief:
           "You start strong but lose momentum halfway through to avoid the pressure of being fully seen and expected to perform consistently.",
-        rewire_brief:
-          "Anchor one meaningful task completion to your morning water and plan check—finish something small within 72 hours that proves you can cross the finish line.",
-        address_brief:
+        craft_brief:
+          "Your nervous system shifts between wired alertness under pressure and foggy shutdown when avoiding—but you recover quickly, which is a real strength.",
+        purpose_brief:
           "This pattern started as protection from judgment and the weight of others watching—staying in the dip kept responsibility and expectations manageable.",
-        transform_brief:
+        environment_brief:
           "Build external accountability into your weekly rhythm—share one goal with your close friend every Sunday and report progress by Friday.",
+        missing_brief:
+          "The missing question revealed where you really are—ready to finish strong but needing the internal accountability to match the external kind.",
+        seventy_two_brief:
+          "Anchor one meaningful task completion to your morning water and plan check—finish something small within 72 hours that proves you can cross the finish line.",
+        thirty_day_brief:
+          "Build the identity of someone who finishes what they start—one completed task at a time, until finishing strong becomes who you are.",
       },
       reminder_quote:
         "I keep starting strong on things, then losing momentum halfway through. That dip frustrates me every time.",
@@ -58,57 +62,41 @@ export async function GET(request: NextRequest) {
           "6-Month Follow-Up Assessment recommended to track identity shifts and sustained completion patterns",
       },
       domain_breakdown: {
-        body: {
-          block:
-            "The automatic shutdown response when tasks require sustained visibility or pressure",
-          current_level:
-            "Foundation—you recognize your body's signals under stress and can regulate quickly once pressure eases",
-          current_phase:
-            "Integration—you're aware of the wired-to-shutdown shift and learning to work with it",
-          key_strengths:
-            "Quick recovery time after stress—you can settle back down in minutes, which is a real regulatory advantage",
-          growth_opportunities:
-            "Learning to catch the energy drop before it becomes full shutdown—using breath and movement to bridge the momentum dip",
-        },
-        mind: {
+        identity: {
+          current_state:
+            "Exploration—you're actively learning by doing and refining your approach through action",
           block:
             "The belief that finishing strong every time creates unsustainable pressure from yourself and others",
-          current_level:
-            "Exploration—you're actively learning by doing and refining your approach through action",
-          current_phase:
-            "Experimentation—you trust discovery over preparation and adjust in real time",
-          key_strengths:
-            "You weigh facts fast, trust your gut, and decide without overthinking—clarity and action are natural strengths",
-          growth_opportunities:
+          growth_edge:
             "Building sustained focus through the momentum dip—learning to maintain energy when visibility increases",
         },
-        contribution: {
+        craft: {
+          current_state:
+            "Foundation—you recognize your body's signals under stress and can regulate quickly once pressure eases",
+          block:
+            "The automatic shutdown response when tasks require sustained visibility or pressure",
+          growth_edge:
+            "Learning to catch the energy drop before it becomes full shutdown—using breath and movement to bridge the momentum dip",
+        },
+        purpose: {
+          current_state:
+            "Foundation—you're pushing your work forward consistently, even on low-energy days",
           block:
             "The belief that sustained success creates pressure and expectation you're not ready to carry long-term",
-          current_level:
-            "Foundation—you're pushing your work forward consistently, even on low-energy days",
-          current_phase:
-            "Friction—the momentum dip keeps you from finishing strong, which limits your impact and reinforces self-doubt",
-          key_strengths:
-            "You show up even when energy is low—that consistency is proof of commitment, not capability gaps",
-          growth_opportunities:
+          growth_edge:
             "Completing projects fully so your impact matches your effort—building the identity of someone who finishes what they start",
         },
-        relationships_meaning: {
+        environment: {
+          current_state:
+            "Foundation—you have a solid support person but don't consistently leverage external accountability",
           block:
             "The fear that being consistently visible means others will watch and judge your ability to sustain what you start",
-          current_level:
-            "Foundation—you have a solid support person but don't consistently leverage external accountability",
-          current_phase:
-            "Friction—external pressure is the only thing that consistently gets you across the finish line, which creates dependency",
-          key_strengths:
-            "You're honest about what you need and have someone in your corner who pushes you without judgment",
-          growth_opportunities:
+          growth_edge:
             "Building internal accountability that matches the external kind—learning to count on yourself the way you count on deadlines",
         },
       },
       quote_attribution: "From your assessment",
-      sabotage_analysis: {
+      pattern_analysis: {
         anchor:
           "Drinking water first thing in the morning and checking your plan for the day—these two habits never slip, even when nothing else feels solid",
         success_proof:
@@ -129,7 +117,7 @@ export async function GET(request: NextRequest) {
           "You start strong on things but lose momentum halfway through. This pattern shows up most when the stakes feel higher or when visibility increases—when finishing means people will expect you to sustain that level consistently. When you notice it starting, you'll likely feel the weight of expectation or the pressure of being watched first—that's your early warning signal. The faster you catch it, the faster you can choose differently.",
         pattern_exact_words:
           "I keep starting strong on things, then losing momentum halfway through. That dip frustrates me every time.",
-        personalized_insight:
+        personalized_chef_truth:
           "You're not avoiding success—you're avoiding the sustained pressure that comes with it. This pattern kept you safe when being watched meant heavier judgment and expectations you weren't ready to carry. But now it's keeping you from building the identity of someone who finishes what they start. The capability is there. The proof is there. What's missing is the willingness to be seen consistently—and that's what the next 30 days are designed to build.",
         what_its_protecting_from:
           "The pressure of being fully seen, the weight of sustained expectation, and the responsibility that comes with proving you can finish strong every time",
@@ -249,15 +237,39 @@ export async function GET(request: NextRequest) {
         "Your sabotage patterns have wisdom—this momentum dip kept you safe from judgment and pressure when you needed protection; honor it while updating it",
         "Identity shifts over time with deliberate practice—you're becoming someone who finishes strong consistently, one completed task at a time, one regulated moment at a time",
       ],
-      nervous_system_assessment: {
+      kitchen_energy_assessment: {
         primary_state:
           "Mobilized alert—your system defaults to wired, functional stress with tight shoulders, shallow breathing, and a fast-running mind",
-        regulation_reality:
+        energy_reality:
           "Your nervous system has two distinct strategies—mobilized alert when pressure is external, shutdown when the threat feels internal or sustained. The good news is you recover quickly, which means your window of tolerance is functional. The challenge is learning to stay present through the momentum dip without triggering the shutdown response.",
-        observable_patterns:
-          "Under stress: tight and alert, shoulders tense, breathing shallow, mind running fast. When avoiding: energy drops, fog rolls in, easier tasks become more appealing. You said your body kind of hits the brakes—that's dorsal vagal shutdown kicking in to reduce perceived threat.",
+        observable_patterns: [
+          "Under stress: tight and alert, shoulders tense, breathing shallow, mind running fast",
+          "When avoiding: energy drops, fog rolls in, easier tasks become more appealing",
+          "You said your body kind of hits the brakes—that's dorsal vagal shutdown kicking in to reduce perceived threat",
+        ],
         regulation_capacity:
           "Developing—you recover quickly once pressure eases, but the wired-to-shutdown shift happens automatically when avoidance kicks in",
+      },
+      kitchen_term: "in the weeds",
+      missing_question_summary:
+        "The missing question revealed where you really are—ready to finish strong but needing the internal accountability to match the external kind.",
+      bottom_line_full: {
+        paragraph_1:
+          "You've been protecting yourself from visibility and the weight of expectation by letting momentum drop halfway through. It's not laziness or lack of capability—it's a nervous system strategy that once kept you safe from judgment and pressure.",
+        paragraph_2:
+          "Staying stuck is costing you the identity of someone who finishes what they start. Every time you lose momentum halfway through, you reinforce the belief that you can't sustain what you start. That belief compounds faster than any external success can undo it.",
+        paragraph_3:
+          "You have a choice: keep managing the chaos until something breaks, or face what's actually burning and 86 it. This isn't about working harder. You've proven you can grind. This is about working differently—building the internal accountability so you're not dependent on external pressure to follow through.",
+        emphasis_statement:
+          "You're not stuck because you don't know what to do. You're stuck because you haven't protected your purpose like you protected your sobriety.",
+      },
+      steve_story_note:
+        "January 2024. Driggs, Idaho. My white Tundra was found. Search and rescue went out. My two boys didn't know where their dad was. I wasn't kidnapped. I wasn't in an accident. I was lost—not physically, but in every way that mattered. I'd spent years being everything for everyone. The chef. The owner. The provider. The guy who never said no, never took a break, never admitted he was drowning. I thought that was strength. It wasn't. It was slow suicide. When they found me safe, I had a choice: keep grinding until I actually didn't come back, or face the truth that I needed help. I chose help. That's why I'm here now. That's why you took this assessment. You don't have to disappear to find yourself. But you do have to face what's actually burning.",
+      next_steps: {
+        six_month_date: "June 2025",
+        community_link: "https://wydahowarriors.com/community",
+        coaching_link: "https://wydahowarriors.com/coaching",
+        contact_email: "info@wydahowarriors.com",
       },
     };
 

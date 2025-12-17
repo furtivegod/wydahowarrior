@@ -237,116 +237,86 @@ export async function sendReportEmail(
     // Generate personalized P.S. based on assessment data
     let personalizedPS = "";
     if (planData) {
-      const sabotageAnalysis = planData.sabotage_analysis;
+      const patternAnalysis = planData.pattern_analysis;
       const domainBreakdown = planData.domain_breakdown;
       const thirtyDayProtocol = planData.thirty_day_protocol;
 
       // Check for specific stuck pattern (highest priority)
-      if (sabotageAnalysis?.protective_pattern) {
-        const patternText = sabotageAnalysis.protective_pattern;
+      if (patternAnalysis?.pattern_exact_words || patternAnalysis?.protective_pattern) {
+        const patternText = patternAnalysis.pattern_exact_words || patternAnalysis.protective_pattern || "";
         personalizedPS = `You mentioned "${patternText}". If you want help designing the environment and structure that makes change automatic instead of exhausting, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
-      // Check for business/financial goals
+      // Check for business/financial goals in protocol
       else if (
-        thirtyDayProtocol?.thirty_day_approach &&
-        (thirtyDayProtocol.thirty_day_approach
+        thirtyDayProtocol?.immediate_practice &&
+        (thirtyDayProtocol.immediate_practice
           .toLowerCase()
           .includes("business") ||
-          thirtyDayProtocol.thirty_day_approach
+          thirtyDayProtocol.immediate_practice
             .toLowerCase()
             .includes("financial") ||
-          thirtyDayProtocol.thirty_day_approach
+          thirtyDayProtocol.immediate_practice
             .toLowerCase()
             .includes("career") ||
-          thirtyDayProtocol.thirty_day_approach
+          thirtyDayProtocol.immediate_practice
             .toLowerCase()
             .includes("money") ||
-          thirtyDayProtocol.thirty_day_approach
+          thirtyDayProtocol.immediate_practice
             .toLowerCase()
             .includes("income"))
       ) {
-        const goalText = thirtyDayProtocol.thirty_day_approach;
+        const goalText = thirtyDayProtocol.immediate_practice;
         personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for relationship concerns
       else if (
-        domainBreakdown?.relationships_meaning &&
-        (domainBreakdown.relationships_meaning.current_level
+        domainBreakdown?.purpose &&
+        (domainBreakdown.purpose.current_state
           ?.toLowerCase()
           .includes("relationship") ||
-          domainBreakdown.relationships_meaning.current_level
+          domainBreakdown.purpose.current_state
             ?.toLowerCase()
             .includes("partner") ||
-          domainBreakdown.relationships_meaning.current_level
+          domainBreakdown.purpose.current_state
             ?.toLowerCase()
             .includes("family") ||
-          domainBreakdown.relationships_meaning.current_level
+          domainBreakdown.purpose.current_state
             ?.toLowerCase()
             .includes("connection") ||
-          domainBreakdown.relationships_meaning.current_level
-            ?.toLowerCase()
-            .includes("intimacy") ||
-          domainBreakdown.relationships_meaning.key_strengths
-            ?.toLowerCase()
-            .includes("relationship") ||
-          domainBreakdown.relationships_meaning.key_strengths
-            ?.toLowerCase()
-            .includes("partner") ||
-          domainBreakdown.relationships_meaning.key_strengths
-            ?.toLowerCase()
-            .includes("family") ||
-          domainBreakdown.relationships_meaning.key_strengths
-            ?.toLowerCase()
-            .includes("connection") ||
-          domainBreakdown.relationships_meaning.key_strengths
+          domainBreakdown.purpose.current_state
             ?.toLowerCase()
             .includes("intimacy"))
       ) {
         const relationshipText =
-          domainBreakdown.relationships_meaning.key_strengths ||
-          domainBreakdown.relationships_meaning.current_level ||
+          domainBreakdown.purpose.current_state ||
           "";
         personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
-      // Check for physical/body disconnect
+      // Check for physical/craft disconnect
       else if (
-        domainBreakdown?.body &&
-        (domainBreakdown.body.current_level
+        domainBreakdown?.craft &&
+        (domainBreakdown.craft.current_state
           ?.toLowerCase()
           .includes("disconnect") ||
-          domainBreakdown.body.current_level?.toLowerCase().includes("body") ||
-          domainBreakdown.body.current_level
+          domainBreakdown.craft.current_state?.toLowerCase().includes("body") ||
+          domainBreakdown.craft.current_state
             ?.toLowerCase()
             .includes("physical") ||
-          domainBreakdown.body.current_level
+          domainBreakdown.craft.current_state
             ?.toLowerCase()
             .includes("health") ||
-          domainBreakdown.body.current_level
-            ?.toLowerCase()
-            .includes("exercise") ||
-          domainBreakdown.body.key_strengths
-            ?.toLowerCase()
-            .includes("disconnect") ||
-          domainBreakdown.body.key_strengths?.toLowerCase().includes("body") ||
-          domainBreakdown.body.key_strengths
-            ?.toLowerCase()
-            .includes("physical") ||
-          domainBreakdown.body.key_strengths
-            ?.toLowerCase()
-            .includes("health") ||
-          domainBreakdown.body.key_strengths
+          domainBreakdown.craft.current_state
             ?.toLowerCase()
             .includes("exercise"))
       ) {
         const bodyText =
-          domainBreakdown.body.key_strengths ||
-          domainBreakdown.body.current_level ||
+          domainBreakdown.craft.current_state ||
           "";
-        personalizedPS = `You described your relationship with your body as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You described your relationship with your craft as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Fallback for general transformation goals
-      else if (thirtyDayProtocol?.thirty_day_approach) {
-        const goalText = thirtyDayProtocol.thirty_day_approach;
+      else if (thirtyDayProtocol?.immediate_practice) {
+        const goalText = thirtyDayProtocol.immediate_practice;
         personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Final fallback
@@ -539,9 +509,9 @@ export async function sendPatternRecognitionEmail(
 
     let personalizedPS = "";
     if (planData) {
-      const nervousSystemAssessment = planData.nervous_system_assessment;
-      if (nervousSystemAssessment?.primary_state) {
-        const pattern = nervousSystemAssessment.primary_state.toLowerCase();
+      const kitchenEnergy = planData.kitchen_energy_assessment;
+      if (kitchenEnergy?.primary_state) {
+        const pattern = kitchenEnergy.primary_state.toLowerCase();
         if (
           pattern.includes("sympathetic") ||
           pattern.includes("stress") ||
@@ -636,7 +606,7 @@ export async function sendPatternRecognitionEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              ${planData?.sabotage_analysis?.protective_pattern ? `You mentioned: "${planData.sabotage_analysis.protective_pattern}"` : "You felt motivated to take action"}, but then reached for ${planData?.sabotage_analysis?.escape_behavior || "your usual escape pattern"} instead.
+              ${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.protective_pattern ? `You mentioned: "${planData.pattern_analysis.pattern_exact_words || planData.pattern_analysis.protective_pattern}"` : "You felt motivated to take action"}, but then reached for your usual escape pattern instead.
             </p>
             
 
@@ -735,25 +705,26 @@ export async function sendEvidence7DayEmail(
     // Generate personalized P.S. based on primary sabotage pattern
 
     let personalizedPS = "";
-    if (planData) {
-      const sabotageAnalysis = planData.sabotage_analysis;
-      if (sabotageAnalysis?.protective_pattern) {
-        const pattern = sabotageAnalysis.protective_pattern.toLowerCase();
+      if (planData) {
+        const patternAnalysis = planData.pattern_analysis;
+        if (patternAnalysis?.pattern_exact_words || patternAnalysis?.protective_pattern) {
+          const pattern = (patternAnalysis.pattern_exact_words || patternAnalysis.protective_pattern || "").toLowerCase();
+        const patternText = patternAnalysis.pattern_exact_words || patternAnalysis.protective_pattern || "your pattern";
         if (
           pattern.includes("perfectionism") ||
           pattern.includes("overthinking")
         ) {
-          personalizedPS = `You mentioned struggling with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+          personalizedPS = `You mentioned struggling with ${patternText}. In a Discovery Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
         } else if (
           pattern.includes("avoidance") ||
           pattern.includes("procrastination")
         ) {
-          personalizedPS = `You shared that you struggle with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+          personalizedPS = `You shared that you struggle with ${patternText}. In a Discovery Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
         } else if (
           pattern.includes("people-pleasing") ||
           pattern.includes("conflict")
         ) {
-          personalizedPS = `You described struggling with ${sabotageAnalysis.protective_pattern}. In a Discovery Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+          personalizedPS = `You described struggling with ${patternText}. In a Discovery Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
         } else {
           personalizedPS =
             'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
@@ -832,7 +803,7 @@ export async function sendEvidence7DayEmail(
             
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">One conversation you didn't avoid</li>
-              <li style="margin-bottom: 8px;">One evening you chose ${planData?.sabotage_analysis?.positive_behavior ? `"${planData.sabotage_analysis.positive_behavior}"` : "take action"} over ${planData?.sabotage_analysis?.escape_behavior ? `"${planData.sabotage_analysis.escape_behavior}"` : "your usual escape pattern"}</li>
+              <li style="margin-bottom: 8px;">One evening you chose to take action over your usual escape pattern</li>
               <li style="margin-bottom: 8px;">One moment you caught the spiral before it hijacked your whole day</li>
             </ul>
             
@@ -938,15 +909,10 @@ export async function sendIntegrationThresholdEmail(
 
     let personalizedPS = "";
     if (planData) {
-      const goals = planData.goals;
-      if (goals?.business_goal || goals?.financial_goal) {
-        const businessGoal = goals.business_goal || goals.financial_goal;
-        personalizedPS = `You're building toward ${businessGoal}. In a Discovery Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-      } else if (goals?.relationship_goal) {
-        personalizedPS = `You want ${goals.relationship_goal}. In a Discovery Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-      } else if (goals?.body_goal || goals?.health_goal) {
-        const bodyGoal = goals.body_goal || goals.health_goal;
-        personalizedPS = `You described wanting ${bodyGoal}. In a Discovery Call, we rebuild your relationship with your body without punishment or force. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      const purposeDomain = planData.domain_breakdown?.purpose;
+      const purposeText = purposeDomain?.growth_edge || purposeDomain?.current_state || "";
+      if (purposeText && (purposeText.toLowerCase().includes("business") || purposeText.toLowerCase().includes("financial") || purposeText.toLowerCase().includes("career") || purposeText.toLowerCase().includes("money"))) {
+        personalizedPS = `You're building toward ${purposeText}. In a Discovery Call, we map how your patterns are affecting your kitchen momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else {
         personalizedPS =
           'A Discovery Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
@@ -1041,7 +1007,7 @@ export async function sendIntegrationThresholdEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              You've proven you can do hard things. ${planData?.sabotage_analysis?.success_proof || planData?.sabotage_analysis?.anchor ? `You mentioned: "${planData.sabotage_analysis.success_proof || planData.sabotage_analysis.anchor}"` : "You've built something meaningful in your life"}. The question is: Are you ready to apply that same capability to your own nervous system?
+              You've proven you can do hard things. ${planData?.pattern_analysis?.proof_with_context || planData?.pattern_analysis?.anchor_habit ? `You mentioned: "${planData.pattern_analysis.proof_with_context || planData.pattern_analysis.anchor_habit}"` : "You've built something meaningful in your life"}. The question is: Are you ready to apply that same capability to your own kitchen energy?
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
@@ -1128,11 +1094,9 @@ export async function sendCompoundEffectEmail(
     if (planData) {
       const protocol = planData.thirty_day_protocol;
       if (protocol?.specific_action) {
-        personalizedPS = `You committed to ${protocol.specific_action}. Whether you did it once or daily, that's data. In a Discovery Call, we use that data to design what's actually sustainable for your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-      } else if (protocol?.environmental_change) {
-        personalizedPS = `You identified ${protocol.environmental_change}. In a Discovery Call, we refine your environment so the default choice is the right choice—no willpower required. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-      } else if (protocol?.weekly_practice) {
-        personalizedPS = `You planned ${protocol.weekly_practice}. In a Discovery Call, we figure out why it stuck or why it didn't—and adjust from there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You committed to ${protocol.specific_action}. Whether you did it once or daily, that's data. In a Discovery Call, we use that data to design what's actually sustainable for your kitchen energy. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      } else if (protocol?.immediate_practice) {
+        personalizedPS = `You planned ${protocol.immediate_practice}. In a Discovery Call, we figure out why it stuck or why it didn't—and adjust from there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else {
         personalizedPS =
           'Three weeks of data is enough to see your patterns clearly. In a Discovery Call, we turn that data into a sustainable system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
@@ -1322,10 +1286,10 @@ export async function sendDirectInvitationEmail(
 
     let personalizedPS = "";
     if (planData) {
-      const futureVision =
-        planData.future_vision || planData.goals?.future_state;
+      const purposeDomain = planData.domain_breakdown?.purpose;
+      const futureVision = purposeDomain?.growth_edge || purposeDomain?.current_state;
       if (futureVision) {
-        personalizedPS = `You described a Tuesday where ${futureVision}. That version of you exists—you just need the path to get there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> to map it out together.`;
+        personalizedPS = `You described ${futureVision}. That version of you exists—you just need the path to get there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> to map it out together.`;
       } else {
         personalizedPS =
           'You\'ve had the map for 30 days. Ready to build the path? <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
@@ -1405,7 +1369,7 @@ export async function sendDirectInvitationEmail(
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">Caught yourself mid-spiral and interrupted it (even once)</li>
               <li style="margin-bottom: 8px;">Had a hard conversation you would have avoided before</li>
-              <li style="margin-bottom: 8px;">Chose ${planData?.sabotage_analysis?.positive_behavior ? `"${planData.sabotage_analysis.positive_behavior}"` : "take action"} when you normally would have reached for ${planData?.sabotage_analysis?.escape_behavior ? `"${planData.sabotage_analysis.escape_behavior}"` : "your usual escape pattern"}</li>
+              <li style="margin-bottom: 8px;">Chose to take action when you normally would have reached for your usual escape pattern</li>
             </ul>
             
 

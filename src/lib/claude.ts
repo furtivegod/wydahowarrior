@@ -302,105 +302,148 @@ export async function generateStructuredPlan(conversationHistory: string) {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
       max_tokens: 7000,
-      system: `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Are You Burnt?" Chef-Owner Assessment conversation, create a comprehensive client-facing report in valid JSON format.
+      system: `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Are You Burnt?" Chef-Owner Assessment conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
 
 CRITICAL INSTRUCTIONS:
 1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
 2. Start your response with { and end with }
 3. Do not include any text before or after the JSON object
-4. All arrays (daily_actions, progress_markers) MUST contain actual content
+4. All arrays MUST contain actual content
 5. Every field must be populated with meaningful, personalized content based on the client's responses
 6. No empty strings or generic placeholders allowed
-7. Don't use long sentences.
-8. ALWAYS use double quotes (") for client quotes, never single quotes (') to avoid conflicts with contractions
+7. Use kitchen-specific language throughout (in the weeds, burnt, cooked, slammed, 86'd, etc.)
+8. ALWAYS use double quotes (") for client quotes, never single quotes (')
+9. Select ONE book only (not two) based on their primary pattern
+10. Use their EXACT words for kitchen_term, pattern_exact_words, and what_it_costs
 
-Format (matching OUTPUT FORMAT from master prompt):
+Format (9-Page Framework):
 {
   "title": "ARE YOU BURNT? — CHEF OWNER REALITY CHECK",
   "client_name": "Client's first name",
   "assessment_date": "Date of assessment",
-  "overview": "Summarize using their exact words — clear, direct, culinary.",
-  "current_state_summary": "One paragraph reflecting their emotional language and 'kitchen term.'",
+  "kitchen_term": "Their exact kitchen term - 'in the weeds', 'burnt', '86'd', etc.",
   "pattern_analysis": {
-    "protective_pattern": "Their main protective pattern in their words",
-    "what_it_protects_from": "The feelings/emotions they're avoiding",
-    "how_it_serves_them": "Secondary gains in plain language",
-    "coping_numbing_patterns": "Their current reward patterns and habits in their words",
-    "success_proof": "Times they've overcome it, however briefly",
-    "anchor": "Their strongest existing habit that never breaks"
+    "pattern_exact_words": "Client's exact words about their frustrating pattern",
+    "pattern_reframe": "What I'm hearing - reframe in chef-owner burnout context",
+    "pattern_trigger": "This pattern shows up most when - their specific trigger",
+    "what_it_protects_from": "Specific fear or emotion - not generic. Example: 'Having to face that you built a kitchen that's destroying you instead of sustaining you'",
+    "what_it_costs": "Their actual answer to 'What would it cost you to stay exactly where you are for another year?' - use ONLY their words",
+    "proof_with_context": "Specific moment of joy/success with context. Example: 'Last Friday when you created that new appetizer—the environment and people were right, and you felt actual joy you wanted to bottle. That wasn't luck. That was you.'",
+    "anchor_habit": "The one thing you never skip - their anchor from assessment",
+    "personalized_chef_truth": "2-3 sentences connecting pattern → protection → cost → possibility in kitchen language"
+  },
+  "roadmap_briefs": {
+    "identity_brief": "Brief: Your identity pattern, what it's costing",
+    "craft_brief": "Brief: Your relationship with craft, where joy still lives",
+    "purpose_brief": "Brief: Your purpose now vs. original why",
+    "environment_brief": "Brief: Your environment reality, biggest obstacle",
+    "missing_brief": "Brief: Where you really are, what you revealed",
+    "seventy_two_brief": "Brief: One specific action sized to your current state",
+    "thirty_day_brief": "Brief: The sustained practice that changes everything"
   },
   "domain_breakdown": {
     "identity": {
-      "current_state": "Current state in plain language",
-      "key_strengths": "Key strengths with specific examples",
-      "growth_opportunities": "Growth opportunities framed as what's in reach",
-      "reality_check": "Reality check - what's actually happening"
+      "current_state": "Current state in chef language (Victim/Fighting Back/Finding Self)",
+      "block": "Primary identity obstacle",
+      "growth_edge": "What's possible when this shifts"
     },
     "craft": {
-      "current_state": "Current state in plain language",
-      "key_strengths": "Key strengths with specific examples",
-      "growth_opportunities": "Growth opportunities framed as what's in reach",
-      "reality_check": "Reality check - what's actually happening"
+      "current_state": "Current state in chef language (Survival Mode/Rediscovering/Mastering)",
+      "block": "Primary craft obstacle",
+      "growth_edge": "How craft reconnection unlocks purpose"
     },
     "purpose": {
-      "current_state": "Current state in plain language",
-      "key_strengths": "Key strengths with specific examples",
-      "growth_opportunities": "Growth opportunities framed as what's in reach",
-      "reality_check": "Reality check - what's actually happening"
+      "current_state": "Current state in chef language (Lost/Searching/Clear)",
+      "block": "Primary purpose obstacle",
+      "growth_edge": "Path to purpose-driven work"
     },
     "environment": {
-      "current_state": "Current state in plain language",
-      "key_strengths": "Key strengths with specific examples",
-      "growth_opportunities": "Growth opportunities framed as what's in reach",
-      "reality_check": "Reality check - what's actually happening"
+      "current_state": "Current state in chef language (Trapped/Exploring Options/Making Moves)",
+      "block": "Primary environmental obstacle",
+      "growth_edge": "What changes when environment aligns"
     }
   },
-  "energy_assessment": {
-    "primary_state": "Primary state in plain language",
-    "regulation_capacity": "Regulation capacity in plain language",
-    "observable_patterns": "Observable patterns with client's exact quotes",
-    "real_talk": "Real talk - direct assessment"
+  "kitchen_energy_assessment": {
+    "primary_state": "Primary state in culinary language - 'in the weeds', 'cooked', 'still got fight', 'barely hanging on'. Example: 'In the Weeds: Running on stress and obligation, productive but exhausted—your body's tight, you remind yourself to breathe'",
+    "regulation_capacity": "How you handle the heat - regulation capacity in kitchen terms. Example: 'Developing: Can stay loose in low-pressure situations, lose capacity when people patterns hit or service chaos starts'",
+    "observable_patterns": ["Physical cue 1 - their exact words", "Emotional cue 2 - their exact words", "Behavioral cue 3 - their exact words"],
+    "energy_reality": "2-3 sentences about their kitchen energy state and what it means for change"
   },
   "missing_question_summary": "Reflect what they shared about the missing question, interpret it gently, pastorally.",
   "thirty_day_protocol": {
-    "seventy_two_hour_action": "One specific action to take in 72 hours",
-    "weekly_practice": "One suggested recurring practice",
-    "thirty_day_focus": "One recommended system shift",
-    "one_thing_to_86": "One thing to eliminate/stop",
-    "progress_markers": ["Specific marker 1", "Specific marker 2", "Specific marker 3"]
-  },
-  "bottom_line": "One bold paragraph calling them forward — chef-to-chef, grounded in Christ.",
-  "reminder_quote": "Direct quote from client's assessment that captures their core struggle or insight (ONLY use if they actually said it)",
-  "development_reminders": [
-    "Spiritual + practical truth 1",
-    "Spiritual + practical truth 2",
-    "Spiritual + practical truth 3",
-    "Spiritual + practical truth 4"
-  ],
-  "book_recommendations": [
-    {
-      "title": "Book title 1",
+    "urgency_statement": "The cost of staying burnt for another month - specific loss from their answer",
+    "anchor_habit": "Anchor habit for 72-hour action",
+    "specific_action": "Specific action to take",
+    "time_reps": "Time/reps for action",
+    "why_this_works": "Brief explanation tied to their pattern",
+    "book_recommendation": {
+      "title": "ONE book title only",
       "author": "Author name",
-      "why": "Why this book fits their profile"
+      "why_now": "2-4 sentences explaining how this book explains THEIR specific chef-owner burnout pattern - make it personally relevant",
+      "asin": "Amazon ASIN if known"
     },
-    {
-      "title": "Book title 2",
-      "author": "Author name",
-      "why": "Why this book fits their profile"
-    }
+    "immediate_practice": "Practice from book applied to their specific kitchen life",
+    "week_1_focus": "Foundation",
+    "week_1_chapters": "Book chapters/section",
+    "week_1_practice": "Daily action tied to their anchor",
+    "week_1_marker": "How they'll know it's working",
+    "week_2_focus": "Pattern Recognition",
+    "week_2_chapters": "Book continued sections",
+    "week_2_practice": "Daily action building on week 1",
+    "week_2_marker": "Observable change in kitchen language",
+    "week_3_focus": "Implementation",
+    "week_3_chapters": "Book final sections",
+    "week_3_practice": "Daily action integrating learning",
+    "week_3_marker": "Observable change in kitchen language",
+    "week_4_focus": "Integration",
+    "week_4_practice": "Integration action combining all three weeks",
+    "week_4_marker": "30-day outcome - specific to their goal"
+  },
+  "bottom_line_breakdown": {
+    "pattern_restated": "Their main pattern restated clearly in kitchen language",
+    "what_it_protects": "The specific fear/emotion - 2-3 sentences",
+    "what_it_costs": "Their actual answer - use ONLY their words",
+    "the_truth": "Direct, chef-to-chef reality check - 2-3 sentences",
+    "your_proof": "Evidence they can change with specific context - 2-3 sentences",
+    "what_happens_next": "Clear statement of what transformation requires - 2-3 sentences"
+  },
+  "bottom_line_full": {
+    "paragraph_1": "The pattern and its origin - 2-3 sentences",
+    "paragraph_2": "What it's costing and why it matters now - 2-3 sentences",
+    "paragraph_3": "The choice ahead and what's required - 2-3 sentences",
+    "emphasis_statement": "Bold emphasis statement - chef-to-chef truth"
+  },
+  "steve_story_note": "Steve's note about his disappearance - integrate when relevant to their story",
+  "pull_quote": "Direct quote from client's assessment that captures their core struggle or insight (ONLY use if they actually said it)",
+  "development_reminders": [
+    "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+    "Your kitchen energy is the foundation—regulate first, then rebuild",
+    "Your patterns have wisdom—honor them while updating them",
+    "You are not your station—your worth is settled in Christ, not your covers"
   ],
   "next_steps": {
-    "follow_up_assessment": "Follow-up assessment options",
-    "coaching_options": "Coaching options if available",
-    "community": "Community connection options"
+    "six_month_date": "Date 6 months from now",
+    "community_link": "Wydaho Warriors Community link",
+    "coaching_link": "Coaching program link",
+    "contact_email": "Contact email"
   }
 }
 
-Make it deeply personalized using their exact words, metaphors, and language patterns. This should feel like a professional coach's assessment report, chef-to-chef, grounded in Gospel truth.
+BOOK SELECTION GUIDE - Choose ONE book based on primary pattern:
+- Lost passion/Identity crisis → Kitchen Confidential by Anthony Bourdain
+- People management exhaustion → Setting the Table by Danny Meyer
+- Purpose confusion → Find Your Why by Simon Sinek
+- Burnout/Nervous system shutdown → The Body Keeps the Score by Bessel van der Kolk
+- Identity = chef → Hero on a Mission by Donald Miller
+- Considering major life change → Designing Your Life by Bill Burnett & Dave Evans
+- Perfectionism → The Gifts of Imperfection by Brené Brown
+- Can't say no → Set Boundaries, Find Peace by Nedra Tawwab
+- Substance issues → Atomic Habits by James Clear
+- General overwhelm → Essentialism by Greg McKeown
 
-CRITICAL: Only use quotes that the client actually said in the conversation. Never make up, invent, or generate quotes. If no specific quote exists, paraphrase their meaning without using quotation marks.
+Make it deeply personalized using their exact words, kitchen metaphors, and culinary language. This should feel like a professional coach's assessment report, chef-to-chef, grounded in Gospel truth.
 
-FINAL CHECK: Ensure every field contains meaningful, personalized content. No empty strings, no generic placeholders, no missing data. Every array must have actual content based on the client's responses.`,
+CRITICAL: Only use quotes that the client actually said. Never make up quotes. Use kitchen-specific language throughout. Select ONE book that best matches their primary pattern.`,
       messages: [
         {
           role: "user",
