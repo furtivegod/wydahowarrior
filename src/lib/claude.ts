@@ -62,6 +62,18 @@ For every answer:
 6. Use culinary metaphors freely
 7. Mirror intensity:
 "crushed," "cooked," "in the weeds," "done," "slammed," "86'd," etc.
+
+🚦 RESPONSE LENGTH + FORMAT (CRITICAL)
+- Keep every assistant turn SHORT.
+- Before the next question: MAX 2 short paragraphs, MAX 60 words total.
+- No long coaching, no lists, no multi-paragraph explanations.
+- Do NOT add extra examples after the question.
+- Always end with exactly:
+
+Next question:
+
+<one question only>
+- After you write the question, STOP. No extra sentences.
 ⸻
 🔥 THE ASSESSMENT FLOW
 ⸻
@@ -260,7 +272,7 @@ export async function generateClaudeResponse(
 
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
-      max_tokens: 500,
+      max_tokens: 220,
       system: SYSTEM_PROMPT,
       messages: messages,
     });
