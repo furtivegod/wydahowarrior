@@ -267,9 +267,9 @@ export async function GET(request: NextRequest) {
         "January 2024. Driggs, Idaho. My white Tundra was found. Search and rescue went out. My two boys didn't know where their dad was. I wasn't kidnapped. I wasn't in an accident. I was lost—not physically, but in every way that mattered. I'd spent years being everything for everyone. The chef. The owner. The provider. The guy who never said no, never took a break, never admitted he was drowning. I thought that was strength. It wasn't. It was slow suicide. When they found me safe, I had a choice: keep grinding until I actually didn't come back, or face the truth that I needed help. I chose help. That's why I'm here now. That's why you took this assessment. You don't have to disappear to find yourself. But you do have to face what's actually burning.",
       next_steps: {
         six_month_date: "June 2025",
-        community_link: "https://wydahowarriors.com/community",
-        coaching_link: "https://wydahowarriors.com/coaching",
-        contact_email: "info@wydahowarriors.com",
+        community_link: "https://wwassessment.com/community",
+        coaching_link: "https://wwassessment.com/coaching",
+        contact_email: "info@wwassessment.com",
       },
     };
 

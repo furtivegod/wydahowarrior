@@ -740,11 +740,9 @@ function generateHTMLReport(
   // Extract next steps
   const nextSteps = planData.next_steps || {};
   const sixMonthDate = nextSteps.six_month_date || "";
-  const communityLink =
-    nextSteps.community_link || "https://wydahowarriors.com/community";
-  const coachingLink =
-    nextSteps.coaching_link || "https://wydahowarriors.com/coaching";
-  const contactEmail = nextSteps.contact_email || "info@wydahowarriors.com";
+  const communityLink = nextSteps.community_link || "https://wwassessment.com/community";
+  const coachingLink = nextSteps.coaching_link || "https://wwassessment.com/coaching";
+  const contactEmail = nextSteps.contact_email || "info@wwassessment.com";
 
   return `
     <!DOCTYPE html>

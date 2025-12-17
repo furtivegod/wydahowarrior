@@ -298,7 +298,7 @@ function generateHTMLReport(
   const sixMonthDate = nextSteps.six_month_date || "";
   const communityLink = nextSteps.community_link || "";
   const coachingLink = nextSteps.coaching_link || "";
-  const contactEmail = nextSteps.contact_email || "info@wydahowarriors.com";
+  const contactEmail = nextSteps.contact_email || "info@wwassessment.com";
 
   // Helper function to format text with paragraph breaks
   function formatTextWithParagraphBreaks(text: string | undefined): string {

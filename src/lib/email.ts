@@ -4,6 +4,13 @@ import { PlanData } from "./pdf";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Resend requires the "from" domain to be verified.
+// Use env overrides so production can change domains without code edits.
+const DEFAULT_FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL ||
+  "The Knife Check Assessment <noreply@wwassessment.com>";
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "info@wwassessment.com";
+
 export async function sendMagicLink(
   email: string,
   sessionId: string,
@@ -37,7 +44,7 @@ export async function sendMagicLink(
   try {
     console.log("Sending email via Resend...");
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
 
       subject: "Your Knife Check Assessment Is Ready",
@@ -242,8 +249,14 @@ export async function sendReportEmail(
       const thirtyDayProtocol = planData.thirty_day_protocol;
 
       // Check for specific stuck pattern (highest priority)
-      if (patternAnalysis?.pattern_exact_words || patternAnalysis?.protective_pattern) {
-        const patternText = patternAnalysis.pattern_exact_words || patternAnalysis.protective_pattern || "";
+      if (
+        patternAnalysis?.pattern_exact_words ||
+        patternAnalysis?.protective_pattern
+      ) {
+        const patternText =
+          patternAnalysis.pattern_exact_words ||
+          patternAnalysis.protective_pattern ||
+          "";
         personalizedPS = `You mentioned "${patternText}". If you want help designing the environment and structure that makes change automatic instead of exhausting, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for business/financial goals in protocol
@@ -261,9 +274,7 @@ export async function sendReportEmail(
           thirtyDayProtocol.immediate_practice
             .toLowerCase()
             .includes("money") ||
-          thirtyDayProtocol.immediate_practice
-            .toLowerCase()
-            .includes("income"))
+          thirtyDayProtocol.immediate_practice.toLowerCase().includes("income"))
       ) {
         const goalText = thirtyDayProtocol.immediate_practice;
         personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
@@ -287,9 +298,7 @@ export async function sendReportEmail(
             ?.toLowerCase()
             .includes("intimacy"))
       ) {
-        const relationshipText =
-          domainBreakdown.purpose.current_state ||
-          "";
+        const relationshipText = domainBreakdown.purpose.current_state || "";
         personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for physical/craft disconnect
@@ -309,9 +318,7 @@ export async function sendReportEmail(
             ?.toLowerCase()
             .includes("exercise"))
       ) {
-        const bodyText =
-          domainBreakdown.craft.current_state ||
-          "";
+        const bodyText = domainBreakdown.craft.current_state || "";
         personalizedPS = `You described your relationship with your craft as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Fallback for general transformation goals
@@ -332,7 +339,7 @@ export async function sendReportEmail(
       html: string;
       attachments?: Array<{ filename: string; content: string; type?: string }>;
     } = {
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
 
       subject: "Your Knife Check Assessment Report is ready",
@@ -448,7 +455,7 @@ export async function sendReportEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
+                                        Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>
@@ -543,7 +550,7 @@ export async function sendPatternRecognitionEmail(
     }
 
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
 
       subject: "You probably already noticed it",
@@ -658,7 +665,7 @@ export async function sendPatternRecognitionEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
+                                        Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>
@@ -705,11 +712,21 @@ export async function sendEvidence7DayEmail(
     // Generate personalized P.S. based on primary sabotage pattern
 
     let personalizedPS = "";
-      if (planData) {
-        const patternAnalysis = planData.pattern_analysis;
-        if (patternAnalysis?.pattern_exact_words || patternAnalysis?.protective_pattern) {
-          const pattern = (patternAnalysis.pattern_exact_words || patternAnalysis.protective_pattern || "").toLowerCase();
-        const patternText = patternAnalysis.pattern_exact_words || patternAnalysis.protective_pattern || "your pattern";
+    if (planData) {
+      const patternAnalysis = planData.pattern_analysis;
+      if (
+        patternAnalysis?.pattern_exact_words ||
+        patternAnalysis?.protective_pattern
+      ) {
+        const pattern = (
+          patternAnalysis.pattern_exact_words ||
+          patternAnalysis.protective_pattern ||
+          ""
+        ).toLowerCase();
+        const patternText =
+          patternAnalysis.pattern_exact_words ||
+          patternAnalysis.protective_pattern ||
+          "your pattern";
         if (
           pattern.includes("perfectionism") ||
           pattern.includes("overthinking")
@@ -735,7 +752,7 @@ export async function sendEvidence7DayEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
 
       subject: "The shift you might not be noticing",
@@ -861,7 +878,7 @@ export async function sendEvidence7DayEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
+                                        Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>
@@ -910,8 +927,15 @@ export async function sendIntegrationThresholdEmail(
     let personalizedPS = "";
     if (planData) {
       const purposeDomain = planData.domain_breakdown?.purpose;
-      const purposeText = purposeDomain?.growth_edge || purposeDomain?.current_state || "";
-      if (purposeText && (purposeText.toLowerCase().includes("business") || purposeText.toLowerCase().includes("financial") || purposeText.toLowerCase().includes("career") || purposeText.toLowerCase().includes("money"))) {
+      const purposeText =
+        purposeDomain?.growth_edge || purposeDomain?.current_state || "";
+      if (
+        purposeText &&
+        (purposeText.toLowerCase().includes("business") ||
+          purposeText.toLowerCase().includes("financial") ||
+          purposeText.toLowerCase().includes("career") ||
+          purposeText.toLowerCase().includes("money"))
+      ) {
         personalizedPS = `You're building toward ${purposeText}. In a Discovery Call, we map how your patterns are affecting your kitchen momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else {
         personalizedPS =
@@ -919,7 +943,7 @@ export async function sendIntegrationThresholdEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
       subject: "You're at the make-or-break point",
       html: `
@@ -1044,7 +1068,7 @@ export async function sendIntegrationThresholdEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
+                                        Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>
@@ -1103,7 +1127,7 @@ export async function sendCompoundEffectEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
       subject: "Three weeks in—this is where it gets real",
       html: `
@@ -1238,7 +1262,7 @@ export async function sendCompoundEffectEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
+                                        Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>
@@ -1287,7 +1311,8 @@ export async function sendDirectInvitationEmail(
     let personalizedPS = "";
     if (planData) {
       const purposeDomain = planData.domain_breakdown?.purpose;
-      const futureVision = purposeDomain?.growth_edge || purposeDomain?.current_state;
+      const futureVision =
+        purposeDomain?.growth_edge || purposeDomain?.current_state;
       if (futureVision) {
         personalizedPS = `You described ${futureVision}. That version of you exists—you just need the path to get there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> to map it out together.`;
       } else {
@@ -1296,7 +1321,7 @@ export async function sendDirectInvitationEmail(
       }
     }
     const { data, error } = await resend.emails.send({
-      from: "The Knife Check Assessment <noreply@wydahowarriors.com>",
+      from: DEFAULT_FROM_EMAIL,
       to: [email],
       subject: "30 days later—what's actually different?",
       html: `
@@ -1447,7 +1472,7 @@ export async function sendDirectInvitationEmail(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="color: #666; font-size: 12px; margin: 0; font-family: 'Inter', sans-serif;">
-                                        Need support? Contact us at <a href="mailto:info@wydahowarriors.com" style="color: #C9A875; text-decoration: underline;">info@wydahowarriors.com</a>
+                                        Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>

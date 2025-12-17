@@ -59,12 +59,17 @@ export default function SuccessPage() {
 
           <p
             className="text-xl mb-12 max-w-2xl mx-auto"
-            style={{ color: "#1A1A1A", fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
+            style={{
+              color: "#1A1A1A",
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 400,
+            }}
           >
             Your personalized Knife Check Assessment is ready to begin. In just
-            minutes, you&apos;re going to uncover the exact patterns that have been
-            keeping you stuck—and get a protocol built specifically to help you
-            recover from burnout and rediscover your purpose as a chef-owner.
+            minutes, you&apos;re going to uncover the exact patterns that have
+            been keeping you stuck—and get a protocol built specifically to help
+            you recover from burnout and rediscover your purpose as a
+            chef-owner.
           </p>
 
           {/* Email Confirmation */}
@@ -99,11 +104,11 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> &quot;Your Knife Check Assessment Link –
-                  Ready to Begin&quot;
+                  <strong>Subject line:</strong> &quot;Your Knife Check
+                  Assessment Link – Ready to Begin&quot;
                 </p>
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>From:</strong> wydahowarriors.com
+                  <strong>From:</strong> wwassessment.com
                 </p>
               </div>
               <p className="text-xs sm:text-sm" style={{ color: "#666" }}>
@@ -131,14 +136,18 @@ export default function SuccessPage() {
               <div className="flex items-start">
                 <span
                   className="w-6 h-6 sm:w-8 sm:h-8 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-bold mr-3 sm:mr-4 mt-1 flex-shrink-0"
-                    style={{ backgroundColor: "#3D4D2E" }}
+                  style={{ backgroundColor: "#3D4D2E" }}
                 >
                   1
                 </span>
                 <div>
                   <h4
                     className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base"
-                    style={{ color: "#3D4D2E", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
+                    style={{
+                      color: "#3D4D2E",
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 500,
+                    }}
                   >
                     Click the link in your email
                   </h4>
@@ -154,14 +163,18 @@ export default function SuccessPage() {
               <div className="flex items-start">
                 <span
                   className="w-6 h-6 sm:w-8 sm:h-8 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-bold mr-3 sm:mr-4 mt-1 flex-shrink-0"
-                    style={{ backgroundColor: "#3D4D2E" }}
+                  style={{ backgroundColor: "#3D4D2E" }}
                 >
                   2
                 </span>
                 <div>
                   <h4
                     className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base"
-                    style={{ color: "#3D4D2E", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
+                    style={{
+                      color: "#3D4D2E",
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 500,
+                    }}
                   >
                     Complete your assessment (10-15 minutes)
                   </h4>
@@ -170,22 +183,26 @@ export default function SuccessPage() {
                     style={{ color: "#1A1A1A" }}
                   >
                     The AI will ask follow-up questions based on your answers to
-                    map your specific patterns with precision. There&apos;s no time
-                    limit—take breaks if you need them.
+                    map your specific patterns with precision. There&apos;s no
+                    time limit—take breaks if you need them.
                   </p>
                 </div>
               </div>
               <div className="flex items-start">
                 <span
                   className="w-6 h-6 sm:w-8 sm:h-8 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-bold mr-3 sm:mr-4 mt-1 flex-shrink-0"
-                    style={{ backgroundColor: "#3D4D2E" }}
+                  style={{ backgroundColor: "#3D4D2E" }}
                 >
                   3
                 </span>
                 <div>
                   <h4
                     className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base"
-                    style={{ color: "#3D4D2E", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
+                    style={{
+                      color: "#3D4D2E",
+                      fontFamily: "'Inter', sans-serif",
+                      fontWeight: 500,
+                    }}
                   >
                     Receive your protocol (Immediately after completion)
                   </h4>
@@ -207,7 +224,7 @@ export default function SuccessPage() {
             <p>
               Need help?{" "}
               <a
-                href="mailto:info@wydahowarriors.com"
+                href="mailto:info@wwassessment.com"
                 className="hover:underline"
                 style={{ color: "#4A5D23" }}
               >
