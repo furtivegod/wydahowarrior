@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Use env overrides so production can change domains without code edits.
 const DEFAULT_FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL ||
-  "The Knife Check Assessment <noreply@wwassessment.com>";
+  "WW Knife Check Assessment <noreply@wwassessment.com>";
 const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "info@wwassessment.com";
 
 export async function sendMagicLink(
@@ -47,7 +47,7 @@ export async function sendMagicLink(
       from: DEFAULT_FROM_EMAIL,
       to: [email],
 
-      subject: "Your Knife Check Assessment Is Ready",
+      subject: "Your WW Knife Check Assessment Is Ready",
       html: `
         <!DOCTYPE html>
 
@@ -56,7 +56,7 @@ export async function sendMagicLink(
             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your Knife Check Assessment Is Ready</title>
+            <title>Your WW Knife Check Assessment Is Ready</title>
             <style>
                 @media only screen and (min-width: 600px) {
                     .cta-button:hover {
@@ -104,7 +104,7 @@ export async function sendMagicLink(
 
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -342,7 +342,7 @@ export async function sendReportEmail(
       from: DEFAULT_FROM_EMAIL,
       to: [email],
 
-      subject: "Your Knife Check Assessment Report is ready",
+      subject: "Your WW Knife Check Assessment Report is ready",
       html: `
         <!DOCTYPE html>
         <html>
@@ -366,7 +366,7 @@ export async function sendReportEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -577,7 +577,7 @@ export async function sendPatternRecognitionEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -779,7 +779,7 @@ export async function sendEvidence7DayEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -969,7 +969,7 @@ export async function sendIntegrationThresholdEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1153,7 +1153,7 @@ export async function sendCompoundEffectEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1347,7 +1347,7 @@ export async function sendDirectInvitationEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="The Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1373,7 +1373,7 @@ export async function sendDirectInvitationEmail(
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               <strong>${userName},</strong><br><br>
-              It's been a month since you took your Knife Check Assessment.
+              It's been a month since you took your WW Knife Check Assessment.
             </p>
             
 

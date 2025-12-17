@@ -65,10 +65,10 @@ export default function SuccessPage() {
               fontWeight: 400,
             }}
           >
-            Your personalized Knife Check Assessment is ready to begin. In just
-            minutes, you&apos;re going to uncover the exact patterns that have
-            been keeping you stuck—and get a protocol built specifically to help
-            you recover from burnout and rediscover your purpose as a
+            Your personalized WW Knife Check Assessment is ready to begin. In
+            just minutes, you&apos;re going to uncover the exact patterns that
+            have been keeping you stuck—and get a protocol built specifically to
+            help you recover from burnout and rediscover your purpose as a
             chef-owner.
           </p>
 
@@ -104,7 +104,7 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> &quot;Your Knife Check
+                  <strong>Subject line:</strong> &quot;Your WW Knife Check
                   Assessment Link – Ready to Begin&quot;
                 </p>
                 <p style={{ color: "#1A1A1A" }}>
