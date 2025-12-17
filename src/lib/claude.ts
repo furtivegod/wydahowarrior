@@ -259,9 +259,7 @@ Third-person references to Steve's story
 Never shame, always shepherd`;
 
 export async function generateClaudeResponse(
-  messages: Array<{ role: "user" | "assistant"; content: string }>,
-  currentPhase?: string,
-  questionCount?: number
+  messages: Array<{ role: "user" | "assistant"; content: string }>
 ) {
   try {
     console.log("Calling Claude API with", messages.length, "messages");

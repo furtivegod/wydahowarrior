@@ -45,8 +45,13 @@ export default function AssessmentPage({
           return;
         }
         const data = await res.json();
-        if (isMounted)
-          setIsValid(data.valid === true && data.sessionId === sessionId);
+        if (isMounted) {
+          const valid = data.valid === true && data.sessionId === sessionId;
+          setIsValid(valid);
+          if (valid && data.completed === true) {
+            setIsComplete(true);
+          }
+        }
       } catch (e) {
         console.error("Token validation failed:", e);
         if (isMounted) setIsValid(false);
@@ -212,8 +217,8 @@ export default function AssessmentPage({
             Assessment Complete!
           </h1>
           <p className="mb-6 text-sm sm:text-base" style={{ color: "#1A1A1A" }}>
-            Your personalized assessment report has been generated and sent to your
-            email.
+            Your personalized assessment report has been generated and sent to
+            your email.
           </p>
           <div
             className="rounded-md p-4"

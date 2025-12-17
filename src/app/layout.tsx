@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import PostHogProvider from "@/components/PostHogProvider";
 
@@ -15,8 +15,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Are You Burnt? — Chef Owner Reality Check",
-  description: "This assessment is designed for Christian chef-owners who feel burnt, crushed, spiritually depleted, or on the edge of disappearing. A professional-grade, emotionally grounded, chef-culture fluent, Gospel-centered assessment.",
+  title: "WW Knife Check Assessment",
+  description:
+    "This assessment is designed for Christian chef-owners who feel burnt, crushed, spiritually depleted, or on the edge of disappearing. A professional-grade, emotionally grounded, chef-culture fluent, Gospel-centered assessment.",
+  icons: {
+    icon: "/top.png",
+    apple: "/top.png",
+  },
 };
 
 export default function RootLayout({
@@ -29,9 +34,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PostHogProvider>
-          {children}
-        </PostHogProvider>
+        <PostHogProvider>{children}</PostHogProvider>
       </body>
     </html>
   );
