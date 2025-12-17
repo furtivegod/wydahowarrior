@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { generatePDF } from "@/lib/pdf";
+import { generatePDF, PlanData } from "@/lib/pdf";
 
 export async function GET(request: NextRequest) {
   try {
@@ -23,253 +23,160 @@ export async function GET(request: NextRequest) {
 
     // ⚠️ FAKE SAMPLE DATA FOR TESTING ONLY - DO NOT USE IN PRODUCTION
     // This contains fabricated quotes and responses that don't belong to any real user
-    const samplePlanData = {
-      title: "THE KNIFE CHECK ASSESSMENT FOR BURNT OUT CHEFS",
-      overview:
-        "You've been protecting yourself from visibility and the weight of expectation by letting momentum drop halfway through. It's not laziness or lack of capability—it's a nervous system strategy that once kept you safe from judgment and pressure. But now it's keeping you from the sustained success you're capable of. The good news? You already have proof you can push through when someone's counting on you. You just need to rewire the system so you can count on yourself the same way.",
-      disclaimer:
-        "This assessment reflects patterns observed during our conversation and is designed to support your growth, not diagnose or replace professional mental health care. Use what resonates, adjust what doesn't, and trust your own wisdom about what you need next.",
-      bottom_line:
-        "You've been protecting yourself from the weight of sustained expectation by letting momentum drop halfway through. It's not laziness, lack of discipline, or a character flaw—it's a nervous system strategy that once kept you safe from judgment and the pressure of being watched. Staying in the dip kept the spotlight dimmer, the stakes lower, and the responsibility manageable. It worked when you needed it to. But here's the truth: that pattern is now costing you more than it's protecting you. Every time you lose momentum halfway through, you're reinforcing the belief that you can't sustain what you start. That belief compounds faster than any external success can undo it. It affects how you see yourself, how others see you, and what opportunities you're willing to pursue. The real cost isn't just unfinished projects—it's the identity of someone who starts but doesn't finish becoming your default. And you already know this. That's why you're here. The good news is you have proof you can change. When you've had a clear deadline and someone counting on you, you've locked in and pushed through. External accountability gave you the structure to finish strong—which means the capability is there. You just need to build the internal version of that accountability so you're not dependent on external pressure to follow through. Change requires you to act before you feel ready. To finish when it's uncomfortable. To trust the process when your nervous system screams at you to stop. You've done hard things before. You can do this. The next 30 days aren't about perfection—they're about proving to yourself that you can cross the finish line when it matters. One task at a time. One completed project at a time. Until finishing strong becomes who you are, not just what you do when someone's watching.",
-      client_name: "Client",
+    const samplePlanData: PlanData = {
+      title: "WW KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+      client_name: "Maksym",
+      assessment_date: "2025",
+      kitchen_term: "in the weeds",
+      pattern_analysis: {
+        pattern_exact_words:
+          "Saying yes when I should say no — taking on too much, even when I know it's too much.",
+        pattern_reframe:
+          "What I'm hearing: You override your own capacity to avoid disappointing others, then use work itself to numb the burnout that the overcommitment creates. You're trapped in a loop where work is both the wound and the bandage.",
+        pattern_trigger:
+          "This pattern shows up most when someone needs something from you and you can feel their expectation — the weight of letting them down feels heavier than the weight of saying yes, so you take on more even when your chest is already tight and your shoulders are already carrying too much.",
+        what_it_protects_from:
+          "Having to face that you're human — that you can't do it all, that you have limits, and that setting those limits might disappoint people. It protects you from feeling the guilt of not being enough and the fear that if you say no, people will see you as less than you need to be.",
+        what_it_costs:
+          "Staying burnt protects me from facing the fear of letting people down or confronting the guilt of not being able to do it all.",
+        proof_with_context:
+          "Your body already knows the truth — that tightness in your chest and heaviness in your shoulders before service even starts. That's not weakness, Maksym. That's your system trying to tell you something important. The fact that you can name it, that you're here doing this assessment, that you know the difference between duty and spark — that's proof you haven't lost yourself. You're just buried under everyone else's needs.",
+        anchor_habit: "Diving into work when pressure builds",
+        personalized_chef_truth:
+          "You say yes to protect yourself from guilt, but staying overcommitted keeps you numb to your own limits. Your body is screaming the truth before your mind catches up — tightness in your chest, weight on your shoulders — because you've been running on duty instead of desire for too long. The pattern isn't about being weak; it's about believing your worth depends on never disappointing anyone. But your identity is already settled in Christ. You don't have to earn enough-ness by saying yes to everything. Saying no is not failure — it's honesty. And that honesty is the only path out of the weeds.",
+      },
       roadmap_briefs: {
         identity_brief:
-          "You start strong but lose momentum halfway through to avoid the pressure of being fully seen and expected to perform consistently.",
+          "You believe your worth comes from never letting anyone down, so you override your limits to prove you're enough. That's costing you your peace, your body, and your fire.",
         craft_brief:
-          "Your nervous system shifts between wired alertness under pressure and foggy shutdown when avoiding—but you recover quickly, which is a real strength.",
+          "You're still showing up, still executing, but the spark is gone. Duty drives you now, not joy. Your craft has become a weight instead of a gift.",
         purpose_brief:
-          "This pattern started as protection from judgment and the weight of others watching—staying in the dip kept responsibility and expectations manageable.",
+          "Your original 'why' has been buried under everyone else's needs. You're serving out of obligation, not calling, and it's numbing you from the inside out.",
         environment_brief:
-          "Build external accountability into your weekly rhythm—share one goal with your close friend every Sunday and report progress by Friday.",
+          "Your kitchen has become a place where you survive, not thrive. The biggest obstacle is that you've built a system that requires you to stay burnt just to keep it running.",
         missing_brief:
-          "The missing question revealed where you really are—ready to finish strong but needing the internal accountability to match the external kind.",
+          "You revealed that work is both your problem and your painkiller — you dive deeper into tasks to escape the pressure that the tasks themselves create. You're in a loop, and you know it.",
         seventy_two_brief:
-          "Anchor one meaningful task completion to your morning water and plan check—finish something small within 72 hours that proves you can cross the finish line.",
+          "In the next 72 hours, practice saying one small no — just one — and sit with the discomfort of disappointing someone. Notice what happens. Does the world actually fall apart?",
         thirty_day_brief:
-          "Build the identity of someone who finishes what they start—one completed task at a time, until finishing strong becomes who you are.",
-      },
-      reminder_quote:
-        "I keep starting strong on things, then losing momentum halfway through. That dip frustrates me every time.",
-      assessment_date: "2025",
-      next_assessment: {
-        focus_areas:
-          "Focus Areas for Next Phase: Building internal accountability, sustaining energy through larger projects, deepening nervous system regulation capacity",
-        stay_connected:
-          "Stay connected through the newsletter for ongoing nervous system insights, join the community for accountability support, and reach out when you're ready for the next level of this work",
-        monthly_check_in:
-          "Monthly Check-In Options: brief progress reviews to track momentum dip awareness and completion consistency",
-        six_month_follow_up:
-          "6-Month Follow-Up Assessment recommended to track identity shifts and sustained completion patterns",
+          "For 30 days, establish a daily boundary practice tied to your body's signals. When your chest tightens or shoulders get heavy, pause and ask: 'What am I saying yes to that I should be saying no to?' Then act on it.",
       },
       domain_breakdown: {
         identity: {
           current_state:
-            "Exploration—you're actively learning by doing and refining your approach through action",
-          block:
-            "The belief that finishing strong every time creates unsustainable pressure from yourself and others",
+            "Victim: You believe your worth depends on never disappointing anyone, so you stay overcommitted to prove you're enough.",
+          block: "The fear that saying no makes you less than — that people will see you as inadequate if you honor your limits.",
           growth_edge:
-            "Building sustained focus through the momentum dip—learning to maintain energy when visibility increases",
+            "When you ground your identity in Christ instead of performance, you can say no without guilt. Your worth is already settled. You don't have to earn it by burning yourself out.",
         },
         craft: {
           current_state:
-            "Foundation—you recognize your body's signals under stress and can regulate quickly once pressure eases",
-          block:
-            "The automatic shutdown response when tasks require sustained visibility or pressure",
+            "Survival Mode: You're still executing, but the spark is gone. Duty keeps you moving, not desire.",
+          block: "Work has become both the wound and the bandage. You use it to numb the burnout it creates, so you never get space to reconnect with why you started.",
           growth_edge:
-            "Learning to catch the energy drop before it becomes full shutdown—using breath and movement to bridge the momentum dip",
+            "When you stop using work to escape work, you create space to remember what you actually love about the craft. Joy returns when you're not just surviving service but choosing to be present in it.",
         },
         purpose: {
           current_state:
-            "Foundation—you're pushing your work forward consistently, even on low-energy days",
-          block:
-            "The belief that sustained success creates pressure and expectation you're not ready to carry long-term",
+            "Lost: Your original 'why' has been buried under everyone else's expectations. You're serving out of obligation, not calling.",
+          block: "You can't reconnect with purpose while you're running on fumes. Numbness is the enemy of meaning.",
           growth_edge:
-            "Completing projects fully so your impact matches your effort—building the identity of someone who finishes what they start",
+            "When you start honoring your limits, you create space to ask the big questions again: Why did I start this? What do I actually want? Who do I want to serve? Purpose emerges when you stop drowning.",
         },
         environment: {
           current_state:
-            "Foundation—you have a solid support person but don't consistently leverage external accountability",
-          block:
-            "The fear that being consistently visible means others will watch and judge your ability to sustain what you start",
+            "Trapped: Your kitchen has become a place you survive, not a place you thrive. The system requires you to stay burnt just to keep it running.",
+          block: "You've built a kitchen culture that rewards overcommitment and punishes boundaries. The environment itself reinforces the pattern.",
           growth_edge:
-            "Building internal accountability that matches the external kind—learning to count on yourself the way you count on deadlines",
+            "When you start modeling boundaries, you give everyone else permission to do the same. A sustainable kitchen starts with a chef who refuses to stay burnt. You change the culture by changing yourself first.",
         },
       },
-      quote_attribution: "From your assessment",
-      pattern_analysis: {
-        anchor:
-          "Drinking water first thing in the morning and checking your plan for the day—these two habits never slip, even when nothing else feels solid",
-        success_proof:
-          "When you've had a clear deadline and someone counting on you, you lock in and push through—external accountability becomes the bridge across that momentum dip",
-        go_to_patterns:
-          "Quick scroll on your phone—an hour or two scattered in small chunks when you need a mental break or escape",
-        support_person:
-          "Your close friend—someone solid who pushes you in the right direction without judgment",
-        pattern_reframe:
-          "What I'm hearing: Your nervous system perceives sustained visibility as a threat—so it creates an energy drop halfway through to reduce exposure and manage the perceived danger of being consistently seen as capable.",
-        what_its_costing:
-          "You didn't specify a direct cost when asked about staying exactly where you are for another year, but the pattern itself tells the story—every time you lose momentum halfway through, you reinforce the belief that you can't sustain what you start. That belief compounds. It affects how you see yourself, how others see you, and what opportunities you're willing to pursue. The real cost isn't just unfinished projects—it's the identity of someone who starts but doesn't finish becoming your default.",
-        how_it_serves_you:
-          "Staying in the dip keeps the spotlight dimmer, the stakes lower, and the judgment at bay—it lets you stay functional without carrying the full weight of what you're capable of",
-        proof_with_context:
-          "When you've had a clear deadline and someone counting on you, you've locked in and pushed through the momentum dip. External accountability gave you the structure to finish strong—which means the capability is there. You just need to build the internal version of that accountability so you're not dependent on external pressure to follow through.",
-        protective_pattern:
-          "You start strong on things but lose momentum halfway through. This pattern shows up most when the stakes feel higher or when visibility increases—when finishing means people will expect you to sustain that level consistently. When you notice it starting, you'll likely feel the weight of expectation or the pressure of being watched first—that's your early warning signal. The faster you catch it, the faster you can choose differently.",
-        pattern_exact_words:
-          "I keep starting strong on things, then losing momentum halfway through. That dip frustrates me every time.",
-        personalized_chef_truth:
-          "You're not avoiding success—you're avoiding the sustained pressure that comes with it. This pattern kept you safe when being watched meant heavier judgment and expectations you weren't ready to carry. But now it's keeping you from building the identity of someone who finishes what they start. The capability is there. The proof is there. What's missing is the willingness to be seen consistently—and that's what the next 30 days are designed to build.",
-        what_its_protecting_from:
-          "The pressure of being fully seen, the weight of sustained expectation, and the responsibility that comes with proving you can finish strong every time",
-      },
-      assessment_overview:
-        "You've been protecting yourself from visibility and the weight of expectation by letting momentum drop halfway through. It's not laziness or lack of capability—it's a nervous system strategy that once kept you safe from judgment and pressure. But now it's keeping you from the sustained success you're capable of. The good news? You already have proof you can push through when someone's counting on you. You just need to rewire the system so you can count on yourself the same way.",
-      book_recommendation:
-        "Atomic Habits by James Clear—because you're someone who learns by doing and trusts action over preparation. This book will give you the framework to build the identity of someone who finishes what they start by focusing on systems and small wins, not willpower and motivation. It fits your current phase because you're in Experimentation—you're ready to test what works through real-world application, and this book gives you the exact structure to do that.",
-      development_profile:
-        "You're someone who trusts action over preparation, moves through decisions with clarity, and has the capacity to regulate quickly when stress passes. Your energy is mobilized and functional under pressure—shoulders tight, breathing shallow, mind running fast—but you know how to settle back down. The challenge isn't your capability or your commitment. It's that halfway through, your nervous system hits the brakes. Energy drops, fog rolls in, and easier tasks suddenly look more appealing. You said it yourself: staying in the dip protects you from being fully seen and from the pressure of others watching to see if you can keep it up. And that's the real pattern—not lack of discipline, but a protection mechanism that's outlived its usefulness.",
-      in_the_moment_reset:
-        "When you notice the momentum starting to drop—energy fading, fog rolling in, easier tasks looking more appealing—pause and take 3 deep breaths: in for 4 counts, hold for 4, out for 6. Then ask yourself: What's one small thing I can finish right now that proves I can cross the finish line? It won't stop the pattern completely at first, but it creates the gap where choice becomes possible.",
-      thirty_day_protocol: {
-        time_reps: "One complete task within 72 hours",
-        anchor_habit:
-          "Drinking water first thing in the morning and checking your plan for the day",
-        week_1_focus:
-          "Building awareness—notice when the momentum dip starts without trying to fix it yet",
-        week_2_focus:
-          "Creating micro-finishes—complete one small thing fully every day, no matter how insignificant it feels",
-        week_3_focus:
-          "Building sustained energy—push through the momentum dip on one larger task this week",
-        week_4_focus:
-          "Integration—become someone who finishes what they start without external pressure",
-        daily_actions: [
-          "Day 1: Right after your morning water and plan check, finish one small task completely before moving on—no switching halfway through",
-          "Day 2: Notice when the momentum dip starts today—pause, take 3 breaths, and name the emotion that shows up right before it",
-          "Day 3: Text your close friend and tell him you're working on finishing strong—ask him to check in on you this week",
-          "Day 4: Remove your phone from your workspace during one focused work block—create distance between momentum dip and quick escape",
-          "Day 5: Finish something meaningful today without an external deadline—just because you said you would",
-          "Day 6: Use the 4-4-6 breath pattern before tackling your most important task—regulate your nervous system before the dip hits",
-          "Day 7: Track your completions for the week—write down what you finished fully, not just what you worked on",
-          "Day 8: Choose one project that has a momentum dip halfway through—commit to pushing through it this week",
-          "Day 9: When energy drops today, choose one small action to push through instead of switching to easier tasks",
-          "Day 10: Notice your body's signals before the shutdown response—tight shoulders, shallow breath, fast mind—and use movement to shift it",
-          "Day 11: Share your progress with your close friend—report what you've finished so far this week",
-          "Day 12: Finish one task that requires sustained focus today—no partial completion, no momentum dip escape",
-          "Day 13: Use breath or movement to bridge the momentum dip on one task today—stay present through the discomfort",
-          "Day 14: Track your completions for the week—notice if finishing is starting to feel more natural than stopping halfway",
-          "Day 15: Identify the exact moment today when your nervous system wants to shut down—name it, breathe through it, keep going",
-          "Day 16: Finish something today that you would normally let drop halfway through—prove to yourself you can push through",
-          "Day 17: Remove one distraction from your environment that makes the momentum dip easier to escape into",
-          "Day 18: Text your close friend mid-week—tell him what you're working on finishing and ask him to hold you accountable",
-          "Day 19: Notice when easier tasks start looking more appealing—pause, breathe, and choose the meaningful task instead",
-          "Day 20: Finish one larger project this week that required pushing through the momentum dip—celebrate the completion",
-          "Day 21: Track your completions for the week—write down what you finished fully and notice the belief shift that's happening",
-          "Day 22: Choose one task today that feels heavy or visible—finish it anyway and notice how your nervous system responds",
-          "Day 23: Use the 4-4-6 breath pattern before every important task today—regulate proactively instead of reactively",
-          "Day 24: Notice if the momentum dip feels less automatic today—if finishing is starting to feel like a choice instead of a threat",
-          "Day 25: Share your progress with your close friend—report what you've finished this week and what you're working on next",
-          "Day 26: Finish something meaningful today without external pressure—just because you're becoming someone who follows through",
-          "Day 27: Track your daily completions this week—notice if the identity of someone who finishes what they start is starting to feel real",
-          "Day 28: Reflect on the past 4 weeks—write down what shifted, what you finished, and what you're capable of when you push through",
-          "Day 29: Choose one larger goal for next month—anchor it to your morning routine and share it with your close friend",
-          "Day 30: Celebrate 30 days of intentional completion—you've proven you can finish what you start when you work with your nervous system instead of against it",
-        ],
-        week_1_marker:
-          "You can name the exact moment the momentum dip starts and what emotion shows up right before it",
-        week_2_marker:
-          "You've completed 7 consecutive days of finishing one thing fully without skipping or switching halfway through",
-        week_3_marker:
-          "You finish something meaningful that required pushing through the dip—and you notice the belief shift that comes with it",
-        week_4_marker:
-          "You've finished 4 consecutive weeks of intentional completion—and the identity of someone who follows through is starting to feel real",
-        why_this_works:
-          "You already never skip your morning water and plan check—anchoring completion to that existing habit removes the willpower requirement and proves you can finish without external pressure",
-        specific_action:
-          "Right after checking your plan tomorrow morning, choose one task that matters and commit to finishing it fully—no partial completion, no switching halfway through",
-        week_1_chapters: "Chapters 1-3",
-        week_1_practice:
-          "Every time you feel energy drop or fog roll in, pause and take 3 deep breaths—just notice the pattern without judgment",
-        week_2_chapters: "Chapters 4-6",
-        week_2_practice:
-          "Anchor one daily completion to your morning water and plan check—finish something before you move on to the rest of your day",
-        week_3_chapters: "Chapters 7-9",
-        week_3_practice:
-          "Choose one project that has a momentum dip halfway through—use breath, movement, or external accountability to finish it strong",
-        week_4_practice:
-          "Track completion, not just effort—at the end of each day, write down what you finished fully, not just what you worked on",
-        progress_markers: [
-          "You notice the momentum dip starting but choose one small action to push through instead of switching to easier tasks",
-          "You finish something meaningful without external pressure or a hard deadline—just because you said you would",
-          "You can name the exact moment your nervous system wants to shut down and use breath or movement to stay present through it",
-        ],
-        support_check_in:
-          "Text your close friend this week and tell him you're working on finishing strong—ask him to check in on you when things get hard",
-        urgency_statement:
-          "If you stay in this pattern for another month, you'll have more proof that you can't sustain what you start—and that belief will compound into your identity faster than any external success can undo it",
-        immediate_practice:
-          "Before you tackle your next meaningful task, use the 4-4-6 breath pattern from the book—in for 4 counts, hold for 4, out for 6—to regulate your nervous system before the momentum dip hits",
-        thirty_day_approach:
-          "Build the identity of someone who finishes what they start by tracking completion, not just effort—every time you push through the momentum dip, you're rewiring the belief that sustained visibility is dangerous",
-        weekly_recommendation:
-          "Every Sunday, share one specific goal with your close friend—then report progress by Friday, creating the external accountability loop that already works for you",
-        environmental_optimization:
-          "Remove the phone from your workspace during deep work blocks—reduce the friction between momentum dip and quick escape by creating distance from your go-to distraction",
-        seventy_two_hour_suggestion:
-          "Anchor one meaningful task completion to your morning water and plan check—within 72 hours, finish one thing that matters and proves you can cross the finish line",
-      },
-      bottom_line_breakdown: {
-        the_truth:
-          "You're capable of more than this pattern allows. The protection it once offered—keeping you safe from judgment and pressure—now limits your potential. You already know this. That's why you're here. The capability is there. The proof is there. What's missing is the willingness to be seen consistently—and that's what the next 30 days are designed to build.",
-        your_proof:
-          "When you've had a clear deadline and someone counting on you, you've locked in and pushed through the momentum dip. External accountability gave you the structure to finish strong—which means the capability is already there. You just need to build the internal version of that accountability so you're not dependent on external pressure to follow through.",
-        what_it_costs:
-          "You didn't name a specific cost when asked, but the pattern itself tells the story—every time you lose momentum halfway through, you reinforce the belief that you can't sustain what you start. That belief compounds. It affects how you see yourself, how others see you, and what opportunities you're willing to pursue. The real cost isn't just unfinished projects—it's the identity of someone who starts but doesn't finish becoming your default.",
-        pattern_restated:
-          "You start strong on things but lose momentum halfway through—energy drops, fog rolls in, and easier tasks suddenly look more appealing",
-        what_it_protects:
-          "This pattern protects you from the pressure of being fully seen and the weight of sustained expectation. When you finish strong consistently, people expect it every time—and so do you. Staying in the dip keeps the spotlight dimmer, the stakes lower, and the judgment at bay. It lets you stay functional without carrying the full weight of what you're capable of.",
-        what_happens_next:
-          "Change requires you to act before you feel ready. To finish when it's uncomfortable. To trust the process when your nervous system screams at you to stop. You've done hard things before—you've shown up consistently even on low-energy days. You can do this. The next 30 days aren't about perfection—they're about proving to yourself that you can cross the finish line when it matters. One task at a time. One completed project at a time. Until finishing strong becomes who you are, not just what you do when someone's watching.",
-      },
-      development_reminders: [
-        "Integration comes through consistent practice, not more awareness—you already have the insight; now you need the repetitions of finishing what you start",
-        "Your nervous system is the foundation—regulate first, then grow; breath before action, presence before expansion, completion before more projects",
-        "Your sabotage patterns have wisdom—this momentum dip kept you safe from judgment and pressure when you needed protection; honor it while updating it",
-        "Identity shifts over time with deliberate practice—you're becoming someone who finishes strong consistently, one completed task at a time, one regulated moment at a time",
-      ],
       kitchen_energy_assessment: {
         primary_state:
-          "Mobilized alert—your system defaults to wired, functional stress with tight shoulders, shallow breathing, and a fast-running mind",
-        energy_reality:
-          "Your nervous system has two distinct strategies—mobilized alert when pressure is external, shutdown when the threat feels internal or sustained. The good news is you recover quickly, which means your window of tolerance is functional. The challenge is learning to stay present through the momentum dip without triggering the shutdown response.",
-        observable_patterns: [
-          "Under stress: tight and alert, shoulders tense, breathing shallow, mind running fast",
-          "When avoiding: energy drops, fog rolls in, easier tasks become more appealing",
-          "You said your body kind of hits the brakes—that's dorsal vagal shutdown kicking in to reduce perceived threat",
-        ],
+          "In the Weeds: You're running on stress and obligation, still productive but exhausted. Your body is tight — chest compressed, shoulders heavy — and you have to remind yourself to breathe. The spark isn't there, just the grind.",
         regulation_capacity:
-          "Developing—you recover quickly once pressure eases, but the wired-to-shutdown shift happens automatically when avoidance kicks in",
+          "Developing but Overridden: You can feel your body's signals — the tightness, the heaviness — but you override them to keep moving. You push through instead of pausing, which means your nervous system is constantly running hot with no relief valve.",
+        observable_patterns: [
+          "Tightness in my chest and a heaviness in my shoulders — like my body knows what's coming before my mind does",
+          "A mix of duty and numbness — I know I've got to show up, but the spark isn't always there right now",
+          "When the pressure gets too heavy, I usually reach for work — diving deeper into tasks to escape the feeling",
+        ],
+        energy_reality:
+          "Maksym, your body is ahead of your mind — it's signaling overload before you even clock in. That tightness in your chest and weight on your shoulders is your nervous system saying 'we've been running too hot for too long.' You're still executing, but you're doing it on fumes, not fire. The numbness is protection, but it's also a warning. You can't regulate what you refuse to feel, and right now, you're using work to avoid feeling how burnt you actually are. Change requires slowing down enough to hear what your body is trying to tell you.",
       },
-      kitchen_term: "in the weeds",
       missing_question_summary:
-        "The missing question revealed where you really are—ready to finish strong but needing the internal accountability to match the external kind.",
+        "Maksym revealed that work itself has become his escape mechanism — when the pressure builds, he dives deeper into tasks to avoid the feeling. This creates a devastating loop: the very thing burning him out is also the thing he uses to numb the burn. It's a grease fire he's trying to put out with more grease. This pattern keeps him stuck because he never gets space to actually process the pressure or address the root issue — his inability to say no. Until he breaks this loop, he'll stay buried under everyone else's needs while using work to avoid facing his own.",
+      thirty_day_protocol: {
+        urgency_statement:
+          "If you stay in this loop for another month — saying yes to everything, using work to numb the burnout that the yeses create, never honoring the signals your body is screaming — you'll lose more than your spark. You'll lose your capacity to feel anything at all. The numbness will deepen, the tightness will become chronic, and the gap between who you are and who you're pretending to be will get so wide you won't recognize yourself anymore.",
+        anchor_habit: "Diving into work when pressure builds",
+        specific_action:
+          "When you feel the urge to dive into work to escape pressure, pause for 60 seconds. Put your hand on your chest where you feel the tightness. Take three deep breaths. Then ask out loud: 'What am I avoiding right now?' Write down the first answer that comes. Don't fix it, don't dive back into work — just name it.",
+        time_reps:
+          "60 seconds, 3 deep breaths, 1 written answer — once per day minimum, ideally when the pressure hits",
+        why_this_works:
+          "This interrupts your pattern at the moment of activation. Instead of using work to numb, you're training yourself to pause and feel. That 60 seconds creates space between stimulus and response — the space where change happens. Your body already knows what you're avoiding; this practice lets your mind catch up.",
+        book_recommendation: {
+          title: "Set Boundaries, Find Peace",
+          author: "Nedra Glover Tawwab",
+          why_now:
+            "Maksym, this book is written for you. Your entire pattern is about saying yes when you should say no because you're terrified of disappointing people. Tawwab breaks down why boundary-setting feels so hard, what it costs you to avoid it, and how to actually do it without guilt destroying you. She addresses exactly what you're facing: the belief that your worth depends on never letting anyone down. This book will show you that boundaries aren't selfish — they're the only way to sustain yourself and actually serve people well. You need this now because you're using work to avoid the very conversations that would set you free.",
+          asin: "0593192095",
+        },
+        immediate_practice:
+          "From the book: Practice the 'pause and assess' before every yes. When someone asks something of you, instead of auto-responding, pause for 10 seconds and ask yourself: 'Do I have the capacity for this right now, or am I saying yes to avoid disappointing them?' Then respond honestly.",
+        week_1_focus: "Foundation: Understanding Your Boundary Blocks",
+        week_1_chapters:
+          "Introduction + Chapters 1-3: What boundaries are, why they matter, and what happens when you don't have them",
+        week_1_practice:
+          "Every day, when pressure builds and you want to dive into work, pause for 60 seconds. Hand on chest, three breaths, ask 'What am I avoiding?' Write it down. Do this at least once daily.",
+        week_1_marker:
+          "You'll know it's working when you can name what you're avoiding without immediately diving back into work to escape it. The awareness is the first win.",
+        week_2_focus: "Pattern Recognition: Identifying Your Yes-to-Everything Triggers",
+        week_2_chapters:
+          "Chapters 4-6: Understanding boundary violations, people-pleasing patterns, and the cost of over-functioning",
+        week_2_practice:
+          "Continue the 60-second pause daily. Add this: Before saying yes to any request, pause for 10 seconds and ask 'Do I have capacity for this, or am I saying yes to avoid guilt?' You don't have to say no yet — just practice the pause and the honest assessment.",
+        week_2_marker:
+          "You'll notice the pattern clearly now — you can feel the moment when you're about to override your limits. Even if you still say yes sometimes, you're aware of it happening. That's progress.",
+        week_3_focus: "Implementation: Practicing Small Nos",
+        week_3_chapters:
+          "Chapters 7-9: How to set boundaries without guilt, scripting difficult conversations, handling pushback",
+        week_3_practice:
+          "This week, say one small no each day. Something low-stakes. 'I can't take that shift.' 'I need to pass on this project.' 'Not this time.' Use Tawwab's scripts if you need them. Then sit with the discomfort for 5 minutes without diving into work. Just feel it.",
+        week_3_marker:
+          "You'll say at least one no without the world ending. You'll see that people can handle your boundaries better than you thought. And you'll notice your chest feels a little lighter when you're honest about your limits.",
+        week_4_focus: "Integration: Building Sustainable Boundary Habits",
+        week_4_practice:
+          "Combine all three weeks: Daily 60-second pause when pressure hits. 10-second assessment before every yes. One intentional no per day. Plus, add a weekly review: What did I say yes to this week that I shouldn't have? What boundary do I need to set next week?",
+        week_4_marker:
+          "30-day outcome: You've said no at least 7 times without catastrophe. Your body's signals (chest tightness, shoulder weight) are starting to ease because you're honoring them instead of overriding them. You can feel the difference between duty and desire again — because you're not buried under everyone else's needs anymore. The spark isn't fully back yet, but you can see where it might return.",
+      },
       bottom_line_full: {
         paragraph_1:
-          "You've been protecting yourself from visibility and the weight of expectation by letting momentum drop halfway through. It's not laziness or lack of capability—it's a nervous system strategy that once kept you safe from judgment and pressure.",
+          "Maksym, the pattern is clear: you say yes when you should say no because you're terrified that setting boundaries makes you less than. You override your limits to avoid the guilt of disappointing people, and then you use work itself to numb the burnout that the overcommitment creates. It's a devastating loop — the very thing crushing you is also the thing you reach for to escape the crush. Your body knows this isn't sustainable. That tightness in your chest and heaviness in your shoulders before service even starts? That's your nervous system trying to protect you by signaling overload. But you override it every time because you believe your worth depends on never letting anyone down.",
         paragraph_2:
-          "Staying stuck is costing you the identity of someone who finishes what they start. Every time you lose momentum halfway through, you reinforce the belief that you can't sustain what you start. That belief compounds faster than any external success can undo it.",
+          "Here's what this is costing you: you're trading your soul for other people's comfort. You're accepting long-term suffering to avoid short-term guilt. The spark is gone because you're running on duty, not desire. Numbness is setting in because your body can't sustain this pace, so it's shutting down to protect you. If you stay in this loop for another year, you won't just lose your fire — you'll lose your capacity to feel anything at all. The gap between who you are and who you're pretending to be will get so wide you won't recognize yourself. And the hardest part? You already know this. You named it yourself: 'Staying burnt protects me from facing the fear of letting people down or confronting the guilt of not being able to do it all.' But that protection is killing you.",
         paragraph_3:
-          "You have a choice: keep managing the chaos until something breaks, or face what's actually burning and 86 it. This isn't about working harder. You've proven you can grind. This is about working differently—building the internal accountability so you're not dependent on external pressure to follow through.",
+          "Here's the choice: you can keep running this pattern until your body forces you to stop, or you can start honoring your limits now — before the collapse. Transformation doesn't require a total life overhaul. It requires one thing: breaking the loop. Pause before you say yes. Sit with the discomfort of saying no. Let people be disappointed without diving into work to escape the feeling. Your worth is already settled in Christ — you don't have to earn it by burning yourself out. Saying no is not failure. It's honesty. And that honesty is the only way out of the weeds. The next 30 days will show you whether you're serious about change or just serious about staying comfortable in your suffering.",
         emphasis_statement:
-          "You're not stuck because you don't know what to do. You're stuck because you haven't protected your purpose like you protected your sobriety.",
+          "You are not your output. Your identity is settled in Christ. You don't have to earn enough-ness by saying yes to everything. The world will not fall apart when you honor your limits — but you will if you don't.",
       },
       steve_story_note:
-        "January 2024. Driggs, Idaho. My white Tundra was found. Search and rescue went out. My two boys didn't know where their dad was. I wasn't kidnapped. I wasn't in an accident. I was lost—not physically, but in every way that mattered. I'd spent years being everything for everyone. The chef. The owner. The provider. The guy who never said no, never took a break, never admitted he was drowning. I thought that was strength. It wasn't. It was slow suicide. When they found me safe, I had a choice: keep grinding until I actually didn't come back, or face the truth that I needed help. I chose help. That's why I'm here now. That's why you took this assessment. You don't have to disappear to find yourself. But you do have to face what's actually burning.",
+        "Maksym, I disappeared from the kitchen world for two years because I stayed in the exact loop you're in now. I said yes to everything, used work to numb the burnout, and told myself I was fine until my body shut me down completely. I lost my fire, my health, and almost lost myself. I'm back now because I learned the hard way that you can't serve anyone well when you're running on empty. Your body is trying to save you before you hit that wall. Listen to it.",
+      pull_quote:
+        "Tightness in my chest and a heaviness in my shoulders — like my body knows what's coming before my mind does.",
+      development_reminders: [
+        "Getting burnt is normal in kitchen culture — staying burnt is a choice",
+        "Your kitchen energy is the foundation — regulate first, then rebuild",
+        "Your patterns have wisdom — honor them while updating them",
+        "You are not your station — your worth is settled in Christ, not your covers",
+      ],
       next_steps: {
         six_month_date: "June 2025",
-        community_link: "https://wwassessment.com/community",
-        coaching_link: "https://wwassessment.com/coaching",
-        contact_email: "info@wwassessment.com",
+        community_link: "https://wydahowarriors.com/community",
+        coaching_link: "https://wydahowarriors.com/coaching",
+        contact_email: "steve@wydahowarriors.com",
       },
     };
 
