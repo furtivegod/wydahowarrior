@@ -258,18 +258,6 @@ function generateHTMLReport(
   const bookAuthor = bookRec.author || "";
   const bookWhyNow = bookRec.why_now || "";
 
-  // Extract bottom line breakdown (NEW STRUCTURE)
-  const bottomLineBreakdown = planData.bottom_line_breakdown || {};
-  const patternRestated =
-    bottomLineBreakdown.pattern_restated || patternExactWords;
-  const whatItProtects =
-    bottomLineBreakdown.what_it_protects || whatItsProtectingFrom;
-  const whatItCostsBreakdown =
-    bottomLineBreakdown.what_it_costs || whatItsCosting;
-  const theTruth = bottomLineBreakdown.the_truth || "";
-  const yourProofBreakdown = bottomLineBreakdown.your_proof || proofWithContext;
-  const whatHappensNext = bottomLineBreakdown.what_happens_next || "";
-
   // Extract bottom line full (3 paragraphs + emphasis)
   const bottomLineFull = planData.bottom_line_full || {};
   const bottomLinePara1 = bottomLineFull.paragraph_1 || "";

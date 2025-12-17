@@ -409,14 +409,6 @@ Format (9-Page Framework):
     "week_4_practice": "Integration action combining all three weeks",
     "week_4_marker": "30-day outcome - specific to their goal"
   },
-  "bottom_line_breakdown": {
-    "pattern_restated": "Their main pattern restated clearly in kitchen language",
-    "what_it_protects": "The specific fear/emotion - 2-3 sentences",
-    "what_it_costs": "Their actual answer - use ONLY their words",
-    "the_truth": "Direct, chef-to-chef reality check - 2-3 sentences",
-    "your_proof": "Evidence they can change with specific context - 2-3 sentences",
-    "what_happens_next": "Clear statement of what transformation requires - 2-3 sentences"
-  },
   "bottom_line_full": {
     "paragraph_1": "The pattern and its origin - 2-3 sentences",
     "paragraph_2": "What it's costing and why it matters now - 2-3 sentences",

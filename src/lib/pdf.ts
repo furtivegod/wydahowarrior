@@ -680,19 +680,6 @@ function generateHTMLReport(
         };
   }
 
-  // Extract bottom line breakdown (NEW STRUCTURE)
-  const bottomLineBreakdown = planData.bottom_line_breakdown || {};
-  const patternRestated =
-    bottomLineBreakdown.pattern_restated || patternExactWords;
-  const whatItProtects =
-    bottomLineBreakdown.what_it_protects || whatItProtectsFrom;
-  const whatItCostsBreakdown = bottomLineBreakdown.what_it_costs || whatItCosts;
-  const theTruth = bottomLineBreakdown.the_truth || "";
-  const yourProofBreakdown = bottomLineBreakdown.your_proof || proofWithContext;
-  const whatHappensNext =
-    bottomLineBreakdown.what_happens_next ||
-    "Change requires you to act before you're ready. To protect your purpose like you protected your sobriety. You've done harder things. You know you have.";
-
   // Extract bottom line full (3 paragraphs + emphasis)
   const bottomLineFull = planData.bottom_line_full || {};
   const bottomLinePara1 =
@@ -740,8 +727,10 @@ function generateHTMLReport(
   // Extract next steps
   const nextSteps = planData.next_steps || {};
   const sixMonthDate = nextSteps.six_month_date || "";
-  const communityLink = nextSteps.community_link || "https://wwassessment.com/community";
-  const coachingLink = nextSteps.coaching_link || "https://wwassessment.com/coaching";
+  const communityLink =
+    nextSteps.community_link || "https://wwassessment.com/community";
+  const coachingLink =
+    nextSteps.coaching_link || "https://wwassessment.com/coaching";
   const contactEmail = nextSteps.contact_email || "info@wwassessment.com";
 
   return `
@@ -1266,7 +1255,7 @@ function generateHTMLReport(
         <div class="page-content">
           <div class="section-header">
             <div class="section-label">Where You Are Right Now</div>
-            <div class="section-title">Your Current<br>State</div>
+            <div class="section-title">Your Current State</div>
           </div>
           
           <div class="sabotage-content">
@@ -1378,7 +1367,7 @@ function generateHTMLReport(
         <div class="page-content">
           <div class="section-header">
             <div class="section-label">The Four Domains - Where You Stand</div>
-            <div class="section-title">Domain<br>Breakdown</div>
+            <div class="section-title">Domain Breakdown</div>
           </div>
           
           <div class="domain-grid">
@@ -1446,9 +1435,18 @@ function generateHTMLReport(
               </div>
             </div>
           </div>
+        </div>
+      </div>
+        
+      <!-- PAGE 5: KITCHEN ENERGY ASSESSMENT -->
+      <div class="page" style="page-break-before: always;">
+        <div class="page-content">
+          <div class="section-header">
+            <div class="section-label">Your Energy State</div>
+            <div class="section-title">Kitchen Energy<br>Assessment</div>
+          </div>
           
-          <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
-            <div class="block-title">KITCHEN ENERGY ASSESSMENT</div>
+          <div style="margin-top: 50px;">
             <div class="content-block">
               <div class="block-title">Primary State</div>
               <div class="block-content">${formatTextWithParagraphBreaks(primaryEnergyState)}</div>
@@ -1471,12 +1469,12 @@ function generateHTMLReport(
         </div>
       </div>
         
-      <!-- PAGE 5: YOUR PROTOCOL -->
+      <!-- PAGE 6: YOUR PROTOCOL -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
             <div class="section-label">Start Here / Your 30-Day Protocol</div>
-            <div class="section-title">Your<br>Protocol</div>
+            <div class="section-title">Your Protocol</div>
           </div>
           
           <div style="font-size: 14px; line-height: 1.8; margin-bottom: 30px; font-style: italic; color: var(--deep-charcoal);">
@@ -1571,46 +1569,6 @@ function generateHTMLReport(
           </div>
         </div>
       </div>
-        
-      <!-- PAGE 6: BOTTOM LINE (STRUCTURED) -->
-      <div class="page" style="page-break-before: always;">
-        <div class="page-content">
-          <div class="section-header">
-            <div class="section-label">The Reality</div>
-            <div class="section-title">Bottom Line</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">YOUR PATTERN</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(patternRestated)}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">WHAT IT'S PROTECTING YOU FROM</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(whatItProtects)}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">WHAT IT'S COSTING YOU</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(whatItCostsBreakdown)}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">THE TRUTH</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(theTruth)}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">YOUR PROOF</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(yourProofBreakdown)}</div>
-          </div>
-          
-          <div class="content-block">
-            <div class="block-title">WHAT HAPPENS NEXT</div>
-            <div class="block-content">${formatTextWithParagraphBreaks(whatHappensNext)}</div>
-          </div>
-        </div>
-      </div>
       
       <!-- PAGE 7: BOTTOM LINE + STEVE'S STORY -->
       <div class="page" style="page-break-before: always;">
@@ -1655,7 +1613,7 @@ function generateHTMLReport(
         <div class="page-content">
           <div class="section-header">
             <div class="section-label">You Have Everything You Need</div>
-            <div class="section-title">What's<br>Next</div>
+            <div class="section-title">What's Next</div>
           </div>
           
           <div style="margin: 40px 0;">
@@ -1671,14 +1629,14 @@ function generateHTMLReport(
             </div>
             
             <div style="font-size: 16px; font-weight: 600; margin: 40px 0; text-align: center; color: var(--dark-olive);">
-              The Only Thing Left:<br>Take action. Every second counts.
+              The Only Thing Left: Take action. Every second counts.
             </div>
           </div>
           
           <div class="content-block" style="margin-top: 60px;">
             <div class="block-title">RECOMMENDED NEXT STEPS</div>
             <div class="block-content">
-              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment (\$97):</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
+              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment :</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">[Coaching Program Link]</a>` : ""}</p>
@@ -1694,7 +1652,7 @@ function generateHTMLReport(
         <div class="page-content">
           <div class="section-header">
             <div class="section-label">Remember</div>
-            <div class="section-title">Development<br>Reminders</div>
+            <div class="section-title">Development Reminders</div>
           </div>
       
           ${developmentRemindersFinal
@@ -1709,7 +1667,7 @@ function generateHTMLReport(
             })
             .join("")}
           
-          <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
+          <div style="margin-top: 50px; padding-top: 30px;">
             <div class="block-title">A WORD ABOUT REST</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
               God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)
