@@ -1362,7 +1362,7 @@ function generateHTMLReport(
         </div>
       </div>
         
-      <!-- PAGE 4: DOMAIN BREAKDOWN -->
+      <!-- PAGE 4: DOMAIN BREAKDOWN (PART 1) -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
@@ -1402,7 +1402,19 @@ function generateHTMLReport(
                 <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || "Not specified"}</div>
               </div>
             </div>
-            
+          </div>
+        </div>
+      </div>
+        
+      <!-- PAGE 5: DOMAIN BREAKDOWN (PART 2) -->
+      <div class="page" style="page-break-before: always;">
+        <div class="page-content">
+          <div class="section-header">
+            <div class="section-label">The Four Domains - Where You Stand</div>
+            <div class="section-title">Domain Breakdown</div>
+          </div>
+          
+          <div class="domain-grid">
             <div class="domain-card">
               <div class="domain-card-title">🎯 WHAT'S YOUR SIGNATURE DISH? (Purpose & Meaning)</div>
               <div class="domain-card-row">
@@ -1438,7 +1450,7 @@ function generateHTMLReport(
         </div>
       </div>
         
-      <!-- PAGE 5: KITCHEN ENERGY ASSESSMENT -->
+      <!-- PAGE 6: KITCHEN ENERGY ASSESSMENT -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
@@ -1469,7 +1481,7 @@ function generateHTMLReport(
         </div>
       </div>
         
-      <!-- PAGE 6: YOUR PROTOCOL -->
+      <!-- PAGE 7: YOUR PROTOCOL -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
@@ -1570,7 +1582,7 @@ function generateHTMLReport(
         </div>
       </div>
       
-      <!-- PAGE 7: BOTTOM LINE + STEVE'S STORY -->
+      <!-- PAGE 8: BOTTOM LINE + STEVE'S STORY -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
@@ -1608,7 +1620,7 @@ function generateHTMLReport(
         </div>
       </div>
             
-      <!-- PAGE 8: WHAT'S NEXT -->
+      <!-- PAGE 9: WHAT'S NEXT -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
@@ -1647,7 +1659,7 @@ function generateHTMLReport(
         </div>
       </div>
 
-      <!-- PAGE 9: DEVELOPMENT REMINDERS -->
+      <!-- PAGE 10: DEVELOPMENT REMINDERS -->
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
