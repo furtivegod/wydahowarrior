@@ -67,15 +67,9 @@ export async function createEmailSequence(
         // delay: 3 * 60 * 1000, // 3 minutes
         function: sendIntegrationThresholdEmail,
         name: "integration_threshold",
-      }, // 14 days
+      }, // Day 14
       {
-        delay: 21 * 24 * 60 * 60 * 1000,
-        // delay: 4 * 60 * 1000, // 4 minutes
-        function: sendCompoundEffectEmail,
-        name: "compound_effect",
-      }, // 21 days
-      {
-        delay: 30 * 24 * 60 * 60 * 1000,
+        // delay: 30 * 24 * 60 * 60 * 1000,
         // delay: 5 * 60 * 1000, // 5 minutes
         function: sendDirectInvitationEmail,
         name: "direct_invitation",

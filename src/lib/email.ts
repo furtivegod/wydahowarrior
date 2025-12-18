@@ -231,17 +231,24 @@ export async function sendReportEmail(
   try {
     console.log("Sending email via Resend...");
 
-    // Use the provided user name, fallback to email extraction if not provided
-
-    const displayName =
-      userName ||
+    // Extract first name from userName
+    const firstName =
+      userName?.split(" ")[0] ||
       email
         .split("@")[0]
         .split(".")
         .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-        .join(" ");
+        .join(" ")
+        .split(" ")[0];
 
-    // Generate personalized P.S. based on assessment data
+    // Extract pull quote and 72-hour action from planData
+    const pullQuote = planData?.pull_quote || "";
+    const seventyTwoAction =
+      planData?.roadmap_briefs?.seventy_two_brief ||
+      planData?.thirty_day_protocol?.immediate_practice ||
+      "Take the first step from your assessment";
+
+    // Generate personalized P.S. based on assessment data (Email 1 P.S. variations)
     let personalizedPS = "";
     if (planData) {
       const patternAnalysis = planData.pattern_analysis;
@@ -342,7 +349,7 @@ export async function sendReportEmail(
       from: DEFAULT_FROM_EMAIL,
       to: [email],
 
-      subject: "Your WW Knife Check Assessment Report is ready",
+      subject: "Your Chef Tool Box Assessment - Here's What's Burning",
       html: `
         <!DOCTYPE html>
         <html>
@@ -393,15 +400,18 @@ export async function sendReportEmail(
             <!-- Main Content -->
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
-              <strong style="font-family: 'Playfair Display', serif; font-weight: 700; color: #3D4D2E;">${displayName},</strong><br><br>
-              Your complete assessment is attached.
+              <strong style="font-family: 'Playfair Display', serif; font-weight: 700; color: #3D4D2E;">Chef ${firstName},</strong><br><br>
+              Your complete Chef Tool Box Assessment is attached.
             </p>
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
-              Before you read it, know this: Everything in that report—every pattern, every protective 
-              mechanism, every stuck point—made perfect sense at the time it formed. Your nervous system 
-              has been doing exactly what it was designed to do: keep you safe.
+              Before you read it, corner for a second:
+            </p>
+            
+
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
+              Everything in that report—every pattern, every protective mechanism, every stuck point—made perfect sense at the time it formed. Your nervous system has been doing exactly what it was designed to do: keep you safe.
             </p>
             
 
@@ -409,15 +419,47 @@ export async function sendReportEmail(
               The question now is: Are those same strategies still serving you, or is it time to update them?
             </p>
             
+            ${
+              pullQuote
+                ? `
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
+              You said "${pullQuote}". That's not weakness talking. That's honesty. And honesty is the first step out of the weeds.
+            </p>
+            `
+                : ""
+            }
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
-              Read it when you're ready. Then take the 72-hour action.
+              Read the report when you're ready. Then take the 72-hour action.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
+              This isn't about fixing you. You're not broken. You're burnt. There's a difference.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
+              <strong>Your 72-Hour Action:</strong> ${seventyTwoAction}
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
+              Why 72 hours? Because awareness fades fast. And this moment—where you can see the pattern clearly—is when change actually happens.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 400;">
+              Every second counts, chef.
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Your Teammate,<br>
-
-              <strong style="color: #C9A875;">Matthew</strong>
+              Steve Murphy<br>
+              Culinary Institute of America<br>
+              Former Missing Person, Current Warrior<br>
+              Wydaho Warriors LLC<br>
+              <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
+              208-227-3729
+            </p>
+            
+            <p style="font-size: 16px; color: #666; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-style: italic;">
+              "Come to me, all who are weary and burdened, and I will give you rest." — Matthew 11:28
             </p>
             
             ${
@@ -512,40 +554,55 @@ export async function sendPatternRecognitionEmail(
   }
 
   try {
-    // Generate personalized P.S. based on nervous system pattern
+    // Extract first name
+    const firstName =
+      userName?.split(" ")[0] || email.split("@")[0].split(".")[0];
 
+    // Generate personalized P.S. based on nervous system pattern (Email 2 P.S. variations)
     let personalizedPS = "";
     if (planData) {
       const kitchenEnergy = planData.kitchen_energy_assessment;
-      if (kitchenEnergy?.primary_state) {
-        const pattern = kitchenEnergy.primary_state.toLowerCase();
-        if (
-          pattern.includes("sympathetic") ||
-          pattern.includes("stress") ||
-          pattern.includes("overthinking")
-        ) {
-          personalizedPS =
-            'In a Discovery Call, we map the exact moments your nervous system shifts into protection mode—and build specific interrupts that work with your wiring. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
-        } else if (
-          pattern.includes("dorsal") ||
-          pattern.includes("avoidance") ||
-          pattern.includes("numbing")
-        ) {
-          personalizedPS =
-            'In a Discovery Call, we identify what safety looks like for your nervous system—so action doesn\'t require forcing yourself through shutdown. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
-        } else if (
-          pattern.includes("ventral") ||
-          pattern.includes("regulation")
-        ) {
-          personalizedPS =
-            'In a Discovery Call, we design practices that help you stay regulated under pressure—not just when life is calm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
-        } else {
-          personalizedPS =
-            'In a Discovery Call, we design pattern interrupts tailored to your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
-        }
-      } else {
+      const primaryState = kitchenEnergy?.primary_state?.toLowerCase() || "";
+      const regulationCapacity =
+        kitchenEnergy?.regulation_capacity?.toLowerCase() || "";
+      const combined = (primaryState + " " + regulationCapacity).toLowerCase();
+
+      // Check for stress/overthinking (sympathetic activation)
+      if (
+        combined.includes("sympathetic") ||
+        combined.includes("stress") ||
+        combined.includes("overthinking") ||
+        combined.includes("anxious") ||
+        combined.includes("hypervigilant")
+      ) {
         personalizedPS =
-          'In a Discovery Call, we design pattern interrupts tailored to your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
+          'In a Chef Clarity Call, we map the exact moments your nervous system shifts into protection mode—and build specific interrupts that work with your wiring, not against it. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+      }
+      // Check for avoidance/shutdown (dorsal shutdown)
+      else if (
+        combined.includes("dorsal") ||
+        combined.includes("avoidance") ||
+        combined.includes("numbing") ||
+        combined.includes("shutdown") ||
+        combined.includes("disconnect") ||
+        combined.includes("numb")
+      ) {
+        personalizedPS =
+          'In a Chef Clarity Call, we identify what safety looks like for your nervous system—so action doesn\'t require forcing yourself through shutdown. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+      }
+      // Check for stress regression
+      else if (
+        combined.includes("regression") ||
+        combined.includes("ventral") ||
+        combined.includes("regulation")
+      ) {
+        personalizedPS =
+          'In a Chef Clarity Call, we design practices that help you stay regulated under pressure—not just when life is calm. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+      }
+      // Generic fallback
+      else {
+        personalizedPS =
+          'In a Chef Clarity Call, we design pattern interrupts tailored to your nervous system. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
       }
     }
 
@@ -553,7 +610,7 @@ export async function sendPatternRecognitionEmail(
       from: DEFAULT_FROM_EMAIL,
       to: [email],
 
-      subject: "You probably already noticed it",
+      subject: "You probably already caught yourself doing it",
       html: `
         <!DOCTYPE html>
         <html>
@@ -602,7 +659,7 @@ export async function sendPatternRecognitionEmail(
                             <tr>
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              <strong>${userName},</strong><br><br>
+              <strong>${firstName},</strong><br><br>
               I'm curious—since reading your assessment, have you caught yourself doing exactly the thing it described?
             </p>
             
@@ -613,7 +670,7 @@ export async function sendPatternRecognitionEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              ${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.protective_pattern ? `You mentioned: "${planData.pattern_analysis.pattern_exact_words || planData.pattern_analysis.protective_pattern}"` : "You felt motivated to take action"}, but then reached for your usual escape pattern instead.
+              Or you felt motivated to ${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.anchor_habit || "take action"}, then reached for ${planData?.pattern_analysis?.anchor_habit || "your usual escape pattern"} instead.
             </p>
             
 
@@ -631,10 +688,31 @@ export async function sendPatternRecognitionEmail(
               And that awareness gap—the space between the trigger and your automatic response—is where all change begins.
             </p>
             
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              In the kitchen, you can predict when a station is about to go down before it happens. You see the signs: tickets backing up, timing off, prep running low.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Your life works the same way. You're starting to see the signs before the crash.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              That's not small progress. That's warrior-level awareness.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              The question is: Are you willing to do something about it, or are you going to keep watching the crash happen?
+            </p>
+            
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Your Teammate,<br>
-
-              <strong style="color: #C9A875;">Matthew</strong>
+              Steve Murphy<br>
+              Wydaho Warriors<br>
+              <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
+              208-227-3729
+            </p>
+            
+            <p style="font-size: 16px; color: #666; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-style: italic;">
+              "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go." — Joshua 1:9
             </p>
             
             ${
@@ -709,46 +787,51 @@ export async function sendEvidence7DayEmail(
   }
 
   try {
-    // Generate personalized P.S. based on primary sabotage pattern
+    // Extract first name
+    const firstName =
+      userName?.split(" ")[0] || email.split("@")[0].split(".")[0];
 
+    // Generate personalized P.S. based on primary sabotage pattern (Email 3 P.S. variations)
     let personalizedPS = "";
     if (planData) {
       const patternAnalysis = planData.pattern_analysis;
-      if (
+      const patternText =
         patternAnalysis?.pattern_exact_words ||
-        patternAnalysis?.protective_pattern
+        patternAnalysis?.protective_pattern ||
+        "";
+      const patternLower = patternText.toLowerCase();
+
+      // Check for perfectionism/overthinking
+      if (
+        patternLower.includes("perfectionism") ||
+        patternLower.includes("overthinking") ||
+        patternLower.includes("perfect") ||
+        patternLower.includes("researching")
       ) {
-        const pattern = (
-          patternAnalysis.pattern_exact_words ||
-          patternAnalysis.protective_pattern ||
-          ""
-        ).toLowerCase();
-        const patternText =
-          patternAnalysis.pattern_exact_words ||
-          patternAnalysis.protective_pattern ||
-          "your pattern";
-        if (
-          pattern.includes("perfectionism") ||
-          pattern.includes("overthinking")
-        ) {
-          personalizedPS = `You mentioned struggling with ${patternText}. In a Discovery Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-        } else if (
-          pattern.includes("avoidance") ||
-          pattern.includes("procrastination")
-        ) {
-          personalizedPS = `You shared that you struggle with ${patternText}. In a Discovery Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-        } else if (
-          pattern.includes("people-pleasing") ||
-          pattern.includes("conflict")
-        ) {
-          personalizedPS = `You described struggling with ${patternText}. In a Discovery Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-        } else {
-          personalizedPS =
-            'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
-        }
-      } else {
+        personalizedPS = `You mentioned "${patternText}". In a Chef Clarity Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      }
+      // Check for avoidance/procrastination
+      else if (
+        patternLower.includes("avoidance") ||
+        patternLower.includes("procrastination") ||
+        patternLower.includes("avoid") ||
+        patternLower.includes("delay")
+      ) {
+        personalizedPS = `You shared that "${patternText}". In a Chef Clarity Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      }
+      // Check for people-pleasing/conflict avoidance
+      else if (
+        patternLower.includes("people-pleasing") ||
+        patternLower.includes("conflict") ||
+        patternLower.includes("people please") ||
+        patternLower.includes("saying yes")
+      ) {
+        personalizedPS = `You described "${patternText}". In a Chef Clarity Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      }
+      // Generic fallback
+      else {
         personalizedPS =
-          'The assessment mapped the patterns. A Discovery Call helps you see progress you\'re missing and builds momentum structures. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'The assessment mapped the patterns. A Chef Clarity Call helps you see progress you\'re missing and builds momentum structures. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -804,8 +887,8 @@ export async function sendEvidence7DayEmail(
                             <tr>
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              <strong>${userName},</strong><br><br>
-              Most people wait for transformation to feel like a lightning bolt.
+              <strong>${firstName},</strong><br><br>
+              Most burnt-out chefs wait for transformation to feel like a lightning bolt.
             </p>
             
 
@@ -820,23 +903,30 @@ export async function sendEvidence7DayEmail(
             
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">One conversation you didn't avoid</li>
-              <li style="margin-bottom: 8px;">One evening you chose to take action over your usual escape pattern</li>
+              <li style="margin-bottom: 8px;">One evening you chose ${planData?.pattern_analysis?.anchor_habit ? `[positive behavior]` : "action"} over ${planData?.pattern_analysis?.anchor_habit || "your usual escape pattern"}</li>
               <li style="margin-bottom: 8px;">One moment you caught the spiral before it hijacked your whole day</li>
             </ul>
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              These aren't "small" wins.
+              These aren't "small" wins. They're proof your nervous system is recalibrating.
             </p>
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              They're <strong>proof your nervous system is recalibrating.</strong>
+              The catch? Your brain is so focused on what you haven't done yet that it completely misses what's already shifting.
             </p>
             
-
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              So here's your assignment: What's one thing you've done in the last week that your former self—the one who took this assessment—would have avoided or numbed out from?
+              In the kitchen, you wouldn't miss a perfectly executed dish just because the rest of service was chaos. But in life? You're ignoring every win because it doesn't feel "big enough" yet.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Here's your assignment:
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              What's one thing you've done in the last week that your former self—the one who took this assessment—would have avoided or numbed out from?
             </p>
             
 
@@ -844,10 +934,23 @@ export async function sendEvidence7DayEmail(
               That's the evidence that you're already changing.
             </p>
             
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Don't dismiss it. Don't minimize it. Acknowledge the win.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Because warriors build momentum on proof, not perfection.
+            </p>
+            
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Your Teammate,<br>
-
-              <strong style="color: #C9A875;">Matthew</strong>
+              Steve Murphy<br>
+              Wydaho Warriors<br>
+              <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
+              208-227-3729
+            </p>
+            
+            <p style="font-size: 16px; color: #666; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-style: italic;">
+              "I can do all things through Christ who strengthens me." — Philippians 4:13
             </p>
             
             ${
@@ -922,30 +1025,58 @@ export async function sendIntegrationThresholdEmail(
   }
 
   try {
-    // Generate personalized P.S. based on stated goals
+    // Extract first name
+    const firstName =
+      userName?.split(" ")[0] || email.split("@")[0].split(".")[0];
 
+    // Generate personalized P.S. based on stated goals (Email 4 P.S. variations)
     let personalizedPS = "";
     if (planData) {
       const purposeDomain = planData.domain_breakdown?.purpose;
       const purposeText =
         purposeDomain?.growth_edge || purposeDomain?.current_state || "";
+      const purposeLower = purposeText.toLowerCase();
+
+      // Check for business/income goal
       if (
-        purposeText &&
-        (purposeText.toLowerCase().includes("business") ||
-          purposeText.toLowerCase().includes("financial") ||
-          purposeText.toLowerCase().includes("career") ||
-          purposeText.toLowerCase().includes("money"))
+        purposeLower.includes("business") ||
+        purposeLower.includes("financial") ||
+        purposeLower.includes("career") ||
+        purposeLower.includes("money") ||
+        purposeLower.includes("income") ||
+        purposeLower.includes("revenue")
       ) {
-        personalizedPS = `You're building toward ${purposeText}. In a Discovery Call, we map how your patterns are affecting your kitchen momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
-      } else {
+        personalizedPS = `You're building toward ${purposeText || "something meaningful"}. In a Chef Clarity Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      }
+      // Check for relationship goal
+      else if (
+        purposeLower.includes("relationship") ||
+        purposeLower.includes("partner") ||
+        purposeLower.includes("family") ||
+        purposeLower.includes("connection") ||
+        purposeLower.includes("intimacy")
+      ) {
+        personalizedPS = `You want ${purposeText || "better relationships"}. In a Chef Clarity Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      }
+      // Check for body/health goal
+      else if (
+        purposeLower.includes("body") ||
+        purposeLower.includes("health") ||
+        purposeLower.includes("physical") ||
+        purposeLower.includes("exercise")
+      ) {
+        personalizedPS = `You described wanting ${purposeText || "better health"}. In a Chef Clarity Call, we rebuild your relationship with your body without punishment or force. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+      }
+      // Generic fallback
+      else {
         personalizedPS =
-          'A Discovery Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'A Chef Clarity Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
       from: DEFAULT_FROM_EMAIL,
       to: [email],
-      subject: "You're at the make-or-break point",
+      subject: "This is where most chefs quit",
       html: `
         <!DOCTYPE html>
         <html>
@@ -994,8 +1125,8 @@ export async function sendIntegrationThresholdEmail(
                             <tr>
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              <strong>${userName},</strong><br><br>
-              Two weeks is when most people quit.
+              <strong>${firstName},</strong><br><br>
+              Two weeks is when most chefs quit.
             </p>
             
 
@@ -1020,7 +1151,21 @@ export async function sendIntegrationThresholdEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Here's what shifts people from knowing to embodying:
+              This is where most chefs stay in the "knowing" phase forever:
+            </p>
+            
+            <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
+              <li style="margin-bottom: 8px;">Reading more books</li>
+              <li style="margin-bottom: 8px;">Taking more courses</li>
+              <li style="margin-bottom: 8px;">Collecting more frameworks</li>
+            </ul>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              All while their actual life stays the same.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Here's what shifts chefs from knowing to embodying:
             </p>
             
             <ol style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
@@ -1031,13 +1176,34 @@ export async function sendIntegrationThresholdEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              You've proven you can do hard things. ${planData?.pattern_analysis?.proof_with_context || planData?.pattern_analysis?.anchor_habit ? `You mentioned: "${planData.pattern_analysis.proof_with_context || planData.pattern_analysis.anchor_habit}"` : "You've built something meaningful in your life"}. The question is: Are you ready to apply that same capability to your own kitchen energy?
+              You've proven you can do hard things—you built ${planData?.pattern_analysis?.proof_with_context ? `something meaningful` : "your career"}. The question is: Are you ready to apply that same capability to your own nervous system?
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Or are you going to keep grinding through the same patterns, hoping they magically change on their own?
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Corner: they won't.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              You already know what needs to change. You said it yourself: ${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.what_it_costs || "you know what needs to change"}.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              The question is: Are you finally ready to act on it?
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Your Teammate,<br>
-
-              <strong style="color: #C9A875;">Matthew</strong>
+              Steve Murphy<br>
+              Wydaho Warriors<br>
+              <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
+              208-227-3729
+            </p>
+            
+            <p style="font-size: 16px; color: #666; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-style: italic;">
+              "Therefore, if anyone is in Christ, the new creation has come: The old has gone, the new is here!" — 2 Corinthians 5:17
             </p>
             
             ${
@@ -1306,18 +1472,23 @@ export async function sendDirectInvitationEmail(
   }
 
   try {
-    // Generate personalized P.S. based on future vision
+    // Extract first name
+    const firstName =
+      userName?.split(" ")[0] || email.split("@")[0].split(".")[0];
 
+    // Generate personalized P.S. based on future vision (Email 5 P.S. variations)
     let personalizedPS = "";
     if (planData) {
       const purposeDomain = planData.domain_breakdown?.purpose;
       const futureVision =
-        purposeDomain?.growth_edge || purposeDomain?.current_state;
-      if (futureVision) {
-        personalizedPS = `You described ${futureVision}. That version of you exists—you just need the path to get there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a> to map it out together.`;
+        purposeDomain?.growth_edge || purposeDomain?.current_state || "";
+
+      // Check if future vision exists
+      if (futureVision && futureVision.length > 10) {
+        personalizedPS = `You described a Tuesday where ${futureVision}. That version of you exists—you just need the path to get there. Which path are you choosing today?`;
       } else {
         personalizedPS =
-          'You\'ve had the map for 30 days. Ready to build the path? <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          "You've had the map for 30 days. Ready to build the path? Choose your starting point above.";
       }
     }
     const { data, error } = await resend.emails.send({
@@ -1372,8 +1543,8 @@ export async function sendDirectInvitationEmail(
                             <tr>
                                 <td style="padding: 0 40px;">
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              <strong>${userName},</strong><br><br>
-              It's been a month since you took your WW Knife Check Assessment.
+              <strong>${firstName},</strong><br><br>
+              It's been a month since you took your Chef Tool Box Assessment.
             </p>
             
 
@@ -1394,7 +1565,7 @@ export async function sendDirectInvitationEmail(
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">Caught yourself mid-spiral and interrupted it (even once)</li>
               <li style="margin-bottom: 8px;">Had a hard conversation you would have avoided before</li>
-              <li style="margin-bottom: 8px;">Chose to take action when you normally would have reached for your usual escape pattern</li>
+              <li style="margin-bottom: 8px;">Chose ${planData?.pattern_analysis?.anchor_habit ? `[positive behavior]` : "action"} when you normally would have reached for ${planData?.pattern_analysis?.anchor_habit || "[escape behavior]"}</li>
             </ul>
             
 
@@ -1409,7 +1580,7 @@ export async function sendDirectInvitationEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Either way, here's what I know after working with 680+ people:
+              Either way, here's what I know after helping 680+ people:
             </p>
             
 
@@ -1424,36 +1595,174 @@ export async function sendDirectInvitationEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              The question is: Do you want to keep trying to build structure and accountability on your own, or do you want help designing a system that actually fits your nervous system?
+              The question is: What's your next move?
             </p>
             
-
+            <p style="font-size: 20px; color: #3D4D2E; margin: 30px 0 20px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
+              HERE'S WHAT'S NEXT:
+            </p>
+            
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              If you want help, book a Discovery Call. We'll get clear on:
+              You've got three paths forward. Choose the one that fits where you actually are—not where you think you "should" be.
             </p>
             
-            <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
-              <li style="margin-bottom: 8px;">Where you actually are (not where you "should" be)</li>
-              <li style="margin-bottom: 8px;">What's realistically possible in the next 90 days given your current capacity</li>
-              <li style="margin-bottom: 8px;">Whether working together 1:1 makes sense or if you need something else first</li>
-            </ul>
-            
-
-            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              If you're not ready yet, that's completely fine. Keep the assessment. Come back to it when the gap between who you are and who you want to be gets uncomfortable enough to act on.
-            </p>
-            
-            <div style="text-align: center; margin: 40px 0;">
-              <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="background-color: #4A5D23; color: white; padding: 18px 36px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
-                Book Your Discovery Call
-              </a>
+            <div style="background-color: #F5F3ED; padding: 30px; border-radius: 8px; margin: 30px 0;">
+              <p style="font-size: 20px; color: #3D4D2E; margin: 0 0 15px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
+                PATH 1: YOU'RE READY TO SHARPEN THE BLADE 🔥
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 10px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 600;">
+                5-Week Chef Warrior Coaching - $895
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                For chefs who need momentum NOW. One focused month to:
+              </p>
+              <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 15px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
+                <li style="margin-bottom: 8px;">Identify your core pattern and build interrupts that actually work</li>
+                <li style="margin-bottom: 8px;">Design your environment so the default choice is the right choice</li>
+                <li style="margin-bottom: 8px;">Practice new responses in real scenarios (not theory)</li>
+              </ul>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                This is the unfair advantage. One month. Real change.
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                The best tool in your kitchen is YOU. But even the best blade needs sharpening.
+              </p>
+              <p style="font-size: 16px; color: #666; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                Payment plan available.
+              </p>
+              <div style="text-align: center; margin: 20px 0;">
+                <a href="https://paperbell.me/wydaho-warriors/5-week-coaching" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                  Start 5-Week Coaching - $895
+                </a>
+              </div>
             </div>
             
-            <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Your Teammate,<br>
-
-              <strong style="color: #C9A875;">Matthew</strong>
+            <div style="background-color: #F5F3ED; padding: 30px; border-radius: 8px; margin: 30px 0;">
+              <p style="font-size: 20px; color: #3D4D2E; margin: 0 0 15px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
+                PATH 2: YOU'RE READY TO REBUILD THE FOUNDATION ⚔️
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 10px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-weight: 600;">
+                13-Week Chef Warrior Coaching - $1,995
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                For chefs who want deep, lasting transformation. Three months to:
+              </p>
+              <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 15px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
+                <li style="margin-bottom: 8px;">Rewire your nervous system patterns (not just manage symptoms)</li>
+                <li style="margin-bottom: 8px;">Rebuild Spiritual. Emotional. Mental. Physical. from the ground up</li>
+                <li style="margin-bottom: 8px;">Create sustainable structures that prevent regression when life gets hard</li>
+              </ul>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                This is the complete rebuild. Mind. Body. Spirit.
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                You've been grinding the blade down for years. Time to reforge it from the foundation.
+              </p>
+              <p style="font-size: 16px; color: #666; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                Payment plan available.
+              </p>
+              <div style="text-align: center; margin: 20px 0;">
+                <a href="https://paperbell.me/wydaho-warriors/13-week-coaching" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                  Start 13-Week Coaching - $1,995
+                </a>
+              </div>
+            </div>
+            
+            <div style="background-color: #F5F3ED; padding: 30px; border-radius: 8px; margin: 30px 0;">
+              <p style="font-size: 20px; color: #3D4D2E; margin: 0 0 15px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
+                PATH 3: YOU'RE NOT READY YET (AND THAT'S OKAY) 📧 🎥
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                Stay Connected Until You Are
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                Sometimes the best investment is patience. If you're not ready to commit yet, stay in the loop:
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                📧 <strong>Subscribe to the Wydaho Warriors Newsletter:</strong><br>
+                Weekly raw truth, practical tools, and warrior encouragement straight to your inbox. No fluff. Just truth.
+              </p>
+              <div style="text-align: center; margin: 15px 0;">
+                <a href="https://wydahowarriors.com/newsletter" style="background-color: #C9A875; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif; margin-right: 10px;">
+                  Subscribe to Newsletter
+                </a>
+              </div>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                🎥 <strong>Follow on YouTube:</strong><br>
+                Weekly videos on burnout, boundaries, faith, and finding your fire again. Real stories. Real solutions.
+              </p>
+              <div style="text-align: center; margin: 15px 0;">
+                <a href="https://youtube.com/@wydahowarriors" style="background-color: #C9A875; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                  Subscribe to YouTube Channel
+                </a>
+              </div>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                When the gap between who you are and who you want to be gets uncomfortable enough to act on, you'll know where to find me.
+              </p>
+              <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                Keep the assessment. It's not going anywhere. And neither am I.
+              </p>
+            </div>
+            
+            <p style="font-size: 20px; color: #3D4D2E; margin: 30px 0 20px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
+              CORNER—ONE LAST THING:
             </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              In January 2024, I disappeared. Not because I was weak. Because I thought I was supposed to handle everything alone.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              I was wrong.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Strength isn't grinding through pain. Strength is asking for help before you break.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              You've had the map for 30 days. The question is: Are you ready to build the path?
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Whether that's 5 weeks, 13 weeks, or just staying connected until you're ready—the choice is yours.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              But here's what I know for sure: The sharpest tool in your kitchen is YOU.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              And even the best blade needs sharpening.
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Every second counts, chef. What are you going to do with yours?
+            </p>
+            
+            <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+              Steve Murphy<br>
+              Culinary Institute of America<br>
+              Former Missing Person, Current Warrior<br>
+              Wydaho Warriors LLC<br>
+              <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
+              208-227-3729
+            </p>
+            
+            <p style="font-size: 16px; color: #666; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif; font-style: italic;">
+              "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future." — Jeremiah 29:11
+            </p>
+            
+            ${
+              personalizedPS
+                ? `
+            <p style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 30px 0; font-family: 'Inter', sans-serif; font-weight: 400;">
+                <strong>P.S.</strong> ${personalizedPS}
+              </p>
+
+            `
+                : ""
+            }
                                 </td>
                             </tr>
                             
