@@ -6,6 +6,7 @@ import {
   sendCompoundEffectEmail,
   sendDirectInvitationEmail,
 } from "./email";
+import { PlanData } from "./pdf";
 
 /**
  * Email Queue Management System
@@ -48,29 +49,40 @@ export async function createEmailSequence(
     const email = userEmail;
     const name = userName || email.split("@")[0];
 
+    // Type definition for email schedule items
+    type EmailScheduleItem = {
+      delay: number;
+      function: (
+        email: string,
+        userName: string,
+        planData?: PlanData
+      ) => Promise<void>;
+      name: string;
+    };
+
     // Schedule emails with proper day-based delays (in milliseconds)
-    const emailSchedule = [
+    const emailSchedule: EmailScheduleItem[] = [
       {
-        delay: 3 * 24 * 60 * 60 * 1000,
-        // delay: 3 * 24 * 60 * 60 * 1000, // 1 minute
+        // delay: 3 * 24 * 60 * 60 * 1000,
+        delay: 1 * 60 * 1000, // 1 minute
         function: sendPatternRecognitionEmail,
         name: "pattern_recognition",
       }, // 3 days
       {
-        delay: 7 * 24 * 60 * 60 * 1000,
-        // delay: 2 * 60 * 1000, // 2 minutes
+        // delay: 7 * 24 * 60 * 60 * 1000,
+        delay: 2 * 60 * 1000, // 2 minutes
         function: sendEvidence7DayEmail,
         name: "evidence_7day",
       }, // 7 days
       {
-        delay: 14 * 24 * 60 * 60 * 1000,
-        // delay: 3 * 60 * 1000, // 3 minutes
+        // delay: 14 * 24 * 60 * 60 * 1000,
+        delay: 3 * 60 * 1000, // 3 minutes
         function: sendIntegrationThresholdEmail,
         name: "integration_threshold",
       }, // Day 14
       {
         // delay: 30 * 24 * 60 * 60 * 1000,
-        // delay: 5 * 60 * 1000, // 5 minutes
+        delay: 4 * 60 * 1000, // 5 minutes
         function: sendDirectInvitationEmail,
         name: "direct_invitation",
       }, // 30 days
