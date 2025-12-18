@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { trackEvent } from "@/lib/analytics";
 
@@ -427,10 +428,13 @@ export default function ChatInterface({
             <div className="mb-8">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-6 h-6 mr-5 flex items-center justify-center">
-                  <img
+                  <Image
                     src="/WW mark.png"
                     alt="Brain"
+                    width={24}
+                    height={24}
                     className="w-6 h-6"
+                    unoptimized
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
                       target.style.display = "none";
@@ -600,10 +604,13 @@ export default function ChatInterface({
                     <div className="flex gap-4 mb-8">
                       {/* AI Avatar - Brain Icon */}
                       <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                        <img
+                        <Image
                           src="/WW mark.png"
                           alt="AI Assistant"
+                          width={24}
+                          height={24}
                           className="w-6 h-6 object-contain"
+                          unoptimized
                           onError={(e) => {
                             // Fallback to emoji if image fails to load
                             e.currentTarget.style.display = "none";
@@ -637,10 +644,13 @@ export default function ChatInterface({
                 <div className="max-w-[700px] w-full px-6">
                   <div className="flex gap-4">
                     <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center animate-[brainPulse_2s_infinite_ease-in-out]">
-                      <img
+                      <Image
                         src="/WW mark.png"
                         alt="AI Brain Thinking"
+                        width={24}
+                        height={24}
                         className="w-6 h-6 object-contain"
+                        unoptimized
                         onError={(e) => {
                           console.error("Brain icon failed to load");
                           e.currentTarget.style.display = "none";

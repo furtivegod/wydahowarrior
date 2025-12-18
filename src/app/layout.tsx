@@ -19,8 +19,12 @@ export const metadata: Metadata = {
   description:
     "This assessment is designed for Christian chef-owners who feel burnt, crushed, spiritually depleted, or on the edge of disappearing. A professional-grade, emotionally grounded, chef-culture fluent, Gospel-centered assessment.",
   icons: {
-    icon: "/top.png",
+    icon: [
+      { url: "/top.png", sizes: "any" },
+      { url: "/top.png", type: "image/png" },
+    ],
     apple: "/top.png",
+    shortcut: "/top.png",
   },
 };
 
