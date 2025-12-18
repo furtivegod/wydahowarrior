@@ -1307,7 +1307,7 @@ function generateHTMLReport(
         <div class="page-content">
           <div class="section-header">
             <div class="section-label">The Way Forward</div>
-            <div class="section-title">Your<br>Roadmap</div>
+            <div class="section-title">Your Roadmap</div>
           </div>
           
           <div class="roadmap-flow">

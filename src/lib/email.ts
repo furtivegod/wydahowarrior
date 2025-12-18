@@ -670,7 +670,7 @@ export async function sendPatternRecognitionEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Or you felt motivated to ${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.anchor_habit || "take action"}, then reached for ${planData?.pattern_analysis?.anchor_habit || "your usual escape pattern"} instead.
+              Or you felt motivated to say, "${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.anchor_habit || "take action"}", then reached for "${planData?.pattern_analysis?.anchor_habit || "your usual escape pattern"}", instead.
             </p>
             
 
@@ -903,7 +903,7 @@ export async function sendEvidence7DayEmail(
             
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">One conversation you didn't avoid</li>
-              <li style="margin-bottom: 8px;">One evening you chose ${planData?.pattern_analysis?.anchor_habit ? `[positive behavior]` : "action"} over ${planData?.pattern_analysis?.anchor_habit || "your usual escape pattern"}</li>
+              <li style="margin-bottom: 8px;">One evening you chose "${planData?.pattern_analysis?.anchor_habit || "action"}" over "${planData?.pattern_analysis?.anchor_habit || "your usual escape pattern"}"</li>
               <li style="margin-bottom: 8px;">One moment you caught the spiral before it hijacked your whole day</li>
             </ul>
             
@@ -1188,7 +1188,7 @@ export async function sendIntegrationThresholdEmail(
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              You already know what needs to change. You said it yourself: ${planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.what_it_costs || "you know what needs to change"}.
+              You already know what needs to change. You said it yourself: "${(planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.what_it_costs || "you know what needs to change").replace(/\.$/, "")}".
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
@@ -1485,7 +1485,7 @@ export async function sendDirectInvitationEmail(
 
       // Check if future vision exists
       if (futureVision && futureVision.length > 10) {
-        personalizedPS = `You described a Tuesday where ${futureVision}. That version of you exists—you just need the path to get there. Which path are you choosing today?`;
+        personalizedPS = `You described a Tuesday where, ${futureVision}. That version of you exists—you just need the path to get there. Which path are you choosing today?`;
       } else {
         personalizedPS =
           "You've had the map for 30 days. Ready to build the path? Choose your starting point above.";
@@ -1565,7 +1565,7 @@ export async function sendDirectInvitationEmail(
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">Caught yourself mid-spiral and interrupted it (even once)</li>
               <li style="margin-bottom: 8px;">Had a hard conversation you would have avoided before</li>
-              <li style="margin-bottom: 8px;">Chose ${planData?.pattern_analysis?.anchor_habit ? `[positive behavior]` : "action"} when you normally would have reached for ${planData?.pattern_analysis?.anchor_habit || "[escape behavior]"}</li>
+              <li style="margin-bottom: 8px;">Chose "${planData?.pattern_analysis?.anchor_habit ? `[positive behavior]` : "action"}" when you normally would have reached for "${planData?.pattern_analysis?.anchor_habit || "[escape behavior]"}"</li>
             </ul>
             
 
