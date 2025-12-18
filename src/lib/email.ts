@@ -1631,7 +1631,7 @@ export async function sendDirectInvitationEmail(
                 Payment plan available.
               </p>
               <div style="text-align: center; margin: 20px 0;">
-                <a href="https://paperbell.me/wydaho-warriors/5-week-coaching" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                <a href="https://app.paperbell.com/checkout/packages/156555" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
                   Start 5-Week Coaching - $895
                 </a>
               </div>
@@ -1662,7 +1662,7 @@ export async function sendDirectInvitationEmail(
                 Payment plan available.
               </p>
               <div style="text-align: center; margin: 20px 0;">
-                <a href="https://paperbell.me/wydaho-warriors/13-week-coaching" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                <a href="https://app.paperbell.com/checkout/packages/186881" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
                   Start 13-Week Coaching - $1,995
                 </a>
               </div>

@@ -428,7 +428,7 @@ export default function ChatInterface({
               <div className="flex items-center justify-center mb-4">
                 <div className="w-6 h-6 mr-5 flex items-center justify-center">
                   <img
-                    src="/brain.png"
+                    src="/WW mark.png"
                     alt="Brain"
                     className="w-6 h-6"
                     onError={(e) => {
@@ -557,6 +557,38 @@ export default function ChatInterface({
       >
         <div className="w-full flex justify-center">
           <div className="max-w-[700px] w-full px-6">
+            {/* Assessment Complete Message - Show at top after 15 seconds */}
+            {showGeneratingMessage && (
+              <div className="w-full flex justify-center mb-8 animate-[messageSlideIn_0.5s_ease-out]">
+                <div className="max-w-[700px] w-full px-6">
+                  <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
+                    <div className="flex items-center justify-center gap-3 mb-3">
+                      <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">
+                        <svg
+                          className="w-4 h-4 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="text-lg font-semibold text-green-800">
+                        Assessment Complete!
+                      </h3>
+                    </div>
+                    <p className="text-green-700 font-medium">
+                      Your assessment report will be generated within a few
+                      minutes and will be delivered to your email.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -569,7 +601,7 @@ export default function ChatInterface({
                       {/* AI Avatar - Brain Icon */}
                       <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
                         <img
-                          src="/brain.png"
+                          src="/WW mark.png"
                           alt="AI Assistant"
                           className="w-6 h-6 object-contain"
                           onError={(e) => {
@@ -606,7 +638,7 @@ export default function ChatInterface({
                   <div className="flex gap-4">
                     <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center animate-[brainPulse_2s_infinite_ease-in-out]">
                       <img
-                        src="/brain.png"
+                        src="/WW mark.png"
                         alt="AI Brain Thinking"
                         className="w-6 h-6 object-contain"
                         onError={(e) => {
@@ -620,38 +652,6 @@ export default function ChatInterface({
                         Thinking...
                       </span>
                     </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Assessment Complete Message - Show after 15 seconds */}
-            {showGeneratingMessage && (
-              <div className="w-full flex justify-center mb-8 animate-[messageSlideIn_0.5s_ease-out]">
-                <div className="max-w-[700px] w-full px-6">
-                  <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
-                    <div className="flex items-center justify-center gap-3 mb-3">
-                      <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center">
-                        <svg
-                          className="w-4 h-4 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                      <h3 className="text-lg font-semibold text-green-800">
-                        Assessment Complete!
-                      </h3>
-                    </div>
-                    <p className="text-green-700 font-medium">
-                      Your assessment report will be generated within a few
-                      minutes and will be delivered to your email.
-                    </p>
                   </div>
                 </div>
               </div>
