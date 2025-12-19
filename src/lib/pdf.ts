@@ -332,10 +332,10 @@ async function convertHTMLToPDF(
       body: JSON.stringify({
         source: htmlContent,
         format: "A4",
-        margin: "15mm",
+        margin: "10mm",
         footer: {
           source: footerHTML,
-          height: "15px", // Space between content and footer
+          // height: "15px", // Space between content and footer
           start_at: 1, // Start footer from page 1
         },
       }),
