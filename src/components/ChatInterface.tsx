@@ -262,9 +262,7 @@ export default function ChatInterface({
       const lastMessage = messages[messages.length - 1];
       if (
         lastMessage.role === "assistant" &&
-        (lastMessage.content.includes(
-          "Thank you for showing up fully for this assessment"
-        ) ||
+        (lastMessage.content.includes("Thank you for showing up honestly") ||
           lastMessage.content.includes("ASSESSMENT COMPLETE") ||
           lastMessage.content.includes(
             "You did the hard part. Now let's build on it."
@@ -329,6 +327,24 @@ export default function ChatInterface({
           if (line.startsWith("data: ")) {
             try {
               const data = JSON.parse(line.slice(6));
+
+              // Check for isComplete flag from API (sent at end of stream)
+              if (data.isComplete === true && !completionTriggeredRef.current) {
+                console.log("Completion detected via isComplete flag");
+                completionTriggeredRef.current = true;
+                setAssessmentComplete(true);
+
+                // Show generating message after 15 seconds
+                setTimeout(() => {
+                  setShowGeneratingMessage(true);
+                }, 15000); // 15 second delay
+
+                // Trigger report generation immediately (it runs in background)
+                setTimeout(() => {
+                  onComplete(); // This triggers the report generation API
+                }, 15000); // Same 15 second delay
+              }
+
               if (data.content && data.content !== "undefined") {
                 // Set streaming to true immediately when we start receiving content
                 if (!streamingStartedRef.current) {
@@ -345,13 +361,17 @@ export default function ChatInterface({
                   (assistantMessage.content.includes(
                     "thank you for showing up honestly"
                   ) ||
-                    assistantMessage.content.includes("Here’s what I see") ||
+                    assistantMessage.content.includes("Here's what I see") ||
+                    assistantMessage.content.includes("Here's what I see") ||
                     assistantMessage.content.includes(
                       "You did the hard part. Now let's build on it."
+                    ) ||
+                    assistantMessage.content.includes(
+                      "Let's get you out of the weeds."
                     ))
                 ) {
                   console.log(
-                    "Completion detected during streaming, stopping..."
+                    "Completion detected during streaming via content phrases"
                   );
                   completionTriggeredRef.current = true; // Prevent multiple triggers
                   setAssessmentComplete(true);
@@ -366,7 +386,7 @@ export default function ChatInterface({
                     onComplete(); // This triggers the report generation API
                   }, 15000); // Same 15 second delay
 
-                  break; // Stop processing more content
+                  // Don't break here - continue processing to get full message
                 }
               }
               setMessages((prev) =>

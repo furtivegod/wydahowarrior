@@ -26,178 +26,173 @@ export async function GET(request: NextRequest) {
     const samplePlanData: PlanData = {
       title: "WW KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
       client_name: "Maksym",
-      assessment_date: "2025",
-      kitchen_term: "in the weeds",
+      assessment_date: "January 2025",
+      kitchen_term: "Burnt — running on fumes, keeping things going, but with nothing left in reserve",
       pattern_analysis: {
         pattern_exact_words:
-          "Saying yes when I should say no — taking on too much, even when I know it's too much.",
+          "I keep taking on more than I can handle, saying yes out of responsibility, and never creating space to step back or reset",
         pattern_reframe:
-          "What I'm hearing: You override your own capacity to avoid disappointing others, then use work itself to numb the burnout that the overcommitment creates. You're trapped in a loop where work is both the wound and the bandage.",
+          "What I'm hearing: You've built your identity around being the one who holds everything together. Being needed has become your oxygen—but it's also suffocating you. You can't step back because stepping back means risking irrelevance, and irrelevance means facing the question you've been avoiding: who are you without the grind?",
         pattern_trigger:
-          "This pattern shows up most when someone needs something from you and you can feel their expectation — the weight of letting them down feels heavier than the weight of saying yes, so you take on more even when your chest is already tight and your shoulders are already carrying too much.",
+          "This pattern shows up most when you sense someone needs you or when saying no would mean disappointing someone. The weight of responsibility hits before the first ticket even drops—your body knows you're about to sacrifice yourself again before your mind even processes it.",
         what_it_protects_from:
-          "Having to face that you're human — that you can't do it all, that you have limits, and that setting those limits might disappoint people. It protects you from feeling the guilt of not being enough and the fear that if you say no, people will see you as less than you need to be.",
+          "Facing who you are without the kitchen defining you and whether you're still enough if you slow down or step back",
         what_it_costs:
-          "Staying burnt protects me from facing the fear of letting people down or confronting the guilt of not being able to do it all.",
+          "If you stay exactly where you are for another year, you'll lose the last remaining spark of joy you found in that quiet prep moment. You'll cement the belief that your only value is in how much you can sacrifice. You'll teach your nervous system that survival mode is permanent. And you'll drift further from the person who actually chose this work freely—until you can't remember him at all.",
         proof_with_context:
-          "Your body already knows the truth — that tightness in your chest and heaviness in your shoulders before service even starts. That's not weakness, Maksym. That's your system trying to tell you something important. The fact that you can name it, that you're here doing this assessment, that you know the difference between duty and spark — that's proof you haven't lost yourself. You're just buried under everyone else's needs.",
-        anchor_habit: "Diving into work when pressure builds",
+          "That quiet prep moment when you were cooking for people you cared about—no rush, no tickets, just presence. That wasn't a fluke, Maksym. That was you remembering what it feels like to cook from intention instead of obligation. The environment was right, the pressure was off, and you felt something you haven't felt in months: permission to just be. That version of you still exists.",
+        anchor_habit: "Showing up early and pushing yourself to be fully ready, even when you're completely drained",
         personalized_chef_truth:
-          "You say yes to protect yourself from guilt, but staying overcommitted keeps you numb to your own limits. Your body is screaming the truth before your mind catches up — tightness in your chest, weight on your shoulders — because you've been running on duty instead of desire for too long. The pattern isn't about being weak; it's about believing your worth depends on never disappointing anyone. But your identity is already settled in Christ. You don't have to earn enough-ness by saying yes to everything. Saying no is not failure — it's honesty. And that honesty is the only path out of the weeds.",
+          "Brother, you've become so good at being needed that you've forgotten how to exist without the weight. Your body is bracing for a fight before service even starts because it knows what's coming—another round of sacrificing yourself to prove you matter. But here's the truth: you were enough before you became 'chef.' Your worth was settled in Christ before you ever picked up a knife. The pattern of taking on more than you can handle isn't strength—it's fear dressed up as responsibility. And until you face who you are without the kitchen defining you, you'll stay burnt.",
       },
       roadmap_briefs: {
         identity_brief:
-          "You believe your worth comes from never letting anyone down, so you override your limits to prove you're enough. That's costing you your peace, your body, and your fire.",
+          "Your identity has been swallowed by your role—you're 'chef' before you're Maksym. This pattern of being needed protects you from facing whether you're still enough if you slow down, but it's costing you your soul.",
         craft_brief:
-          "You're still showing up, still executing, but the spark is gone. Duty drives you now, not joy. Your craft has become a weight instead of a gift.",
+          "You still have capacity for joy in your craft—that quiet prep moment proved it. But right now, craft has been replaced by survival. You're cooking from obligation, not intention.",
         purpose_brief:
-          "Your original 'why' has been buried under everyone else's needs. You're serving out of obligation, not calling, and it's numbing you from the inside out.",
+          "Being a chef stopped feeling like calling when responsibility replaced curiosity. You've lost the sense of choosing this work freely—now it feels like a trap you can't escape without losing yourself.",
         environment_brief:
-          "Your kitchen has become a place where you survive, not thrive. The biggest obstacle is that you've built a system that requires you to stay burnt just to keep it running.",
+          "Your environment demands sacrifice as proof of value. The kitchen has become a place where you brace for a fight instead of creating beauty. Your nervous system is screaming before you even walk through the door.",
         missing_brief:
-          "You revealed that work is both your problem and your painkiller — you dive deeper into tasks to escape the pressure that the tasks themselves create. You're in a loop, and you know it.",
+          "You revealed the core question haunting you: 'Who am I without the kitchen defining me?' That uncertainty feels heavier than another long service. The answer matters more than you think.",
         seventy_two_brief:
-          "In the next 72 hours, practice saying one small no — just one — and sit with the discomfort of disappointing someone. Notice what happens. Does the world actually fall apart?",
+          "One 10-minute boundary practice sized to your current burnt state—a way to reclaim space without dismantling everything you've built.",
         thirty_day_brief:
-          "For 30 days, establish a daily boundary practice tied to your body's signals. When your chest tightens or shoulders get heavy, pause and ask: 'What am I saying yes to that I should be saying no to?' Then act on it.",
+          "A sustained nervous system reset combined with identity work that teaches your body it's safe to exist without the grind—before another year passes.",
       },
       domain_breakdown: {
         identity: {
           current_state:
-            "Victim: You believe your worth depends on never disappointing anyone, so you stay overcommitted to prove you're enough.",
-          block: "The fear that saying no makes you less than — that people will see you as inadequate if you honor your limits.",
+            "Victim: Your role has consumed your personhood. You're 'chef' before you're Maksym. Your identity is so fused with what you do that imagining life without cooking professionally leaves you with no sense of self. You introduce yourself by function, not by name.",
+          block: "Fear that without the grind, you're not enough. Being needed has become your proof of existence. Letting go of control means risking irrelevance—and irrelevance means facing the terrifying question: who are you when you're not performing?",
           growth_edge:
-            "When you ground your identity in Christ instead of performance, you can say no without guilt. Your worth is already settled. You don't have to earn it by burning yourself out.",
+            "When you separate your worth from your performance, you'll discover that you exist before you produce. You'll learn to introduce yourself as Maksym who happens to cook, not as 'chef' who happens to have a name. You'll find permission to be human instead of functional.",
         },
         craft: {
           current_state:
-            "Survival Mode: You're still executing, but the spark is gone. Duty keeps you moving, not desire.",
-          block: "Work has become both the wound and the bandage. You use it to numb the burnout it creates, so you never get space to reconnect with why you started.",
+            "Survival Mode: You're keeping the line moving but there's nothing left in reserve. Craft has been replaced by obligation—you're cooking to survive, not to create. That quiet prep moment where you felt joy is a distant memory buried under tickets and pressure.",
+          block: "You've lost the sense of choosing this work freely. Responsibility and pressure have replaced curiosity and joy. You're so burnt that the idea of cooking from intention feels impossible—there's no space to even consider it.",
           growth_edge:
-            "When you stop using work to escape work, you create space to remember what you actually love about the craft. Joy returns when you're not just surviving service but choosing to be present in it.",
+            "Reconnecting with craft means rediscovering what it feels like to cook without the weight of proving your worth. When you create space to step back, you'll remember why you picked up a knife in the first place. Joy isn't gone—it's just buried under survival.",
         },
         purpose: {
           current_state:
-            "Lost: Your original 'why' has been buried under everyone else's expectations. You're serving out of obligation, not calling.",
-          block: "You can't reconnect with purpose while you're running on fumes. Numbness is the enemy of meaning.",
+            "Lost: Being a chef stopped feeling like calling when responsibility replaced curiosity. You've drifted so far from the version of you who chose this work freely that you can't remember what that felt like. Purpose has been replaced by pressure.",
+          block: "You're so deep in survival mode that purpose feels like a luxury you can't afford. The question 'why am I doing this?' is too scary to ask because you're not sure you have an answer anymore—and if you don't, what does that mean about the years you've invested?",
           growth_edge:
-            "When you start honoring your limits, you create space to ask the big questions again: Why did I start this? What do I actually want? Who do I want to serve? Purpose emerges when you stop drowning.",
+            "When you regulate your nervous system and reclaim your identity, purpose will emerge naturally. You'll rediscover that cooking for people you care about—with presence, not pressure—is where your calling still lives. Purpose isn't lost; it's just waiting for you to slow down enough to hear it.",
         },
         environment: {
           current_state:
-            "Trapped: Your kitchen has become a place you survive, not a place you thrive. The system requires you to stay burnt just to keep it running.",
-          block: "You've built a kitchen culture that rewards overcommitment and punishes boundaries. The environment itself reinforces the pattern.",
+            "Trapped: Your environment demands sacrifice as proof of value. Your chest tightens, your jaw clenches, and you mentally brace like you're heading into a fight before service even starts. Your nervous system knows what's coming—another round of war, not work.",
+          block: "You can't create space to step back or reset because your environment reinforces the belief that stopping means failing. The kitchen has become a place where your worth is measured by how much you can handle—and you're drowning in that measurement.",
           growth_edge:
-            "When you start modeling boundaries, you give everyone else permission to do the same. A sustainable kitchen starts with a chef who refuses to stay burnt. You change the culture by changing yourself first.",
+            "When you establish boundaries and shift your environment to support intention instead of obligation, your body will stop bracing for a fight. You'll create space where presence is possible—where you can cook without sacrificing yourself on the altar of responsibility.",
         },
       },
       kitchen_energy_assessment: {
         primary_state:
-          "In the Weeds: You're running on stress and obligation, still productive but exhausted. Your body is tight — chest compressed, shoulders heavy — and you have to remind yourself to breathe. The spark isn't there, just the grind.",
+          "Burnt and Running on Fumes: You're keeping things going, but with nothing left in reserve. Your body is in full defense mode before service even starts—chest tight, jaw clenched, bracing for a fight instead of a shift. You're functioning, but your nervous system is screaming. This isn't fatigue sleep can fix—this is survival response that's become your baseline.",
         regulation_capacity:
-          "Developing but Overridden: You can feel your body's signals — the tightness, the heaviness — but you override them to keep moving. You push through instead of pausing, which means your nervous system is constantly running hot with no relief valve.",
+          "Severely Depleted: You're so deep in the weeds that your body stays locked in fight mode even when there's no immediate threat. The dread and pressure hit before anything even starts. You numb with work, screens, and noise because sitting still means facing what you've been avoiding. You've lost access to rest—your nervous system doesn't remember what safety feels like.",
         observable_patterns: [
-          "Tightness in my chest and a heaviness in my shoulders — like my body knows what's coming before my mind does",
-          "A mix of duty and numbness — I know I've got to show up, but the spark isn't always there right now",
-          "When the pressure gets too heavy, I usually reach for work — diving deeper into tasks to escape the feeling",
+          "Chest tightens and jaw clenches before service even begins—full defensive posture",
+          "Heavy sense of dread mixed with pressure hits immediately when thinking about work",
+          "Burying yourself in work, screens, or noise to avoid sitting alone with your thoughts",
         ],
         energy_reality:
-          "Maksym, your body is ahead of your mind — it's signaling overload before you even clock in. That tightness in your chest and weight on your shoulders is your nervous system saying 'we've been running too hot for too long.' You're still executing, but you're doing it on fumes, not fire. The numbness is protection, but it's also a warning. You can't regulate what you refuse to feel, and right now, you're using work to avoid feeling how burnt you actually are. Change requires slowing down enough to hear what your body is trying to tell you.",
+          "Maksym, your nervous system is stuck in permanent survival mode. Your body knows what's coming before your mind even processes it—another round of sacrifice, another service where you fight instead of create. You're not just tired; you're physiologically burnt. The pattern of taking on more than you can handle has taught your body that rest isn't safe. Until you regulate your nervous system and teach it that you can exist without the grind, every attempt at change will feel like forcing yourself through another service you don't have the energy for.",
       },
       missing_question_summary:
-        "Maksym revealed that work itself has become his escape mechanism — when the pressure builds, he dives deeper into tasks to avoid the feeling. This creates a devastating loop: the very thing burning him out is also the thing he uses to numb the burn. It's a grease fire he's trying to put out with more grease. This pattern keeps him stuck because he never gets space to actually process the pressure or address the root issue — his inability to say no. Until he breaks this loop, he'll stay buried under everyone else's needs while using work to avoid facing his own.",
+        "Maksym, you revealed the core question haunting you: 'Who am I without the kitchen defining me?' That uncertainty feels heavier than another long service—and that tells me everything. You've built your entire sense of self on being 'chef,' on being the one who holds everything together. The fear isn't just about losing the work—it's about losing yourself. But brother, here's the pastoral truth: you existed before you became 'chef.' Your worth was established in Christ before you ever picked up a knife. The kitchen didn't create you—it revealed something that was already there. The question isn't 'who are you without cooking?'—it's 'who is the Maksym God created underneath all the performance?' That's the question worth asking. And it's terrifying because the answer requires you to let go of control and trust that you're still enough when you're not grinding. But that's also where freedom lives.",
       thirty_day_protocol: {
         urgency_statement:
-          "If you stay in this loop for another month — saying yes to everything, using work to numb the burnout that the yeses create, never honoring the signals your body is screaming — you'll lose more than your spark. You'll lose your capacity to feel anything at all. The numbness will deepen, the tightness will become chronic, and the gap between who you are and who you're pretending to be will get so wide you won't recognize yourself anymore.",
-        anchor_habit: "Diving into work when pressure builds",
-        specific_action:
-          "When you feel the urge to dive into work to escape pressure, pause for 60 seconds. Put your hand on your chest where you feel the tightness. Take three deep breaths. Then ask out loud: 'What am I avoiding right now?' Write down the first answer that comes. Don't fix it, don't dive back into work — just name it.",
-        time_reps:
-          "60 seconds, 3 deep breaths, 1 written answer — once per day minimum, ideally when the pressure hits",
+          "If you stay burnt for another month, you'll cement the belief that your only value is in sacrifice. You'll lose more ground with your nervous system. That quiet prep moment where you felt joy? It'll become a memory you can't access anymore. And the version of you who chose this work freely will drift so far away you won't recognize him. The cost isn't theoretical—it's your soul.",
+        anchor_habit: "Showing up early and pushing yourself to be fully ready, even when you're completely drained",
+        specific_action: "10-minute boundary practice before you leave for the kitchen",
+        time_reps: "10 minutes, every morning before leaving for work",
         why_this_works:
-          "This interrupts your pattern at the moment of activation. Instead of using work to numb, you're training yourself to pause and feel. That 60 seconds creates space between stimulus and response — the space where change happens. Your body already knows what you're avoiding; this practice lets your mind catch up.",
+          "You're already disciplined about showing up early—now we're redirecting that capacity toward regulating your nervous system instead of just surviving. This practice interrupts the pattern before the dread and pressure hit, teaching your body it's safe to exist without bracing for a fight.",
         book_recommendation: {
           title: "Set Boundaries, Find Peace",
           author: "Nedra Glover Tawwab",
           why_now:
-            "Maksym, this book is written for you. Your entire pattern is about saying yes when you should say no because you're terrified of disappointing people. Tawwab breaks down why boundary-setting feels so hard, what it costs you to avoid it, and how to actually do it without guilt destroying you. She addresses exactly what you're facing: the belief that your worth depends on never letting anyone down. This book will show you that boundaries aren't selfish — they're the only way to sustain yourself and actually serve people well. You need this now because you're using work to avoid the very conversations that would set you free.",
+            "Maksym, this book explains exactly why you keep taking on more than you can handle and saying yes out of responsibility. Tawwab breaks down how people-pleasing and over-functioning destroy you—and how to establish boundaries without guilt. Your pattern isn't about work ethic; it's about believing your worth depends on being needed. This book will show you how to set boundaries that protect your energy while still honoring your responsibilities—because right now, you're sacrificing yourself to prove you matter, and that's not sustainable.",
           asin: "0593192095",
         },
         immediate_practice:
-          "From the book: Practice the 'pause and assess' before every yes. When someone asks something of you, instead of auto-responding, pause for 10 seconds and ask yourself: 'Do I have the capacity for this right now, or am I saying yes to avoid disappointing them?' Then respond honestly.",
-        week_1_focus: "Foundation: Understanding Your Boundary Blocks",
-        week_1_chapters:
-          "Introduction + Chapters 1-3: What boundaries are, why they matter, and what happens when you don't have them",
+          "Morning boundary meditation: Before leaving for the kitchen, sit for 10 minutes and practice saying 'no' to imaginary requests. Let your body feel what it's like to decline without guilt.",
+        week_1_focus: "Foundation: Teaching Your Nervous System It's Safe to Exist Without the Grind",
+        week_1_chapters: "Chapters 1-3: What Are Boundaries?, The Cost of Not Having Boundaries, Boundary Myths",
         week_1_practice:
-          "Every day, when pressure builds and you want to dive into work, pause for 60 seconds. Hand on chest, three breaths, ask 'What am I avoiding?' Write it down. Do this at least once daily.",
+          "Morning boundary meditation (10 minutes before leaving for kitchen): Sit quietly and practice saying 'no' to imaginary requests. Notice where your body tightens. Breathe into that space. Read 15 minutes from the book.",
         week_1_marker:
-          "You'll know it's working when you can name what you're avoiding without immediately diving back into work to escape it. The awareness is the first win.",
-        week_2_focus: "Pattern Recognition: Identifying Your Yes-to-Everything Triggers",
-        week_2_chapters:
-          "Chapters 4-6: Understanding boundary violations, people-pleasing patterns, and the cost of over-functioning",
+          "You'll notice the dread and pressure before work softening slightly. Your chest won't tighten as aggressively. You'll catch yourself saying 'yes' automatically and pause—even if you still say yes.",
+        week_2_focus: "Pattern Recognition: Identifying Where You Over-Function",
+        week_2_chapters: "Chapters 4-6: Types of Boundaries, Recognizing Boundary Issues, The People-Pleasing Trap",
         week_2_practice:
-          "Continue the 60-second pause daily. Add this: Before saying yes to any request, pause for 10 seconds and ask 'Do I have capacity for this, or am I saying yes to avoid guilt?' You don't have to say no yet — just practice the pause and the honest assessment.",
+          "Continue morning boundary meditation. Add: Journal for 5 minutes after work—list every time you said 'yes' when you wanted to say 'no' and what you were protecting yourself from by saying yes. Read 15 minutes from the book.",
         week_2_marker:
-          "You'll notice the pattern clearly now — you can feel the moment when you're about to override your limits. Even if you still say yes sometimes, you're aware of it happening. That's progress.",
-        week_3_focus: "Implementation: Practicing Small Nos",
-        week_3_chapters:
-          "Chapters 7-9: How to set boundaries without guilt, scripting difficult conversations, handling pushback",
+          "You'll start seeing the pattern clearly: every 'yes' is protecting you from feeling like you're not enough. You'll catch yourself bracing for disappointment when you consider saying 'no.' You'll name the fear out loud at least once.",
+        week_3_focus: "Implementation: Setting One Real Boundary",
+        week_3_chapters: "Chapters 7-9: Setting Boundaries Without Guilt, How to Communicate Boundaries, Dealing With Pushback",
         week_3_practice:
-          "This week, say one small no each day. Something low-stakes. 'I can't take that shift.' 'I need to pass on this project.' 'Not this time.' Use Tawwab's scripts if you need them. Then sit with the discomfort for 5 minutes without diving into work. Just feel it.",
+          "Continue morning meditation. Choose ONE boundary to set this week—something small but real. Practice the script from the book. Say it out loud to yourself before saying it to the person. Read 15 minutes from the book.",
         week_3_marker:
-          "You'll say at least one no without the world ending. You'll see that people can handle your boundaries better than you thought. And you'll notice your chest feels a little lighter when you're honest about your limits.",
-        week_4_focus: "Integration: Building Sustainable Boundary Habits",
+          "You'll set one boundary and survive. Your body will feel the discomfort but won't collapse. Someone might push back, but you'll hold the line. You'll realize saying 'no' didn't destroy the relationship or prove you're selfish.",
+        week_4_focus: "Integration: Building a Sustainable Boundary Practice",
         week_4_practice:
-          "Combine all three weeks: Daily 60-second pause when pressure hits. 10-second assessment before every yes. One intentional no per day. Plus, add a weekly review: What did I say yes to this week that I shouldn't have? What boundary do I need to set next week?",
+          "Morning boundary meditation becomes non-negotiable. Set one boundary per week moving forward. Journal daily: 'Where did I over-function today? What was I protecting myself from?' Review your 30-day journey and name one specific change in how your body feels before work.",
         week_4_marker:
-          "30-day outcome: You've said no at least 7 times without catastrophe. Your body's signals (chest tightness, shoulder weight) are starting to ease because you're honoring them instead of overriding them. You can feel the difference between duty and desire again — because you're not buried under everyone else's needs anymore. The spark isn't fully back yet, but you can see where it might return.",
+          "After 30 days, your chest won't tighten as aggressively before work. You'll have set at least four real boundaries. You'll catch yourself saying 'yes' automatically and pause more often. Most importantly, you'll start to believe that you can exist without being needed—and that's when everything changes.",
         daily_actions: [
-          "Day 1: Pause for 60 seconds when you feel chest tightness. Hand on chest, three breaths, ask 'What am I avoiding?' Write it down.",
-          "Day 2: Before saying yes to any request today, pause 10 seconds and ask 'Do I have capacity, or am I saying yes to avoid guilt?'",
-          "Day 3: Practice the 60-second pause again. Notice what comes up when you stop and feel instead of diving into work.",
-          "Day 4: Read Chapter 1 of Set Boundaries, Find Peace. Notice which examples resonate with your pattern.",
-          "Day 5: Say one small no today. Something low-stakes. 'I can't take that shift' or 'Not this time.'",
-          "Day 6: Continue the daily pause. Add this: After each pause, ask 'What boundary do I need to set here?'",
-          "Day 7: Review the week. What did you say yes to that you shouldn't have? What boundary do you need next week?",
-          "Day 8: Read Chapters 2-3. Pay attention to the cost of not having boundaries in your kitchen life.",
-          "Day 9: Practice the pause before every yes today. Even if you still say yes, practice the pause first.",
-          "Day 10: Say another small no. Notice the discomfort. Sit with it for 5 minutes without diving into work.",
-          "Day 11: Continue daily pause. Today, focus on noticing when your body signals overload before your mind catches up.",
-          "Day 12: Read Chapters 4-6. Understand how people-pleasing patterns show up in your kitchen.",
-          "Day 13: Before service, do the 60-second pause. Set an intention: 'I will honor my limits today.'",
-          "Day 14: Say one no that feels slightly harder than before. Use Tawwab's scripts if you need them.",
-          "Day 15: Mid-month check-in. How many times have you paused? How many nos have you said? What's shifting?",
-          "Day 16: Read Chapters 7-9. Learn the scripts for setting boundaries without guilt.",
-          "Day 17: Practice one boundary script today, even if it's just in your head. Rehearse it.",
-          "Day 18: Say a no that requires a brief explanation. 'I can't because I'm honoring my capacity today.'",
-          "Day 19: Continue daily pause. Today, notice how your chest feels lighter when you honor your limits.",
-          "Day 20: Review the book sections that hit hardest. What's the one boundary you need to set this week?",
-          "Day 21: Set that boundary. Use the scripts. Notice what happens. Does the world fall apart?",
-          "Day 22: Continue daily pause. Add weekly review: What boundaries did I set? What do I need next?",
-          "Day 23: Say another intentional no. Notice you're getting more comfortable with the discomfort.",
-          "Day 24: Practice combining all three: Daily pause, 10-second assessment before yeses, intentional nos.",
-          "Day 25: Review key book sections. What's the one truth about boundaries that changes everything for you?",
-          "Day 26: Set a boundary that feels important. Not urgent, but important for your sustainability.",
-          "Day 27: Continue the full practice. Notice your body's signals are starting to ease. Why?",
-          "Day 28: Weekly review: What did I say yes to that I shouldn't have? What boundary do I need next week?",
-          "Day 29: Practice the full protocol. Daily pause. Assessment before yeses. Intentional nos. Notice the shift.",
-          "Day 30: 30-day outcome check. You've said no at least 7 times. Your body signals are easing. The spark is returning. What's next?",
+          "Day 1: Morning boundary meditation (10 min). Read Chapter 1. Notice how your body feels when you imagine saying 'no.'",
+          "Day 2: Morning boundary meditation. Read Chapter 1 continued. Write down one time this week you said 'yes' when you wanted to say 'no.'",
+          "Day 3: Morning boundary meditation. Read Chapter 2. Practice saying 'I need to think about that' out loud five times.",
+          "Day 4: Morning boundary meditation. Read Chapter 2 continued. Notice where you brace for disappointment when considering boundaries.",
+          "Day 5: Morning boundary meditation. Read Chapter 3. List three fears that come up when you think about saying 'no.'",
+          "Day 6: Morning boundary meditation. Read Chapter 3 continued. Breathe into the tightness in your chest for 5 minutes.",
+          "Day 7: Rest day. Morning meditation only. Reflect on what you noticed this week about your 'yes' pattern.",
+          "Day 8: Morning boundary meditation. Read Chapter 4. Identify one boundary you need in your kitchen life.",
+          "Day 9: Morning boundary meditation. Read Chapter 4 continued. Journal: 'What am I protecting myself from by not setting boundaries?'",
+          "Day 10: Morning boundary meditation. Read Chapter 5. Notice every time today you say 'yes' automatically.",
+          "Day 11: Morning boundary meditation. Read Chapter 5 continued. Practice saying 'Let me get back to you' instead of automatic 'yes.'",
+          "Day 12: Morning boundary meditation. Read Chapter 6. Write down: 'Who would I disappoint if I set real boundaries?'",
+          "Day 13: Morning boundary meditation. Read Chapter 6 continued. Name the fear out loud: 'I'm afraid that if I say no, I won't be enough.'",
+          "Day 14: Rest day. Morning meditation only. Notice if the dread before work has softened at all.",
+          "Day 15: Morning boundary meditation. Read Chapter 7. Choose ONE small boundary to set this week.",
+          "Day 16: Morning boundary meditation. Read Chapter 7 continued. Write out the exact words you'll use to set your boundary.",
+          "Day 17: Morning boundary meditation. Read Chapter 8. Practice saying your boundary script out loud to yourself five times.",
+          "Day 18: Morning boundary meditation. Read Chapter 8 continued. Set your chosen boundary today. Notice what your body does.",
+          "Day 19: Morning boundary meditation. Read Chapter 9. Journal: 'What happened when I set that boundary? What did I feel?'",
+          "Day 20: Morning boundary meditation. Read Chapter 9 continued. If someone pushed back, practice holding the line without defending.",
+          "Day 21: Rest day. Morning meditation only. Celebrate: You set a boundary and survived. You're still enough.",
+          "Day 22: Morning boundary meditation. Review Chapters 7-9. Identify a second boundary you need to set.",
+          "Day 23: Morning boundary meditation. Finish any remaining chapters. Write your script for boundary #2.",
+          "Day 24: Morning boundary meditation. Practice your second boundary script out loud. Notice where your body resists.",
+          "Day 25: Morning boundary meditation. Set your second boundary today. Breathe through the discomfort.",
+          "Day 26: Morning boundary meditation. Journal: 'What am I learning about my worth outside of being needed?'",
+          "Day 27: Morning boundary meditation. Notice how your nervous system responds before work now versus Day 1.",
+          "Day 28: Morning boundary meditation. Set a third boundary this week—something slightly bigger.",
+          "Day 29: Morning boundary meditation. Journal: 'Who am I becoming as I practice boundaries?'",
+          "Day 30: Morning boundary meditation. Review your 30-day journey. Name three specific changes in how you feel before work. Commit to one boundary per week moving forward.",
         ],
       },
       bottom_line_full: {
         paragraph_1:
-          "Maksym, the pattern is clear: you say yes when you should say no because you're terrified that setting boundaries makes you less than. You override your limits to avoid the guilt of disappointing people, and then you use work itself to numb the burnout that the overcommitment creates. It's a devastating loop — the very thing crushing you is also the thing you reach for to escape the crush. Your body knows this isn't sustainable. That tightness in your chest and heaviness in your shoulders before service even starts? That's your nervous system trying to protect you by signaling overload. But you override it every time because you believe your worth depends on never letting anyone down.",
+          "Maksym, you've built your identity around being the one who holds everything together. Being needed became your oxygen—proof that you matter, evidence of your worth. But that pattern emerged from a terrifying question you've been avoiding: 'Am I still enough if I'm not grinding?' So you kept saying yes, kept taking on more, kept sacrificing yourself to stay relevant. The kitchen became the place where your worth was proven daily—until it became the place that's destroying you.",
         paragraph_2:
-          "Here's what this is costing you: you're trading your soul for other people's comfort. You're accepting long-term suffering to avoid short-term guilt. The spark is gone because you're running on duty, not desire. Numbness is setting in because your body can't sustain this pace, so it's shutting down to protect you. If you stay in this loop for another year, you won't just lose your fire — you'll lose your capacity to feel anything at all. The gap between who you are and who you're pretending to be will get so wide you won't recognize yourself. And the hardest part? You already know this. You named it yourself: 'Staying burnt protects me from facing the fear of letting people down or confronting the guilt of not being able to do it all.' But that protection is killing you.",
+          "Staying burnt for another year means losing the last spark of joy you felt in that quiet prep moment. It means cementing the belief that your value is measured by how much you can sacrifice. It means teaching your nervous system that survival mode is permanent—that your chest will always tighten, your jaw will always clench, and dread will always hit before the first ticket drops. It means drifting further from the Maksym who chose this work freely until you can't remember him at all. Brother, that's not a life. That's slow suffocation dressed up as responsibility.",
         paragraph_3:
-          "Here's the choice: you can keep running this pattern until your body forces you to stop, or you can start honoring your limits now — before the collapse. Transformation doesn't require a total life overhaul. It requires one thing: breaking the loop. Pause before you say yes. Sit with the discomfort of saying no. Let people be disappointed without diving into work to escape the feeling. Your worth is already settled in Christ — you don't have to earn it by burning yourself out. Saying no is not failure. It's honesty. And that honesty is the only way out of the weeds. The next 30 days will show you whether you're serious about change or just serious about staying comfortable in your suffering.",
+          "The choice ahead is simple but not easy: learn to exist without the grind defining you, or die inside while your body keeps showing up. This isn't about quitting the kitchen—it's about reclaiming your humanity inside it. You have to face the question you've been avoiding: 'Who am I without the kitchen defining me?' The answer is terrifying because it requires letting go of control and trusting that you're still enough when you're not performing. But Maksym, your worth was settled before you ever picked up a knife. Christ already declared you enough. The kitchen didn't create you—it just revealed what was already there. You don't have to earn your existence. You just have to remember it.",
         emphasis_statement:
-          "You are not your output. Your identity is settled in Christ. You don't have to earn enough-ness by saying yes to everything. The world will not fall apart when you honor your limits — but you will if you don't.",
+          "**Your worth isn't earned on the line. It was settled before you ever tied your apron. Now you just have to believe it.**",
       },
       steve_story_note:
-        "Maksym, I disappeared from the kitchen world for two years because I stayed in the exact loop you're in now. I said yes to everything, used work to numb the burnout, and told myself I was fine until my body shut me down completely. I lost my fire, my health, and almost lost myself. I'm back now because I learned the hard way that you can't serve anyone well when you're running on empty. Your body is trying to save you before you hit that wall. Listen to it.",
+        "Maksym, I disappeared from the kitchen for 18 months because I hit the same wall you're facing now. I was burnt, running on fumes, saying yes to everyone while my soul screamed no. My nervous system was wrecked. I didn't know who I was without the grind. So I left—not because I gave up, but because I had to find myself again. I had to learn that my worth wasn't tied to my performance, that I could exist without being needed, that rest wasn't weakness. I'm back now, but I'm different. I cook from intention, not obligation. I set boundaries without guilt. I know who I am before I'm 'chef.' That's what this 30-day protocol is designed to give you—a way to reclaim yourself without having to disappear like I did. You don't have to burn all the way down to rebuild. But you do have to face the question I avoided for too long: who are you when you're not performing? The answer is worth finding, brother.",
       pull_quote:
-        "Tightness in my chest and a heaviness in my shoulders — like my body knows what's coming before my mind does.",
+        "I honestly don't know who I'd be without cooking, and that uncertainty feels heavier than another long service",
       development_reminders: [
         "Getting burnt is normal in kitchen culture — staying burnt is a choice",
         "Your kitchen energy is the foundation — regulate first, then rebuild",
@@ -205,7 +200,7 @@ export async function GET(request: NextRequest) {
         "You are not your station — your worth is settled in Christ, not your covers",
       ],
       next_steps: {
-        six_month_date: "June 2025",
+        six_month_date: "July 2025",
         community_link: "https://wydahowarriors.com/community",
         coaching_link: "https://wydahowarriors.com/coaching",
         contact_email: "steve@wydahowarriors.com",
