@@ -137,6 +137,7 @@ export interface PlanData {
     week_4_focus?: string;
     week_4_practice?: string;
     week_4_marker?: string;
+    daily_actions?: string[]; // Array of 30 daily actions (Day 1 through Day 30)
     // Legacy fields
     seventy_two_hour_suggestion?: string;
     weekly_practice?: string;
@@ -555,6 +556,11 @@ function generateHTMLReport(
     ? planData.thirty_day_protocol.progress_markers
     : [];
 
+  // Extract daily actions (30-day protocol)
+  const dailyActions = Array.isArray(thirtyDayProtocol.daily_actions)
+    ? thirtyDayProtocol.daily_actions
+    : [];
+
   // Chef-owner specific book list (9-PAGE FRAMEWORK)
   const chefOwnerBooks = [
     {
@@ -730,7 +736,7 @@ function generateHTMLReport(
   const communityLink =
     nextSteps.community_link || "https://wwassessment.com/community";
   const coachingLink =
-    nextSteps.coaching_link || "https://wwassessment.com/coaching";
+    nextSteps.coaching_link || "https://paperbell.me/wydaho-warriors";
   const contactEmail = nextSteps.contact_email || "info@wwassessment.com";
 
   return `
@@ -1572,6 +1578,28 @@ function generateHTMLReport(
             }
           </div>
           
+          ${
+            dailyActions && dailyActions.length > 0
+              ? `<div class="protocol-item" style="margin-top: 50px;">
+            <div class="protocol-timeline">YOUR DAILY ACTIONS (30 DAYS)</div>
+            <div style="margin: 20px 0;">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 25px; font-size: 11px; line-height: 1.6;">
+                ${dailyActions
+                  .map((action, index) => {
+                    // Remove "Day X:" prefix if it's already in the action text
+                    const actionText = action.replace(/^Day \d+:\s*/i, "");
+                    return `<div style="display: flex; gap: 10px; margin-bottom: 4px;">
+                    <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">Day ${index + 1}:</div>
+                    <div style="color: #666; flex: 1;">${actionText}</div>
+                  </div>`;
+                  })
+                  .join("")}
+              </div>
+            </div>
+          </div>`
+              : ""
+          }
+          
           <div style="margin-top: 40px; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
             <div style="font-size: 13px; line-height: 1.8; font-style: italic;">
               Start tonight. This book explains why grinding harder hasn't worked—and what will.<br><br>
@@ -1651,7 +1679,7 @@ function generateHTMLReport(
               <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment :</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">[Coaching Program Link]</a>` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Need support? Email <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
               <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>Emergency Resources:</strong> If you're in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line</p>
             </div>

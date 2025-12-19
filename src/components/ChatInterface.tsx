@@ -561,8 +561,8 @@ export default function ChatInterface({
       >
         <div className="w-full flex justify-center">
           <div className="max-w-[700px] w-full px-6">
-            {/* Assessment Complete Message - Show at top after 15 seconds */}
-            {showGeneratingMessage && (
+            {/* Assessment Complete Message - Show at top when assessment is complete */}
+            {assessmentComplete && (
               <div className="w-full flex justify-center mb-8 animate-[messageSlideIn_0.5s_ease-out]">
                 <div className="max-w-[700px] w-full px-6">
                   <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center">
