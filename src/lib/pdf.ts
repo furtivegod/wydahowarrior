@@ -335,7 +335,7 @@ async function convertHTMLToPDF(
         margin: "15mm",
         footer: {
           source: footerHTML,
-          height: "40px", // Space between content and footer
+          height: "15px", // Space between content and footer
           start_at: 1, // Start footer from page 1
         },
       }),
