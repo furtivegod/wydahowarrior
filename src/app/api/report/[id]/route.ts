@@ -251,6 +251,11 @@ function generateHTMLReport(
   const week4Focus = thirtyDayProtocol.week_4_focus || "";
   const week4Practice = thirtyDayProtocol.week_4_practice || "";
   const week4Marker = thirtyDayProtocol.week_4_marker || "";
+  
+  // Extract daily actions (30-day protocol)
+  const dailyActions = Array.isArray(thirtyDayProtocol.daily_actions)
+    ? thirtyDayProtocol.daily_actions
+    : [];
 
   // Extract book recommendation (NEW - single book from protocol)
   const bookRec = thirtyDayProtocol.book_recommendation || {};
@@ -462,17 +467,17 @@ function generateHTMLReport(
 
             .page {
                 min-height: 100vh;
-                padding: 80px 60px;
+                padding: 40px 30px;
                 background: var(--warm-white);
                 margin-bottom: 2px;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
+                justify-content: flex-start;
                 position: relative;
             }
 
             .page-content {
-                max-width: 720px;
+                max-width: 650px;
                 margin: 0 auto;
                 width: 100%;
             }
@@ -514,26 +519,27 @@ function generateHTMLReport(
 
             h1 {
                 font-family: 'Playfair Display', Georgia, serif;
+                font-size: 56px;
                 font-weight: 700;
                 color: var(--dark-olive);
-                font-size: 72px;
                 line-height: 1.1;
                 letter-spacing: -0.02em;
-                margin-bottom: 60px;
+                margin: 0 0 40px 0;
+                text-align: center;
             }
 
             h2 {
                 font-family: 'Playfair Display', Georgia, serif;
+                font-size: 32px;
                 font-weight: 700;
                 color: var(--dark-olive);
-                font-size: 42px;
                 line-height: 1.2;
-                margin-bottom: 40px;
+                margin-bottom: 30px;
             }
 
             .client-name {
                 font-size: 14px;
-                font-weight: 300;
+                font-weight: 400;
                 letter-spacing: 0.1em;
                 color: #666;
                 margin-bottom: 120px;
@@ -550,7 +556,7 @@ function generateHTMLReport(
 
             /* SECTION HEADERS */
             .section-header {
-                margin-bottom: 80px;
+                margin-bottom: 50px;
                 text-align: center;
             }
 
@@ -565,7 +571,7 @@ function generateHTMLReport(
 
             .section-title {
                 font-family: 'Playfair Display', serif;
-                font-size: 48px;
+                font-size: 36px;
                 font-weight: 700;
                 color: var(--dark-olive);
                 letter-spacing: -0.01em;
@@ -917,30 +923,36 @@ function generateHTMLReport(
     </head>
     <body>
 
-        <!-- PAGE 1: COVER (V3.0) -->
+        <!-- PAGE 1: COVER -->
         <div class="page cover">
             <div class="cover-content">
-                <div class="logo-mark">THE KNIFE CHECK</div>
-                <h1>THE KNIFE CHECK<br>ASSESSMENT FOR<br>BURNT OUT CHEFS</h1>
+                <h1>ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK</h1>
                 <div class="client-name">${clientName}</div>
-                <div style="font-size: 12px; color: #666; margin-top: 20px; font-family: 'Inter', sans-serif;">${assessmentDate}</div>
-                <div class="cover-tagline">Your transformation begins here</div>
-                <div style="font-size: 10px; color: #999; margin: 40px auto 0 auto; font-style: italic; max-width: 500px; line-height: 1.6; font-family: 'Inter', sans-serif;">${disclaimer}</div>
+                <div style="font-size: 18px; font-weight: 500; color: var(--deep-charcoal); margin-top: 60px; font-style: italic; font-family: 'Playfair Display', serif;">Every second counts, chef.</div>
+                <div style="font-size: 12px; color: #666; margin-top: 10px;">— Steve Murphy</div>
+                <div style="font-size: 10px; color: #999; margin-top: 80px; letter-spacing: 0.1em;">Culinary Institute of America</div>
+                <div style="font-size: 10px; color: #999; letter-spacing: 0.1em;">Wydaho Warriors LLC</div>
             </div>
         </div>
 
-        <!-- PAGE 2: YOUR KNIFE CHECK SUMMARY (V3.0) -->
+        <!-- PAGE 2: YOUR CURRENT STATE -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Your Summary</div>
-                    <div class="section-title">Your Reality Check<br>Summary</div>
+                    <div class="section-label">Where You Are Right Now</div>
+                    <div class="section-title">Your Current State</div>
                 </div>
                 
                 <div class="sabotage-content">
                     <div class="sabotage-section">
-                        <div class="block-title">YOUR PATTERN</div>
-                        <div class="sabotage-text">${formatTextWithParagraphBreaks(patternExactWords)}</div>
+                        <div class="block-title">YOUR KITCHEN TERM</div>
+                        <div class="sabotage-text">You described your life as: <strong>${kitchenTerm}</strong></div>
+                    </div>
+                    
+                    <div class="sabotage-section">
+                        <div class="block-title">THE PATTERN THAT KEEPS SHOWING UP</div>
+                        <div class="sabotage-text"><strong>Your Pattern:</strong> ${formatTextWithParagraphBreaks(patternExactWords)}</div>
+                        <div class="sabotage-text" style="margin-top: 15px;"><strong>This pattern shows up most when:</strong> ${patternTrigger}</div>
                     </div>
                     
                     <div class="sabotage-section">
@@ -959,8 +971,13 @@ function generateHTMLReport(
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">YOUR PROOF YOU CAN CHANGE</div>
+                        <div class="block-title">YOUR PROOF YOU'RE NOT DONE</div>
                         <div class="sabotage-text">${formatTextWithParagraphBreaks(proofWithContext)}</div>
+                    </div>
+                    
+                    <div class="sabotage-section">
+                        <div class="block-title">YOUR ANCHOR</div>
+                        <div class="sabotage-text">The one thing you never skip: <strong>${anchorHabit}</strong></div>
                     </div>
                     
                     <div class="sabotage-section" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.3);">
@@ -970,12 +987,12 @@ function generateHTMLReport(
             </div>
         </div>
         
-        <!-- PAGE 3: YOUR ROADMAP / KNIFE CHECK SUMMARY (V3.0) -->
+        <!-- PAGE 3: YOUR ROADMAP -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Your Roadmap</div>
-                    <div class="section-title">Your Reality Check<br>Summary</div>
+                    <div class="section-label">The Way Forward</div>
+                    <div class="section-title">Your Roadmap</div>
                 </div>
                 
                 <div class="roadmap-flow">
@@ -1030,12 +1047,12 @@ function generateHTMLReport(
             </div>
         </div>
 
-        <!-- PAGE 4: DEVELOPMENT DASHBOARD - PART 1 (MIND & BODY) -->
+        <!-- PAGE 4: DOMAIN BREAKDOWN (PART 1) -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Where You Are Now</div>
-                    <div class="section-title">Development<br>Dashboard</div>
+                    <div class="section-label">The Four Domains - Where You Stand</div>
+                    <div class="section-title">Domain Breakdown</div>
                 </div>
                 
                 <div class="domain-grid">
@@ -1074,10 +1091,15 @@ function generateHTMLReport(
             </div>
         </div>
         
-        <!-- PAGE 4B: DEVELOPMENT DASHBOARD - PART 2 (RELATIONSHIPS & MEANING & CONTRIBUTION) -->
+        <!-- PAGE 5: DOMAIN BREAKDOWN (PART 2) -->
         <div class="page">
             <div class="page-content">
-                <div class="domain-grid" style="margin-top: 0;">
+                <div class="section-header">
+                    <div class="section-label">The Four Domains - Where You Stand</div>
+                    <div class="section-title">Domain Breakdown</div>
+                </div>
+                
+                <div class="domain-grid">
                     <div class="domain-card">
                         <div class="domain-card-title">🎯 WHAT'S YOUR SIGNATURE DISH? (Purpose & Meaning)</div>
                         <div class="domain-card-row">
@@ -1107,28 +1129,36 @@ function generateHTMLReport(
                         <div class="domain-card-row">
                             <div class="domain-card-label">Growth Edge</div>
                             <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || "Not specified"}</div>
+                    </div>
                 </div>
             </div>
         </div>
-
-                <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
-                    <div class="block-title">KITCHEN ENERGY ASSESSMENT</div>
+        
+        <!-- PAGE 6: KITCHEN ENERGY ASSESSMENT -->
+        <div class="page">
+            <div class="page-content">
+                <div class="section-header">
+                    <div class="section-label">Your Energy State</div>
+                    <div class="section-title">Kitchen Energy<br>Assessment</div>
+                </div>
+                
+                <div style="margin-top: 50px;">
                     <div class="content-block">
                         <div class="block-title">Primary State</div>
                         <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.primary_state || "")}</div>
-                </div>
+                    </div>
                     <div class="content-block">
-                        <div class="block-title">How You Handle the Heat</div>
+                        <div class="block-title">Regulation Capacity</div>
                         <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.regulation_capacity || "")}</div>
-                </div>
-                <div class="content-block">
-                    <div class="block-title">Observable Patterns</div>
+                    </div>
+                    <div class="content-block">
+                        <div class="block-title">Observable Patterns</div>
                         <div class="block-content">
                             ${Array.isArray(kitchenEnergy.observable_patterns) ? kitchenEnergy.observable_patterns.map((pattern: string) => `<p>• ${pattern}</p>`).join("") : formatTextWithParagraphBreaks(kitchenEnergy.observable_patterns_text || "")}
-                </div>
+                        </div>
                     </div>
-                <div class="content-block">
-                        <div class="block-title">The Energy Reality</div>
+                    <div class="content-block">
+                        <div class="block-title">Energy Reality</div>
                         <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.energy_reality || "")}</div>
                     </div>
                 </div>
@@ -1136,15 +1166,19 @@ function generateHTMLReport(
         </div>
 
 
-        <!-- PAGE 6: YOUR KNIFE CHECK PROTOCOL (V3.0) -->
+        <!-- PAGE 7: YOUR PROTOCOL -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Start Now</div>
-                    <div class="section-title">Your 30-Day<br>Protocol</div>
+                    <div class="section-label">Start Here / Your 30-Day Protocol</div>
+                    <div class="section-title">Your Protocol</div>
                 </div>
                 
-                ${urgencyStatement ? `<div style="font-size: 14px; line-height: 1.8; margin-bottom: 40px; font-style: italic; color: var(--deep-charcoal);">${urgencyStatement}</div>` : ""}
+                <div style="font-size: 14px; line-height: 1.8; margin-bottom: 30px; font-style: italic; color: var(--deep-charcoal);">
+                    ${urgencyStatement || "This pattern once kept you safe. Now it's keeping you stuck."}<br>
+                    The cost of staying burnt for another month: ${whatItsCosting}<br>
+                    Every second counts, chef. Here's what happens next.
+                </div>
                 
                 <div class="protocol-item">
                     <div class="protocol-timeline">STEP 1: 72-HOUR ACTION</div>
@@ -1223,6 +1257,28 @@ function generateHTMLReport(
                     }
                 </div>
                 
+                ${
+                  dailyActions && dailyActions.length > 0
+                    ? `<div class="protocol-item" style="margin-top: 50px;">
+                        <div class="protocol-timeline">YOUR DAILY ACTIONS (30 DAYS)</div>
+                        <div style="margin: 20px 0;">
+                          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 25px; font-size: 11px; line-height: 1.6;">
+                            ${dailyActions
+                              .map((action: string, index: number) => {
+                                // Remove "Day X:" prefix if it's already in the action text
+                                const actionText = action.replace(/^Day \d+:\s*/i, "");
+                                return `<div style="display: flex; gap: 10px; margin-bottom: 4px;">
+                                  <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">Day ${index + 1}:</div>
+                                  <div style="color: #666; flex: 1;">${actionText}</div>
+                                </div>`;
+                              })
+                              .join("")}
+                          </div>
+                        </div>
+                      </div>`
+                    : ""
+                }
+                
                 <div style="margin-top: 40px; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
                     <div style="font-size: 13px; line-height: 1.8; font-style: italic;">
                         Start tonight. This book explains why grinding harder hasn't worked—and what will.<br><br>
@@ -1234,11 +1290,11 @@ function generateHTMLReport(
         </div>
 
 
-        <!-- PAGE 7: BOTTOM LINE + REMINDER (V3.0) -->
-        <div class="page" style="page-break-before: always;">
+        <!-- PAGE 8: BOTTOM LINE + STEVE'S STORY -->
+        <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Remember</div>
+                    <div class="section-label">The Reality</div>
                     <div class="section-title">Bottom Line</div>
                 </div>
                 
@@ -1273,12 +1329,12 @@ function generateHTMLReport(
         </div>
         
 
-        <!-- PAGE 8: WHAT'S NEXT (V3.0) -->
+        <!-- PAGE 9: WHAT'S NEXT -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Moving Forward</div>
-                    <div class="section-title">You Have Everything<br>You Need</div>
+                    <div class="section-label">You Have Everything You Need</div>
+                    <div class="section-title">What's Next</div>
                 </div>
                 
                 <div style="margin: 40px 0;">
@@ -1294,17 +1350,17 @@ function generateHTMLReport(
                     </div>
                     
                     <div style="font-size: 16px; font-weight: 600; margin: 40px 0; text-align: center; color: var(--dark-olive);">
-                        The Only Thing Left:<br>Take action. Every second counts.
+                        The Only Thing Left: Take action. Every second counts.
                     </div>
                 </div>
                 
                 <div class="content-block" style="margin-top: 60px;">
                     <div class="block-title">RECOMMENDED NEXT STEPS</div>
                     <div class="block-content">
-                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment (\$97):</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
+                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment :</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
                         <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
                         <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">[Coaching Program Link]</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
                         <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Need support? Email <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
                         <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>Emergency Resources:</strong> If you're in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line</p>
                     </div>
@@ -1312,31 +1368,58 @@ function generateHTMLReport(
             </div>
         </div>
 
-        <!-- PAGE 9: DEVELOPMENT REMINDERS (V3.0) -->
+        <!-- PAGE 10: DEVELOPMENT REMINDERS -->
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Remember</div>
-                    <div class="section-title">Development<br>Reminders</div>
+                    <div class="section-title">Development Reminders</div>
                 </div>
         
-                ${developmentReminders.map((reminder: string) => `<div class="reminder-item">→ ${reminder}</div>`).join("")}
+                ${developmentReminders
+                  .map((reminder: string) => {
+                    const parts = reminder.split("—");
+                    const title = parts[0]?.trim() || "";
+                    const description = parts[1]?.trim() || reminder;
+                    return `<div class="reminder-item">
+                      <div style="font-weight: 600; margin-bottom: 8px; color: var(--dark-olive);">→ ${title}</div>
+                      <div style="font-size: 11px; line-height: 1.6; color: #666; padding-left: 20px;">${description}</div>
+                    </div>`;
+                  })
+                  .join("")}
                 
-                <div style="background: var(--cream); padding: 60px; text-align: center; max-width: 600px; border-left: 2px solid var(--soft-gold); margin-top: 180px;">
-                    <p style="font-size: 13px; line-height: 2.2; font-style: italic;">
-                        This assessment was built with care, respect, and the belief that you already have everything you need to become the person you described. The only thing left to do is <em>take action</em>.
-                    </p>
-                    
-                    <div style="text-align: center; margin: 40px 0;">
-                        <button 
-                            class="pdf-button" 
-                            onclick="showPDF()"
-                            ${!signedPdfUrl ? "disabled" : ""}
-                        >
-                            ${signedPdfUrl ? "View PDF Report" : "PDF Still Generating..."}
-                        </button>
-                    </div>
+                <div style="margin-top: 50px; padding-top: 30px;">
+                  <div class="block-title">A WORD ABOUT REST</div>
+                  <div class="block-content" style="font-size: 12px; line-height: 1.8;">
+                    God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)
+                  </div>
                 </div>
+                
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
+                  <div class="block-title">A WORD ABOUT LEAVING</div>
+                  <div class="block-content" style="font-size: 12px; line-height: 1.8;">
+                    If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.
+                  </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
+                  <div class="block-title">A WORD ABOUT COMMUNITY</div>
+                  <div class="block-content" style="font-size: 12px; line-height: 1.8;">
+                    "Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)<br>
+                    You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.
+                  </div>
+                </div>
+                
+                ${signedPdfUrl ? `
+                <div style="text-align: center; margin: 60px 0;">
+                    <button 
+                        class="pdf-button" 
+                        onclick="showPDF()"
+                    >
+                        View PDF Report
+                    </button>
+                </div>
+                ` : ""}
             </div>
         </div>
 
