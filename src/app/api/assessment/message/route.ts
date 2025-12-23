@@ -81,11 +81,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if assessment is complete
+    // Only check for the FINAL phrase "Let's get you out of the weeds." to ensure
+    // the full completion message is sent before marking complete
     const isComplete =
-      response.toLowerCase().includes("thank you for showing up honestly") ||
-      response.includes("Here’s what I see") ||
-      response.includes("Here's what I see") ||
-      response.includes("You did the hard part. Now let's build on it.") ||
       response.includes("Let's get you out of the weeds.") ||
       (questionCount && questionCount >= 15);
 

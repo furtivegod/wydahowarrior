@@ -318,6 +318,28 @@ export default function ChatInterface({
 
       while (true) {
         const { done, value } = await reader.read();
+
+        // If stream ends and we detected completion via phrases but didn't get isComplete flag
+        if (done && completionTriggeredRef.current && !assessmentComplete) {
+          console.log(
+            "Stream ended - setting completion based on detected phrases"
+          );
+          // Wait a moment to ensure the final message is fully rendered
+          setTimeout(() => {
+            setAssessmentComplete(true);
+
+            // Show generating message after 15 seconds
+            setTimeout(() => {
+              setShowGeneratingMessage(true);
+            }, 15000); // 15 second delay
+
+            // Trigger report generation immediately (it runs in background)
+            setTimeout(() => {
+              onComplete(); // This triggers the report generation API
+            }, 15000); // Same 15 second delay
+          }, 1000); // 1 second delay to ensure full message is visible
+        }
+
         if (done) break;
 
         const chunk = new TextDecoder().decode(value);
@@ -327,23 +349,6 @@ export default function ChatInterface({
           if (line.startsWith("data: ")) {
             try {
               const data = JSON.parse(line.slice(6));
-
-              // Check for isComplete flag from API (sent at end of stream)
-              if (data.isComplete === true && !completionTriggeredRef.current) {
-                console.log("Completion detected via isComplete flag");
-                completionTriggeredRef.current = true;
-                setAssessmentComplete(true);
-
-                // Show generating message after 15 seconds
-                setTimeout(() => {
-                  setShowGeneratingMessage(true);
-                }, 15000); // 15 second delay
-
-                // Trigger report generation immediately (it runs in background)
-                setTimeout(() => {
-                  onComplete(); // This triggers the report generation API
-                }, 15000); // Same 15 second delay
-              }
 
               if (data.content && data.content !== "undefined") {
                 // Set streaming to true immediately when we start receiving content
@@ -361,8 +366,6 @@ export default function ChatInterface({
                   (assistantMessage.content.includes(
                     "thank you for showing up honestly"
                   ) ||
-                    assistantMessage.content.includes("Here's what I see") ||
-                    assistantMessage.content.includes("Here's what I see") ||
                     assistantMessage.content.includes(
                       "You did the hard part. Now let's build on it."
                     ) ||
@@ -373,22 +376,12 @@ export default function ChatInterface({
                   console.log(
                     "Completion detected during streaming via content phrases"
                   );
-                  completionTriggeredRef.current = true; // Prevent multiple triggers
-                  setAssessmentComplete(true);
-
-                  // Show generating message after 15 seconds
-                  setTimeout(() => {
-                    setShowGeneratingMessage(true);
-                  }, 15000); // 15 second delay
-
-                  // Trigger report generation immediately (it runs in background)
-                  setTimeout(() => {
-                    onComplete(); // This triggers the report generation API
-                  }, 15000); // Same 15 second delay
-
-                  // Don't break here - continue processing to get full message
+                  completionTriggeredRef.current = true; // Mark that we detected completion
+                  // Don't set assessmentComplete yet - wait for stream to finish
                 }
               }
+
+              // Update message state to ensure content is displayed
               setMessages((prev) =>
                 prev.map((msg) =>
                   msg.id === assistantMessage.id
@@ -396,6 +389,29 @@ export default function ChatInterface({
                     : msg
                 )
               );
+
+              // Check for isComplete flag from API (sent at end of stream)
+              // This happens AFTER all content has been sent
+              if (data.isComplete === true) {
+                console.log("Completion confirmed via isComplete flag");
+
+                // Wait a moment to ensure the final message is fully rendered before marking complete
+                setTimeout(() => {
+                  if (!assessmentComplete) {
+                    setAssessmentComplete(true);
+
+                    // Show generating message after 15 seconds
+                    setTimeout(() => {
+                      setShowGeneratingMessage(true);
+                    }, 15000); // 15 second delay
+
+                    // Trigger report generation immediately (it runs in background)
+                    setTimeout(() => {
+                      onComplete(); // This triggers the report generation API
+                    }, 15000); // Same 15 second delay
+                  }
+                }, 1000); // 1 second delay to ensure full message is visible
+              }
             } catch (e) {
               console.error("Error parsing SSE data:", e);
             }
