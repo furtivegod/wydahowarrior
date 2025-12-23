@@ -361,17 +361,25 @@ export default function ChatInterface({
                 assistantMessage.content += data.content;
 
                 // Check for completion phrases immediately during streaming
+                // Check for multiple variations of the final phrase to catch different phrasings
                 if (
                   !completionTriggeredRef.current &&
                   (assistantMessage.content.includes(
-                    "thank you for showing up honestly"
+                    "Let's get you out of the weeds."
                   ) ||
                     assistantMessage.content.includes(
-                      "You did the hard part. Now let's build on it."
+                      "Let's get you out of the weeds"
                     ) ||
                     assistantMessage.content.includes(
-                      "Let's get you out of the weeds."
-                    ))
+                      "get you out of the weeds"
+                    ) ||
+                    assistantMessage.content.includes("out of the weeds") ||
+                    assistantMessage.content
+                      .toLowerCase()
+                      .includes("let's get you out of the weeds") ||
+                    assistantMessage.content
+                      .toLowerCase()
+                      .includes("get you out of the weeds"))
                 ) {
                   console.log(
                     "Completion detected during streaming via content phrases"

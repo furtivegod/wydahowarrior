@@ -81,11 +81,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if assessment is complete
-    // Only check for the FINAL phrase "Let's get you out of the weeds." to ensure
+    // Check for multiple variations of the completion phrase to ensure
     // the full completion message is sent before marking complete
     const isComplete =
       response.includes("Let's get you out of the weeds.") ||
-      (questionCount && questionCount >= 15);
+      response.includes("Let's get you out of the weeds") ||
+      response.includes("get you out of the weeds") ||
+      response.includes("out of the weeds") ||
+      response.toLowerCase().includes("let's get you out of the weeds") ||
+      response.toLowerCase().includes("get you out of the weeds");
 
     // If complete, mark session completed so the link can't be reused indefinitely
     if (isComplete) {
