@@ -251,7 +251,7 @@ function generateHTMLReport(
   const week4Focus = thirtyDayProtocol.week_4_focus || "";
   const week4Practice = thirtyDayProtocol.week_4_practice || "";
   const week4Marker = thirtyDayProtocol.week_4_marker || "";
-  
+
   // Extract daily actions (30-day protocol)
   const dailyActions = Array.isArray(thirtyDayProtocol.daily_actions)
     ? thirtyDayProtocol.daily_actions
@@ -291,7 +291,7 @@ function generateHTMLReport(
   const sixMonthDate = nextSteps.six_month_date || "";
   const communityLink = nextSteps.community_link || "";
   const coachingLink = nextSteps.coaching_link || "";
-  const contactEmail = nextSteps.contact_email || "info@wwassessment.com";
+  const contactEmail = nextSteps.contact_email || "steve@wydahowarriors.com";
 
   // Helper function to format text with paragraph breaks
   function formatTextWithParagraphBreaks(text: string | undefined): string {
@@ -437,7 +437,7 @@ function generateHTMLReport(
     <head>
       <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>WW Knife Check Assessment - ${clientName}</title>
+        <title>Wydaho Warrior Knife Check Assessment - ${clientName}</title>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
       <style>
             * {
@@ -1266,7 +1266,10 @@ function generateHTMLReport(
                             ${dailyActions
                               .map((action: string, index: number) => {
                                 // Remove "Day X:" prefix if it's already in the action text
-                                const actionText = action.replace(/^Day \d+:\s*/i, "");
+                                const actionText = action.replace(
+                                  /^Day \d+:\s*/i,
+                                  ""
+                                );
                                 return `<div style="display: flex; gap: 10px; margin-bottom: 4px;">
                                   <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">Day ${index + 1}:</div>
                                   <div style="color: #666; flex: 1;">${actionText}</div>
@@ -1410,7 +1413,9 @@ function generateHTMLReport(
                   </div>
                 </div>
                 
-                ${signedPdfUrl ? `
+                ${
+                  signedPdfUrl
+                    ? `
                 <div style="text-align: center; margin: 60px 0;">
                     <button 
                         class="pdf-button" 
@@ -1419,7 +1424,9 @@ function generateHTMLReport(
                         View PDF Report
                     </button>
                 </div>
-                ` : ""}
+                `
+                    : ""
+                }
             </div>
         </div>
 

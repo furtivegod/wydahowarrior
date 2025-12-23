@@ -737,7 +737,7 @@ function generateHTMLReport(
     nextSteps.community_link || "https://wwassessment.com/community";
   const coachingLink =
     nextSteps.coaching_link || "https://paperbell.me/wydaho-warriors";
-  const contactEmail = nextSteps.contact_email || "info@wwassessment.com";
+  const contactEmail = nextSteps.contact_email || "steve@wydahowarriors.com";
 
   return `
     <!DOCTYPE html>
@@ -745,7 +745,7 @@ function generateHTMLReport(
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${planData.title || "WW Knife Check Assessment Report"}</title>
+      <title>${planData.title || "Wydaho Warrior Knife Check Assessment Report"}</title>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
       <style>
         * {

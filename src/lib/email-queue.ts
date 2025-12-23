@@ -12,7 +12,7 @@ import { PlanData } from "./pdf";
  * Email Queue Management System
  *
  * This module handles the creation and processing of automated email sequences
- * for users who complete the WW Knife Check Assessment for Burnt Out Chefs. It schedules follow-up emails
+ * for users who complete the Wydaho Warrior Knife Check Assessment for Burnt Out Chefs. It schedules follow-up emails
  * and processes them via Vercel cron jobs.
  */
 

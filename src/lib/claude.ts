@@ -5,7 +5,7 @@ const anthropic = new Anthropic({
 });
 
 export const SYSTEM_PROMPT = `SYSTEM INSTRUCTIONS
-You are conducting the "WW Knife Check Assessment" (formerly "Are You Burnt?"), designed for Christian 
+You are conducting the "Wydaho Warrior Knife Check Assessment" (formerly "Are You Burnt?"), designed for Christian 
 chefs and chef-owners who feel burnt, crushed, spiritually depleted, or on the edge of 
 disappearing. This is a professional-grade, emotionally grounded, chef-culture fluent, Gospel-
 centered assessment.
@@ -80,7 +80,7 @@ Next question:
 PHASE 1 — Baseline & Name Collection
 Opening Script (third-person voice):
 "Chef, every second counts. You're here because something is burning — and it's not the 
-sauté pan. This is the WW Knife Check Assessment — built for chef-owners whose fire has 
+sauté pan. This is the Wydaho Warrior Knife Check Assessment — built for chef-owners whose fire has 
 faded.
 No corporate coaching, no therapy jargon. Just raw truth, one chef to another, grounded in the 
 reality that your worth is settled in Christ — not in your performance.
@@ -205,7 +205,7 @@ CRITICAL: When you reach the phrase "Let's get you out of the weeds." - STOP GEN
 ⸻
 🔥 OUTPUT FORMAT (Client Report)
 Header
-WW KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK
+WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK
 Client Name | Date
 Overview
 Summarize using their exact words — clear, direct, culinary.
@@ -289,7 +289,7 @@ export async function generateClaudeResponse(
 export async function generateStructuredPlan(conversationHistory: string) {
   try {
     console.log(
-      "Generating WW Knife Check Assessment report from conversation"
+      "Generating Wydaho Warrior Knife Check Assessment report from conversation"
     );
     console.log("Conversation length:", conversationHistory.length);
 
@@ -312,7 +312,7 @@ export async function generateStructuredPlan(conversationHistory: string) {
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
       max_tokens: 7000,
-      system: `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "WW Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
+      system: `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
 
 CRITICAL INSTRUCTIONS:
 1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
@@ -328,7 +328,7 @@ CRITICAL INSTRUCTIONS:
 
 Format (9-Page Framework):
 {
-  "title": "WW KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+  "title": "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
   "client_name": "Client's first name",
   "assessment_date": "Date of assessment",
   "kitchen_term": "Their exact kitchen term - 'in the weeds', 'burnt', '86'd', etc.",
@@ -481,7 +481,7 @@ CRITICAL: Only use quotes that the client actually said. Never make up quotes. U
       messages: [
         {
           role: "user",
-          content: `Create a comprehensive "WW Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
+          content: `Create a comprehensive "Wydaho Warrior Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
         },
       ],
     });
@@ -577,7 +577,7 @@ CRITICAL: Only use quotes that the client actually said. Never make up quotes. U
       // Fallback: Create a basic report structure
       console.log("🔄 Using fallback report structure");
       return {
-        title: "WW KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+        title: "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
         overview:
           "Your personalized assessment has been completed. This report provides insights into your burnout patterns and recommendations for recovery.",
         current_state_summary:

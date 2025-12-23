@@ -65,11 +65,11 @@ export default function SuccessPage() {
               fontWeight: 400,
             }}
           >
-            Your personalized WW Knife Check Assessment is ready to begin. In
-            just minutes, you&apos;re going to uncover the exact patterns that
-            have been keeping you stuck—and get a protocol built specifically to
-            help you recover from burnout and rediscover your purpose as a
-            chef-owner.
+            Your personalized Wydaho Warrior Knife Check Assessment is ready to
+            begin. In just minutes, you&apos;re going to uncover the exact
+            patterns that have been keeping you stuck—and get a protocol built
+            specifically to help you recover from burnout and rediscover your
+            purpose as a chef-owner.
           </p>
 
           {/* Email Confirmation */}
@@ -104,8 +104,8 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> &quot;Your WW Knife Check
-                  Assessment Link – Ready to Begin&quot;
+                  <strong>Subject line:</strong> &quot;Your Wydaho Warrior Knife
+                  Check Assessment Link – Ready to Begin&quot;
                 </p>
                 <p style={{ color: "#1A1A1A" }}>
                   <strong>From:</strong> wwassessment.com
@@ -156,7 +156,8 @@ export default function SuccessPage() {
                     style={{ color: "#1A1A1A" }}
                   >
                     Your personalized assessment is ready and waiting. Find a
-                    quiet space where you can be honest and reflective.
+                    quiet space where you can be honest and reflective. Please
+                    elaborate as much as you can feel.
                   </p>
                 </div>
               </div>
@@ -176,7 +177,7 @@ export default function SuccessPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Complete your assessment (10-15 minutes)
+                    Complete your assessment (30 minutes)
                   </h4>
                   <p
                     className="text-sm sm:text-base"
@@ -212,7 +213,8 @@ export default function SuccessPage() {
                   >
                     Your personalized 30-day transformation protocol will be
                     delivered to your email the moment you finish. Save it.
-                    Reference it. Use it.
+                    Reference it. Use it. This is your new potential road map
+                    that may lead to a 30 year transformation.
                   </p>
                 </div>
               </div>
@@ -224,7 +226,7 @@ export default function SuccessPage() {
             <p>
               Need help?{" "}
               <a
-                href="mailto:info@wwassessment.com"
+                href="mailto:steve@wydahowarriors.com"
                 className="hover:underline"
                 style={{ color: "#4A5D23" }}
               >

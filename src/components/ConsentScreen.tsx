@@ -20,7 +20,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
             fontWeight: 700,
           }}
         >
-          Welcome to the WW Knife Check Assessment for Burnt Out Chefs
+          Welcome to the Wydaho Warrior Knife Check Assessment for Burnt Out Chefs
         </h1>
 
         <div className="space-y-6">

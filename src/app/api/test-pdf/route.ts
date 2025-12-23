@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     // ⚠️ FAKE SAMPLE DATA FOR TESTING ONLY - DO NOT USE IN PRODUCTION
     // This contains fabricated quotes and responses that don't belong to any real user
     const samplePlanData: PlanData = {
-      title: "WW KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+      title: "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
       client_name: "Maksym",
       assessment_date: "January 2025",
       kitchen_term: "Burnt — running on fumes, keeping things going, but with nothing left in reserve",

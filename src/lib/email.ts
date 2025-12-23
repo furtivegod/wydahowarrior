@@ -8,8 +8,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // Use env overrides so production can change domains without code edits.
 const DEFAULT_FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL ||
-  "WW Knife Check Assessment <noreply@wwassessment.com>";
-const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "info@wwassessment.com";
+  "Wydaho Warrior Knife Check Assessment <noreply@wwassessment.com>";
+const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "steve@wydahowarriors.com";
 
 export async function sendMagicLink(
   email: string,
@@ -47,7 +47,7 @@ export async function sendMagicLink(
       from: DEFAULT_FROM_EMAIL,
       to: [email],
 
-      subject: "Your WW Knife Check Assessment Is Ready",
+      subject: "Your Wydaho Warrior Knife Check Assessment Is Ready",
       html: `
         <!DOCTYPE html>
 
@@ -56,7 +56,7 @@ export async function sendMagicLink(
             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your WW Knife Check Assessment Is Ready</title>
+            <title>Your Wydaho Warrior Knife Check Assessment Is Ready</title>
             <style>
                 @media only screen and (min-width: 600px) {
                     .cta-button:hover {
@@ -104,7 +104,7 @@ export async function sendMagicLink(
 
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW mark.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -161,7 +161,7 @@ export async function sendMagicLink(
                             <tr>
                                 <td align="center" class="instruction-text" style="padding: 0 60px;">
                                     <p style="margin: 0; font-size: 14px; font-weight: 400; color: #1A1A1A; line-height: 1.8; font-family: 'Inter', -apple-system, sans-serif;">
-                                        Takes 15 minutes. No rush.<br>
+                                        Takes 30 minutes. No rush.<br>
                                         Find a quiet space where you can be honest.
                                     </p>
                                 </td>
@@ -183,8 +183,7 @@ export async function sendMagicLink(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="margin: 0; font-size: 12px; color: #999; line-height: 1.6;">
-                                        Questions? Just reply to this email.<br>
-                                        We're here to help.
+                                        Questions? Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>
@@ -264,7 +263,7 @@ export async function sendReportEmail(
           patternAnalysis.pattern_exact_words ||
           patternAnalysis.protective_pattern ||
           "";
-        personalizedPS = `You mentioned "${patternText}". If you want help designing the environment and structure that makes change automatic instead of exhausting, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You mentioned "${patternText}". If you want help designing the environment and structure that makes change automatic instead of exhausting, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for business/financial goals in protocol
       else if (
@@ -284,7 +283,7 @@ export async function sendReportEmail(
           thirtyDayProtocol.immediate_practice.toLowerCase().includes("income"))
       ) {
         const goalText = thirtyDayProtocol.immediate_practice;
-        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for relationship concerns
       else if (
@@ -306,7 +305,7 @@ export async function sendReportEmail(
             .includes("intimacy"))
       ) {
         const relationshipText = domainBreakdown.purpose.current_state || "";
-        personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You shared that ${relationshipText}. If you want to understand how your protective patterns show up in your closest relationships, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Check for physical/craft disconnect
       else if (
@@ -326,16 +325,16 @@ export async function sendReportEmail(
             .includes("exercise"))
       ) {
         const bodyText = domainBreakdown.craft.current_state || "";
-        personalizedPS = `You described your relationship with your craft as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You described your relationship with your craft as ${bodyText}. If you want to rebuild that connection without force or punishment, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Fallback for general transformation goals
       else if (thirtyDayProtocol?.immediate_practice) {
         const goalText = thirtyDayProtocol.immediate_practice;
-        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `You're building toward ${goalText}. If you want to map out how your patterns are affecting your momentum, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
       // Final fallback
       else {
-        personalizedPS = `Your assessment revealed important patterns. If you want to understand how these patterns are affecting your progress, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
+        personalizedPS = `Your assessment revealed important patterns. If you want to understand how these patterns are affecting your progress, <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>.`;
       }
     }
 
@@ -373,7 +372,7 @@ export async function sendReportEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -450,9 +449,9 @@ export async function sendReportEmail(
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Steve Murphy<br>
-              Culinary Institute of America<br>
-              Former Missing Person, Current Warrior<br>
+              Your Warrior,<br>
+              Chef Steve Murphy (HCI-CHC)<br>
+              Founder & Coach<br>
               Wydaho Warriors LLC<br>
               <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
               208-227-3729
@@ -576,7 +575,7 @@ export async function sendPatternRecognitionEmail(
         combined.includes("hypervigilant")
       ) {
         personalizedPS =
-          'In a Chef Clarity Call, we map the exact moments your nervous system shifts into protection mode—and build specific interrupts that work with your wiring, not against it. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+          'In a Chef Clarity Call, we map the exact moments your nervous system shifts into protection mode—and build specific interrupts that work with your wiring, not against it. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
       }
       // Check for avoidance/shutdown (dorsal shutdown)
       else if (
@@ -588,7 +587,7 @@ export async function sendPatternRecognitionEmail(
         combined.includes("numb")
       ) {
         personalizedPS =
-          'In a Chef Clarity Call, we identify what safety looks like for your nervous system—so action doesn\'t require forcing yourself through shutdown. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+          'In a Chef Clarity Call, we identify what safety looks like for your nervous system—so action doesn\'t require forcing yourself through shutdown. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
       }
       // Check for stress regression
       else if (
@@ -597,12 +596,12 @@ export async function sendPatternRecognitionEmail(
         combined.includes("regulation")
       ) {
         personalizedPS =
-          'In a Chef Clarity Call, we design practices that help you stay regulated under pressure—not just when life is calm. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
+          'In a Chef Clarity Call, we design practices that help you stay regulated under pressure—not just when life is calm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready.';
       }
       // Generic fallback
       else {
         personalizedPS =
-          'In a Chef Clarity Call, we design pattern interrupts tailored to your nervous system. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
+          'In a Chef Clarity Call, we design pattern interrupts tailored to your nervous system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a> when you\'re ready to build new responses.';
       }
     }
 
@@ -634,7 +633,7 @@ export async function sendPatternRecognitionEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -705,8 +704,10 @@ export async function sendPatternRecognitionEmail(
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Steve Murphy<br>
-              Wydaho Warriors<br>
+              Your Warrior,<br>
+              Chef Steve Murphy (HCI-CHC)<br>
+              Founder & Coach<br>
+              Wydaho Warriors LLC<br>
               <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
               208-227-3729
             </p>
@@ -808,7 +809,7 @@ export async function sendEvidence7DayEmail(
         patternLower.includes("perfect") ||
         patternLower.includes("researching")
       ) {
-        personalizedPS = `You mentioned "${patternText}". In a Chef Clarity Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You mentioned "${patternText}". In a Chef Clarity Call, we identify what 'good enough' actually looks like for your nervous system—so you can ship without the spiral. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       }
       // Check for avoidance/procrastination
       else if (
@@ -817,7 +818,7 @@ export async function sendEvidence7DayEmail(
         patternLower.includes("avoid") ||
         patternLower.includes("delay")
       ) {
-        personalizedPS = `You shared that "${patternText}". In a Chef Clarity Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You shared that "${patternText}". In a Chef Clarity Call, we build momentum systems that work with your energy cycles instead of fighting them. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       }
       // Check for people-pleasing/conflict avoidance
       else if (
@@ -826,12 +827,12 @@ export async function sendEvidence7DayEmail(
         patternLower.includes("people please") ||
         patternLower.includes("saying yes")
       ) {
-        personalizedPS = `You described "${patternText}". In a Chef Clarity Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You described "${patternText}". In a Chef Clarity Call, we practice saying what's true without triggering your abandonment alarm. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       }
       // Generic fallback
       else {
         personalizedPS =
-          'The assessment mapped the patterns. A Chef Clarity Call helps you see progress you\'re missing and builds momentum structures. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'The assessment mapped the patterns. A Chef Clarity Call helps you see progress you\'re missing and builds momentum structures. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -862,7 +863,7 @@ export async function sendEvidence7DayEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -943,8 +944,10 @@ export async function sendEvidence7DayEmail(
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Steve Murphy<br>
-              Wydaho Warriors<br>
+              Your Warrior,<br>
+              Chef Steve Murphy (HCI-CHC)<br>
+              Founder & Coach<br>
+              Wydaho Warriors LLC<br>
               <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
               208-227-3729
             </p>
@@ -1046,7 +1049,7 @@ export async function sendIntegrationThresholdEmail(
         purposeLower.includes("income") ||
         purposeLower.includes("revenue")
       ) {
-        personalizedPS = `You're building toward ${purposeText || "something meaningful"}. In a Chef Clarity Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You're building toward ${purposeText || "something meaningful"}. In a Chef Clarity Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       }
       // Check for relationship goal
       else if (
@@ -1056,7 +1059,7 @@ export async function sendIntegrationThresholdEmail(
         purposeLower.includes("connection") ||
         purposeLower.includes("intimacy")
       ) {
-        personalizedPS = `You want ${purposeText || "better relationships"}. In a Chef Clarity Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You want ${purposeText || "better relationships"}. In a Chef Clarity Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       }
       // Check for body/health goal
       else if (
@@ -1065,12 +1068,12 @@ export async function sendIntegrationThresholdEmail(
         purposeLower.includes("physical") ||
         purposeLower.includes("exercise")
       ) {
-        personalizedPS = `You described wanting ${purposeText || "better health"}. In a Chef Clarity Call, we rebuild your relationship with your body without punishment or force. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You described wanting ${purposeText || "better health"}. In a Chef Clarity Call, we rebuild your relationship with your body without punishment or force. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       }
       // Generic fallback
       else {
         personalizedPS =
-          'A Chef Clarity Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://paperbell.me/wydaho-warriors/chef-clarity-call" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'A Chef Clarity Call clarifies whether you\'re ready for implementation or still gathering insights. Both are valid—but knowing saves months. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -1100,7 +1103,7 @@ export async function sendIntegrationThresholdEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1196,8 +1199,10 @@ export async function sendIntegrationThresholdEmail(
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Steve Murphy<br>
-              Wydaho Warriors<br>
+              Your Warrior,<br>
+              Chef Steve Murphy (HCI-CHC)<br>
+              Founder & Coach<br>
+              Wydaho Warriors LLC<br>
               <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
               208-227-3729
             </p>
@@ -1284,12 +1289,12 @@ export async function sendCompoundEffectEmail(
     if (planData) {
       const protocol = planData.thirty_day_protocol;
       if (protocol?.specific_action) {
-        personalizedPS = `You committed to ${protocol.specific_action}. Whether you did it once or daily, that's data. In a Discovery Call, we use that data to design what's actually sustainable for your kitchen energy. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You committed to ${protocol.specific_action}. Whether you did it once or daily, that's data. In a Discovery Call, we use that data to design what's actually sustainable for your kitchen energy. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else if (protocol?.immediate_practice) {
-        personalizedPS = `You planned ${protocol.immediate_practice}. In a Discovery Call, we figure out why it stuck or why it didn't—and adjust from there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        personalizedPS = `You planned ${protocol.immediate_practice}. In a Discovery Call, we figure out why it stuck or why it didn't—and adjust from there. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
       } else {
         personalizedPS =
-          'Three weeks of data is enough to see your patterns clearly. In a Discovery Call, we turn that data into a sustainable system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-29" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
+          'Three weeks of data is enough to see your patterns clearly. In a Discovery Call, we turn that data into a sustainable system. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.';
       }
     }
     const { data, error } = await resend.emails.send({
@@ -1319,7 +1324,7 @@ export async function sendCompoundEffectEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1350,7 +1355,7 @@ export async function sendCompoundEffectEmail(
             
 
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Here's what I've noticed working with 680+ people:
+              Here's what I've noticed after helping dozens of people:
             </p>
             
 
@@ -1518,7 +1523,7 @@ export async function sendDirectInvitationEmail(
                             <!-- Logo -->
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="WW Knife Check Assessment Logo" style="height: 150px; width: auto;" />
+                                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height: 150px; width: auto;" />
                                 </td>
                             </tr>
                             
@@ -1565,7 +1570,7 @@ export async function sendDirectInvitationEmail(
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">Caught yourself mid-spiral and interrupted it (even once)</li>
               <li style="margin-bottom: 8px;">Had a hard conversation you would have avoided before</li>
-              <li style="margin-bottom: 8px;">Chose "${planData?.pattern_analysis?.anchor_habit ? `[positive behavior]` : "action"}" when you normally would have reached for "${planData?.pattern_analysis?.anchor_habit || "[escape behavior]"}"</li>
+              <li style="margin-bottom: 8px;">Chose "${planData?.pattern_analysis?.anchor_habit || "action"}" when you normally would have reached for "${planData?.pattern_analysis?.anchor_habit || "[escape behavior]"}"</li>
             </ul>
             
 
@@ -1692,7 +1697,7 @@ export async function sendDirectInvitationEmail(
                 Weekly videos on burnout, boundaries, faith, and finding your fire again. Real stories. Real solutions.
               </p>
               <div style="text-align: center; margin: 15px 0;">
-                <a href="https://youtube.com/@wydahowarriors" style="background-color: #C9A875; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                <a href="https://www.youtube.com/@Wydaho-Warriors" style="background-color: #C9A875; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
                   Subscribe to YouTube Channel
                 </a>
               </div>
@@ -1741,9 +1746,9 @@ export async function sendDirectInvitationEmail(
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Steve Murphy<br>
-              Culinary Institute of America<br>
-              Former Missing Person, Current Warrior<br>
+              Your Warrior,<br>
+              Chef Steve Murphy (HCI-CHC)<br>
+              Founder & Coach<br>
               Wydaho Warriors LLC<br>
               <a href="mailto:steve@wydahowarriors.com" style="color: #7ED321; text-decoration: underline;">steve@wydahowarriors.com</a><br>
               208-227-3729
