@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 import { trackEvent } from "@/lib/analytics";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Message {
   id: string;
@@ -21,6 +22,7 @@ export default function ChatInterface({
   sessionId,
   onComplete,
 }: ChatInterfaceProps) {
+  const { t } = useLanguage();
   // Screen states
   const [currentScreen, setCurrentScreen] = useState<
     "welcome" | "environment" | "chat"
@@ -361,25 +363,23 @@ export default function ChatInterface({
                 assistantMessage.content += data.content;
 
                 // Check for completion phrases immediately during streaming
-                // Check for multiple variations of the final phrase to catch different phrasings
+                // Check for multiple variations of the final phrase in both languages
                 if (
                   !completionTriggeredRef.current &&
-                  (assistantMessage.content.includes(
-                    "Let's get you out of the weeds."
-                  ) ||
-                    assistantMessage.content.includes(
-                      "Let's get you out of the weeds"
-                    ) ||
-                    assistantMessage.content.includes(
-                      "get you out of the weeds"
-                    ) ||
+                  (// English phrases
+                    assistantMessage.content.includes("Let's get you out of the weeds.") ||
+                    assistantMessage.content.includes("Let's get you out of the weeds") ||
+                    assistantMessage.content.includes("get you out of the weeds") ||
                     assistantMessage.content.includes("out of the weeds") ||
-                    assistantMessage.content
-                      .toLowerCase()
-                      .includes("let's get you out of the weeds") ||
-                    assistantMessage.content
-                      .toLowerCase()
-                      .includes("get you out of the weeds"))
+                    assistantMessage.content.toLowerCase().includes("let's get you out of the weeds") ||
+                    assistantMessage.content.toLowerCase().includes("get you out of the weeds") ||
+                    // Spanish phrases
+                    assistantMessage.content.includes("Vamos a sacarte de las malas hierbas.") ||
+                    assistantMessage.content.includes("Vamos a sacarte de las malas hierbas") ||
+                    assistantMessage.content.includes("sacarte de las malas hierbas") ||
+                    assistantMessage.content.includes("de las malas hierbas") ||
+                    assistantMessage.content.toLowerCase().includes("vamos a sacarte de las malas hierbas") ||
+                    assistantMessage.content.toLowerCase().includes("sacarte de las malas hierbas"))
                 ) {
                   console.log(
                     "Completion detected during streaming via content phrases"
@@ -703,7 +703,7 @@ export default function ChatInterface({
                     </div>
                     <div className="flex items-center gap-1 pt-2">
                       <span className="text-sm text-[#9CA3AF] font-medium">
-                        Thinking...
+                        {t.chat.generating}
                       </span>
                     </div>
                   </div>
@@ -740,7 +740,7 @@ export default function ChatInterface({
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Type your answers here."
+                  placeholder={t.chat.placeholder}
                   className="w-full min-h-[24px] max-h-[200px] border-none outline-none resize-none text-base leading-[1.5] text-[#1F2937] bg-transparent font-inherit placeholder:text-[#9CA3AF]"
                   disabled={isLoading}
                   rows={1}
@@ -808,7 +808,7 @@ export default function ChatInterface({
                     style={{ backgroundColor: "#4A5D23" }}
                     aria-label="Send message"
                   >
-                    Send{" "}
+                    {t.chat.send}{" "}
                     <span className="text-base" aria-hidden="true">
                       ↑
                     </span>

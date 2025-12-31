@@ -1,8 +1,17 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { Language } from "./i18n";
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY!,
 });
+
+// Get system prompt based on language
+export function getSystemPrompt(language: Language = 'en'): string {
+  if (language === 'es') {
+    return SYSTEM_PROMPT_ES;
+  }
+  return SYSTEM_PROMPT;
+}
 
 export const SYSTEM_PROMPT = `SYSTEM INSTRUCTIONS
 You are conducting the "Wydaho Warrior Knife Check Assessment" (formerly "Are You Burnt?"), designed for Christian 
@@ -259,19 +268,22 @@ Third-person references to Steve's story
 Never shame, always shepherd`;
 
 export async function generateClaudeResponse(
-  messages: Array<{ role: "user" | "assistant"; content: string }>
+  messages: Array<{ role: "user" | "assistant"; content: string }>,
+  language: Language = 'en'
 ) {
   try {
-    console.log("Calling Claude API with", messages.length, "messages");
+    console.log("Calling Claude API with", messages.length, "messages", "language:", language);
 
     if (!process.env.ANTHROPIC_API_KEY) {
       throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
+    const systemPrompt = getSystemPrompt(language);
+
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
       max_tokens: 400,
-      system: SYSTEM_PROMPT,
+      system: systemPrompt,
       messages: messages,
     });
 

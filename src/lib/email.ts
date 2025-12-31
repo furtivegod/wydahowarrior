@@ -1,6 +1,8 @@
 import { Resend } from "resend";
 import jwt from "jsonwebtoken";
 import { PlanData } from "./pdf";
+import { emailTranslations } from "./email-translations";
+import { Language } from "./i18n";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -14,7 +16,8 @@ const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "steve@wydahowarriors.com";
 export async function sendMagicLink(
   email: string,
   sessionId: string,
-  firstName?: string
+  firstName?: string,
+  language: Language = 'en'
 ) {
   console.log("Email service called with:", { email, sessionId, firstName });
 
@@ -41,17 +44,19 @@ export async function sendMagicLink(
         : emailPrefix.charAt(0).toUpperCase() + emailPrefix.slice(1);
     })();
 
+  const t = emailTranslations[language];
+  
   try {
     console.log("Sending email via Resend...");
     const { data, error } = await resend.emails.send({
       from: DEFAULT_FROM_EMAIL,
       to: [email],
-
-      subject: "Your Wydaho Warrior Knife Check Assessment Is Ready",
+      replyTo: SUPPORT_EMAIL,
+      subject: t.magicLink.subject,
       html: `
         <!DOCTYPE html>
 
-        <html lang="en">
+        <html lang="${language}">
         <head>
             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
             <meta charset="UTF-8">
@@ -132,7 +137,7 @@ export async function sendMagicLink(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="margin: 0; font-size: 18px; font-weight: 400; color: #1A1A1A; line-height: 1.6; font-family: 'Inter', -apple-system, sans-serif;">
-                                        Your assessment is ready.
+                                        ${t.magicLink.greeting}
                                     </p>
                                 </td>
                             </tr>
@@ -146,8 +151,8 @@ export async function sendMagicLink(
 
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
-                                    <a href="${process.env.NEXT_PUBLIC_APP_URL}/assessment/${sessionId}?token=${jwt.sign({ sessionId, email }, process.env.JWT_SECRET!, { expiresIn: "7d" })}" class="cta-button" style="display: inline-block; background: #7ED321; color: #FFFFFF; text-decoration: none; padding: 16px 48px; border-radius: 8px; font-size: 18px; font-weight: 600; letter-spacing: 0.3px; transition: background 0.2s ease; font-family: 'Inter', -apple-system, sans-serif;">
-                                        Begin Your Assessment →
+                                    <a href="${process.env.NEXT_PUBLIC_APP_URL}/assessment/${sessionId}?token=${jwt.sign({ sessionId, email }, process.env.JWT_SECRET!, { expiresIn: "7d" })}&lang=${language}" class="cta-button" style="display: inline-block; background: #7ED321; color: #FFFFFF; text-decoration: none; padding: 16px 48px; border-radius: 8px; font-size: 18px; font-weight: 600; letter-spacing: 0.3px; transition: background 0.2s ease; font-family: 'Inter', -apple-system, sans-serif;">
+                                        ${t.magicLink.beginButton}
                                     </a>
                                 </td>
                             </tr>
@@ -161,8 +166,7 @@ export async function sendMagicLink(
                             <tr>
                                 <td align="center" class="instruction-text" style="padding: 0 60px;">
                                     <p style="margin: 0; font-size: 14px; font-weight: 400; color: #1A1A1A; line-height: 1.8; font-family: 'Inter', -apple-system, sans-serif;">
-                                        Takes 30 minutes. No rush.<br>
-                                        Find a quiet space where you can be honest.
+                                        ${t.magicLink.instructions}
                                     </p>
                                 </td>
                             </tr>
@@ -183,7 +187,7 @@ export async function sendMagicLink(
                             <tr>
                                 <td align="center" style="padding: 0 40px;">
                                     <p style="margin: 0; font-size: 12px; color: #999; line-height: 1.6;">
-                                        Questions? Need support? Contact us at <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
+                                        ${t.magicLink.support} <a href="mailto:${SUPPORT_EMAIL}" style="color: #C9A875; text-decoration: underline;">${SUPPORT_EMAIL}</a>
                                     </p>
                                 </td>
                             </tr>

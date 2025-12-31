@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function SuccessPage() {
   const [userEmail, setUserEmail] = useState("your email.");
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useLanguage();
 
   useEffect(() => {
     fetchLatestSession();
@@ -54,7 +56,7 @@ export default function SuccessPage() {
               fontWeight: 700,
             }}
           >
-            You Just Made the Right Decision.
+            {t.success.title}
           </h1>
 
           <p
@@ -65,11 +67,7 @@ export default function SuccessPage() {
               fontWeight: 400,
             }}
           >
-            Your personalized Wydaho Warrior Knife Check Assessment is ready to
-            begin. In just minutes, you&apos;re going to uncover the exact
-            patterns that have been keeping you stuck—and get a protocol built
-            specifically to help you recover from burnout and rediscover your
-            purpose as a chef-owner.
+            {t.success.subtitle}
           </p>
 
           {/* Email Confirmation */}
@@ -82,16 +80,16 @@ export default function SuccessPage() {
                 fontWeight: 700,
               }}
             >
-              📧 Check Your Email Right Now
+              {t.success.checkEmail}
             </h2>
             <div className="text-left space-y-3 sm:space-y-4">
               <p className="text-sm sm:text-base" style={{ color: "#1A1A1A" }}>
-                We&apos;ve sent your assessment link to{" "}
+                {t.success.emailSentTo}{" "}
                 <strong>
                   {isLoading ? (
                     <span className="inline-flex items-center">
                       <span className="animate-pulse">
-                        loading your email...
+                        {t.common.loading}
                       </span>
                     </span>
                   ) : (
@@ -104,15 +102,15 @@ export default function SuccessPage() {
                 style={{ backgroundColor: "#FFF3CD" }}
               >
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>Subject line:</strong> &quot;Your Wydaho Warrior Knife
+                  <strong>{t.success.subjectLine}</strong> &quot;Your Wydaho Warrior Knife
                   Check Assessment Link – Ready to Begin&quot;
                 </p>
                 <p style={{ color: "#1A1A1A" }}>
-                  <strong>From:</strong> wwassessment.com
+                  <strong>{t.success.from}</strong> wwassessment.com
                 </p>
               </div>
               <p className="text-xs sm:text-sm" style={{ color: "#666" }}>
-                Can&apos;t find it? Check your spam folder or contact support
+                {t.success.cantFind}
               </p>
             </div>
           </div>
@@ -130,7 +128,7 @@ export default function SuccessPage() {
                 fontWeight: 700,
               }}
             >
-              What Happens Next
+              {t.success.whatHappensNext}
             </h3>
             <div className="text-left space-y-4 sm:space-y-6">
               <div className="flex items-start">
@@ -149,15 +147,13 @@ export default function SuccessPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Click the link in your email
+                    {t.success.step1Title}
                   </h4>
                   <p
                     className="text-sm sm:text-base"
                     style={{ color: "#1A1A1A" }}
                   >
-                    Your personalized assessment is ready and waiting. Find a
-                    quiet space where you can be honest and reflective. Please
-                    elaborate as much as you can feel.
+                    {t.success.step1Text}
                   </p>
                 </div>
               </div>
@@ -177,15 +173,13 @@ export default function SuccessPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Complete your assessment (30 minutes)
+                    {t.success.step2Title}
                   </h4>
                   <p
                     className="text-sm sm:text-base"
                     style={{ color: "#1A1A1A" }}
                   >
-                    The AI will ask follow-up questions based on your answers to
-                    map your specific patterns with precision. There&apos;s no
-                    time limit—take breaks if you need them.
+                    {t.success.step2Text}
                   </p>
                 </div>
               </div>
@@ -205,16 +199,13 @@ export default function SuccessPage() {
                       fontWeight: 500,
                     }}
                   >
-                    Receive your protocol (Immediately after completion)
+                    {t.success.step3Title}
                   </h4>
                   <p
                     className="text-sm sm:text-base"
                     style={{ color: "#1A1A1A" }}
                   >
-                    Your personalized 30-day transformation protocol will be
-                    delivered to your email the moment you finish. Save it.
-                    Reference it. Use it. This is your new potential road map
-                    that may lead to a 30 year transformation.
+                    {t.success.step3Text}
                   </p>
                 </div>
               </div>
@@ -224,13 +215,13 @@ export default function SuccessPage() {
           {/* Support */}
           <div className="text-xs sm:text-sm" style={{ color: "#666" }}>
             <p>
-              Need help?{" "}
+              {t.success.needHelp}{" "}
               <a
                 href="mailto:steve@wydahowarriors.com"
                 className="hover:underline"
                 style={{ color: "#4A5D23" }}
               >
-                Contact support
+                {t.success.contactSupport}
               </a>
             </p>
           </div>

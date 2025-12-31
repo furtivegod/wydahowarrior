@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ConsentScreenProps {
   onConsent: () => void;
@@ -8,6 +9,7 @@ interface ConsentScreenProps {
 
 export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
   const [agreed, setAgreed] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <div className="max-w-2xl mx-auto p-8">
@@ -20,7 +22,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
             fontWeight: 700,
           }}
         >
-          Welcome to the Wydaho Warrior Knife Check Assessment for Burnt Out Chefs
+          {t.consent.welcome}
         </h1>
 
         <div className="space-y-6">
@@ -33,10 +35,10 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
                 fontWeight: 700,
               }}
             >
-              About Your Assessment
+              {t.consent.aboutTitle}
             </h2>
             <p className="leading-relaxed" style={{ color: "#1A1A1A" }}>
-              This assessment is designed to help chefs sharpen their most important tool: themselves. We know that running on fumes can lead to feeling &quot;dull&quot; and unaligned in our mind, emotions, and physical well-being. This tool is not the solution itself, but an intelligent and logical roadmap for self-improvement and &quot;honing&quot; your greatest asset.
+              {t.consent.aboutText}
             </p>
           </div>
 
@@ -49,13 +51,10 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
                 fontWeight: 700,
               }}
             >
-              Privacy & Consent
+              {t.consent.privacyTitle}
             </h2>
             <p className="leading-relaxed" style={{ color: "#1A1A1A" }}>
-              By proceeding, you consent to the collection and processing of
-              your responses for the purpose of generating your personalized
-              protocol. Your data is encrypted and stored securely, and will not
-              be shared with third parties.
+              {t.consent.privacyText}
             </p>
           </div>
 
@@ -69,7 +68,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
               style={{ accentColor: "#3D4D2E" }}
             />
             <label htmlFor="consent" style={{ color: "#1A1A1A" }}>
-              I understand and agree to proceed with the assessment
+              {t.consent.agreeText}
             </label>
           </div>
 
@@ -80,7 +79,7 @@ export default function ConsentScreen({ onConsent }: ConsentScreenProps) {
               className="text-white px-8 py-3 rounded-lg text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-colors hover:opacity-90"
               style={{ backgroundColor: "#7ED321", color: "#FFFFFF", fontFamily: "'Inter', sans-serif", fontWeight: 600 }}
             >
-              Begin Assessment
+              {t.consent.beginButton}
             </button>
           </div>
         </div>

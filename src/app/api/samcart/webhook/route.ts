@@ -79,6 +79,15 @@ export async function POST(request: NextRequest) {
       customerFirstName && customerLastName
         ? `${customerFirstName} ${customerLastName}`
         : customerFirstName || null;
+    
+    // Extract language from URL params, custom fields, or default to 'en'
+    // SamCart may pass language in custom fields or URL params
+    const languageParam = samcartData.language || 
+                          samcartData.custom_fields?.language ||
+                          samcartData.customer?.custom_fields?.language ||
+                          samcartData.url_params?.lang ||
+                          'en';
+    const language = (languageParam === 'es' || languageParam === 'en') ? languageParam : 'en';
 
     console.log("Extracted data:", {
       customerEmail,
@@ -262,7 +271,7 @@ export async function POST(request: NextRequest) {
 
     const { data: session, error: sessionError } = await supabaseAdmin
       .from("sessions")
-      .insert({ user_id: user.id, status: "active" })
+      .insert({ user_id: user.id, status: "active", language: language })
       .select("*")
       .single();
 
@@ -313,7 +322,7 @@ export async function POST(request: NextRequest) {
         "with firstName:",
         customerFirstName
       );
-      await sendMagicLink(customerEmail, sessionId, customerFirstName);
+      await sendMagicLink(customerEmail, sessionId, customerFirstName, language);
       emailed = true;
       console.log("Magic link email sent successfully");
     } catch (emailErr) {

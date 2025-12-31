@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import ChatInterface from "@/components/ChatInterface";
 import ConsentScreen from "@/components/ConsentScreen";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface AssessmentPageProps {
   params: Promise<{ sessionId: string }>;
@@ -214,18 +215,17 @@ export default function AssessmentPage({
               fontFamily: "Georgia, Times New Roman, serif",
             }}
           >
-            Assessment Complete!
+            {t.assessment.complete}
           </h1>
           <p className="mb-6 text-sm sm:text-base" style={{ color: "#1A1A1A" }}>
-            Your personalized assessment report has been generated and sent to
-            your email.
+            {t.assessment.reportSent}
           </p>
           <div
             className="rounded-md p-4"
             style={{ backgroundColor: "#FFF3CD", border: "1px solid #D4AF37" }}
           >
             <p className="text-sm" style={{ color: "#856404" }}>
-              📧 Check your email for your personalized 30-day protocol
+              {t.assessment.checkEmail}
             </p>
           </div>
         </div>

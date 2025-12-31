@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateClaudeResponse } from "@/lib/claude";
 import { supabase, supabaseAdmin } from "@/lib/supabase";
+import { Language } from "@/lib/i18n";
 
 export async function POST(request: NextRequest) {
   try {
@@ -40,6 +41,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get session to retrieve language
+    const { data: session, error: sessionError } = await supabase
+      .from("sessions")
+      .select("language")
+      .eq("id", sessionId)
+      .single();
+
+    const language: Language = (session?.language === 'es' || session?.language === 'en') 
+      ? session.language 
+      : 'en';
+
     // Get conversation history
     const { data: messages, error: fetchError } = await supabase
       .from("messages")
@@ -62,8 +74,8 @@ export async function POST(request: NextRequest) {
         content: msg.content,
       })) || [];
 
-    // Generate response using Claude
-    const response = await generateClaudeResponse(conversationHistory);
+    // Generate response using Claude with language
+    const response = await generateClaudeResponse(conversationHistory, language);
 
     // Save assistant response to database
     const { error: saveError } = await supabase.from("messages").insert({
@@ -81,15 +93,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if assessment is complete
-    // Check for multiple variations of the completion phrase to ensure
-    // the full completion message is sent before marking complete
+    // Check for multiple variations of the completion phrase in both languages
     const isComplete =
+      // English phrases
       response.includes("Let's get you out of the weeds.") ||
       response.includes("Let's get you out of the weeds") ||
       response.includes("get you out of the weeds") ||
       response.includes("out of the weeds") ||
       response.toLowerCase().includes("let's get you out of the weeds") ||
-      response.toLowerCase().includes("get you out of the weeds");
+      response.toLowerCase().includes("get you out of the weeds") ||
+      // Spanish phrases
+      response.includes("Vamos a sacarte de las malas hierbas.") ||
+      response.includes("Vamos a sacarte de las malas hierbas") ||
+      response.includes("sacarte de las malas hierbas") ||
+      response.includes("de las malas hierbas") ||
+      response.toLowerCase().includes("vamos a sacarte de las malas hierbas") ||
+      response.toLowerCase().includes("sacarte de las malas hierbas");
 
     // If complete, mark session completed so the link can't be reused indefinitely
     if (isComplete) {
