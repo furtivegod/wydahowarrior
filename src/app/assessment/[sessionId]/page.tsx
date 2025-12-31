@@ -21,6 +21,7 @@ export default function AssessmentPage({
   const [isComplete, setIsComplete] = useState(false);
 
   const router = useRouter();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const getParams = async () => {

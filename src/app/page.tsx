@@ -7,7 +7,7 @@ import { Language } from '@/lib/i18n'
 
 export default function HomePage() {
   const router = useRouter()
-  const { language, setLanguage, t } = useLanguage()
+  const { setLanguage, t } = useLanguage()
   const [selectedLang, setSelectedLang] = useState<Language | null>(null)
 
   const handleLanguageSelect = (lang: Language) => {
