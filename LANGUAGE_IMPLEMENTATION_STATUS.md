@@ -56,7 +56,7 @@
 - ❌ JSON structure prompts need Spanish versions
 
 ### 4. Environment Variables
-- ⚠️ Need to add `NEXT_PUBLIC_SAMCART_URL_ES` environment variable for Spanish SamCart page
+- ✅ Environment variables defined: `NEXT_PUBLIC_SAMCART_URL_EN` and `NEXT_PUBLIC_SAMCART_URL_ES`
 
 ## 📋 Next Steps
 
@@ -66,8 +66,9 @@
    -- See supabase-migration-add-language.sql
    ```
 
-2. **Add Environment Variable**
+2. **Environment Variables** (Already defined in `.env.local`)
    ```
+   NEXT_PUBLIC_SAMCART_URL_EN=<your-english-samcart-url>
    NEXT_PUBLIC_SAMCART_URL_ES=<your-spanish-samcart-url>
    ```
 

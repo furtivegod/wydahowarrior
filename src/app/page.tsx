@@ -16,8 +16,8 @@ export default function HomePage() {
     
     // Get the appropriate SamCart URL based on language
     const samcartUrl = lang === 'es' 
-      ? process.env.NEXT_PUBLIC_SAMCART_URL_ES || process.env.NEXT_PUBLIC_SAMCART_URL
-      : process.env.NEXT_PUBLIC_SAMCART_URL
+      ? process.env.NEXT_PUBLIC_SAMCART_URL_ES
+      : process.env.NEXT_PUBLIC_SAMCART_URL_EN
     
     if (samcartUrl) {
       // Redirect to SamCart with language parameter
