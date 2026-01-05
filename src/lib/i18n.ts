@@ -46,6 +46,10 @@ export interface Translations {
   
   // Assessment
   assessment: {
+    validating: string;
+    accessDenied: string;
+    invalidLink: string;
+    tryAgain: string;
     complete: string;
     reportSent: string;
     checkEmail: string;
@@ -108,6 +112,10 @@ export const translations: Record<Language, Translations> = {
       contactSupport: 'Contact support',
     },
     assessment: {
+      validating: 'Validating access…',
+      accessDenied: 'Access Denied',
+      invalidLink: 'This assessment link is invalid or has expired. Please check your email for a valid link.',
+      tryAgain: 'Try Again',
       complete: 'Assessment Complete!',
       reportSent: 'Your personalized assessment report has been generated and sent to your email.',
       checkEmail: '📧 Check your email for your personalized 30-day protocol',
@@ -164,6 +172,10 @@ export const translations: Record<Language, Translations> = {
       contactSupport: 'Contactar soporte',
     },
     assessment: {
+      validating: 'Validando acceso…',
+      accessDenied: 'Acceso Denegado',
+      invalidLink: 'Este enlace de evaluación no es válido o ha expirado. Por favor, revisa tu correo electrónico para un enlace válido.',
+      tryAgain: 'Intentar de Nuevo',
       complete: '¡Evaluación Completa!',
       reportSent: 'Tu informe de evaluación personalizado ha sido generado y enviado a tu correo.',
       checkEmail: '📧 Revisa tu correo para tu protocolo personalizado de 30 días',

@@ -140,7 +140,7 @@ export default function AssessmentPage({
             className="text-lg sm:text-xl font-semibold"
             style={{ color: "#1A1A1A" }}
           >
-            Validating access…
+            {t.assessment.validating}
           </h1>
         </div>
       </div>
@@ -176,18 +176,17 @@ export default function AssessmentPage({
               fontFamily: "Georgia, Times New Roman, serif",
             }}
           >
-            Access Denied
+            {t.assessment.accessDenied}
           </h1>
           <p className="mb-6 text-sm sm:text-base" style={{ color: "#1A1A1A" }}>
-            This assessment link is invalid or has expired. Please check your
-            email for a valid link.
+            {t.assessment.invalidLink}
           </p>
           <button
             onClick={() => window.location.reload()}
             className="text-white px-4 py-2 rounded-md transition-colors duration-200 text-sm sm:text-base hover:opacity-90"
             style={{ backgroundColor: "#4A5D23" }}
           >
-            Try Again
+            {t.assessment.tryAgain}
           </button>
         </div>
       </div>

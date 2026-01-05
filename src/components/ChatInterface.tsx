@@ -567,7 +567,7 @@ export default function ChatInterface({
                   className="min-w-[80px] h-9 text-white border-none rounded-lg text-sm font-medium cursor-pointer flex items-center justify-center gap-1.5 transition-all duration-150 px-4 hover:-translate-y-px active:translate-y-0 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none hover:opacity-90"
                   style={{ backgroundColor: "#4A5D23" }}
                 >
-                  Send <span className="text-base">→</span>
+                  {t.chat.send} <span className="text-base">→</span>
                 </button>
               </div>
             </div>
