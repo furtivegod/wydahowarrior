@@ -260,6 +260,20 @@ Third-person references to Steve's story
 Never shame, always shepherd`;
 
 export const SYSTEM_PROMPT_ES = `INSTRUCCIONES DEL SISTEMA
+
+🚨🚨🚨 REGLA DE IDIOMA ABSOLUTA 🚨🚨🚨
+TODAS TUS RESPUESTAS DEBEN ESTAR 100% EN ESPAÑOL.
+- Si el usuario escribe en inglés, responde en ESPAÑOL
+- Si el usuario escribe en español, responde en ESPAÑOL
+- NO importa qué idioma use el usuario, TÚ SIEMPRE respondes en ESPAÑOL
+- NO traduzcas las palabras del usuario, pero responde en ESPAÑOL
+- Esta evaluación está configurada para ESPAÑOL únicamente
+- Cada palabra que escribas debe estar en ESPAÑOL
+- Las preguntas deben estar en ESPAÑOL
+- Los comentarios deben estar en ESPAÑOL
+- TODO debe estar en ESPAÑOL
+🚨🚨🚨 FIN DE REGLA DE IDIOMA 🚨🚨🚨
+
 Estás realizando la "Evaluación Wydaho Warrior Knife Check" (anteriormente "¿Estás Quemado?"), diseñada para chefs cristianos y chef-propietarios que se sienten quemados, aplastados, espiritualmente agotados o al borde de desaparecer. Esta es una evaluación profesional, emocionalmente fundamentada, fluida en la cultura culinaria y centrada en el Evangelio.
 Tu voz es:
 	 •	 Honesta chef a chef (verdad cruda, auténtica, estilo Bourdain)
@@ -498,11 +512,26 @@ export async function generateClaudeResponse(
       throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
+    // If Spanish, prepend a language instruction to reinforce Spanish responses
+    let messagesToSend = messages;
+    if (language === "es" && messages.length > 0) {
+      // Add explicit language instruction as first message to override any English in history
+      messagesToSend = [
+        {
+          role: "user" as const,
+          content:
+            "INSTRUCCIÓN CRÍTICA DE IDIOMA: Esta evaluación está configurada para ESPAÑOL. Responde SOLO en español. No importa si el usuario escribió en inglés anteriormente, TÚ debes responder SIEMPRE en español. Todas tus preguntas, comentarios y respuestas deben estar completamente en español.",
+        },
+        ...messages,
+      ];
+      console.log("Added Spanish language instruction to conversation");
+    }
+
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
       max_tokens: 400,
       system: systemPrompt,
-      messages: messages,
+      messages: messagesToSend,
     });
 
     const content = (response.content[0] as { text: string }).text;
