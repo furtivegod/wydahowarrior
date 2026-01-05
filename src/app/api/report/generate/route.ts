@@ -3,6 +3,7 @@ import { generateStructuredPlan } from "@/lib/claude";
 import { generatePDF } from "@/lib/pdf";
 import { sendReportEmail } from "@/lib/email";
 import { supabase } from "@/lib/supabase";
+import { Language } from "@/lib/i18n";
 
 // In-memory guard to prevent rapid successive calls
 const processingSessions = new Set<string>();
@@ -78,6 +79,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get session data to retrieve language early
+    console.log("Fetching session information for language");
+    const { data: sessionData, error: sessionError } = await supabase
+      .from("sessions")
+      .select("user_id, language")
+      .eq("id", sessionId)
+      .single();
+
+    if (sessionError || !sessionData) {
+      console.error("Error fetching session:", sessionError);
+      return NextResponse.json({ error: "Session not found" }, { status: 404 });
+    }
+
+    // Get language from session (default to 'en')
+    const language: Language =
+      sessionData?.language === "es" || sessionData?.language === "en"
+        ? sessionData.language
+        : "en";
+
     // Generate conversation history string
     const conversationHistory =
       messages?.map((msg) => `${msg.role}: ${msg.content}`).join("\n") || "";
@@ -90,7 +110,7 @@ export async function POST(request: NextRequest) {
 
     // Generate structured plan
     console.log("Generating structured plan");
-    const planData = await generateStructuredPlan(conversationHistory);
+    const planData = await generateStructuredPlan(conversationHistory, language);
     console.log("Structured plan generated successfully");
 
     // Log key fields to verify they contain real data, not fabricated quotes
@@ -124,22 +144,11 @@ export async function POST(request: NextRequest) {
 
     // Generate PDF
     console.log("Generating PDF with storage");
-    const { pdfUrl, pdfBuffer } = await generatePDF(planData, sessionId);
+    const { pdfUrl, pdfBuffer } = await generatePDF(planData, sessionId, language);
     console.log("PDF generated and stored successfully:", pdfUrl);
 
     // Get user email
     console.log("Fetching user information");
-    const { data: sessionData, error: sessionError } = await supabase
-      .from("sessions")
-      .select("user_id")
-      .eq("id", sessionId)
-      .single();
-
-    if (sessionError || !sessionData) {
-      console.error("Error fetching session:", sessionError);
-      return NextResponse.json({ error: "Session not found" }, { status: 404 });
-    }
-
     const { data: userData, error: userError } = await supabase
       .from("users")
       .select("email, id, user_name")
@@ -166,6 +175,7 @@ export async function POST(request: NextRequest) {
       pdfUrl: pdfUrl,
       hasPdfBuffer: !!pdfBuffer,
       hasPlanData: !!planData,
+      language: language,
     });
 
     try {
@@ -174,7 +184,8 @@ export async function POST(request: NextRequest) {
         firstName || "Client",
         pdfUrl,
         pdfBuffer,
-        planData
+        planData,
+        language
       );
       console.log("Report email sent successfully to:", userData.email);
     } catch (emailError) {
@@ -199,7 +210,8 @@ export async function POST(request: NextRequest) {
         userData.id,
         sessionId,
         userData.email,
-        userData.user_name // Store full name, but email-queue will extract first name
+        userData.user_name, // Store full name, but email-queue will extract first name
+        language
       );
       console.log(
         "Email sequence created successfully - follow-up emails will be sent over the next 30 days"

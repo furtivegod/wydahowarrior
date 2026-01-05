@@ -489,7 +489,7 @@ export async function generateClaudeResponse(
   }
 }
 
-export async function generateStructuredPlan(conversationHistory: string) {
+export async function generateStructuredPlan(conversationHistory: string, language: 'en' | 'es' = 'en') {
   try {
     console.log(
       "Generating Wydaho Warrior Knife Check Assessment report from conversation"
@@ -512,10 +512,41 @@ export async function generateStructuredPlan(conversationHistory: string) {
       truncatedHistory.length
     );
 
+    // Create language-specific system prompt
+    const systemPromptBase = language === 'es' 
+      ? `Eres un especialista profesional en optimización conductual que comprende los desafíos únicos de los chef-propietarios cristianos. Basándote en la conversación de la "Evaluación Wydaho Warrior Knife Check", crea un informe completo orientado al cliente en formato JSON válido que coincida con el marco de 9 páginas.
+
+INSTRUCCIONES CRÍTICAS:
+1. Devuelve SOLO JSON válido. Sin markdown, sin explicaciones, sin texto extra, sin comentarios.
+2. Comienza tu respuesta con { y termina con }
+3. No incluyas ningún texto antes o después del objeto JSON
+4. Todos los arrays DEBEN contener contenido real
+5. Cada campo debe estar poblado con contenido significativo y personalizado basado en las respuestas del cliente
+6. No se permiten cadenas vacías o marcadores genéricos
+7. Usa lenguaje específico de cocina a lo largo (en las malas hierbas, quemado, cocido, abrumado, 86'd, etc.)
+8. SIEMPRE usa comillas dobles (") para las citas del cliente, nunca comillas simples (')
+9. Selecciona UN SOLO libro (no dos) basado en su patrón principal
+10. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
+
+IMPORTANTE: Todo el contenido del JSON debe estar en español, ya que la conversación fue en español.`
+      : `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
+
+CRITICAL INSTRUCTIONS:
+1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
+2. Start your response with { and end with }
+3. Do not include any text before or after the JSON object
+4. All arrays MUST contain actual content
+5. Every field must be populated with meaningful, personalized content based on the client's responses
+6. No empty strings or generic placeholders allowed
+7. Use kitchen-specific language throughout (in the weeds, burnt, cooked, slammed, 86'd, etc.)
+8. ALWAYS use double quotes (") for client quotes, never single quotes (')
+9. Select ONE book only (not two) based on their primary pattern
+10. Use their EXACT words for kitchen_term, pattern_exact_words, and what_it_costs`;
+
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
       max_tokens: 7000,
-      system: `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
+      system: `${systemPromptBase}
 
 CRITICAL INSTRUCTIONS:
 1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.

@@ -185,7 +185,8 @@ export interface PlanData {
 
 export async function generatePDF(
   planData: PlanData,
-  sessionId: string
+  sessionId: string,
+  language: 'en' | 'es' = 'en'
 ): Promise<{ pdfUrl: string; pdfBuffer: Buffer }> {
   try {
     console.log("Generating PDF for session:", sessionId);
@@ -243,7 +244,7 @@ export async function generatePDF(
     }
 
     // Generate HTML content with client name and session date
-    const htmlContent = generateHTMLReport(planData, clientName, sessionDate);
+    const htmlContent = generateHTMLReport(planData, clientName, sessionDate, language);
 
     // Convert HTML to PDF using PDFShift
     console.log("Converting HTML to PDF using PDFShift...");
@@ -397,7 +398,8 @@ function splitContentByHeight(
 function generateHTMLReport(
   planData: PlanData,
   clientName: string = "Client",
-  sessionDate: Date | null = null
+  sessionDate: Date | null = null,
+  language: 'en' | 'es' = 'en'
 ): string {
   // Extract the real data from the assessment - NEW 9-PAGE FRAMEWORK
   const displayClientName = planData.client_name || clientName;

@@ -7,6 +7,7 @@ import {
   sendDirectInvitationEmail,
 } from "./email";
 import { PlanData } from "./pdf";
+import { Language } from "./i18n";
 
 /**
  * Email Queue Management System
@@ -21,7 +22,8 @@ export async function createEmailSequence(
   userId: string,
   sessionId: string,
   userEmail: string,
-  userName: string
+  userName: string,
+  language: Language = 'en'
 ) {
   try {
     console.log("Creating email sequence for user:", userId);
@@ -101,6 +103,7 @@ export async function createEmailSequence(
         email_type: emailItem.name,
         scheduled_for: scheduledTime.toISOString(),
         status: "pending",
+        language: language, // Store language preference
       });
 
       if (insertError) {
@@ -149,6 +152,22 @@ export async function processEmailQueue() {
 
     for (const email of emails) {
       try {
+        // Get language from email queue or session (default to 'en')
+        let language: Language = 'en';
+        if (email.language && (email.language === 'es' || email.language === 'en')) {
+          language = email.language;
+        } else {
+          // Fallback: get language from session
+          const { data: sessionData } = await supabase
+            .from("sessions")
+            .select("language")
+            .eq("id", email.session_id)
+            .single();
+          if (sessionData?.language && (sessionData.language === 'es' || sessionData.language === 'en')) {
+            language = sessionData.language;
+          }
+        }
+
         // Fetch planData for personalization
         const { data: planOutput, error: planError } = await supabase
           .from("plan_outputs")
@@ -175,35 +194,40 @@ export async function processEmailQueue() {
             await sendPatternRecognitionEmail(
               email.email,
               firstName || "Client",
-              planOutput?.plan_json
+              planOutput?.plan_json,
+              language
             );
             break;
           case "evidence_7day":
             await sendEvidence7DayEmail(
               email.email,
               firstName || "Client",
-              planOutput?.plan_json
+              planOutput?.plan_json,
+              language
             );
             break;
           case "integration_threshold":
             await sendIntegrationThresholdEmail(
               email.email,
               firstName || "Client",
-              planOutput?.plan_json
+              planOutput?.plan_json,
+              language
             );
             break;
           case "compound_effect":
             await sendCompoundEffectEmail(
               email.email,
               firstName || "Client",
-              planOutput?.plan_json
+              planOutput?.plan_json,
+              language
             );
             break;
           case "direct_invitation":
             await sendDirectInvitationEmail(
               email.email,
               firstName || "Client",
-              planOutput?.plan_json
+              planOutput?.plan_json,
+              language
             );
             break;
           default:
