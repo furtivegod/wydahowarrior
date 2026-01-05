@@ -78,25 +78,25 @@ export async function POST(request: NextRequest) {
     console.log("Is language 'en'?", language === "en");
     console.log("==============================");
 
-    // Update session language if request language differs (async, don't wait)
+    // Update session language if request language differs - DO THIS SYNCHRONOUSLY
+    // This ensures the database is updated before we process the conversation
     if (requestLanguage && requestLanguage !== session?.language) {
-      // Use void to explicitly ignore the promise result
-      void (async () => {
-        try {
-          const { error } = await supabaseAdmin
-            .from("sessions")
-            .update({ language: requestLanguage })
-            .eq("id", sessionId);
+      console.log(
+        "Updating session language from",
+        session?.language,
+        "to",
+        requestLanguage
+      );
+      const { error: updateError } = await supabaseAdmin
+        .from("sessions")
+        .update({ language: requestLanguage })
+        .eq("id", sessionId);
 
-          if (error) {
-            console.error("Failed to update session language:", error);
-          } else {
-            console.log("Session language updated to:", requestLanguage);
-          }
-        } catch (error) {
-          console.error("Failed to update session language:", error);
-        }
-      })();
+      if (updateError) {
+        console.error("Failed to update session language:", updateError);
+      } else {
+        console.log("✅ Session language updated to:", requestLanguage);
+      }
     }
 
     // Get conversation history

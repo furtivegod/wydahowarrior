@@ -512,18 +512,56 @@ export async function generateClaudeResponse(
       throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
-    // If Spanish, prepend a language instruction to reinforce Spanish responses
+    // If Spanish, prepend a STRONG language instruction to override English conversation history
     let messagesToSend = messages;
-    if (language === "es" && messages.length > 0) {
-      // Add explicit language instruction as first message to override any English in history
-      messagesToSend = [
-        {
-          role: "user" as const,
-          content:
-            "INSTRUCCIÓN CRÍTICA DE IDIOMA: Esta evaluación está configurada para ESPAÑOL. Responde SOLO en español. No importa si el usuario escribió en inglés anteriormente, TÚ debes responder SIEMPRE en español. Todas tus preguntas, comentarios y respuestas deben estar completamente en español.",
-        },
-        ...messages,
-      ];
+    if (language === "es") {
+      // Check if conversation history contains English messages
+      const hasEnglishMessages = messages.some(
+        (msg) =>
+          msg.role === "assistant" &&
+          (msg.content.includes("the") ||
+            msg.content.includes("and") ||
+            msg.content.includes("you") ||
+            msg.content.toLowerCase().includes("next question"))
+      );
+
+      if (hasEnglishMessages) {
+        console.log(
+          "⚠️ WARNING: Conversation history contains English messages"
+        );
+        console.log("Adding STRONG Spanish language override instruction");
+
+        // Add a VERY STRONG language instruction as the FIRST message
+        // This must come before all other messages to override the language pattern
+        messagesToSend = [
+          {
+            role: "user" as const,
+            content: `🚨🚨🚨 INSTRUCCIÓN CRÍTICA DE IDIOMA - LEER PRIMERO 🚨🚨🚨
+
+Esta evaluación está configurada para ESPAÑOL. A pesar de que algunos mensajes anteriores puedan estar en inglés, TÚ DEBES RESPONDER SOLO EN ESPAÑOL.
+
+REGLAS ABSOLUTAS:
+- Todas tus respuestas deben estar 100% en español
+- Todas tus preguntas deben estar en español
+- Todos tus comentarios deben estar en español
+- NO uses inglés, incluso si el usuario escribió en inglés
+- El sistema está configurado para español y debes seguir ese idioma
+
+Ahora continúa con la evaluación en ESPAÑOL.`,
+          },
+          ...messages,
+        ];
+      } else {
+        // Even if no English detected, add instruction to be safe
+        messagesToSend = [
+          {
+            role: "user" as const,
+            content:
+              "INSTRUCCIÓN: Esta evaluación está en ESPAÑOL. Responde SOLO en español.",
+          },
+          ...messages,
+        ];
+      }
       console.log("Added Spanish language instruction to conversation");
     }
 
