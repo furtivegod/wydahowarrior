@@ -7,6 +7,8 @@ import { Language, getLanguageFromRequest } from "@/lib/i18n";
 export default function SuccessPage() {
   const [userEmail, setUserEmail] = useState("your email.");
   const [isLoading, setIsLoading] = useState(true);
+  const [languageUpdated, setLanguageUpdated] = useState(false);
+  const [languageSet, setLanguageSet] = useState(false);
   const { t, setLanguage } = useLanguage();
 
   useEffect(() => {
@@ -20,7 +22,8 @@ export default function SuccessPage() {
     // If no URL param, LanguageContext will use cookie/localStorage from getLanguageFromRequest()
     
     fetchLatestSession();
-  }, [setLanguage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
 
   const fetchLatestSession = async (retryCount = 0) => {
     try {
@@ -37,16 +40,23 @@ export default function SuccessPage() {
           ? data.language 
           : null;
         
-        const finalLang = sessionLang || detectedLang;
+        // Use detected language (from cookie/localStorage) as it's the user's actual preference
+        // Session language might be 'en' by default from webhook
+        const finalLang = detectedLang;
         
-        // Set language in context
-        setLanguage(finalLang);
+        // Set language in context (only once)
+        if (!languageSet) {
+          setLanguage(finalLang);
+          setLanguageSet(true);
+        }
         
         // If session language is different from detected language, update session
         // This ensures the database has the correct language preference
-        if (data.sessionId && (!sessionLang || sessionLang !== detectedLang)) {
+        // Only update ONCE to avoid multiple API calls
+        if (data.sessionId && !languageUpdated && sessionLang !== detectedLang) {
+          setLanguageUpdated(true); // Mark as updated to prevent multiple calls
           try {
-            await fetch("/api/session/update-language", {
+            const updateResponse = await fetch("/api/session/update-language", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -56,9 +66,13 @@ export default function SuccessPage() {
                 language: detectedLang,
               }),
             });
-            console.log("Session language updated to:", detectedLang);
+            
+            if (updateResponse.ok) {
+              console.log("Session language updated to:", detectedLang);
+            }
           } catch (updateError) {
             console.error("Failed to update session language:", updateError);
+            // Don't reset languageUpdated on error - we don't want to retry
             // Don't fail the whole flow if update fails
           }
         }
