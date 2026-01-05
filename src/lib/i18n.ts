@@ -53,7 +53,10 @@ export interface Translations {
   
   // Chat interface
   chat: {
+    greeting: string;
     placeholder: string;
+    placeholderReady: string;
+    transformationBegins: string;
     send: string;
     generating: string;
     error: string;
@@ -110,7 +113,10 @@ export const translations: Record<Language, Translations> = {
       checkEmail: '📧 Check your email for your personalized 30-day protocol',
     },
     chat: {
+      greeting: 'Hey there',
       placeholder: 'Type your response...',
+      placeholderReady: 'Are you ready to begin your assessment?',
+      transformationBegins: 'This is where transformation begins.',
       send: 'Send',
       generating: 'Generating response...',
       error: 'An error occurred. Please try again.',
@@ -163,7 +169,10 @@ export const translations: Record<Language, Translations> = {
       checkEmail: '📧 Revisa tu correo para tu protocolo personalizado de 30 días',
     },
     chat: {
+      greeting: 'Hola',
       placeholder: 'Escribe tu respuesta...',
+      placeholderReady: '¿Estás listo para comenzar tu evaluación?',
+      transformationBegins: 'Aquí es donde comienza la transformación.',
       send: 'Enviar',
       generating: 'Generando respuesta...',
       error: 'Ocurrió un error. Por favor, intenta de nuevo.',

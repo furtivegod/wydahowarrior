@@ -496,7 +496,7 @@ export default function ChatInterface({
                   className="text-2xl font-serif"
                   style={{ color: "#4A5D23" }}
                 >
-                  Hey there, {clientName || ""}
+                  {t.chat.greeting}, {clientName || ""}
                 </h1>
               </div>
             </div>
@@ -511,7 +511,7 @@ export default function ChatInterface({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Are you ready to begin your assessment?"
+                placeholder={currentScreen === "welcome" ? t.chat.placeholderReady : t.chat.placeholder}
                 className="w-full min-h-[24px] max-h-[200px] border-none outline-none resize-none text-base leading-[1.5] text-[#1F2937] bg-transparent font-inherit placeholder:text-gray-400"
                 rows={1}
               />
@@ -583,7 +583,7 @@ export default function ChatInterface({
                   color: "#80907B",
                 }}
               >
-                This is where transformation begins.
+                {t.chat.transformationBegins}
               </p>
             </div>
           </div>

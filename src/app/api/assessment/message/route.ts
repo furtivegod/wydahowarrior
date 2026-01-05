@@ -52,6 +52,12 @@ export async function POST(request: NextRequest) {
       ? session.language 
       : 'en';
 
+    console.log("=== ASSESSMENT MESSAGE API ===");
+    console.log("Session ID:", sessionId);
+    console.log("Session language from DB:", session?.language);
+    console.log("Using language:", language);
+    console.log("==============================");
+
     // Get conversation history
     const { data: messages, error: fetchError } = await supabase
       .from("messages")
