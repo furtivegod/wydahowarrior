@@ -5,8 +5,13 @@ import { Language } from "@/lib/i18n";
 
 export async function POST(request: NextRequest) {
   try {
-    const { sessionId, message, currentPhase, questionCount } =
-      await request.json();
+    const {
+      sessionId,
+      message,
+      currentPhase,
+      questionCount,
+      language: requestLanguage,
+    } = await request.json();
 
     console.log("Processing message for session:", sessionId);
     console.log("Current phase:", currentPhase);
@@ -41,22 +46,54 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get session to retrieve language
-    const { data: session, error: sessionError } = await supabase
+    // Get session to retrieve language, but prioritize language from request
+    const { data: session } = await supabase
       .from("sessions")
       .select("language")
       .eq("id", sessionId)
       .single();
 
-    const language: Language = (session?.language === 'es' || session?.language === 'en') 
-      ? session.language 
-      : 'en';
+    // Use language from request if provided (most reliable), otherwise use session language, otherwise default to 'en'
+    let language: Language = "en";
+    if (
+      requestLanguage &&
+      (requestLanguage === "es" || requestLanguage === "en")
+    ) {
+      language = requestLanguage;
+    } else if (
+      session?.language &&
+      (session.language === "es" || session.language === "en")
+    ) {
+      language = session.language;
+    }
 
     console.log("=== ASSESSMENT MESSAGE API ===");
     console.log("Session ID:", sessionId);
+    console.log("Language from request:", requestLanguage);
     console.log("Session language from DB:", session?.language);
-    console.log("Using language:", language);
+    console.log("Final language being used:", language);
     console.log("==============================");
+
+    // Update session language if request language differs (async, don't wait)
+    if (requestLanguage && requestLanguage !== session?.language) {
+      // Use void to explicitly ignore the promise result
+      void (async () => {
+        try {
+          const { error } = await supabaseAdmin
+            .from("sessions")
+            .update({ language: requestLanguage })
+            .eq("id", sessionId);
+
+          if (error) {
+            console.error("Failed to update session language:", error);
+          } else {
+            console.log("Session language updated to:", requestLanguage);
+          }
+        } catch (error) {
+          console.error("Failed to update session language:", error);
+        }
+      })();
+    }
 
     // Get conversation history
     const { data: messages, error: fetchError } = await supabase
@@ -81,7 +118,10 @@ export async function POST(request: NextRequest) {
       })) || [];
 
     // Generate response using Claude with language
-    const response = await generateClaudeResponse(conversationHistory, language);
+    const response = await generateClaudeResponse(
+      conversationHistory,
+      language
+    );
 
     // Save assistant response to database
     const { error: saveError } = await supabase.from("messages").insert({
