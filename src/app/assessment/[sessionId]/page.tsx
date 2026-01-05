@@ -21,15 +21,35 @@ export default function AssessmentPage({
   const [isComplete, setIsComplete] = useState(false);
 
   const router = useRouter();
-  const { t } = useLanguage();
+  const { t, setLanguage } = useLanguage();
 
   useEffect(() => {
     const getParams = async () => {
       const resolvedParams = await params;
       setSessionId(resolvedParams.sessionId);
+
+      // Fetch session language from database and set it
+      // This ensures we use the correct language even if URL param is wrong
+      try {
+        const sessionResponse = await fetch(
+          `/api/session/${resolvedParams.sessionId}/language`
+        );
+        if (sessionResponse.ok) {
+          const sessionData = await sessionResponse.json();
+          if (
+            sessionData.language &&
+            (sessionData.language === "en" || sessionData.language === "es")
+          ) {
+            setLanguage(sessionData.language);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch session language:", error);
+        // Fallback to URL param or cookie/localStorage
+      }
     };
     getParams();
-  }, [params]);
+  }, [params, setLanguage]);
 
   useEffect(() => {
     let isMounted = true;

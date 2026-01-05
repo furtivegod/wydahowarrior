@@ -103,19 +103,26 @@ export async function GET(
 
     const planData = planOutput.plan_json;
 
-    // Get user data and session date to display the correct name and date
+    // Get user data, session date, and language to display the correct name, date, and language
     const { data: sessionData, error: sessionError } = await supabase
       .from("sessions")
-      .select("user_id, started_at")
+      .select("user_id, started_at, language")
       .eq("id", sessionId)
       .single();
 
     let userName = "Client"; // Default fallback
     let sessionDate: Date | null = null;
+    let language: 'en' | 'es' = 'en';
+    
     if (!sessionError && sessionData) {
       // Get session date
       if (sessionData.started_at) {
         sessionDate = new Date(sessionData.started_at);
+      }
+      
+      // Get language from session
+      if (sessionData.language && (sessionData.language === 'es' || sessionData.language === 'en')) {
+        language = sessionData.language;
       }
 
       const { data: userData, error: userError } = await supabase
@@ -134,7 +141,8 @@ export async function GET(
       sessionId,
       signedPdfUrl,
       userName,
-      sessionDate
+      sessionDate,
+      language
     );
   } catch (error) {
     console.error("Report viewer error:", error);
@@ -170,7 +178,8 @@ function generateHTMLReport(
   sessionId: string,
   signedPdfUrl?: string | null,
   userName?: string,
-  sessionDate?: Date | null
+  sessionDate?: Date | null,
+  language: 'en' | 'es' = 'en'
 ) {
   const clientName = userName || "Client";
 
@@ -433,7 +442,7 @@ function generateHTMLReport(
   return new NextResponse(
     `
     <!DOCTYPE html>
-    <html lang="en">
+    <html lang="${language}">
     <head>
       <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
