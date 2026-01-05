@@ -2,15 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { Language, getLanguageFromRequest } from "@/lib/i18n";
 
 export default function SuccessPage() {
   const [userEmail, setUserEmail] = useState("your email.");
   const [isLoading, setIsLoading] = useState(true);
-  const { t } = useLanguage();
+  const { t, setLanguage } = useLanguage();
 
   useEffect(() => {
+    // LanguageContext will automatically detect from cookie/localStorage/URL
+    // But we can also check URL params explicitly as fallback
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang') as Language;
+    if (langParam && (langParam === 'en' || langParam === 'es')) {
+      setLanguage(langParam);
+    }
+    // If no URL param, LanguageContext will use cookie/localStorage from getLanguageFromRequest()
+    
     fetchLatestSession();
-  }, []);
+  }, [setLanguage]);
 
   const fetchLatestSession = async (retryCount = 0) => {
     try {
@@ -18,6 +28,41 @@ export default function SuccessPage() {
       if (response.ok) {
         const data = await response.json();
         setUserEmail(data.email);
+        
+        // Get language from cookie/localStorage (user's preference)
+        const detectedLang = getLanguageFromRequest();
+        
+        // If session has a language, use it; otherwise use detected language
+        const sessionLang = data.language && (data.language === 'en' || data.language === 'es') 
+          ? data.language 
+          : null;
+        
+        const finalLang = sessionLang || detectedLang;
+        
+        // Set language in context
+        setLanguage(finalLang);
+        
+        // If session language is different from detected language, update session
+        // This ensures the database has the correct language preference
+        if (data.sessionId && (!sessionLang || sessionLang !== detectedLang)) {
+          try {
+            await fetch("/api/session/update-language", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                sessionId: data.sessionId,
+                language: detectedLang,
+              }),
+            });
+            console.log("Session language updated to:", detectedLang);
+          } catch (updateError) {
+            console.error("Failed to update session language:", updateError);
+            // Don't fail the whole flow if update fails
+          }
+        }
+        
         setIsLoading(false);
       } else {
         // If no session found and we haven't retried too many times, wait and retry

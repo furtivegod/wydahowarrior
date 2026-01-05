@@ -79,15 +79,21 @@ export async function POST(request: NextRequest) {
       customerFirstName && customerLastName
         ? `${customerFirstName} ${customerLastName}`
         : customerFirstName || null;
-    
-    // Extract language from URL params, custom fields, or default to 'en'
-    // SamCart may pass language in custom fields or URL params
-    const languageParam = samcartData.language || 
-                          samcartData.custom_fields?.language ||
-                          samcartData.customer?.custom_fields?.language ||
-                          samcartData.url_params?.lang ||
-                          'en';
-    const language = (languageParam === 'es' || languageParam === 'en') ? languageParam : 'en';
+
+    // Extract language - since SamCart webhook can't reliably pass language,
+    // we'll default to 'en' and let the success page detect from cookie/localStorage
+    // However, we can still try to extract it if it's somehow available
+    const languageParam =
+      samcartData.language ||
+      samcartData.custom_fields?.language ||
+      samcartData.customer?.custom_fields?.language ||
+      samcartData.url_params?.lang ||
+      "en";
+    const language =
+      languageParam === "es" || languageParam === "en" ? languageParam : "en";
+
+    // Note: Language will be detected from cookie/localStorage on the success page
+    // This is just a fallback for email sending
 
     console.log("Extracted data:", {
       customerEmail,
@@ -267,7 +273,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Create assessment session
+    // Note: Language defaults to 'en' here since webhook can't access cookie/localStorage
+    // The success page will update the session language from cookie/localStorage
     console.log("Creating session for user:", user.id);
+    console.log(
+      "Session language (will be updated by success page if needed):",
+      language
+    );
 
     const { data: session, error: sessionError } = await supabaseAdmin
       .from("sessions")
@@ -320,16 +332,25 @@ export async function POST(request: NextRequest) {
         "Sending magic link email to:",
         customerEmail,
         "with firstName:",
-        customerFirstName
+        customerFirstName,
+        "with language:",
+        language
       );
-      await sendMagicLink(customerEmail, sessionId, customerFirstName, language);
+      await sendMagicLink(
+        customerEmail,
+        sessionId,
+        customerFirstName,
+        language
+      );
       emailed = true;
       console.log("Magic link email sent successfully");
     } catch (emailErr) {
-      emailError = emailErr instanceof Error ? emailErr : new Error(String(emailErr));
+      emailError =
+        emailErr instanceof Error ? emailErr : new Error(String(emailErr));
       console.error("Failed to send magic link email:", emailErr);
       console.error("Email error details:", {
-        message: emailErr instanceof Error ? emailErr.message : String(emailErr),
+        message:
+          emailErr instanceof Error ? emailErr.message : String(emailErr),
         stack: emailErr instanceof Error ? emailErr.stack : undefined,
       });
       // Don't fail the webhook if email fails

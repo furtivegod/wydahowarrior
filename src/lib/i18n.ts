@@ -215,13 +215,17 @@ export function getLanguageFromRequest(request?: Request): Language {
 // Helper to set language preference
 export function setLanguagePreference(lang: Language) {
   if (typeof window !== 'undefined') {
-    // Set cookie (expires in 1 year)
+    // Set cookie (expires in 1 year, available across all paths)
+    // Don't set domain to allow it to work across subdomains if needed
     const expires = new Date();
     expires.setFullYear(expires.getFullYear() + 1);
-    document.cookie = `lang=${lang}; expires=${expires.toUTCString()}; path=/`;
+    document.cookie = `lang=${lang}; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
     
-    // Set localStorage
+    // Set localStorage (persists across browser sessions)
     localStorage.setItem('lang', lang);
+    
+    // Set sessionStorage (persists during browser session, even across redirects)
+    sessionStorage.setItem('lang', lang);
   }
 }
 

@@ -61,7 +61,7 @@ export async function sendMagicLink(
             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Your Wydaho Warrior Knife Check Assessment Is Ready</title>
+            <title>${t.magicLink.subject}</title>
             <style>
                 @media only screen and (min-width: 600px) {
                     .cta-button:hover {
@@ -971,7 +971,7 @@ export async function sendEvidence7DayEmail(
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               ${t.evidence7Day.inKitchen}
             </p>
-            
+
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               ${t.evidence7Day.butInLife}
             </p>
@@ -979,7 +979,7 @@ export async function sendEvidence7DayEmail(
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               ${t.evidence7Day.heresAssignment}
             </p>
-            
+
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               ${t.evidence7Day.whatsOneThing}
             </p>
@@ -1691,7 +1691,7 @@ export async function sendDirectInvitationEmail(
             <p style="font-size: 20px; color: #3D4D2E; margin: 30px 0 20px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
               ${t.directInvitation.heresWhatsNext}
             </p>
-            
+
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               ${t.directInvitation.youveGotThreePaths}
             </p>
@@ -1710,7 +1710,7 @@ export async function sendDirectInvitationEmail(
                 <li style="margin-bottom: 8px;">${t.directInvitation.path1Bullet1}</li>
                 <li style="margin-bottom: 8px;">${t.directInvitation.path1Bullet2}</li>
                 <li style="margin-bottom: 8px;">${t.directInvitation.path1Bullet3}</li>
-              </ul>
+            </ul>
               <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
                 ${t.directInvitation.path1ThisIs}
               </p>

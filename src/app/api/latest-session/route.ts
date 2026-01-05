@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
       .select(`
         id,
         started_at,
+        language,
         users!inner(email, user_name)
       `)
       .gte('started_at', fiveMinutesAgo.toISOString())
@@ -34,7 +35,8 @@ export async function GET(request: NextRequest) {
       email: users?.email,
       userName: users?.user_name,
       sessionId: sessionData.id,
-      startedAt: sessionData.started_at
+      startedAt: sessionData.started_at,
+      language: sessionData.language || 'en'
     })
 
   } catch (error) {
