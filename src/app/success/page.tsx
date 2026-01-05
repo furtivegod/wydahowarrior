@@ -33,16 +33,16 @@ export default function SuccessPage() {
         setUserEmail(data.email);
         
         // Get language from cookie/localStorage (user's preference)
+        // Returns null if not found (don't default to 'en' to avoid overwriting 'es')
         const detectedLang = getLanguageFromRequest();
         
-        // If session has a language, use it; otherwise use detected language
+        // If session has a language, use it; otherwise use detected language, otherwise default to 'en'
         const sessionLang = data.language && (data.language === 'en' || data.language === 'es') 
           ? data.language 
           : null;
         
-        // Use detected language (from cookie/localStorage) as it's the user's actual preference
-        // Session language might be 'en' by default from webhook
-        const finalLang = detectedLang;
+        // Use detected language if available, otherwise use session language, otherwise default to 'en'
+        const finalLang = detectedLang || sessionLang || 'en';
         
         // Set language in context (only once)
         if (!languageSet) {
@@ -50,10 +50,17 @@ export default function SuccessPage() {
           setLanguageSet(true);
         }
         
-        // If session language is different from detected language, update session
-        // This ensures the database has the correct language preference
-        // Only update ONCE to avoid multiple API calls
-        if (data.sessionId && !languageUpdated && sessionLang !== detectedLang) {
+        // Only update session language if:
+        // 1. We have a detected language (not null - meaning user actually selected it)
+        // 2. Session language is different
+        // 3. We haven't updated yet
+        // This prevents overwriting 'es' with 'en' when language preference is not available
+        if (
+          data.sessionId && 
+          !languageUpdated && 
+          detectedLang !== null && // Only update if we have a real language preference
+          sessionLang !== detectedLang
+        ) {
           setLanguageUpdated(true); // Mark as updated to prevent multiple calls
           try {
             const updateResponse = await fetch("/api/session/update-language", {

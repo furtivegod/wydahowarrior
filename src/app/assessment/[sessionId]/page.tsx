@@ -31,7 +31,7 @@ export default function AssessmentPage({
       // First, check cookie/localStorage for language preference (most reliable)
       // This is set when user selects language on landing page
       const { getLanguageFromRequest } = await import("@/lib/i18n");
-      const clientLanguage = getLanguageFromRequest();
+      const clientLanguage = getLanguageFromRequest(); // Returns null if not found
 
       // Fetch session language from database
       try {
@@ -58,8 +58,11 @@ export default function AssessmentPage({
           // Set language in context
           setLanguage(finalLanguage);
 
-          // If client language differs from session language, update session
-          if (clientLanguage && clientLanguage !== sessionLang) {
+          // Only update session language if:
+          // 1. We have a client language (not null - meaning user actually selected it)
+          // 2. Session language is different
+          // This prevents overwriting 'es' with 'en' when language preference is not available
+          if (clientLanguage !== null && clientLanguage !== sessionLang) {
             console.log("Updating session language to:", clientLanguage);
             try {
               const updateResponse = await fetch(

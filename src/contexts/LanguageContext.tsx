@@ -23,8 +23,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Initialize language from request
+    // Returns null if not found, so default to 'en' for UI display
     const detectedLang = getLanguageFromRequest();
-    setLanguageState(detectedLang);
+    setLanguageState(detectedLang || 'en');
   }, []);
 
   const setLanguage = (lang: Language) => {

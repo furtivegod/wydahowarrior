@@ -203,7 +203,8 @@ export function getTranslations(lang: Language): Translations {
 }
 
 // Helper function to detect language from URL or cookie
-export function getLanguageFromRequest(request?: Request): Language {
+// Returns the detected language, or null if not found (instead of defaulting to 'en')
+export function getLanguageFromRequest(request?: Request): Language | null {
   if (typeof window !== 'undefined') {
     // Client-side: check URL params, then cookie, then localStorage
     const urlParams = new URLSearchParams(window.location.search);
@@ -216,7 +217,7 @@ export function getLanguageFromRequest(request?: Request): Language {
     const cookies = document.cookie.split(';');
     const langCookie = cookies.find(c => c.trim().startsWith('lang='));
     if (langCookie) {
-      const lang = langCookie.split('=')[1] as Language;
+      const lang = langCookie.split('=')[1]?.trim() as Language;
       if (lang === 'en' || lang === 'es') {
         return lang;
       }
@@ -227,10 +228,17 @@ export function getLanguageFromRequest(request?: Request): Language {
     if (storedLang && (storedLang === 'en' || storedLang === 'es')) {
       return storedLang;
     }
+    
+    // Check sessionStorage
+    const sessionLang = sessionStorage.getItem('lang') as Language;
+    if (sessionLang && (sessionLang === 'en' || sessionLang === 'es')) {
+      return sessionLang;
+    }
   }
   
-  // Default to English
-  return 'en';
+  // Return null if not found (don't default to 'en')
+  // This prevents overwriting 'es' with 'en' when language preference is not available
+  return null;
 }
 
 // Helper to set language preference
