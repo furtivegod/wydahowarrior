@@ -69,9 +69,13 @@ export async function POST(request: NextRequest) {
 
     console.log("=== ASSESSMENT MESSAGE API ===");
     console.log("Session ID:", sessionId);
-    console.log("Language from request:", requestLanguage);
+    console.log("Language from request body:", requestLanguage);
+    console.log("Language from request type:", typeof requestLanguage);
     console.log("Session language from DB:", session?.language);
     console.log("Final language being used:", language);
+    console.log("Final language type:", typeof language);
+    console.log("Is language 'es'?", language === "es");
+    console.log("Is language 'en'?", language === "en");
     console.log("==============================");
 
     // Update session language if request language differs (async, don't wait)

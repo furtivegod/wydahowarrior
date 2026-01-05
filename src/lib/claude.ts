@@ -451,8 +451,8 @@ Referencias en tercera persona a la historia de Steve
 Nunca avergüences, siempre pastorea`;
 
 // Get system prompt based on language
-export function getSystemPrompt(language: Language = 'en'): string {
-  if (language === 'es') {
+export function getSystemPrompt(language: Language = "en"): string {
+  if (language === "es") {
     return SYSTEM_PROMPT_ES;
   }
   return SYSTEM_PROMPT;
@@ -460,19 +460,38 @@ export function getSystemPrompt(language: Language = 'en'): string {
 
 export async function generateClaudeResponse(
   messages: Array<{ role: "user" | "assistant"; content: string }>,
-  language: Language = 'en'
+  language: Language = "en"
 ) {
   try {
     console.log("=== CLAUDE API CALL ===");
     console.log("Messages count:", messages.length);
-    console.log("Language parameter:", language);
+    console.log("Language parameter received:", language);
     console.log("Language type:", typeof language);
-    console.log("Is Spanish?", language === 'es');
-    
+    console.log("Is Spanish?", language === "es");
+    console.log("Is English?", language === "en");
+    console.log("Language value (stringified):", JSON.stringify(language));
+
     const systemPrompt = getSystemPrompt(language);
-    console.log("System prompt language:", language === 'es' ? 'SPANISH' : 'ENGLISH');
+    const isSpanish = language === "es";
+    console.log("System prompt language:", isSpanish ? "SPANISH" : "ENGLISH");
     console.log("System prompt length:", systemPrompt.length);
-    console.log("System prompt preview:", systemPrompt.substring(0, 100));
+    console.log(
+      "System prompt preview (first 200 chars):",
+      systemPrompt.substring(0, 200)
+    );
+    if (isSpanish) {
+      console.log("✅ Using SPANISH system prompt");
+      console.log(
+        "Spanish opening script check:",
+        systemPrompt.includes("Chef, cada segundo cuenta")
+      );
+    } else {
+      console.log("⚠️ Using ENGLISH system prompt");
+      console.log(
+        "English opening script check:",
+        systemPrompt.includes("Chef, every second counts")
+      );
+    }
     console.log("========================");
 
     if (!process.env.ANTHROPIC_API_KEY) {
@@ -497,7 +516,10 @@ export async function generateClaudeResponse(
   }
 }
 
-export async function generateStructuredPlan(conversationHistory: string, language: 'en' | 'es' = 'en') {
+export async function generateStructuredPlan(
+  conversationHistory: string,
+  language: "en" | "es" = "en"
+) {
   try {
     console.log(
       "Generating Wydaho Warrior Knife Check Assessment report from conversation"
@@ -521,8 +543,9 @@ export async function generateStructuredPlan(conversationHistory: string, langua
     );
 
     // Create language-specific system prompt
-    const systemPromptBase = language === 'es' 
-      ? `Eres un especialista profesional en optimización conductual que comprende los desafíos únicos de los chef-propietarios cristianos. Basándote en la conversación de la "Evaluación Wydaho Warrior Knife Check", crea un informe completo orientado al cliente en formato JSON válido que coincida con el marco de 9 páginas.
+    const systemPromptBase =
+      language === "es"
+        ? `Eres un especialista profesional en optimización conductual que comprende los desafíos únicos de los chef-propietarios cristianos. Basándote en la conversación de la "Evaluación Wydaho Warrior Knife Check", crea un informe completo orientado al cliente en formato JSON válido que coincida con el marco de 9 páginas.
 
 INSTRUCCIONES CRÍTICAS:
 1. Devuelve SOLO JSON válido. Sin markdown, sin explicaciones, sin texto extra, sin comentarios.
@@ -537,7 +560,7 @@ INSTRUCCIONES CRÍTICAS:
 10. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
 
 IMPORTANTE: Todo el contenido del JSON debe estar en español, ya que la conversación fue en español.`
-      : `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
+        : `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
 
 CRITICAL INSTRUCTIONS:
 1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
@@ -819,7 +842,8 @@ CRITICAL: Only use quotes that the client actually said. Never make up quotes. U
       // Fallback: Create a basic report structure
       console.log("🔄 Using fallback report structure");
       return {
-        title: "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+        title:
+          "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
         overview:
           "Your personalized assessment has been completed. This report provides insights into your burnout patterns and recommendations for recovery.",
         current_state_summary:

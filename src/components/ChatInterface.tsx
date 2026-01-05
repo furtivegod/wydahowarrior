@@ -185,6 +185,12 @@ export default function ChatInterface({
     streamingStartedRef.current = false;
 
     try {
+      console.log("=== STARTING ASSESSMENT ===");
+      console.log("Session ID:", sessionId);
+      console.log("Language from context:", language);
+      console.log("Language type:", typeof language);
+      console.log("===========================");
+
       const response = await fetch("/api/assessment/message", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
