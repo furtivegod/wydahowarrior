@@ -281,6 +281,7 @@ export async function POST(request: NextRequest) {
       language
     );
 
+    // Step 1: Create session in database and wait for it to complete
     const { data: session, error: sessionError } = await supabaseAdmin
       .from("sessions")
       .insert({ user_id: user.id, status: "active", language: language })
@@ -309,9 +310,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("Session created:", sessionId);
+    console.log("✅ Session created in database:", sessionId);
 
-    // Generate magic link
+    // Step 2: Verify session exists in database before proceeding
+    console.log("Verifying session exists in database...");
+    const { data: verifiedSession, error: verifyError } = await supabaseAdmin
+      .from("sessions")
+      .select("id, user_id, status, language")
+      .eq("id", sessionId)
+      .single();
+
+    if (verifyError || !verifiedSession) {
+      console.error("Session verification failed:", verifyError);
+      return NextResponse.json(
+        {
+          error: "Session created but verification failed",
+          details: verifyError,
+          sessionId,
+        },
+        { status: 500 }
+      );
+    }
+
+    console.log("✅ Session verified in database:", {
+      id: verifiedSession.id,
+      user_id: verifiedSession.user_id,
+      status: verifiedSession.status,
+      language: verifiedSession.language,
+    });
+
+    // Step 3: Generate magic link (only after session is confirmed)
     const token = generateToken(sessionId, customerEmail);
     const appUrl = process.env.NEXT_PUBLIC_APP_URL;
     const magicLink = `${appUrl}/assessment/${sessionId}?token=${token}`;
@@ -321,9 +349,10 @@ export async function POST(request: NextRequest) {
     console.log("Magic link:", magicLink);
     console.log("Customer email:", customerEmail);
     console.log("Customer first name:", customerFirstName);
+    console.log("Session language:", verifiedSession.language);
     console.log("===========================");
 
-    // Send magic link email
+    // Step 4: Send magic link email (only after session is confirmed in database)
     let emailed = false;
     let emailError: Error | null = null;
 
@@ -334,16 +363,19 @@ export async function POST(request: NextRequest) {
         "with firstName:",
         customerFirstName,
         "with language:",
-        language
+        verifiedSession.language
       );
+      // Use verified session language for email
       await sendMagicLink(
         customerEmail,
         sessionId,
         customerFirstName,
-        language
+        verifiedSession.language === "es" || verifiedSession.language === "en"
+          ? verifiedSession.language
+          : language
       );
       emailed = true;
-      console.log("Magic link email sent successfully");
+      console.log("✅ Magic link email sent successfully");
     } catch (emailErr) {
       emailError =
         emailErr instanceof Error ? emailErr : new Error(String(emailErr));
