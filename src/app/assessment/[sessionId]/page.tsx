@@ -28,24 +28,67 @@ export default function AssessmentPage({
       const resolvedParams = await params;
       setSessionId(resolvedParams.sessionId);
 
-      // Fetch session language from database and set it
-      // This ensures we use the correct language even if URL param is wrong
+      // First, check cookie/localStorage for language preference (most reliable)
+      // This is set when user selects language on landing page
+      const { getLanguageFromRequest } = await import("@/lib/i18n");
+      const clientLanguage = getLanguageFromRequest();
+
+      // Fetch session language from database
       try {
         const sessionResponse = await fetch(
           `/api/session/${resolvedParams.sessionId}/language`
         );
         if (sessionResponse.ok) {
           const sessionData = await sessionResponse.json();
-          if (
+          const sessionLang =
             sessionData.language &&
             (sessionData.language === "en" || sessionData.language === "es")
-          ) {
-            setLanguage(sessionData.language);
+              ? sessionData.language
+              : null;
+
+          // Use client language if available, otherwise use session language, otherwise default to 'en'
+          const finalLanguage = clientLanguage || sessionLang || "en";
+
+          console.log("=== LANGUAGE DETECTION ===");
+          console.log("Client language (cookie/localStorage):", clientLanguage);
+          console.log("Session language (DB):", sessionLang);
+          console.log("Final language:", finalLanguage);
+          console.log("==========================");
+
+          // Set language in context
+          setLanguage(finalLanguage);
+
+          // If client language differs from session language, update session
+          if (clientLanguage && clientLanguage !== sessionLang) {
+            console.log("Updating session language to:", clientLanguage);
+            try {
+              const updateResponse = await fetch(
+                "/api/session/update-language",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    sessionId: resolvedParams.sessionId,
+                    language: clientLanguage,
+                  }),
+                }
+              );
+              if (updateResponse.ok) {
+                console.log("Session language updated successfully");
+              }
+            } catch (updateError) {
+              console.error("Failed to update session language:", updateError);
+            }
           }
         }
       } catch (error) {
         console.error("Failed to fetch session language:", error);
-        // Fallback to URL param or cookie/localStorage
+        // Fallback to client language or default
+        if (clientLanguage) {
+          setLanguage(clientLanguage);
+        }
       }
     };
     getParams();

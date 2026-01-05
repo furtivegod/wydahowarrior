@@ -463,13 +463,21 @@ export async function generateClaudeResponse(
   language: Language = 'en'
 ) {
   try {
-    console.log("Calling Claude API with", messages.length, "messages", "language:", language);
+    console.log("=== CLAUDE API CALL ===");
+    console.log("Messages count:", messages.length);
+    console.log("Language parameter:", language);
+    console.log("Language type:", typeof language);
+    console.log("Is Spanish?", language === 'es');
+    
+    const systemPrompt = getSystemPrompt(language);
+    console.log("System prompt language:", language === 'es' ? 'SPANISH' : 'ENGLISH');
+    console.log("System prompt length:", systemPrompt.length);
+    console.log("System prompt preview:", systemPrompt.substring(0, 100));
+    console.log("========================");
 
     if (!process.env.ANTHROPIC_API_KEY) {
       throw new Error("ANTHROPIC_API_KEY not configured");
     }
-
-    const systemPrompt = getSystemPrompt(language);
 
     const response = await anthropic.messages.create({
       model: "claude-sonnet-4-5-20250929",
