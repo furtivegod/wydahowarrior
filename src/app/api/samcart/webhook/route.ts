@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
-import { sendMagicLink } from "@/lib/email";
-import { generateToken } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,9 +7,6 @@ export async function POST(request: NextRequest) {
     const requiredEnvVars = {
       NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
       SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
-      JWT_SECRET: process.env.JWT_SECRET,
-      RESEND_API_KEY: process.env.RESEND_API_KEY,
-      NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     };
 
     const missingVars = Object.entries(requiredEnvVars)
@@ -79,21 +74,6 @@ export async function POST(request: NextRequest) {
       customerFirstName && customerLastName
         ? `${customerFirstName} ${customerLastName}`
         : customerFirstName || null;
-
-    // Extract language - since SamCart webhook can't reliably pass language,
-    // we'll default to 'en' and let the success page detect from cookie/localStorage
-    // However, we can still try to extract it if it's somehow available
-    const languageParam =
-      samcartData.language ||
-      samcartData.custom_fields?.language ||
-      samcartData.customer?.custom_fields?.language ||
-      samcartData.url_params?.lang ||
-      "en";
-    const language =
-      languageParam === "es" || languageParam === "en" ? languageParam : "en";
-
-    // Note: Language will be detected from cookie/localStorage on the success page
-    // This is just a fallback for email sending
 
     console.log("Extracted data:", {
       customerEmail,
@@ -272,19 +252,12 @@ export async function POST(request: NextRequest) {
       console.log("Skipping order creation for lead add event");
     }
 
-    // Create assessment session
-    // Note: Language defaults to 'en' here since webhook can't access cookie/localStorage
-    // The success page will update the session language from cookie/localStorage
+    // Create assessment session (without language - will be set by success page)
     console.log("Creating session for user:", user.id);
-    console.log(
-      "Session language (will be updated by success page if needed):",
-      language
-    );
 
-    // Step 1: Create session in database and wait for it to complete
     const { data: session, error: sessionError } = await supabaseAdmin
       .from("sessions")
-      .insert({ user_id: user.id, status: "active", language: language })
+      .insert({ user_id: user.id, status: "active" })
       .select("*")
       .single();
 
@@ -312,92 +285,12 @@ export async function POST(request: NextRequest) {
 
     console.log("✅ Session created in database:", sessionId);
 
-    // Step 2: Verify session exists in database before proceeding
-    console.log("Verifying session exists in database...");
-    const { data: verifiedSession, error: verifyError } = await supabaseAdmin
-      .from("sessions")
-      .select("id, user_id, status, language")
-      .eq("id", sessionId)
-      .single();
-
-    if (verifyError || !verifiedSession) {
-      console.error("Session verification failed:", verifyError);
-      return NextResponse.json(
-        {
-          error: "Session created but verification failed",
-          details: verifyError,
-          sessionId,
-        },
-        { status: 500 }
-      );
-    }
-
-    console.log("✅ Session verified in database:", {
-      id: verifiedSession.id,
-      user_id: verifiedSession.user_id,
-      status: verifiedSession.status,
-      language: verifiedSession.language,
-    });
-
-    // Step 3: Generate magic link (only after session is confirmed)
-    const token = generateToken(sessionId, customerEmail);
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL;
-    const magicLink = `${appUrl}/assessment/${sessionId}?token=${token}`;
-
-    console.log("=== EMAIL CONFIGURATION ===");
-    console.log("NEXT_PUBLIC_APP_URL:", appUrl);
-    console.log("Magic link:", magicLink);
-    console.log("Customer email:", customerEmail);
-    console.log("Customer first name:", customerFirstName);
-    console.log("Session language:", verifiedSession.language);
-    console.log("===========================");
-
-    // Step 4: Send magic link email (only after session is confirmed in database)
-    let emailed = false;
-    let emailError: Error | null = null;
-
-    try {
-      console.log(
-        "Sending magic link email to:",
-        customerEmail,
-        "with firstName:",
-        customerFirstName,
-        "with language:",
-        verifiedSession.language
-      );
-      // Use verified session language for email
-      await sendMagicLink(
-        customerEmail,
-        sessionId,
-        customerFirstName,
-        verifiedSession.language === "es" || verifiedSession.language === "en"
-          ? verifiedSession.language
-          : language
-      );
-      emailed = true;
-      console.log("✅ Magic link email sent successfully");
-    } catch (emailErr) {
-      emailError =
-        emailErr instanceof Error ? emailErr : new Error(String(emailErr));
-      console.error("Failed to send magic link email:", emailErr);
-      console.error("Email error details:", {
-        message:
-          emailErr instanceof Error ? emailErr.message : String(emailErr),
-        stack: emailErr instanceof Error ? emailErr.stack : undefined,
-      });
-      // Don't fail the webhook if email fails
-    }
-
     return NextResponse.json({
       verified: true,
       event_type: isOrderComplete ? "order_complete" : "lead_add",
-      emailed,
-      email_to: customerEmail,
       user,
       order: orderRow,
       session_id: sessionId,
-      magic_link: magicLink,
-      email_error: emailError ? emailError.message : null,
       debug_info: {
         received_headers: Object.fromEntries(request.headers.entries()),
         received_body: samcartData,

@@ -9,6 +9,7 @@ export default function SuccessPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [languageUpdated, setLanguageUpdated] = useState(false);
   const [languageSet, setLanguageSet] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
   const { t, setLanguage } = useLanguage();
 
   useEffect(() => {
@@ -50,37 +51,61 @@ export default function SuccessPage() {
           setLanguageSet(true);
         }
         
-        // Only update session language if:
-        // 1. We have a detected language (not null - meaning user actually selected it)
-        // 2. Session language is different
-        // 3. We haven't updated yet
-        // This prevents overwriting 'es' with 'en' when language preference is not available
-        if (
-          data.sessionId && 
-          !languageUpdated && 
-          detectedLang !== null && // Only update if we have a real language preference
-          sessionLang !== detectedLang
-        ) {
-          setLanguageUpdated(true); // Mark as updated to prevent multiple calls
+        // Update session language and send magic link email
+        // We only do this once per page load
+        if (data.sessionId && !emailSent) {
+          setEmailSent(true); // Mark as sent to prevent multiple calls
+          
+          // Determine the language to use
+          const languageToUse = detectedLang || sessionLang || 'en';
+          
+          // Step 1: Update session language if we have a detected language and it's different
+          if (detectedLang !== null && detectedLang !== sessionLang && !languageUpdated) {
+            setLanguageUpdated(true);
+            try {
+              const updateResponse = await fetch("/api/session/update-language", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  sessionId: data.sessionId,
+                  language: detectedLang,
+                }),
+              });
+              
+              if (updateResponse.ok) {
+                console.log("Session language updated to:", detectedLang);
+              }
+            } catch (updateError) {
+              console.error("Failed to update session language:", updateError);
+              // Continue to send email even if language update fails
+            }
+          }
+          
+          // Step 2: Send magic link email (always send, even if language update failed)
           try {
-            const updateResponse = await fetch("/api/session/update-language", {
+            const emailResponse = await fetch("/api/session/send-magic-link", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 sessionId: data.sessionId,
-                language: detectedLang,
+                language: languageToUse,
               }),
             });
             
-            if (updateResponse.ok) {
-              console.log("Session language updated to:", detectedLang);
+            if (emailResponse.ok) {
+              console.log("✅ Magic link email sent successfully with language:", languageToUse);
+            } else {
+              const errorData = await emailResponse.json();
+              console.error("Failed to send magic link email:", errorData);
+              setEmailSent(false); // Allow retry on error
             }
-          } catch (updateError) {
-            console.error("Failed to update session language:", updateError);
-            // Don't reset languageUpdated on error - we don't want to retry
-            // Don't fail the whole flow if update fails
+          } catch (emailError) {
+            console.error("Error sending magic link email:", emailError);
+            setEmailSent(false); // Allow retry on error
           }
         }
         
