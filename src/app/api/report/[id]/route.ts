@@ -275,6 +275,8 @@ function generateHTMLReport(
       whyThisBook: "Why this book, why now:",
       bookNote: "Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.",
       defaultBook: "Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.",
+      startTonight: "Start tonight. This book explains why grinding harder hasn't worked—and what will.",
+      noTimeToWaste: "You don't have time to waste, chef. Neither did I.",
       patternKeptSafe: "This pattern once kept you safe. Now it's keeping you stuck.",
       costStayingBurnt: "The cost of staying burnt for another month:",
       everySecondNext: "Every second counts, chef. Here's what happens next.",
@@ -382,6 +384,8 @@ function generateHTMLReport(
       whyThisBook: "Por qué este libro, por qué ahora:",
       bookNote: "Nota: Sin asignaciones de capítulos, sin estimaciones de tiempo, sin tareas. Solo léelo.",
       defaultBook: "Kitchen Confidential de Anthony Bourdain - Honestidad cruda sobre la vida en la cocina, te reconecta con por qué empezaste.",
+      startTonight: "Comienza esta noche. Este libro explica por qué esforzarse más no ha funcionado—y qué lo hará.",
+      noTimeToWaste: "No tienes tiempo que perder, chef. Yo tampoco.",
       patternKeptSafe: "Este patrón alguna vez te mantuvo seguro. Ahora te está manteniendo atascado.",
       costStayingBurnt: "El costo de quedarte quemado por otro mes:",
       everySecondNext: "Cada segundo cuenta, chef. Esto es lo que sigue.",
@@ -1518,8 +1522,8 @@ function generateHTMLReport(
                 
                 <div style="margin-top: 40px; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
                     <div style="font-size: 13px; line-height: 1.8; font-style: italic;">
-                        Start tonight. This book explains why grinding harder hasn't worked—and what will.<br><br>
-                        You don't have time to waste, chef. Neither did I.<br>
+                        ${t.startTonight}<br><br>
+                        ${t.noTimeToWaste}<br>
                         — Steve Murphy
                     </div>
                 </div>
