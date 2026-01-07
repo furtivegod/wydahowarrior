@@ -324,11 +324,23 @@ async function convertHTMLToPDF(
   language: "en" | "es" = "en"
 ): Promise<Buffer> {
   try {
+    // PDF static text translations - defined here for footer access
+    const pdfTranslations = {
+      en: {
+        knifeCheck: "THE KNIFE CHECK",
+      },
+      es: {
+        knifeCheck: "LA VERIFICACIÓN DEL CUCHILLO",
+      },
+    };
+
+    const t = pdfTranslations[language];
+
     // Create footer HTML with PDFShift variables - matching template design
     // Footer text based on language
     const footerText =
       language === "es" ? "SOY UN CHEF GUERRERO" : "I AM A CHEF WARRIOR";
-    const footerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-top: 1px solid #3D4D2E; border-bottom: 1px solid #3D4D2E; font-size: 11px; color: #666; background: #F5F3ED; font-family: 'Inter', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;"><div>${footerText}</div><div>THE KNIFE CHECK</div></div>`;
+    const footerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-top: 1px solid #3D4D2E; border-bottom: 1px solid #3D4D2E; font-size: 11px; color: #666; background: #F5F3ED; font-family: 'Inter', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;"><div>${footerText}</div><div>${t.knifeCheck}</div></div>`;
 
     const response = await fetch("https://api.pdfshift.io/v3/convert/pdf", {
       method: "POST",
@@ -515,6 +527,28 @@ function generateHTMLReport(
       emergencyResources: "Emergency Resources:",
       crisisText:
         'If you\'re in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line',
+      startHere: "Start Here / Your 30-Day Protocol",
+      yourProtocol: "Your Protocol",
+      step3Implement: "STEP 3: IMPLEMENT IMMEDIATELY",
+      week1: "WEEK 1:",
+      week2: "WEEK 2:",
+      week3: "WEEK 3:",
+      bookLabel: "📖 Book:",
+      dayLabel: "Day",
+      knifeCheck: "THE KNIFE CHECK",
+      godRested:
+        "God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)",
+      walkAway:
+        "If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.",
+      twoAreBetter:
+        '"Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)',
+      grindAlone:
+        "You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.",
+      primaryState: "Primary State",
+      handleHeat: "How You Handle the Heat",
+      observablePatterns: "Observable Patterns",
+      energyReality: "The Energy Reality",
+      notSpecified: "Not specified",
     },
     es: {
       coverTitle:
@@ -622,6 +656,28 @@ function generateHTMLReport(
       emergencyResources: "Recursos de Emergencia:",
       crisisText:
         'Si estás en crisis: Línea Nacional de Prevención del Suicidio: 988<br>Envía "HOLA" al 741741 para Crisis Text Line',
+      startHere: "Comienza Aquí / Tu Protocolo de 30 Días",
+      yourProtocol: "Tu Protocolo",
+      step3Implement: "PASO 3: IMPLEMENTA INMEDIATAMENTE",
+      week1: "SEMANA 1:",
+      week2: "SEMANA 2:",
+      week3: "SEMANA 3:",
+      bookLabel: "📖 Libro:",
+      dayLabel: "Día",
+      knifeCheck: "LA VERIFICACIÓN DEL CUCHILLO",
+      godRested:
+        "Dios descansó. Jesús se retiró de las multitudes. El descanso no es debilidad—es obediencia a cómo fuiste diseñado. (Éxodo 20:8-11, Mateo 11:28)",
+      walkAway:
+        "Si necesitas alejarte de tu restaurante, eso no es fracaso. A veces es fidelidad a lo que Dios te está llamando a hacer a continuación. Marco Pierre White se alejó en su apogeo. Tal vez tú también necesitas hacerlo.",
+      twoAreBetter:
+        '"Dos son mejor que uno... si alguno de ellos cae, el otro puede levantarlo." (Eclesiastés 4:9-10)',
+      grindAlone:
+        "No fuiste hecho para moler solo. Hermandad sobre aislamiento. Guerreros sobre cuerpos cálidos.",
+      primaryState: "Estado Principal",
+      handleHeat: "Cómo Manejas el Calor",
+      observablePatterns: "Patrones Observables",
+      energyReality: "La Realidad de la Energía",
+      notSpecified: "No especificado",
     },
   };
 
@@ -1021,31 +1077,39 @@ function generateHTMLReport(
   // Extract Steve's story
   const steveStoryNote =
     planData.steve_story_note ||
-    `January 2024. Driggs, Idaho. My white Tundra was found. Search and rescue went out. My two boys didn't know where their dad was. I wasn't kidnapped. I wasn't in an accident. I was lost—not physically, but in every way that mattered. I'd spent years being everything for everyone. The chef. The owner. The provider. The guy who never said no, never took a break, never admitted he was drowning. I thought that was strength. It wasn't. It was slow suicide. When they found me safe, I had a choice: keep grinding until I actually didn't come back, or face the truth that I needed help. I chose help. That's why I'm here now. That's why you took this assessment. You don't have to disappear to find yourself. But you do have to face what's actually burning.`;
+    (language === "es"
+      ? `Enero 2024. Driggs, Idaho. Encontraron mi Tundra blanca. Salieron búsqueda y rescate. Mis dos hijos no sabían dónde estaba su papá. No fui secuestrado. No tuve un accidente. Estaba perdido—no físicamente, sino en todas las formas que importaban. Pasé años siendo todo para todos. El chef. El propietario. El proveedor. El tipo que nunca dijo no, nunca tomó un descanso, nunca admitió que se estaba ahogando. Pensé que eso era fortaleza. No lo era. Era suicidio lento. Cuando me encontraron a salvo, tuve una elección: seguir moliendo hasta que realmente no regresara, o enfrentar la verdad de que necesitaba ayuda. Elegí ayuda. Por eso estoy aquí ahora. Por eso tomaste esta evaluación. No tienes que desaparecer para encontrarte. Pero sí tienes que enfrentar lo que realmente está ardiendo.`
+      : `January 2024. Driggs, Idaho. My white Tundra was found. Search and rescue went out. My two boys didn't know where their dad was. I wasn't kidnapped. I wasn't in an accident. I was lost—not physically, but in every way that mattered. I'd spent years being everything for everyone. The chef. The owner. The provider. The guy who never said no, never took a break, never admitted he was drowning. I thought that was strength. It wasn't. It was slow suicide. When they found me safe, I had a choice: keep grinding until I actually didn't come back, or face the truth that I needed help. I chose help. That's why I'm here now. That's why you took this assessment. You don't have to disappear to find yourself. But you do have to face what's actually burning.`);
 
   // Extract pull quote
   const pullQuote =
-    planData.pull_quote ||
-    proofWithContext ||
-    patternExactWords ||
-    "Your words from this assessment";
+    planData.pull_quote || proofWithContext || patternExactWords || t.yourWords;
 
   // Extract missing question summary
   const missingQuestionSummary =
     planData.missing_question_summary ||
-    "Reflection on what you shared about the missing question.";
+    (language === "es"
+      ? "Reflexión sobre lo que compartiste sobre la pregunta faltante."
+      : "Reflection on what you shared about the missing question.");
 
   // Extract development reminders (NEW - 4 core reminders)
   const developmentRemindersFinal = Array.isArray(
     planData.development_reminders
   )
     ? planData.development_reminders
-    : [
-        "Getting burnt is normal in kitchen culture—staying burnt is a choice",
-        "Your kitchen energy is the foundation—regulate first, then rebuild",
-        "Your patterns have wisdom—honor them while updating them",
-        "You are not your station—your worth is settled in Christ, not your covers",
-      ];
+    : language === "es"
+      ? [
+          "Quemarse es normal en la cultura de cocina—quedarse quemado es una elección",
+          "Tu energía en la cocina es la base—regula primero, luego reconstruye",
+          "Tus patrones tienen sabiduría—hónralos mientras los actualizas",
+          "No eres tu estación—tu valor está establecido en Cristo, no en tus cubiertos",
+        ]
+      : [
+          "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+          "Your kitchen energy is the foundation—regulate first, then rebuild",
+          "Your patterns have wisdom—honor them while updating them",
+          "You are not your station—your worth is settled in Christ, not your covers",
+        ];
 
   // Extract next steps
   const nextSteps = planData.next_steps || {};
@@ -1686,8 +1750,8 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">The Four Domains - Where You Stand</div>
-            <div class="section-title">Domain Breakdown</div>
+            <div class="section-label">${t.fourDomains}</div>
+            <div class="section-title">${t.domainBreakdown}</div>
           </div>
           
           <div class="domain-grid">
@@ -1695,15 +1759,15 @@ function generateHTMLReport(
               <div class="domain-card-title">🔥 ${t.whoAreYou} ${t.identityStory}</div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.currentState}</div>
-                <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.block}</div>
-                <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.growthEdge}</div>
-                <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || t.notSpecified}</div>
               </div>
             </div>
             
@@ -1711,15 +1775,15 @@ function generateHTMLReport(
               <div class="domain-card-title">🛠 ${t.doYouStillLove} ${t.craftMastery}</div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.currentState}</div>
-                <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.block}</div>
-                <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.growthEdge}</div>
-                <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || t.notSpecified}</div>
               </div>
             </div>
           </div>
@@ -1739,15 +1803,15 @@ function generateHTMLReport(
               <div class="domain-card-title">🎯 ${t.signatureDish} ${t.purposeMeaning}</div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.currentState}</div>
-                <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.block}</div>
-                <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.growthEdge}</div>
-                <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || t.notSpecified}</div>
               </div>
             </div>
             
@@ -1755,15 +1819,15 @@ function generateHTMLReport(
               <div class="domain-card-title">⚙️ ${t.kitchenVsLife} ${t.environmentStructure}</div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.currentState}</div>
-                <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.block}</div>
-                <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || t.notSpecified}</div>
               </div>
               <div class="domain-card-row">
                 <div class="domain-card-label">${t.growthEdge}</div>
-                <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
+                <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || t.notSpecified}</div>
               </div>
             </div>
           </div>
@@ -1780,21 +1844,21 @@ function generateHTMLReport(
           
           <div style="margin-top: 50px;">
             <div class="content-block">
-              <div class="block-title">Primary State</div>
+              <div class="block-title">${t.primaryState}</div>
               <div class="block-content">${formatTextWithParagraphBreaks(primaryEnergyState)}</div>
             </div>
             <div class="content-block">
-              <div class="block-title">How You Handle the Heat</div>
+              <div class="block-title">${t.handleHeat}</div>
               <div class="block-content">${formatTextWithParagraphBreaks(regulationCapacity)}</div>
             </div>
             <div class="content-block">
-              <div class="block-title">Observable Patterns</div>
+              <div class="block-title">${t.observablePatterns}</div>
               <div class="block-content">
                 ${observablePatterns.map((pattern: string) => `<p>• ${pattern}</p>`).join("")}
               </div>
             </div>
             <div class="content-block">
-              <div class="block-title">The Energy Reality</div>
+              <div class="block-title">${t.energyReality}</div>
               <div class="block-content">${formatTextWithParagraphBreaks(energyReality)}</div>
             </div>
           </div>
@@ -1805,8 +1869,8 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Start Here / Your 30-Day Protocol</div>
-            <div class="section-title">Your Protocol</div>
+            <div class="section-label">${t.startHere}</div>
+            <div class="section-title">${t.yourProtocol}</div>
           </div>
           
           <div style="font-size: 14px; line-height: 1.8; margin-bottom: 30px; font-style: italic; color: var(--deep-charcoal);">
@@ -1842,7 +1906,7 @@ function generateHTMLReport(
           ${
             immediatePractice
               ? `<div class="protocol-item">
-            <div class="protocol-timeline">STEP 3: IMPLEMENT IMMEDIATELY</div>
+            <div class="protocol-timeline">${t.step3Implement}</div>
             <div class="protocol-action">${formatTextWithParagraphBreaks(immediatePractice)}</div>
           </div>`
               : ""
@@ -1853,8 +1917,8 @@ function generateHTMLReport(
             ${
               week1Focus
                 ? `<div style="margin: 20px 0;">
-              <div style="font-weight: 600; margin-bottom: 8px;">WEEK 1: ${week1Focus}</div>
-              ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
+              <div style="font-weight: 600; margin-bottom: 8px;">${t.week1} ${week1Focus}</div>
+              ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.bookLabel} ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
               ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week1Practice}</div>` : ""}
               ${week1Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week1Marker}</div>` : ""}
             </div>`
@@ -1863,8 +1927,8 @@ function generateHTMLReport(
             ${
               week2Focus
                 ? `<div style="margin: 20px 0;">
-              <div style="font-weight: 600; margin-bottom: 8px;">WEEK 2: ${week2Focus}</div>
-              ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
+              <div style="font-weight: 600; margin-bottom: 8px;">${t.week2} ${week2Focus}</div>
+              ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.bookLabel} ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
               ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week2Practice}</div>` : ""}
               ${week2Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week2Marker}</div>` : ""}
             </div>`
@@ -1873,8 +1937,8 @@ function generateHTMLReport(
             ${
               week3Focus
                 ? `<div style="margin: 20px 0;">
-              <div style="font-weight: 600; margin-bottom: 8px;">WEEK 3: ${week3Focus}</div>
-              ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
+              <div style="font-weight: 600; margin-bottom: 8px;">${t.week3} ${week3Focus}</div>
+              ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.bookLabel} ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
               ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week3Practice}</div>` : ""}
               ${week3Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week3Marker}</div>` : ""}
             </div>`
@@ -1900,10 +1964,13 @@ function generateHTMLReport(
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 25px; font-size: 11px; line-height: 1.6;">
                 ${dailyActions
                   .map((action, index) => {
-                    // Remove "Day X:" prefix if it's already in the action text
-                    const actionText = action.replace(/^Day \d+:\s*/i, "");
+                    // Remove "Day X:" or "Día X:" prefix if it's already in the action text
+                    const dayPattern =
+                      language === "es" ? /^Día \d+:\s*/i : /^Day \d+:\s*/i;
+                    const actionText = action.replace(dayPattern, "");
+                    const dayLabel = language === "es" ? "Día" : "Day";
                     return `<div style="display: flex; gap: 10px; margin-bottom: 4px;">
-                    <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">Day ${index + 1}:</div>
+                    <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">${dayLabel} ${index + 1}:</div>
                     <div style="color: #666; flex: 1;">${actionText}</div>
                   </div>`;
                   })
@@ -2024,22 +2091,22 @@ function generateHTMLReport(
           <div style="margin-top: 50px; padding-top: 30px;">
             <div class="block-title">${t.wordAboutRest}</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
-              God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)
+              ${t.godRested}
             </div>
           </div>
           
           <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
             <div class="block-title">${t.wordAboutLeaving}</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
-              If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.
+              ${t.walkAway}
             </div>
           </div>
           
           <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
             <div class="block-title">${t.wordAboutCommunity}</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
-              "Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)<br>
-              You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.
+              ${t.twoAreBetter}<br>
+              ${t.grindAlone}
             </div>
           </div>
         </div>

@@ -43,6 +43,7 @@ export default function ChatInterface({
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const completionTriggeredRef = useRef(false);
   const streamingStartedRef = useRef(false);
+  const reportGenerationTriggeredRef = useRef(false); // Prevent duplicate report generation
 
   // Speech recognition hook - pass language for Spanish support
   const {
@@ -330,7 +331,12 @@ export default function ChatInterface({
         const { done, value } = await reader.read();
 
         // If stream ends and we detected completion via phrases but didn't get isComplete flag
-        if (done && completionTriggeredRef.current && !assessmentComplete) {
+        if (
+          done &&
+          completionTriggeredRef.current &&
+          !assessmentComplete &&
+          !reportGenerationTriggeredRef.current
+        ) {
           console.log(
             "Stream ended - setting completion based on detected phrases"
           );
@@ -343,9 +349,19 @@ export default function ChatInterface({
               setShowGeneratingMessage(true);
             }, 15000); // 15 second delay
 
-            // Trigger report generation immediately (it runs in background)
+            // Trigger report generation immediately (it runs in background) - only if not already triggered
             setTimeout(() => {
-              onComplete(); // This triggers the report generation API
+              if (!reportGenerationTriggeredRef.current) {
+                reportGenerationTriggeredRef.current = true;
+                console.log(
+                  "Triggering report generation (from stream end detection)"
+                );
+                onComplete(); // This triggers the report generation API
+              } else {
+                console.log(
+                  "Report generation already triggered, skipping duplicate call"
+                );
+              }
             }, 15000); // Same 15 second delay
           }, 1000); // 1 second delay to ensure full message is visible
         }
@@ -432,7 +448,10 @@ export default function ChatInterface({
 
                 // Wait a moment to ensure the final message is fully rendered before marking complete
                 setTimeout(() => {
-                  if (!assessmentComplete) {
+                  if (
+                    !assessmentComplete &&
+                    !reportGenerationTriggeredRef.current
+                  ) {
                     setAssessmentComplete(true);
 
                     // Show generating message after 15 seconds
@@ -440,10 +459,24 @@ export default function ChatInterface({
                       setShowGeneratingMessage(true);
                     }, 15000); // 15 second delay
 
-                    // Trigger report generation immediately (it runs in background)
+                    // Trigger report generation immediately (it runs in background) - only if not already triggered
                     setTimeout(() => {
-                      onComplete(); // This triggers the report generation API
+                      if (!reportGenerationTriggeredRef.current) {
+                        reportGenerationTriggeredRef.current = true;
+                        console.log(
+                          "Triggering report generation (from isComplete flag)"
+                        );
+                        onComplete(); // This triggers the report generation API
+                      } else {
+                        console.log(
+                          "Report generation already triggered, skipping duplicate call"
+                        );
+                      }
                     }, 15000); // Same 15 second delay
+                  } else if (reportGenerationTriggeredRef.current) {
+                    console.log(
+                      "Report generation already triggered, skipping duplicate call from isComplete"
+                    );
                   }
                 }, 1000); // 1 second delay to ensure full message is visible
               }
