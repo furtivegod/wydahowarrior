@@ -795,7 +795,24 @@ Format (9-Page Framework):
   }
 }
 
-BOOK SELECTION GUIDE - Choose ONE book based on primary pattern:
+${
+  language === "es"
+    ? `GUÍA DE SELECCIÓN DE LIBROS - Elige UN SOLO libro basado en el patrón principal:
+- Pasión perdida/Crisis de identidad → Kitchen Confidential de Anthony Bourdain
+- Agotamiento de gestión de personal → Setting the Table de Danny Meyer
+- Confusión de propósito → Find Your Why de Simon Sinek
+- Agotamiento/Colapso del sistema nervioso → The Body Keeps the Score de Bessel van der Kolk
+- Identidad = chef → Hero on a Mission de Donald Miller
+- Considerando cambio de vida importante → Designing Your Life de Bill Burnett & Dave Evans
+- Perfeccionismo → The Gifts of Imperfection de Brené Brown
+- No puedo decir no → Set Boundaries, Find Peace de Nedra Tawwab
+- Problemas de sustancias → Atomic Habits de James Clear
+- Abrumado en general → Essentialism de Greg McKeown
+
+Hazlo profundamente personalizado usando sus palabras exactas, metáforas de cocina y lenguaje culinario. Esto debe sentirse como un informe de evaluación de un entrenador profesional, chef a chef, fundamentado en la verdad del Evangelio.
+
+CRÍTICO: Solo usa citas que el cliente realmente dijo. Nunca inventes citas. Usa lenguaje específico de cocina en todo momento. Selecciona UN SOLO libro que mejor coincida con su patrón principal.`
+    : `BOOK SELECTION GUIDE - Choose ONE book based on primary pattern:
 - Lost passion/Identity crisis → Kitchen Confidential by Anthony Bourdain
 - People management exhaustion → Setting the Table by Danny Meyer
 - Purpose confusion → Find Your Why by Simon Sinek
@@ -809,7 +826,8 @@ BOOK SELECTION GUIDE - Choose ONE book based on primary pattern:
 
 Make it deeply personalized using their exact words, kitchen metaphors, and culinary language. This should feel like a professional coach's assessment report, chef-to-chef, grounded in Gospel truth.
 
-CRITICAL: Only use quotes that the client actually said. Never make up quotes. Use kitchen-specific language throughout. Select ONE book that best matches their primary pattern.`,
+CRITICAL: Only use quotes that the client actually said. Never make up quotes. Use kitchen-specific language throughout. Select ONE book that best matches their primary pattern.`
+}`,
       messages: [
         {
           role: "user",

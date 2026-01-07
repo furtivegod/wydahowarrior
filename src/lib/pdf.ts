@@ -186,7 +186,7 @@ export interface PlanData {
 export async function generatePDF(
   planData: PlanData,
   sessionId: string,
-  language: 'en' | 'es' = 'en'
+  language: "en" | "es" = "en"
 ): Promise<{ pdfUrl: string; pdfBuffer: Buffer }> {
   try {
     console.log("Generating PDF for session:", sessionId);
@@ -244,11 +244,16 @@ export async function generatePDF(
     }
 
     // Generate HTML content with client name and session date
-    const htmlContent = generateHTMLReport(planData, clientName, sessionDate, language);
+    const htmlContent = generateHTMLReport(
+      planData,
+      clientName,
+      sessionDate,
+      language
+    );
 
     // Convert HTML to PDF using PDFShift
     console.log("Converting HTML to PDF using PDFShift...");
-    const pdfBuffer = await convertHTMLToPDF(htmlContent, clientName);
+    const pdfBuffer = await convertHTMLToPDF(htmlContent, language);
 
     // Store PDF in Supabase Storage
     const fileName = `protocol-${sessionId}-${Date.now()}.pdf`;
@@ -316,11 +321,14 @@ export async function generatePDF(
 
 async function convertHTMLToPDF(
   htmlContent: string,
-  clientName: string = "Client"
+  language: "en" | "es" = "en"
 ): Promise<Buffer> {
   try {
     // Create footer HTML with PDFShift variables - matching template design
-    const footerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-top: 1px solid #3D4D2E; border-bottom: 1px solid #3D4D2E; font-size: 11px; color: #666; background: #F5F3ED; font-family: 'Inter', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;"><div>${clientName}</div><div>THE KNIFE CHECK</div></div>`;
+    // Footer text based on language
+    const footerText =
+      language === "es" ? "SOY UN CHEF GUERRERO" : "I AM A CHEF WARRIOR";
+    const footerHTML = `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-top: 1px solid #3D4D2E; border-bottom: 1px solid #3D4D2E; font-size: 11px; color: #666; background: #F5F3ED; font-family: 'Inter', Arial, sans-serif; text-transform: uppercase; letter-spacing: 0.5px;"><div>${footerText}</div><div>THE KNIFE CHECK</div></div>`;
 
     const response = await fetch("https://api.pdfshift.io/v3/convert/pdf", {
       method: "POST",
@@ -399,8 +407,226 @@ function generateHTMLReport(
   planData: PlanData,
   clientName: string = "Client",
   sessionDate: Date | null = null,
-  language: 'en' | 'es' = 'en'
+  language: "en" | "es" = "en"
 ): string {
+  // PDF static text translations
+  const pdfTranslations = {
+    en: {
+      coverTitle: "ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK",
+      coverQuote: "Every second counts, chef.",
+      sectionWhereYouAre: "Where You Are Right Now",
+      sectionCurrentState: "Your Current State",
+      sectionRoadmap: "Your Roadmap",
+      sectionWayForward: "The Way Forward",
+      kitchenTerm: "YOUR KITCHEN TERM",
+      describedLifeAs: "You described your life as:",
+      patternShowsUp: "THE PATTERN THAT KEEPS SHOWING UP",
+      yourPattern: "Your Pattern:",
+      patternShowsUpWhen: "This pattern shows up most when:",
+      whatImHearing: "WHAT I'M HEARING",
+      whatProtecting: "WHAT IT'S PROTECTING YOU FROM",
+      whatCosting: "WHAT IT'S COSTING YOU",
+      yourProof: "YOUR PROOF YOU'RE NOT DONE",
+      yourAnchor: "YOUR ANCHOR",
+      neverSkip: "The one thing you never skip:",
+      chefTruth: "Personalized Chef-to-Chef Truth:",
+      whoAreYou: "WHO ARE YOU WITHOUT THE WHITES?",
+      craftConnection: "YOUR CRAFT CONNECTION",
+      purposeNow: "YOUR PURPOSE NOW",
+      environmentReality: "YOUR ENVIRONMENT REALITY",
+      missingQuestion: "THE MISSING QUESTION",
+      seventyTwoHour: "72-HOUR ACTION",
+      thirtyDay: "30-DAY PROTOCOL",
+      step1: "STEP 1: 72-HOUR ACTION",
+      step2: "STEP 2: 30-DAY PROTOCOL",
+      recommendedNext: "RECOMMENDED NEXT STEPS",
+      onlyThingLeft: "The Only Thing Left: Take action. Every second counts.",
+      doYouStillLove: "DO YOU STILL LOVE THE LINE?",
+      signatureDish: "WHAT'S YOUR SIGNATURE DISH?",
+      kitchenVsLife: "THE KITCHEN VS. THE LIFE",
+      currentState: "Current State",
+      block: "Block",
+      growthEdge: "Growth Edge",
+      step2Read: "STEP 2: READ THIS NOW",
+      theReality: "The Reality",
+      bottomLine: "Bottom Line",
+      fourDomains: "The Four Domains - Where You Stand",
+      domainBreakdown: "Domain Breakdown",
+      identityStory: "(Identity & Story)",
+      craftMastery: "(Craft & Mastery)",
+      purposeMeaning: "(Purpose & Meaning)",
+      environmentStructure: "(Environment & Structure)",
+      startTonight:
+        "Start tonight. This book explains why grinding harder hasn't worked—and what will.",
+      noTimeToWaste: "You don't have time to waste, chef. Neither did I.",
+      whyThisWorks: "Why this works:",
+      whyThisBook: "Why this book, why now:",
+      bookNote:
+        "Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.",
+      defaultBook:
+        "Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.",
+      after: "After",
+      for: "for",
+      by: "By",
+      energyState: "Your Energy State",
+      kitchenEnergy: "Kitchen Energy<br>Assessment",
+      patternKeptSafe:
+        "This pattern once kept you safe. Now it's keeping you stuck.",
+      costStayingBurnt: "The cost of staying burnt for another month:",
+      everySecondNext: "Every second counts, chef. Here's what happens next.",
+      yourFirst30Days: "YOUR FIRST 30 DAYS",
+      week4: "WEEK 4:",
+      reviewKeySections: "📖 Review key sections that hit hardest",
+      practice: "🔄 Practice:",
+      marker: "✓ Marker:",
+      yourDailyActions: "YOUR DAILY ACTIONS (30 DAYS)",
+      stevesNote: "STEVE'S NOTE: WHY I DISAPPEARED",
+      yourWords: "— Your words, from this assessment",
+      youHaveEverything: "You Have Everything You Need",
+      whatsNext: "What's Next",
+      patternMapped: "✓ Your pattern mapped in kitchen language",
+      energyUnderstood: "✓ Your kitchen energy understood",
+      domainsAssessed: "✓ The four domains assessed",
+      questionAnswered: "✓ The missing question answered",
+      actionIdentified: "✓ Your 72-hour action identified",
+      readingList: "✓ Your reading list (one book, no BS)",
+      protocolReady: "✓ Your 30-day protocol ready",
+      stevesStory: "✓ Steve's story—proof transformation is possible",
+      remember: "Remember",
+      developmentReminders: "Development Reminders",
+      wordAboutRest: "A WORD ABOUT REST",
+      wordAboutLeaving: "A WORD ABOUT LEAVING",
+      wordAboutCommunity: "A WORD ABOUT COMMUNITY",
+      sixMonthFollowUp: "6-Month Follow-Up Assessment :",
+      afterImplementing:
+        "After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.",
+      recommendedFor: "Recommended for:",
+      monthlyCheckIns: "Monthly Check-Ins:",
+      trackProgress:
+        "Track progress, troubleshoot blocks, adjust protocol. (Coming soon)",
+      joinCommunity: "Join the Wydaho Warriors Community:",
+      connectWithOthers:
+        "Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.",
+      workWithSteve: "Work With Steve:",
+      readyForTransformation:
+        "Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.",
+      contact: "Contact:",
+      questionsSupport: "Questions? Need support? Email",
+      emergencyResources: "Emergency Resources:",
+      crisisText:
+        'If you\'re in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line',
+    },
+    es: {
+      coverTitle:
+        "¿ESTÁS QUEMADO?<br>CHEF PROPIETARIO<br>VERIFICACIÓN DE REALIDAD",
+      coverQuote: "Cada segundo cuenta, chef.",
+      sectionWhereYouAre: "Dónde Estás Ahora",
+      sectionCurrentState: "Tu Estado Actual",
+      sectionRoadmap: "Tu Hoja de Ruta",
+      sectionWayForward: "El Camino Hacia Adelante",
+      kitchenTerm: "TU TÉRMINO DE COCINA",
+      describedLifeAs: "Describiste tu vida como:",
+      patternShowsUp: "EL PATRÓN QUE SIGUE APARECIENDO",
+      yourPattern: "Tu Patrón:",
+      patternShowsUpWhen: "Este patrón aparece más cuando:",
+      whatImHearing: "LO QUE ESTOY ESCUCHANDO",
+      whatProtecting: "DE QUÉ TE ESTÁ PROTEGIENDO",
+      whatCosting: "QUÉ TE ESTÁ COSTANDO",
+      yourProof: "TU PRUEBA DE QUE NO ESTÁS TERMINADO",
+      yourAnchor: "TU ANCLA",
+      neverSkip: "La única cosa que nunca saltas:",
+      chefTruth: "Verdad Personalizada Chef a Chef:",
+      whoAreYou: "¿QUIÉN ERES SIN EL UNIFORME?",
+      craftConnection: "TU CONEXIÓN CON TU OFICIO",
+      purposeNow: "TU PROPÓSITO AHORA",
+      environmentReality: "TU REALIDAD AMBIENTAL",
+      missingQuestion: "LA PREGUNTA FALTANTE",
+      seventyTwoHour: "ACCIÓN DE 72 HORAS",
+      thirtyDay: "PROTOCOLO DE 30 DÍAS",
+      step1: "PASO 1: ACCIÓN DE 72 HORAS",
+      step2: "PASO 2: PROTOCOLO DE 30 DÍAS",
+      recommendedNext: "PASOS SIGUIENTES RECOMENDADOS",
+      onlyThingLeft: "Lo Único Que Queda: Toma acción. Cada segundo cuenta.",
+      doYouStillLove: "¿TODAVÍA AMAS LA LÍNEA?",
+      signatureDish: "¿CUÁL ES TU PLATO FIRMA?",
+      kitchenVsLife: "LA COCINA VS. LA VIDA",
+      currentState: "Estado Actual",
+      block: "Bloqueo",
+      growthEdge: "Borde de Crecimiento",
+      step2Read: "PASO 2: LEE ESTO AHORA",
+      theReality: "La Realidad",
+      bottomLine: "Línea Final",
+      fourDomains: "Los Cuatro Dominios - Dónde Estás",
+      domainBreakdown: "Desglose de Dominios",
+      identityStory: "(Identidad e Historia)",
+      craftMastery: "(Oficio y Maestría)",
+      purposeMeaning: "(Propósito y Significado)",
+      environmentStructure: "(Ambiente y Estructura)",
+      startTonight:
+        "Comienza esta noche. Este libro explica por qué esforzarse más no ha funcionado—y qué lo hará.",
+      noTimeToWaste: "No tienes tiempo que perder, chef. Yo tampoco.",
+      whyThisWorks: "Por qué esto funciona:",
+      whyThisBook: "Por qué este libro, por qué ahora:",
+      bookNote:
+        "Nota: Sin asignaciones de capítulos, sin estimaciones de tiempo, sin tareas. Solo léelo.",
+      defaultBook:
+        "Kitchen Confidential de Anthony Bourdain - Honestidad cruda sobre la vida en la cocina, te reconecta con por qué empezaste.",
+      after: "Después de",
+      for: "por",
+      by: "Por",
+      energyState: "Tu Estado de Energía",
+      kitchenEnergy: "Evaluación de<br>Energía en la Cocina",
+      patternKeptSafe:
+        "Este patrón alguna vez te mantuvo seguro. Ahora te está manteniendo atascado.",
+      costStayingBurnt: "El costo de quedarte quemado por otro mes:",
+      everySecondNext: "Cada segundo cuenta, chef. Esto es lo que sigue.",
+      yourFirst30Days: "TUS PRIMEROS 30 DÍAS",
+      week4: "SEMANA 4:",
+      reviewKeySections: "📖 Revisa las secciones clave que más impactaron",
+      practice: "🔄 Práctica:",
+      marker: "✓ Marcador:",
+      yourDailyActions: "TUS ACCIONES DIARIAS (30 DÍAS)",
+      stevesNote: "NOTA DE STEVE: POR QUÉ DESAPARECÍ",
+      yourWords: "— Tus palabras, de esta evaluación",
+      youHaveEverything: "Tienes Todo Lo Que Necesitas",
+      whatsNext: "Qué Sigue",
+      patternMapped: "✓ Tu patrón mapeado en lenguaje de cocina",
+      energyUnderstood: "✓ Tu energía en la cocina entendida",
+      domainsAssessed: "✓ Los cuatro dominios evaluados",
+      questionAnswered: "✓ La pregunta faltante respondida",
+      actionIdentified: "✓ Tu acción de 72 horas identificada",
+      readingList: "✓ Tu lista de lectura (un libro, sin tonterías)",
+      protocolReady: "✓ Tu protocolo de 30 días listo",
+      stevesStory:
+        "✓ La historia de Steve—prueba de que la transformación es posible",
+      remember: "Recuerda",
+      developmentReminders: "Recordatorios de Desarrollo",
+      wordAboutRest: "UNA PALABRA SOBRE EL DESCANSO",
+      wordAboutLeaving: "UNA PALABRA SOBRE IRSE",
+      wordAboutCommunity: "UNA PALABRA SOBRE LA COMUNIDAD",
+      sixMonthFollowUp: "Evaluación de Seguimiento de 6 Meses :",
+      afterImplementing:
+        "Después de implementar tu protocolo, reevaluaremos tu energía en la cocina, cambios de patrones, progreso de dominios y áreas de crecimiento de siguiente nivel.",
+      recommendedFor: "Recomendado para:",
+      monthlyCheckIns: "Chequeos Mensuales:",
+      trackProgress:
+        "Rastrea el progreso, soluciona bloqueos, ajusta el protocolo. (Próximamente)",
+      joinCommunity: "Únete a la Comunidad Wydaho Warriors:",
+      connectWithOthers:
+        "Conéctate con otros chef-propietarios que han estado en las malas hierbas y encontraron la salida. Hermandad sobre moler solo.",
+      workWithSteve: "Trabaja Con Steve:",
+      readyForTransformation:
+        "¿Listo para una transformación más profunda? Coaching de vida diseñado específicamente para chef-propietarios que han perdido su fuego.",
+      contact: "Contacto:",
+      questionsSupport: "¿Preguntas? ¿Necesitas ayuda? Envía un correo a",
+      emergencyResources: "Recursos de Emergencia:",
+      crisisText:
+        'Si estás en crisis: Línea Nacional de Prevención del Suicidio: 988<br>Envía "HOLA" al 741741 para Crisis Text Line',
+    },
+  };
+
+  const t = pdfTranslations[language];
+
   // Extract the real data from the assessment - NEW 9-PAGE FRAMEWORK
   const displayClientName = planData.client_name || clientName;
   const assessmentDate = sessionDate
@@ -564,86 +790,175 @@ function generateHTMLReport(
     : [];
 
   // Chef-owner specific book list (9-PAGE FRAMEWORK)
+  // Patterns include both English and Spanish keywords for language-aware matching
   const chefOwnerBooks = [
     {
       id: "kitchen_confidential",
       title: "Kitchen Confidential",
       author: "Anthony Bourdain",
       asin: "0060899220",
-      why: "Raw honesty about kitchen life, reconnects them to why they started",
-      patterns: ["lost passion", "identity crisis", "why did I start"],
+      why:
+        language === "es"
+          ? "Honestidad cruda sobre la vida en la cocina, te reconecta con por qué empezaste"
+          : "Raw honesty about kitchen life, reconnects them to why they started",
+      patterns: [
+        "lost passion",
+        "identity crisis",
+        "why did I start",
+        "pasión perdida",
+        "crisis de identidad",
+        "por qué empecé",
+      ],
     },
     {
       id: "setting_the_table",
       title: "Setting the Table",
       author: "Danny Meyer",
       asin: "0060742763",
-      why: "Meaning-driven hospitality, culture-building, enlightened hospitality model",
-      patterns: ["people management", "staff chaos", "team building"],
+      why:
+        language === "es"
+          ? "Hospitalidad impulsada por significado, construcción de cultura, modelo de hospitalidad iluminado"
+          : "Meaning-driven hospitality, culture-building, enlightened hospitality model",
+      patterns: [
+        "people management",
+        "staff chaos",
+        "team building",
+        "gestión de personal",
+        "caos del equipo",
+        "construcción de equipo",
+      ],
     },
     {
       id: "find_your_why",
       title: "Find Your Why",
       author: "Simon Sinek",
       asin: "0143111728",
-      why: "Clarifies original purpose, helps rebuild around meaning",
-      patterns: ["purpose confusion", "why am I doing this", "lost meaning"],
+      why:
+        language === "es"
+          ? "Aclara el propósito original, ayuda a reconstruir alrededor del significado"
+          : "Clarifies original purpose, helps rebuild around meaning",
+      patterns: [
+        "purpose confusion",
+        "why am I doing this",
+        "lost meaning",
+        "confusión de propósito",
+        "por qué hago esto",
+        "significado perdido",
+      ],
     },
     {
       id: "body_keeps_score",
       title: "The Body Keeps the Score",
       author: "Bessel van der Kolk",
       asin: "0143127748",
-      why: "Explains trauma responses, regulation capacity, somatic patterns",
-      patterns: ["burnout", "exhaustion", "nervous system shutdown"],
+      why:
+        language === "es"
+          ? "Explica las respuestas al trauma, la capacidad de regulación, los patrones somáticos"
+          : "Explains trauma responses, regulation capacity, somatic patterns",
+      patterns: [
+        "burnout",
+        "exhaustion",
+        "nervous system shutdown",
+        "agotamiento",
+        "agotado",
+        "colapso del sistema nervioso",
+      ],
     },
     {
       id: "hero_on_mission",
       title: "Hero on a Mission",
       author: "Donald Miller",
       asin: "0785232303",
-      why: "Reframes identity from Victim/Villain to Hero/Guide, story work",
-      patterns: ["identity equals chef", "can't separate self from work"],
+      why:
+        language === "es"
+          ? "Replantea la identidad de Víctima/Villano a Héroe/Guía, trabajo de historia"
+          : "Reframes identity from Victim/Villain to Hero/Guide, story work",
+      patterns: [
+        "identity equals chef",
+        "can't separate self from work",
+        "identidad igual chef",
+        "no puedo separar yo del trabajo",
+      ],
     },
     {
       id: "designing_your_life",
       title: "Designing Your Life",
       author: "Bill Burnett & Dave Evans",
       asin: "1101875321",
-      why: "Wayfinding for chef-owners exploring options outside current situation",
-      patterns: ["considering major life change", "leaving industry"],
+      why:
+        language === "es"
+          ? "Orientación para chef-propietarios que exploran opciones fuera de la situación actual"
+          : "Wayfinding for chef-owners exploring options outside current situation",
+      patterns: [
+        "considering major life change",
+        "leaving industry",
+        "considerando cambio de vida",
+        "dejar la industria",
+      ],
     },
     {
       id: "gifts_of_imperfection",
       title: "The Gifts of Imperfection",
       author: "Brené Brown",
       asin: "159285849X",
-      why: "Shame resilience, letting go of 'suffer for your art' mythology",
-      patterns: ["perfectionism", "mistakes spiral"],
+      why:
+        language === "es"
+          ? "Resiliencia a la vergüenza, dejar ir la mitología de 'sufrir por tu arte'"
+          : "Shame resilience, letting go of 'suffer for your art' mythology",
+      patterns: [
+        "perfectionism",
+        "mistakes spiral",
+        "perfeccionismo",
+        "espiral de errores",
+      ],
     },
     {
       id: "set_boundaries",
       title: "Set Boundaries, Find Peace",
       author: "Nedra Tawwab",
       asin: "0593192095",
-      why: "Boundary scripts, practice saying no without guilt",
-      patterns: ["can't say no", "no boundaries"],
+      why:
+        language === "es"
+          ? "Guiones de límites, práctica de decir no sin culpa"
+          : "Boundary scripts, practice saying no without guilt",
+      patterns: [
+        "can't say no",
+        "no boundaries",
+        "no puedo decir no",
+        "sin límites",
+      ],
     },
     {
       id: "atomic_habits",
       title: "Atomic Habits",
       author: "James Clear",
       asin: "0735211299",
-      why: "Identity-based behavior change, sustainable systems",
-      patterns: ["substance issues", "numbing patterns"],
+      why:
+        language === "es"
+          ? "Cambio de comportamiento basado en identidad, sistemas sostenibles"
+          : "Identity-based behavior change, sustainable systems",
+      patterns: [
+        "substance issues",
+        "numbing patterns",
+        "problemas de sustancias",
+        "patrones de entumecimiento",
+      ],
     },
     {
       id: "essentialism",
       title: "Essentialism",
       author: "Greg McKeown",
       asin: "0804137382",
-      why: "Disciplined pursuit of less, saying no to good to say yes to great",
-      patterns: ["general overwhelm", "in the weeds constantly"],
+      why:
+        language === "es"
+          ? "Búsqueda disciplinada de menos, decir no a lo bueno para decir sí a lo grande"
+          : "Disciplined pursuit of less, saying no to good to say yes to great",
+      patterns: [
+        "general overwhelm",
+        "in the weeds constantly",
+        "abrumado en general",
+        "en las malas hierbas constantemente",
+      ],
     },
   ];
 
@@ -735,8 +1050,7 @@ function generateHTMLReport(
   // Extract next steps
   const nextSteps = planData.next_steps || {};
   const sixMonthDate = nextSteps.six_month_date || "";
-  const communityLink =
-    nextSteps.community_link || "https://wwassessment.com/community";
+  const communityLink = nextSteps.community_link || "http://eepurl.com/jvoDuI";
   const coachingLink =
     nextSteps.coaching_link || "https://paperbell.me/wydaho-warriors";
   const contactEmail = nextSteps.contact_email || "steve@wydahowarriors.com";
@@ -1249,9 +1563,8 @@ function generateHTMLReport(
       <!-- PAGE 1: COVER -->
       <div class="page cover">
         <div class="cover-content">
-          <h1>ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK</h1>
-          <div class="client-name">${displayClientName}</div>
-          <div style="font-size: 18px; font-weight: 500; color: var(--deep-charcoal); margin-top: 60px; font-style: italic; font-family: 'Playfair Display', serif;">Every second counts, chef.</div>
+          <h1>${t.coverTitle}</h1>
+          <div style="font-size: 18px; font-weight: 500; color: var(--deep-charcoal); margin-top: 60px; font-style: italic; font-family: 'Playfair Display', serif;">${t.coverQuote}</div>
           <div style="font-size: 12px; color: #666; margin-top: 10px;">— Steve Murphy</div>
           <div style="font-size: 10px; color: #999; margin-top: 80px; letter-spacing: 0.1em;">Culinary Institute of America</div>
           <div style="font-size: 10px; color: #999; letter-spacing: 0.1em;">Wydaho Warriors LLC</div>
@@ -1262,49 +1575,49 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Where You Are Right Now</div>
-            <div class="section-title">Your Current State</div>
+            <div class="section-label">${t.sectionWhereYouAre}</div>
+            <div class="section-title">${t.sectionCurrentState}</div>
           </div>
           
           <div class="sabotage-content">
             <div class="sabotage-section">
-              <div class="block-title">YOUR KITCHEN TERM</div>
-              <div class="sabotage-text">You described your life as: <strong>${kitchenTerm}</strong></div>
+              <div class="block-title">${t.kitchenTerm}</div>
+              <div class="sabotage-text">${t.describedLifeAs} <strong>${kitchenTerm}</strong></div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">THE PATTERN THAT KEEPS SHOWING UP</div>
-              <div class="sabotage-text"><strong>Your Pattern:</strong> ${formatTextWithParagraphBreaks(patternExactWords)}</div>
-              <div class="sabotage-text" style="margin-top: 15px;"><strong>This pattern shows up most when:</strong> ${patternTrigger}</div>
+              <div class="block-title">${t.patternShowsUp}</div>
+              <div class="sabotage-text"><strong>${t.yourPattern}</strong> ${formatTextWithParagraphBreaks(patternExactWords)}</div>
+              <div class="sabotage-text" style="margin-top: 15px;"><strong>${t.patternShowsUpWhen}</strong> ${patternTrigger}</div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">WHAT I'M HEARING</div>
+              <div class="block-title">${t.whatImHearing}</div>
               <div class="sabotage-text">${formatTextWithParagraphBreaks(patternReframe)}</div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">WHAT IT'S PROTECTING YOU FROM</div>
+              <div class="block-title">${t.whatProtecting}</div>
               <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItProtectsFrom)}</div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">WHAT IT'S COSTING YOU</div>
+              <div class="block-title">${t.whatCosting}</div>
               <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItCosts)}</div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">YOUR PROOF YOU'RE NOT DONE</div>
+              <div class="block-title">${t.yourProof}</div>
               <div class="sabotage-text">${formatTextWithParagraphBreaks(proofWithContext)}</div>
             </div>
             
             <div class="sabotage-section">
-              <div class="block-title">YOUR ANCHOR</div>
-              <div class="sabotage-text">The one thing you never skip: <strong>${anchorHabit}</strong></div>
+              <div class="block-title">${t.yourAnchor}</div>
+              <div class="sabotage-text">${t.neverSkip} <strong>${anchorHabit}</strong></div>
             </div>
             
             <div class="sabotage-section" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.3);">
-              <div class="sabotage-text"><strong>Personalized Chef-to-Chef Truth:</strong> ${formatTextWithParagraphBreaks(personalizedChefTruth)}</div>
+              <div class="sabotage-text"><strong>${t.chefTruth}</strong> ${formatTextWithParagraphBreaks(personalizedChefTruth)}</div>
             </div>
           </div>
         </div>
@@ -1314,56 +1627,56 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">The Way Forward</div>
-            <div class="section-title">Your Roadmap</div>
+            <div class="section-label">${t.sectionWayForward}</div>
+            <div class="section-title">${t.sectionRoadmap}</div>
           </div>
           
           <div class="roadmap-flow">
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--dark-olive);">🔥</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">WHO ARE YOU WITHOUT THE WHITES?</div>
+              <div class="roadmap-label">${t.whoAreYou}</div>
               <div class="roadmap-brief">${identityBrief}</div>
             </div>
             
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--dark-olive);">🛠</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">DO YOU STILL LOVE THE LINE?</div>
+              <div class="roadmap-label">${t.doYouStillLove}</div>
               <div class="roadmap-brief">${craftBrief}</div>
             </div>
             
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--dark-olive);">🎯</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">WHAT'S YOUR SIGNATURE DISH?</div>
+              <div class="roadmap-label">${t.signatureDish}</div>
               <div class="roadmap-brief">${purposeBrief}</div>
             </div>
             
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--dark-olive);">⚙️</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">THE KITCHEN VS. THE LIFE</div>
+              <div class="roadmap-label">${t.kitchenVsLife}</div>
               <div class="roadmap-brief">${environmentBrief}</div>
             </div>
             
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--dark-olive);">🚨</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">THE MISSING QUESTION</div>
+              <div class="roadmap-label">${t.missingQuestion}</div>
               <div class="roadmap-brief">${missingBrief}</div>
             </div>
             
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
               <div class="roadmap-arrow"></div>
-              <div class="roadmap-label">72-HOUR ACTION</div>
+              <div class="roadmap-label">${t.seventyTwoHour}</div>
               <div class="roadmap-brief">${seventyTwoBrief}</div>
             </div>
             
             <div class="roadmap-step">
               <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
-              <div class="roadmap-label">30-DAY PROTOCOL</div>
+              <div class="roadmap-label">${t.thirtyDay}</div>
               <div class="roadmap-brief">${thirtyDayBrief}</div>
             </div>
           </div>
@@ -1380,34 +1693,34 @@ function generateHTMLReport(
           
           <div class="domain-grid">
             <div class="domain-card">
-              <div class="domain-card-title">🔥 WHO ARE YOU WITHOUT THE WHITES? (Identity & Story)</div>
+              <div class="domain-card-title">🔥 ${t.whoAreYou} ${t.identityStory}</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Current State</div>
-                <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">${t.currentState}</div>
+                <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.block}</div>
+                <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Growth Edge</div>
-                <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.growthEdge}</div>
+                <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
             </div>
             
             <div class="domain-card">
-              <div class="domain-card-title">🛠 DO YOU STILL LOVE THE LINE? (Craft & Mastery)</div>
+              <div class="domain-card-title">🛠 ${t.doYouStillLove} ${t.craftMastery}</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Current State</div>
-                <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">${t.currentState}</div>
+                <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.block}</div>
+                <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Growth Edge</div>
-                <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.growthEdge}</div>
+                <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
             </div>
           </div>
@@ -1418,40 +1731,40 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">The Four Domains - Where You Stand</div>
-            <div class="section-title">Domain Breakdown</div>
+            <div class="section-label">${t.fourDomains}</div>
+            <div class="section-title">${t.domainBreakdown}</div>
           </div>
           
           <div class="domain-grid">
             <div class="domain-card">
-              <div class="domain-card-title">🎯 WHAT'S YOUR SIGNATURE DISH? (Purpose & Meaning)</div>
+              <div class="domain-card-title">🎯 ${t.signatureDish} ${t.purposeMeaning}</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Current State</div>
-                <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">${t.currentState}</div>
+                <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.block}</div>
+                <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Growth Edge</div>
-                <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.growthEdge}</div>
+                <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
             </div>
             
             <div class="domain-card">
-              <div class="domain-card-title">⚙️ THE KITCHEN VS. THE LIFE (Environment & Reality)</div>
+              <div class="domain-card-title">⚙️ ${t.kitchenVsLife} ${t.environmentStructure}</div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Current State</div>
-                <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || "Not specified"}</div>
+                <div class="domain-card-label">${t.currentState}</div>
+                <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Block</div>
-                <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.block}</div>
+                <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
               <div class="domain-card-row">
-                <div class="domain-card-label">Growth Edge</div>
-                <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || "Not specified"}</div>
+                <div class="domain-card-label">${t.growthEdge}</div>
+                <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || (language === "es" ? "No especificado" : "Not specified")}</div>
               </div>
             </div>
           </div>
@@ -1462,8 +1775,8 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Your Energy State</div>
-            <div class="section-title">Kitchen Energy<br>Assessment</div>
+            <div class="section-label">${t.energyState}</div>
+            <div class="section-title">${t.kitchenEnergy}</div>
           </div>
           
           <div style="margin-top: 50px;">
@@ -1498,31 +1811,31 @@ function generateHTMLReport(
           </div>
           
           <div style="font-size: 14px; line-height: 1.8; margin-bottom: 30px; font-style: italic; color: var(--deep-charcoal);">
-            ${urgencyStatement || "This pattern once kept you safe. Now it's keeping you stuck."}<br>
-            The cost of staying burnt for another month: ${whatItCosts}<br>
-            Every second counts, chef. Here's what happens next.
+            ${urgencyStatement || t.patternKeptSafe}<br>
+            ${t.costStayingBurnt} ${whatItCosts}<br>
+            ${t.everySecondNext}
           </div>
           
           <div class="protocol-item">
-            <div class="protocol-timeline">STEP 1: 72-HOUR ACTION</div>
+            <div class="protocol-timeline">${t.step1}</div>
             <div class="protocol-action">
-              After <strong>${anchorHabit}</strong>, <strong>${specificAction}</strong>${timeReps ? ` for ${timeReps}` : ""}
+              ${t.after} <strong>${anchorHabit}</strong>, <strong>${specificAction}</strong>${timeReps ? ` ${t.for} ${timeReps}` : ""}
             </div>
-            ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;"><strong>Why this works:</strong> ${whyThisWorks}</div>` : ""}
+            ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;"><strong>${t.whyThisWorks}</strong> ${whyThisWorks}</div>` : ""}
           </div>
           
           <div class="protocol-item">
-            <div class="protocol-timeline">STEP 2: READ THIS NOW</div>
+            <div class="protocol-timeline">${t.step2Read}</div>
             <div class="protocol-action">
               ${
                 selectedBook
                   ? `<div style="margin-bottom: 15px;">
                       <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; font-family: 'Playfair Display', serif;">📖 ${selectedBook.title}</div>
-                      <div style="font-size: 14px; color: #666; margin-bottom: 20px;">By ${selectedBook.author}</div>
-                      <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>Why this book, why now:</strong> ${bookWhyNow || selectedBook.why}</div>
-                      <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 10px;">Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.</div>
+                      <div style="font-size: 14px; color: #666; margin-bottom: 20px;">${t.by} ${selectedBook.author}</div>
+                      <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>${t.whyThisBook}</strong> ${bookWhyNow || selectedBook.why}</div>
+                      <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 10px;">${t.bookNote}</div>
                     </div>`
-                  : `<div style="font-size:15px; line-height:1.7; color:#222;">Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.</div>`
+                  : `<div style="font-size:15px; line-height:1.7; color:#222;">${t.defaultBook}</div>`
               }
             </div>
           </div>
@@ -1537,14 +1850,14 @@ function generateHTMLReport(
           }
           
           <div class="protocol-item" style="margin-top: 50px;">
-            <div class="protocol-timeline">YOUR FIRST 30 DAYS</div>
+            <div class="protocol-timeline">${t.yourFirst30Days}</div>
             ${
               week1Focus
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 1: ${week1Focus}</div>
               ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
-              ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week1Practice}</div>` : ""}
-              ${week1Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week1Marker}</div>` : ""}
+              ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week1Practice}</div>` : ""}
+              ${week1Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week1Marker}</div>` : ""}
             </div>`
                 : ""
             }
@@ -1553,8 +1866,8 @@ function generateHTMLReport(
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 2: ${week2Focus}</div>
               ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
-              ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week2Practice}</div>` : ""}
-              ${week2Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week2Marker}</div>` : ""}
+              ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week2Practice}</div>` : ""}
+              ${week2Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week2Marker}</div>` : ""}
             </div>`
                 : ""
             }
@@ -1563,18 +1876,18 @@ function generateHTMLReport(
                 ? `<div style="margin: 20px 0;">
               <div style="font-weight: 600; margin-bottom: 8px;">WEEK 3: ${week3Focus}</div>
               ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
-              ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week3Practice}</div>` : ""}
-              ${week3Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week3Marker}</div>` : ""}
+              ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week3Practice}</div>` : ""}
+              ${week3Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week3Marker}</div>` : ""}
             </div>`
                 : ""
             }
             ${
               week4Focus
                 ? `<div style="margin: 20px 0;">
-              <div style="font-weight: 600; margin-bottom: 8px;">WEEK 4: ${week4Focus}</div>
-              <div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Review key sections that hit hardest</div>
-              ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week4Practice}</div>` : ""}
-              ${week4Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week4Marker}</div>` : ""}
+              <div style="font-weight: 600; margin-bottom: 8px;">${t.week4} ${week4Focus}</div>
+              <div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.reviewKeySections}</div>
+              ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week4Practice}</div>` : ""}
+              ${week4Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week4Marker}</div>` : ""}
             </div>`
                 : ""
             }
@@ -1583,7 +1896,7 @@ function generateHTMLReport(
           ${
             dailyActions && dailyActions.length > 0
               ? `<div class="protocol-item" style="margin-top: 50px;">
-            <div class="protocol-timeline">YOUR DAILY ACTIONS (30 DAYS)</div>
+            <div class="protocol-timeline">${t.yourDailyActions}</div>
             <div style="margin: 20px 0;">
               <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 25px; font-size: 11px; line-height: 1.6;">
                 ${dailyActions
@@ -1604,8 +1917,8 @@ function generateHTMLReport(
           
           <div style="margin-top: 40px; padding: 20px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
             <div style="font-size: 13px; line-height: 1.8; font-style: italic;">
-              Start tonight. This book explains why grinding harder hasn't worked—and what will.<br><br>
-              You don't have time to waste, chef. Neither did I.<br>
+              ${t.startTonight}<br><br>
+              ${t.noTimeToWaste}<br>
               — Steve Murphy
             </div>
           </div>
@@ -1616,8 +1929,8 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">The Reality</div>
-            <div class="section-title">Bottom Line</div>
+            <div class="section-label">${t.theReality}</div>
+            <div class="section-title">${t.bottomLine}</div>
           </div>
           
           <div style="margin: 40px 0;">
@@ -1635,7 +1948,7 @@ function generateHTMLReport(
           </div>
           
           <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
-            <div class="block-title">STEVE'S NOTE: WHY I DISAPPEARED</div>
+            <div class="block-title">${t.stevesNote}</div>
             <div class="block-content">${formatTextWithParagraphBreaks(steveStoryNote)}</div>
           </div>
           
@@ -1643,7 +1956,7 @@ function generateHTMLReport(
             pullQuote
               ? `<div style="margin-top: 40px; padding: 30px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
             <div class="pull-quote-text" style="font-size: 20px; margin-bottom: 15px;">"${pullQuote}"</div>
-            <div style="font-size: 11px; letter-spacing: 0.1em; color: #999;">— Your words, from this assessment</div>
+            <div style="font-size: 11px; letter-spacing: 0.1em; color: #999;">${t.yourWords}</div>
           </div>`
               : ""
           }
@@ -1654,36 +1967,36 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">You Have Everything You Need</div>
-            <div class="section-title">What's Next</div>
+            <div class="section-label">${t.youHaveEverything}</div>
+            <div class="section-title">${t.whatsNext}</div>
           </div>
           
           <div style="margin: 40px 0;">
             <div style="font-size: 14px; line-height: 2; margin-bottom: 30px;">
-              <div style="margin: 10px 0;">✓ Your pattern mapped in kitchen language</div>
-              <div style="margin: 10px 0;">✓ Your kitchen energy understood</div>
-              <div style="margin: 10px 0;">✓ The four domains assessed</div>
-              <div style="margin: 10px 0;">✓ The missing question answered</div>
-              <div style="margin: 10px 0;">✓ Your 72-hour action identified</div>
-              <div style="margin: 10px 0;">✓ Your reading list (one book, no BS)</div>
-              <div style="margin: 10px 0;">✓ Your 30-day protocol ready</div>
-              <div style="margin: 10px 0;">✓ Steve's story—proof transformation is possible</div>
+              <div style="margin: 10px 0;">${t.patternMapped}</div>
+              <div style="margin: 10px 0;">${t.energyUnderstood}</div>
+              <div style="margin: 10px 0;">${t.domainsAssessed}</div>
+              <div style="margin: 10px 0;">${t.questionAnswered}</div>
+              <div style="margin: 10px 0;">${t.actionIdentified}</div>
+              <div style="margin: 10px 0;">${t.readingList}</div>
+              <div style="margin: 10px 0;">${t.protocolReady}</div>
+              <div style="margin: 10px 0;">${t.stevesStory}</div>
             </div>
             
             <div style="font-size: 16px; font-weight: 600; margin: 40px 0; text-align: center; color: var(--dark-olive);">
-              The Only Thing Left: Take action. Every second counts.
+              ${t.onlyThingLeft}
             </div>
           </div>
           
           <div class="content-block" style="margin-top: 60px;">
-            <div class="block-title">RECOMMENDED NEXT STEPS</div>
+            <div class="block-title">${t.recommendedNext}</div>
             <div class="block-content">
-              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment :</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Need support? Email <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
-              <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>Emergency Resources:</strong> If you're in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line</p>
+              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>${t.sixMonthFollowUp}</strong> ${t.afterImplementing}${sixMonthDate ? ` ${t.recommendedFor} ${sixMonthDate}` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.monthlyCheckIns}</strong> ${t.trackProgress}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.joinCommunity}</strong> ${t.connectWithOthers}${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">${communityLink}</a>` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.contact}</strong> ${t.questionsSupport} <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
+              <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>${t.emergencyResources}</strong> ${t.crisisText}</p>
             </div>
           </div>
         </div>
@@ -1693,8 +2006,8 @@ function generateHTMLReport(
       <div class="page" style="page-break-before: always;">
         <div class="page-content">
           <div class="section-header">
-            <div class="section-label">Remember</div>
-            <div class="section-title">Development Reminders</div>
+            <div class="section-label">${t.remember}</div>
+            <div class="section-title">${t.developmentReminders}</div>
           </div>
       
           ${developmentRemindersFinal
@@ -1710,21 +2023,21 @@ function generateHTMLReport(
             .join("")}
           
           <div style="margin-top: 50px; padding-top: 30px;">
-            <div class="block-title">A WORD ABOUT REST</div>
+            <div class="block-title">${t.wordAboutRest}</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
               God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)
             </div>
           </div>
           
           <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
-            <div class="block-title">A WORD ABOUT LEAVING</div>
+            <div class="block-title">${t.wordAboutLeaving}</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
               If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.
             </div>
           </div>
           
           <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
-            <div class="block-title">A WORD ABOUT COMMUNITY</div>
+            <div class="block-title">${t.wordAboutCommunity}</div>
             <div class="block-content" style="font-size: 12px; line-height: 1.8;">
               "Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)<br>
               You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.

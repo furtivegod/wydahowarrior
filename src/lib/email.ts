@@ -278,7 +278,7 @@ export async function sendReportEmail(
           .replace("{pattern}", patternText)
           .replace("{bookCall}", bookCallLink);
       }
-      // Check for business/financial goals in protocol
+      // Check for business/financial goals in protocol (English and Spanish)
       else if (
         thirtyDayProtocol?.immediate_practice &&
         (thirtyDayProtocol.immediate_practice
@@ -293,14 +293,32 @@ export async function sendReportEmail(
           thirtyDayProtocol.immediate_practice
             .toLowerCase()
             .includes("money") ||
-          thirtyDayProtocol.immediate_practice.toLowerCase().includes("income"))
+          thirtyDayProtocol.immediate_practice
+            .toLowerCase()
+            .includes("income") ||
+          // Spanish keywords
+          thirtyDayProtocol.immediate_practice
+            .toLowerCase()
+            .includes("negocio") ||
+          thirtyDayProtocol.immediate_practice
+            .toLowerCase()
+            .includes("financiero") ||
+          thirtyDayProtocol.immediate_practice
+            .toLowerCase()
+            .includes("carrera") ||
+          thirtyDayProtocol.immediate_practice
+            .toLowerCase()
+            .includes("dinero") ||
+          thirtyDayProtocol.immediate_practice
+            .toLowerCase()
+            .includes("ingreso"))
       ) {
         const goalText = thirtyDayProtocol.immediate_practice;
         personalizedPS = t.report.psBusiness
           .replace("{goal}", goalText)
           .replace("{bookCall}", bookCallLink);
       }
-      // Check for relationship concerns
+      // Check for relationship concerns (English and Spanish)
       else if (
         domainBreakdown?.purpose &&
         (domainBreakdown.purpose.current_state
@@ -317,14 +335,30 @@ export async function sendReportEmail(
             .includes("connection") ||
           domainBreakdown.purpose.current_state
             ?.toLowerCase()
-            .includes("intimacy"))
+            .includes("intimacy") ||
+          // Spanish keywords
+          domainBreakdown.purpose.current_state
+            ?.toLowerCase()
+            .includes("relación") ||
+          domainBreakdown.purpose.current_state
+            ?.toLowerCase()
+            .includes("pareja") ||
+          domainBreakdown.purpose.current_state
+            ?.toLowerCase()
+            .includes("familia") ||
+          domainBreakdown.purpose.current_state
+            ?.toLowerCase()
+            .includes("conexión") ||
+          domainBreakdown.purpose.current_state
+            ?.toLowerCase()
+            .includes("intimidad"))
       ) {
         const relationshipText = domainBreakdown.purpose.current_state || "";
         personalizedPS = t.report.psRelationship
           .replace("{text}", relationshipText)
           .replace("{bookCall}", bookCallLink);
       }
-      // Check for physical/craft disconnect
+      // Check for physical/craft disconnect (English and Spanish)
       else if (
         domainBreakdown?.craft &&
         (domainBreakdown.craft.current_state
@@ -339,7 +373,23 @@ export async function sendReportEmail(
             .includes("health") ||
           domainBreakdown.craft.current_state
             ?.toLowerCase()
-            .includes("exercise"))
+            .includes("exercise") ||
+          // Spanish keywords
+          domainBreakdown.craft.current_state
+            ?.toLowerCase()
+            .includes("desconexión") ||
+          domainBreakdown.craft.current_state
+            ?.toLowerCase()
+            .includes("cuerpo") ||
+          domainBreakdown.craft.current_state
+            ?.toLowerCase()
+            .includes("físico") ||
+          domainBreakdown.craft.current_state
+            ?.toLowerCase()
+            .includes("salud") ||
+          domainBreakdown.craft.current_state
+            ?.toLowerCase()
+            .includes("ejercicio"))
       ) {
         const bodyText = domainBreakdown.craft.current_state || "";
         personalizedPS = t.report.psCraft
@@ -595,27 +645,39 @@ export async function sendPatternRecognitionEmail(
         kitchenEnergy?.regulation_capacity?.toLowerCase() || "";
       const combined = (primaryState + " " + regulationCapacity).toLowerCase();
 
-      // Check for stress/overthinking (sympathetic activation)
+      // Check for stress/overthinking (sympathetic activation) - English and Spanish
       if (
         combined.includes("sympathetic") ||
         combined.includes("stress") ||
         combined.includes("overthinking") ||
         combined.includes("anxious") ||
-        combined.includes("hypervigilant")
+        combined.includes("hypervigilant") ||
+        // Spanish keywords
+        combined.includes("simpático") ||
+        combined.includes("estrés") ||
+        combined.includes("sobrepensamiento") ||
+        combined.includes("ansioso") ||
+        combined.includes("hipervigilante")
       ) {
         personalizedPS = t.patternRecognition.psSympathetic.replace(
           "{bookCall}",
           bookCallLink
         );
       }
-      // Check for avoidance/shutdown (dorsal shutdown)
+      // Check for avoidance/shutdown (dorsal shutdown) - English and Spanish
       else if (
         combined.includes("dorsal") ||
         combined.includes("avoidance") ||
         combined.includes("numbing") ||
         combined.includes("shutdown") ||
         combined.includes("disconnect") ||
-        combined.includes("numb")
+        combined.includes("numb") ||
+        // Spanish keywords
+        combined.includes("evitación") ||
+        combined.includes("entumecimiento") ||
+        combined.includes("desconexión") ||
+        combined.includes("apagado") ||
+        combined.includes("desconectado")
       ) {
         personalizedPS = t.patternRecognition.psDorsal.replace(
           "{bookCall}",
@@ -844,34 +906,49 @@ export async function sendEvidence7DayEmail(
         "";
       const patternLower = patternText.toLowerCase();
 
-      // Check for perfectionism/overthinking
+      // Check for perfectionism/overthinking - English and Spanish
       if (
         patternLower.includes("perfectionism") ||
         patternLower.includes("overthinking") ||
         patternLower.includes("perfect") ||
-        patternLower.includes("researching")
+        patternLower.includes("researching") ||
+        // Spanish keywords
+        patternLower.includes("perfeccionismo") ||
+        patternLower.includes("sobrepensamiento") ||
+        patternLower.includes("perfecto") ||
+        patternLower.includes("investigando")
       ) {
         personalizedPS = t.evidence7Day.psPerfectionism
           .replace("{pattern}", patternText)
           .replace("{bookCall}", bookCallLink);
       }
-      // Check for avoidance/procrastination
+      // Check for avoidance/procrastination - English and Spanish
       else if (
         patternLower.includes("avoidance") ||
         patternLower.includes("procrastination") ||
         patternLower.includes("avoid") ||
-        patternLower.includes("delay")
+        patternLower.includes("delay") ||
+        // Spanish keywords
+        patternLower.includes("evitación") ||
+        patternLower.includes("procrastinación") ||
+        patternLower.includes("evitar") ||
+        patternLower.includes("retraso")
       ) {
         personalizedPS = t.evidence7Day.psAvoidance
           .replace("{pattern}", patternText)
           .replace("{bookCall}", bookCallLink);
       }
-      // Check for people-pleasing/conflict avoidance
+      // Check for people-pleasing/conflict avoidance - English and Spanish
       else if (
         patternLower.includes("people-pleasing") ||
         patternLower.includes("conflict") ||
         patternLower.includes("people please") ||
-        patternLower.includes("saying yes")
+        patternLower.includes("saying yes") ||
+        // Spanish keywords
+        patternLower.includes("complacer") ||
+        patternLower.includes("conflicto") ||
+        patternLower.includes("decir sí") ||
+        patternLower.includes("agradar")
       ) {
         personalizedPS = t.evidence7Day.psPeoplePleasing
           .replace("{pattern}", patternText)
@@ -1098,35 +1175,69 @@ export async function sendIntegrationThresholdEmail(
         purposeDomain?.growth_edge || purposeDomain?.current_state || "";
       const purposeLower = purposeText.toLowerCase();
 
-      // Check for business/income goal
+      // Check for business/income goal (English and Spanish)
       if (
         purposeLower.includes("business") ||
         purposeLower.includes("financial") ||
         purposeLower.includes("career") ||
         purposeLower.includes("money") ||
         purposeLower.includes("income") ||
-        purposeLower.includes("revenue")
+        purposeLower.includes("revenue") ||
+        // Spanish keywords
+        purposeLower.includes("negocio") ||
+        purposeLower.includes("financiero") ||
+        purposeLower.includes("carrera") ||
+        purposeLower.includes("dinero") ||
+        purposeLower.includes("ingreso")
       ) {
-        personalizedPS = `You're building toward ${purposeText || "something meaningful"}. In a Chef Clarity Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        const goalText =
+          purposeText ||
+          (language === "es" ? "algo significativo" : "something meaningful");
+        personalizedPS =
+          language === "es"
+            ? `Estás construyendo hacia ${goalText}. En una Llamada de Claridad Chef, mapeamos cómo tus patrones del sistema nervioso están afectando tu impulso empresarial—y qué cambiar primero. ${t.integrationThreshold.bookCall}.`
+            : `You're building toward ${goalText}. In a Chef Clarity Call, we map how your nervous system patterns are affecting your business momentum—and what to shift first. ${t.integrationThreshold.bookCall}.`;
       }
-      // Check for relationship goal
+      // Check for relationship goal (English and Spanish)
       else if (
         purposeLower.includes("relationship") ||
         purposeLower.includes("partner") ||
         purposeLower.includes("family") ||
         purposeLower.includes("connection") ||
-        purposeLower.includes("intimacy")
+        purposeLower.includes("intimacy") ||
+        // Spanish keywords
+        purposeLower.includes("relación") ||
+        purposeLower.includes("pareja") ||
+        purposeLower.includes("familia") ||
+        purposeLower.includes("conexión") ||
+        purposeLower.includes("intimidad")
       ) {
-        personalizedPS = `You want ${purposeText || "better relationships"}. In a Chef Clarity Call, we identify how your protective patterns show up in intimacy—and practice new responses. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        const goalText =
+          purposeText ||
+          (language === "es" ? "mejores relaciones" : "better relationships");
+        personalizedPS =
+          language === "es"
+            ? `Quieres ${goalText}. En una Llamada de Claridad Chef, identificamos cómo tus patrones protectores aparecen en la intimidad—y practicamos nuevas respuestas. ${t.integrationThreshold.bookCall}.`
+            : `You want ${goalText}. In a Chef Clarity Call, we identify how your protective patterns show up in intimacy—and practice new responses. ${t.integrationThreshold.bookCall}.`;
       }
-      // Check for body/health goal
+      // Check for body/health goal (English and Spanish)
       else if (
         purposeLower.includes("body") ||
         purposeLower.includes("health") ||
         purposeLower.includes("physical") ||
-        purposeLower.includes("exercise")
+        purposeLower.includes("exercise") ||
+        // Spanish keywords
+        purposeLower.includes("cuerpo") ||
+        purposeLower.includes("salud") ||
+        purposeLower.includes("físico") ||
+        purposeLower.includes("ejercicio")
       ) {
-        personalizedPS = `You described wanting ${purposeText || "better health"}. In a Chef Clarity Call, we rebuild your relationship with your body without punishment or force. <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">Book here</a>.`;
+        const goalText =
+          purposeText || (language === "es" ? "mejor salud" : "better health");
+        personalizedPS =
+          language === "es"
+            ? `Describiste querer ${goalText}. En una Llamada de Claridad Chef, reconstruimos tu relación con tu cuerpo sin castigo ni fuerza. ${t.integrationThreshold.bookCall}.`
+            : `You described wanting ${goalText}. In a Chef Clarity Call, we rebuild your relationship with your body without punishment or force. ${t.integrationThreshold.bookCall}.`;
       }
       // Generic fallback
       else {
@@ -1773,7 +1884,7 @@ export async function sendDirectInvitationEmail(
                 ${t.directInvitation.path3SubscribeDesc}
               </p>
               <div style="text-align: center; margin: 15px 0;">
-                <a href="https://wydahowarriors.com/newsletter" style="background-color: #C9A875; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif; margin-right: 10px;">
+                <a href="http://eepurl.com/jvoDuI" style="background-color: #C9A875; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-size: 16px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif; margin-right: 10px;">
                   ${t.directInvitation.path3SubscribeButton}
                 </a>
               </div>
@@ -1787,10 +1898,10 @@ export async function sendDirectInvitationEmail(
                 </a>
               </div>
               <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-                When the gap between who you are and who you want to be gets uncomfortable enough to act on, you'll know where to find me.
+                ${t.directInvitation.gapBetweenWho}
               </p>
               <p style="font-size: 18px; color: #1A1A1A; margin: 15px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-                Keep the assessment. It's not going anywhere. And neither am I.
+                ${t.directInvitation.keepAssessment}
               </p>
             </div>
             
