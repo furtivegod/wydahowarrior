@@ -1050,10 +1050,9 @@ function generateHTMLReport(
   // Extract next steps
   const nextSteps = planData.next_steps || {};
   const sixMonthDate = nextSteps.six_month_date || "";
-  const communityLink = nextSteps.community_link || "http://eepurl.com/jvoDuI";
-  const coachingLink =
-    nextSteps.coaching_link || "https://paperbell.me/wydaho-warriors";
-  const contactEmail = nextSteps.contact_email || "steve@wydahowarriors.com";
+  const communityLink = "http://eepurl.com/jvoDuI";
+  const coachingLink = "https://paperbell.me/wydaho-warriors";
+  const contactEmail = "steve@wydahowarriors.com";
 
   return `
     <!DOCTYPE html>
@@ -1994,7 +1993,7 @@ function generateHTMLReport(
               <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>${t.sixMonthFollowUp}</strong> ${t.afterImplementing}${sixMonthDate ? ` ${t.recommendedFor} ${sixMonthDate}` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.monthlyCheckIns}</strong> ${t.trackProgress}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.joinCommunity}</strong> ${t.connectWithOthers}${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">${communityLink}</a>` : ""}</p>
-              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
+              <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">${coachingLink}</a>` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.contact}</strong> ${t.questionsSupport} <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
               <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>${t.emergencyResources}</strong> ${t.crisisText}</p>
             </div>
