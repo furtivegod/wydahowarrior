@@ -247,7 +247,20 @@ function generateHTMLReport(
       yourWords: "— Your words, from this assessment",
       youHaveEverything: "You Have Everything You Need",
       whatsNext: "What's Next",
+      patternMapped: "✓ Your pattern mapped in kitchen language",
+      energyUnderstood: "✓ Your kitchen energy understood",
+      domainsAssessed: "✓ The four domains assessed",
+      questionAnswered: "✓ The missing question answered",
+      actionIdentified: "✓ Your 72-hour action identified",
+      readingList: "✓ Your reading list (one book, no BS)",
+      protocolReady: "✓ Your 30-day protocol ready",
+      stevesStory: "✓ Steve's story—proof transformation is possible",
+      onlyThingLeft: "The Only Thing Left: Take action. Every second counts.",
+      recommendedNext: "RECOMMENDED NEXT STEPS",
+      afterImplementing: "After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.",
+      recommendedFor: "Recommended for:",
       developmentReminders: "Development Reminders",
+      remember: "Remember",
       wordAboutRest: "A WORD ABOUT REST",
       wordAboutLeaving: "A WORD ABOUT LEAVING",
       wordAboutCommunity: "A WORD ABOUT COMMUNITY",
@@ -341,7 +354,20 @@ function generateHTMLReport(
       yourWords: "— Tus palabras, de esta evaluación",
       youHaveEverything: "Tienes Todo Lo Que Necesitas",
       whatsNext: "Qué Sigue",
+      patternMapped: "✓ Tu patrón mapeado en lenguaje de cocina",
+      energyUnderstood: "✓ Tu energía en la cocina entendida",
+      domainsAssessed: "✓ Los cuatro dominios evaluados",
+      questionAnswered: "✓ La pregunta faltante respondida",
+      actionIdentified: "✓ Tu acción de 72 horas identificada",
+      readingList: "✓ Tu lista de lectura (un libro, sin tonterías)",
+      protocolReady: "✓ Tu protocolo de 30 días listo",
+      stevesStory: "✓ La historia de Steve—prueba de que la transformación es posible",
+      onlyThingLeft: "Lo Único Que Queda: Toma acción. Cada segundo cuenta.",
+      recommendedNext: "PASOS SIGUIENTES RECOMENDADOS",
+      afterImplementing: "Después de implementar tu protocolo, reevaluaremos tu energía en la cocina, cambios de patrones, progreso de dominios y áreas de crecimiento de siguiente nivel.",
+      recommendedFor: "Recomendado para:",
       developmentReminders: "Recordatorios de Desarrollo",
+      remember: "Recuerda",
       wordAboutRest: "UNA PALABRA SOBRE EL DESCANSO",
       wordAboutLeaving: "UNA PALABRA SOBRE IRSE",
       wordAboutCommunity: "UNA PALABRA SOBRE LA COMUNIDAD",
@@ -1550,30 +1576,30 @@ function generateHTMLReport(
                 
                 <div style="margin: 40px 0;">
                     <div style="font-size: 14px; line-height: 2; margin-bottom: 30px;">
-                        <div style="margin: 10px 0;">✓ Your pattern mapped in kitchen language</div>
-                        <div style="margin: 10px 0;">✓ Your kitchen energy understood</div>
-                        <div style="margin: 10px 0;">✓ The four domains assessed</div>
-                        <div style="margin: 10px 0;">✓ The missing question answered</div>
-                        <div style="margin: 10px 0;">✓ Your 72-hour action identified</div>
-                        <div style="margin: 10px 0;">✓ Your reading list (one book, no BS)</div>
-                        <div style="margin: 10px 0;">✓ Your 30-day protocol ready</div>
-                        <div style="margin: 10px 0;">✓ Steve's story—proof transformation is possible</div>
+                        <div style="margin: 10px 0;">${t.patternMapped}</div>
+                        <div style="margin: 10px 0;">${t.energyUnderstood}</div>
+                        <div style="margin: 10px 0;">${t.domainsAssessed}</div>
+                        <div style="margin: 10px 0;">${t.questionAnswered}</div>
+                        <div style="margin: 10px 0;">${t.actionIdentified}</div>
+                        <div style="margin: 10px 0;">${t.readingList}</div>
+                        <div style="margin: 10px 0;">${t.protocolReady}</div>
+                        <div style="margin: 10px 0;">${t.stevesStory}</div>
                     </div>
                     
                     <div style="font-size: 16px; font-weight: 600; margin: 40px 0; text-align: center; color: var(--dark-olive);">
-                        The Only Thing Left: Take action. Every second counts.
+                        ${t.onlyThingLeft}
                     </div>
                 </div>
                 
                 <div class="content-block" style="margin-top: 60px;">
-                    <div class="block-title">RECOMMENDED NEXT STEPS</div>
+                    <div class="block-title">${t.recommendedNext}</div>
                     <div class="block-content">
-                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>6-Month Follow-Up Assessment :</strong> After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.${sixMonthDate ? ` Recommended for: ${sixMonthDate}` : ""}</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Monthly Check-Ins:</strong> Track progress, troubleshoot blocks, adjust protocol. (Coming soon)</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Join the Wydaho Warriors Community:</strong> Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Work With Steve:</strong> Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>Contact:</strong> Questions? Need support? Email <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
-                        <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>Emergency Resources:</strong> If you're in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line</p>
+                        <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>${t.sixMonthFollowUp}</strong> ${t.afterImplementing}${sixMonthDate ? ` ${t.recommendedFor} ${sixMonthDate}` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.monthlyCheckIns}</strong> ${t.trackProgress}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.joinCommunity}</strong> ${t.connectWithOthers}${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.contact}</strong> ${t.questionsSupport} <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
+                        <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>${t.emergencyResources}</strong> ${t.crisisText}</p>
                     </div>
                 </div>
             </div>
@@ -1583,7 +1609,7 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Remember</div>
+                    <div class="section-label">${t.remember}</div>
                     <div class="section-title">${t.developmentReminders}</div>
                 </div>
         
