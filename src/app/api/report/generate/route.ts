@@ -25,19 +25,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if session is already being processed
-    if (processingSessions.has(sessionId)) {
-      console.log("Session already being processed:", sessionId);
-      return NextResponse.json(
-        { error: "Report generation already in progress" },
-        { status: 409 }
-      );
-    }
-
-    // Mark session as being processed
-    processingSessions.add(sessionId);
-
-    // Check if plan already exists
+    // Check if plan already exists FIRST (before marking as processing)
+    // This prevents race conditions where two requests check simultaneously
+    // Also check for plans created in the last 30 seconds to catch in-progress requests
     const { data: existingPlan } = await supabase
       .from("plan_outputs")
       .select("*")
@@ -46,12 +36,31 @@ export async function POST(request: NextRequest) {
       .limit(1);
 
     if (existingPlan && existingPlan.length > 0) {
-      console.log("Plan already exists for this session");
+      const planAge = Date.now() - new Date(existingPlan[0].created_at).getTime();
+      // If plan was created less than 30 seconds ago, it might still be processing
+      // Return it anyway to prevent duplicate generation
+      if (planAge < 30000) {
+        console.log("Plan exists and was recently created (within 30s), returning existing plan");
+      } else {
+        console.log("Plan already exists for this session");
+      }
       return NextResponse.json({
         message: "Report already generated",
         planData: existingPlan[0].plan_json,
       });
     }
+
+    // Check if session is already being processed (after checking for existing plan)
+    if (processingSessions.has(sessionId)) {
+      console.log("Session already being processed:", sessionId);
+      return NextResponse.json(
+        { error: "Report generation already in progress" },
+        { status: 409 }
+      );
+    }
+
+    // Mark session as being processed (atomic operation)
+    processingSessions.add(sessionId);
 
     // Get conversation history
     console.log("Fetching conversation history for session:", sessionId);

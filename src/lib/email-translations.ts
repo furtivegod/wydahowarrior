@@ -223,6 +223,18 @@ export interface EmailTranslations {
     path3FollowButton: string;
     gapBetweenWho: string;
     keepAssessment: string;
+    cornerOneLastThing: string;
+    january2024Disappeared: string;
+    iWasWrong: string;
+    strengthIsntGrinding: string;
+    youveHadMap: string;
+    questionReadyBuild: string;
+    whetherWeeks: string;
+    sharpestTool: string;
+    bestBladeNeeds: string;
+    everySecondChef: string;
+    whatAreYouGoing: string;
+    psTuesdayWhere: string;
     yourWarrior: string;
     chefSteve: string;
     founderCoach: string;
@@ -565,6 +577,24 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
       path3FollowDesc:
         "Weekly videos on burnout, boundaries, faith, and finding your fire again. Real stories. Real solutions.",
       path3FollowButton: "Follow on YouTube",
+      cornerOneLastThing: "CORNER—ONE LAST THING:",
+      january2024Disappeared:
+        "In January 2024, I disappeared. Not because I was weak. Because I thought I was supposed to handle everything alone.",
+      iWasWrong: "I was wrong.",
+      strengthIsntGrinding:
+        "Strength isn't grinding through pain. Strength is asking for help before you break.",
+      youveHadMap:
+        "You've had the map for 30 days. The question is: Are you ready to build the path?",
+      questionReadyBuild: "Are you ready to build the path?",
+      whetherWeeks:
+        "Whether that's 5 weeks, 13 weeks, or just staying connected until you're ready—the choice is yours.",
+      sharpestTool:
+        "But here's what I know for sure: The sharpest tool in your kitchen is YOU.",
+      bestBladeNeeds: "And even the best blade needs sharpening.",
+      everySecondChef: "Every second counts, chef.",
+      whatAreYouGoing: "What are you going to do with yours?",
+      psTuesdayWhere:
+        "You described a Tuesday where, {futureVision}. That version of you exists—you just need the path to get there. Which path are you choosing today?",
       gapBetweenWho:
         "When the gap between who you are and who you want to be gets uncomfortable enough to act on, you'll know where to find me.",
       keepAssessment:
@@ -914,6 +944,24 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
       path3FollowDesc:
         "Videos semanales sobre agotamiento, límites, fe y encontrar tu fuego de nuevo. Historias reales. Soluciones reales.",
       path3FollowButton: "Seguir en YouTube",
+      cornerOneLastThing: "RINCÓN—UNA ÚLTIMA COSA:",
+      january2024Disappeared:
+        "En enero de 2024, desaparecí. No porque fuera débil. Porque pensé que se suponía que debía manejar todo solo.",
+      iWasWrong: "Estaba equivocado.",
+      strengthIsntGrinding:
+        "La fuerza no es moler a través del dolor. La fuerza es pedir ayuda antes de romperte.",
+      youveHadMap:
+        "Has tenido el mapa por 30 días. La pregunta es: ¿Estás listo para construir el camino?",
+      questionReadyBuild: "¿Estás listo para construir el camino?",
+      whetherWeeks:
+        "Ya sea que sean 5 semanas, 13 semanas, o simplemente mantenerte conectado hasta que estés listo—la elección es tuya.",
+      sharpestTool:
+        "Pero esto es lo que sé con certeza: La herramienta más afilada en tu cocina eres TÚ.",
+      bestBladeNeeds: "E incluso la mejor hoja necesita afilarse.",
+      everySecondChef: "Cada segundo cuenta, chef.",
+      whatAreYouGoing: "¿Qué vas a hacer con el tuyo?",
+      psTuesdayWhere:
+        "Describiste un martes donde, {futureVision}. Esa versión de ti existe—solo necesitas el camino para llegar allí. ¿Qué camino estás eligiendo hoy?",
       gapBetweenWho:
         "Cuando la brecha entre quién eres y quién quieres ser se vuelve lo suficientemente incómoda para actuar, sabrás dónde encontrarme.",
       keepAssessment:

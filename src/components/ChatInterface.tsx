@@ -44,7 +44,7 @@ export default function ChatInterface({
   const completionTriggeredRef = useRef(false);
   const streamingStartedRef = useRef(false);
 
-  // Speech recognition hook
+  // Speech recognition hook - pass language for Spanish support
   const {
     isListening,
     transcript,
@@ -52,7 +52,7 @@ export default function ChatInterface({
     stopListening,
     error: speechError,
     isSupported,
-  } = useSpeechRecognition();
+  } = useSpeechRecognition(language);
 
   // Auto-expand textarea
   const adjustTextareaHeight = () => {

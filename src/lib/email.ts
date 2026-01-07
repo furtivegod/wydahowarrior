@@ -1684,7 +1684,10 @@ export async function sendDirectInvitationEmail(
 
       // Check if future vision exists
       if (futureVision && futureVision.length > 10) {
-        personalizedPS = `You described a Tuesday where, ${futureVision}. That version of you exists—you just need the path to get there. Which path are you choosing today?`;
+        personalizedPS = t.directInvitation.psTuesdayWhere.replace(
+          "{futureVision}",
+          futureVision
+        );
       } else {
         personalizedPS = t.directInvitation.psGeneric.replace(
           "{bookCall}",
@@ -1906,39 +1909,39 @@ export async function sendDirectInvitationEmail(
             </div>
             
             <p style="font-size: 20px; color: #3D4D2E; margin: 30px 0 20px 0; line-height: 1.6; font-family: 'Playfair Display', serif; font-weight: 700;">
-              CORNER—ONE LAST THING:
+              ${t.directInvitation.cornerOneLastThing}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              In January 2024, I disappeared. Not because I was weak. Because I thought I was supposed to handle everything alone.
+              ${t.directInvitation.january2024Disappeared}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              I was wrong.
+              ${t.directInvitation.iWasWrong}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Strength isn't grinding through pain. Strength is asking for help before you break.
+              ${t.directInvitation.strengthIsntGrinding}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              You've had the map for 30 days. The question is: Are you ready to build the path?
+              ${t.directInvitation.youveHadMap}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Whether that's 5 weeks, 13 weeks, or just staying connected until you're ready—the choice is yours.
+              ${t.directInvitation.whetherWeeks}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              But here's what I know for sure: The sharpest tool in your kitchen is YOU.
+              ${t.directInvitation.sharpestTool}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              And even the best blade needs sharpening.
+              ${t.directInvitation.bestBladeNeeds}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              Every second counts, chef. What are you going to do with yours?
+              ${t.directInvitation.everySecondChef} ${t.directInvitation.whatAreYouGoing}
             </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 30px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">

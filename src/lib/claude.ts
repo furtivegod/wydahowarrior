@@ -614,19 +614,30 @@ export async function generateStructuredPlan(
       language === "es"
         ? `Eres un especialista profesional en optimización conductual que comprende los desafíos únicos de los chef-propietarios cristianos. Basándote en la conversación de la "Evaluación Wydaho Warrior Knife Check", crea un informe completo orientado al cliente en formato JSON válido que coincida con el marco de 9 páginas.
 
-INSTRUCCIONES CRÍTICAS:
-1. Devuelve SOLO JSON válido. Sin markdown, sin explicaciones, sin texto extra, sin comentarios.
-2. Comienza tu respuesta con { y termina con }
-3. No incluyas ningún texto antes o después del objeto JSON
-4. Todos los arrays DEBEN contener contenido real
-5. Cada campo debe estar poblado con contenido significativo y personalizado basado en las respuestas del cliente
-6. No se permiten cadenas vacías o marcadores genéricos
-7. Usa lenguaje específico de cocina a lo largo (en las malas hierbas, quemado, cocido, abrumado, 86'd, etc.)
-8. SIEMPRE usa comillas dobles (") para las citas del cliente, nunca comillas simples (')
-9. Selecciona UN SOLO libro (no dos) basado en su patrón principal
-10. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
+🚨🚨🚨 INSTRUCCIONES ABSOLUTAMENTE CRÍTICAS - DEBES SEGUIRLAS EXACTAMENTE 🚨🚨🚨
+1. Tu respuesta DEBE ser SOLO JSON válido. NADA MÁS.
+2. NO escribas texto antes del JSON. NO escribas texto después del JSON.
+3. NO escribas explicaciones. NO escribas comentarios. NO escribas "Lo siento" o cualquier otra frase.
+4. NO respondas como si estuvieras en una conversación. Estás generando un archivo JSON, no conversando.
+5. Tu respuesta DEBE comenzar EXACTAMENTE con el carácter { y terminar EXACTAMENTE con el carácter }
+6. Si tu respuesta no es JSON válido, la aplicación fallará.
+7. Todos los arrays DEBEN contener contenido real
+8. Cada campo debe estar poblado con contenido significativo y personalizado basado en las respuestas del cliente
+9. No se permiten cadenas vacías o marcadores genéricos
+10. Usa lenguaje específico de cocina a lo largo (en las malas hierbas, quemado, cocido, abrumado, 86'd, etc.)
+11. SIEMPRE usa comillas dobles (") para las citas del cliente, nunca comillas simples (')
+12. Selecciona UN SOLO libro (no dos) basado en su patrón principal
+13. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
 
-IMPORTANTE: Todo el contenido del JSON debe estar en español, ya que la conversación fue en español.`
+FORMATO DE RESPUESTA REQUERIDO:
+Tu respuesta completa debe ser SOLO esto:
+{
+  "title": "...",
+  "client_name": "...",
+  ...
+}
+
+NO escribas nada más. NO agregues texto antes o después. NO expliques. NO comentes. SOLO JSON.`
         : `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
 
 CRITICAL INSTRUCTIONS:
@@ -641,24 +652,136 @@ CRITICAL INSTRUCTIONS:
 9. Select ONE book only (not two) based on their primary pattern
 10. Use their EXACT words for kitchen_term, pattern_exact_words, and what_it_costs`;
 
-    const response = await anthropic.messages.create({
-      model: "claude-sonnet-4-5-20250929",
-      max_tokens: 7000,
-      system: `${systemPromptBase}
+    // Create language-specific format example
+    const formatExample =
+      language === "es"
+        ? `Formato (Marco de 9 Páginas):
+{
+  "title": "EVALUACIÓN WYDAHO WARRIOR KNIFE CHECK — VERIFICACIÓN DE REALIDAD CHEF PROPIETARIO",
+  "client_name": "Primer nombre del cliente",
+  "assessment_date": "Fecha de evaluación",
+  "kitchen_term": "Su término exacto de cocina - 'en las malas hierbas', 'quemado', '86'd', etc.",
+  "pattern_analysis": {
+    "pattern_exact_words": "Palabras exactas del cliente sobre su patrón frustrante",
+    "pattern_reframe": "Lo que estoy escuchando - replanteamiento en contexto de agotamiento chef-propietario",
+    "pattern_trigger": "Este patrón aparece más cuando - su desencadenante específico",
+    "what_it_protects_from": "Miedo o emoción específica - no genérico. Ejemplo: 'Tener que enfrentar que construiste una cocina que te está destruyendo en lugar de sostenerte'",
+    "what_it_costs": "Su respuesta real a '¿Qué te costaría quedarte exactamente donde estás por otro año?' - usa SOLO sus palabras",
+    "proof_with_context": "Momento específico de alegría/éxito con contexto. Ejemplo: 'El viernes pasado cuando creaste ese nuevo aperitivo—el ambiente y las personas eran correctos, y sentiste una alegría real que querías embotellar. Eso no fue suerte. Ese fuiste tú.'",
+    "anchor_habit": "La única cosa que nunca saltas - su ancla de la evaluación",
+    "personalized_chef_truth": "2-3 oraciones conectando patrón → protección → costo → posibilidad en lenguaje de cocina"
+  },
+  "roadmap_briefs": {
+    "identity_brief": "Breve: Tu patrón de identidad, qué te está costando",
+    "craft_brief": "Breve: Tu relación con tu oficio, dónde aún vive la alegría",
+    "purpose_brief": "Breve: Tu propósito ahora vs. por qué original",
+    "environment_brief": "Breve: Tu realidad ambiental, mayor obstáculo",
+    "missing_brief": "Breve: Dónde realmente estás, lo que revelaste",
+    "seventy_two_brief": "Breve: Una acción específica dimensionada a tu estado actual",
+    "thirty_day_brief": "Breve: La práctica sostenida que cambia todo"
+  },
+  "domain_breakdown": {
+    "identity": {
+      "current_state": "Estado actual en lenguaje chef (Víctima/Luchando/Encontrándose)",
+      "block": "Obstáculo principal de identidad",
+      "growth_edge": "Qué es posible cuando esto cambia"
+    },
+    "craft": {
+      "current_state": "Estado actual en lenguaje chef (Modo Supervivencia/Redescubriendo/Maestría)",
+      "block": "Obstáculo principal del oficio",
+      "growth_edge": "Cómo la reconexión del oficio desbloquea el propósito"
+    },
+    "purpose": {
+      "current_state": "Estado actual en lenguaje chef (Perdido/Buscando/Claro)",
+      "block": "Obstáculo principal del propósito",
+      "growth_edge": "Camino hacia el trabajo impulsado por el propósito"
+    },
+    "environment": {
+      "current_state": "Estado actual en lenguaje chef (Atrapado/Explorando Opciones/Haciendo Movimientos)",
+      "block": "Obstáculo ambiental principal",
+      "growth_edge": "Qué cambia cuando el ambiente se alinea"
+    }
+  },
+  "kitchen_energy_assessment": {
+    "primary_state": "Estado primario en lenguaje culinario - 'en las malas hierbas', 'cocido', 'aún tiene lucha', 'apenas aguantando'. Ejemplo: 'En las Malas Hierbas: Corriendo con estrés y obligación, productivo pero agotado—tu cuerpo está tenso, te recuerdas a respirar'",
+    "regulation_capacity": "Cómo manejas el calor - capacidad de regulación en términos de cocina. Ejemplo: 'Desarrollando: Puede mantenerse suelto en situaciones de baja presión, pierde capacidad cuando los patrones de personas golpean o comienza el caos del servicio'",
+    "observable_patterns": ["Señal física 1 - sus palabras exactas", "Señal emocional 2 - sus palabras exactas", "Señal conductual 3 - sus palabras exactas"],
+    "energy_reality": "2-3 oraciones sobre su estado de energía en la cocina y qué significa para el cambio"
+  },
+  "missing_question_summary": "Refleja lo que compartieron sobre la pregunta faltante, interprétalo suavemente, pastoralmente.",
+  "thirty_day_protocol": {
+    "urgency_statement": "El costo de quedarte quemado por otro mes - pérdida específica de su respuesta",
+    "anchor_habit": "Hábito ancla para acción de 72 horas",
+    "specific_action": "Acción específica a tomar",
+    "time_reps": "Tiempo/repeticiones para la acción",
+    "why_this_works": "Breve explicación vinculada a su patrón",
+    "book_recommendation": {
+      "title": "UN SOLO título de libro",
+      "author": "Nombre del autor",
+      "why_now": "2-4 oraciones explicando cómo este libro explica SU patrón específico de agotamiento chef-propietario - hazlo personalmente relevante",
+      "asin": "ASIN de Amazon si se conoce"
+    },
+    "immediate_practice": "Práctica del libro aplicada a su vida específica en la cocina",
+    "week_1_focus": "Fundación",
+    "week_1_chapters": "Capítulos/sección del libro",
+    "week_1_practice": "Acción diaria vinculada a su ancla",
+    "week_1_marker": "Cómo sabrán que está funcionando",
+    "week_2_focus": "Reconocimiento de Patrones",
+    "week_2_chapters": "Secciones continuadas del libro",
+    "week_2_practice": "Acción diaria construyendo sobre la semana 1",
+    "week_2_marker": "Cambio observable en lenguaje de cocina",
+    "week_3_focus": "Implementación",
+    "week_3_chapters": "Secciones finales del libro",
+    "week_3_practice": "Acción diaria integrando el aprendizaje",
+    "week_3_marker": "Cambio observable en lenguaje de cocina",
+    "week_4_focus": "Integración",
+    "week_4_practice": "Acción de integración combinando las tres semanas",
+    "week_4_marker": "Resultado de 30 días - específico para su objetivo",
+    "daily_actions": [
+      "Día 1: [Acción específica basada en sus patrones]",
+      "Día 2: [Otra acción específica]",
+      "Día 3: [Otra acción específica]",
+      "... continúa hasta Día 30"
+    ]
+  },
+  "bottom_line_full": {
+    "paragraph_1": "El patrón y su origen - 2-3 oraciones",
+    "paragraph_2": "Qué está costando y por qué importa ahora - 2-3 oraciones",
+    "paragraph_3": "La elección por delante y qué se requiere - 2-3 oraciones",
+    "emphasis_statement": "Declaración de énfasis en negrita - verdad chef a chef"
+  },
+  "steve_story_note": "Nota de Steve sobre su desaparición - integrar cuando sea relevante para su historia",
+  "pull_quote": "Cita directa de la evaluación del cliente que captura su lucha o percepción central (SOLO usa si realmente lo dijeron)",
+  "development_reminders": [
+    "Quemarse es normal en la cultura de cocina—quedarse quemado es una elección",
+    "Tu energía en la cocina es la base—regula primero, luego reconstruye",
+    "Tus patrones tienen sabiduría—honrálos mientras los actualizas",
+    "No eres tu estación—tu valor está establecido en Cristo, no en tus cubiertas"
+  ],
+  "next_steps": {
+    "six_month_date": "Fecha 6 meses desde ahora",
+    "community_link": "Enlace de la Comunidad Wydaho Warriors",
+    "coaching_link": "Enlace del programa de coaching",
+    "contact_email": "Correo de contacto"
+  }
+}
 
-CRITICAL INSTRUCTIONS:
-1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
-2. Start your response with { and end with }
-3. Do not include any text before or after the JSON object
-4. All arrays MUST contain actual content
-5. Every field must be populated with meaningful, personalized content based on the client's responses
-6. No empty strings or generic placeholders allowed
-7. Use kitchen-specific language throughout (in the weeds, burnt, cooked, slammed, 86'd, etc.)
-8. ALWAYS use double quotes (") for client quotes, never single quotes (')
-9. Select ONE book only (not two) based on their primary pattern
-10. Use their EXACT words for kitchen_term, pattern_exact_words, and what_it_costs
+GUÍA DE SELECCIÓN DE LIBROS - Elige UN SOLO libro basado en el patrón principal:
+- Pasión perdida/Crisis de identidad → Kitchen Confidential de Anthony Bourdain
+- Agotamiento de gestión de personal → Setting the Table de Danny Meyer
+- Confusión de propósito → Find Your Why de Simon Sinek
+- Agotamiento/Colapso del sistema nervioso → The Body Keeps the Score de Bessel van der Kolk
+- Identidad = chef → Hero on a Mission de Donald Miller
+- Considerando cambio de vida importante → Designing Your Life de Bill Burnett & Dave Evans
+- Perfeccionismo → The Gifts of Imperfection de Brené Brown
+- No puedo decir no → Set Boundaries, Find Peace de Nedra Tawwab
+- Problemas de sustancias → Atomic Habits de James Clear
+- Abrumado en general → Essentialism de Greg McKeown
 
-Format (9-Page Framework):
+Hazlo profundamente personalizado usando sus palabras exactas, metáforas de cocina y lenguaje culinario. Esto debe sentirse como un informe de evaluación de un entrenador profesional, chef a chef, fundamentado en la verdad del Evangelio.
+
+CRÍTICO: Solo usa citas que el cliente realmente dijo. Nunca inventes citas. Usa lenguaje específico de cocina en todo momento. Selecciona UN SOLO libro que mejor coincida con su patrón principal.`
+        : `Format (9-Page Framework):
 {
   "title": "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
   "client_name": "Client's first name",
@@ -795,24 +918,7 @@ Format (9-Page Framework):
   }
 }
 
-${
-  language === "es"
-    ? `GUÍA DE SELECCIÓN DE LIBROS - Elige UN SOLO libro basado en el patrón principal:
-- Pasión perdida/Crisis de identidad → Kitchen Confidential de Anthony Bourdain
-- Agotamiento de gestión de personal → Setting the Table de Danny Meyer
-- Confusión de propósito → Find Your Why de Simon Sinek
-- Agotamiento/Colapso del sistema nervioso → The Body Keeps the Score de Bessel van der Kolk
-- Identidad = chef → Hero on a Mission de Donald Miller
-- Considerando cambio de vida importante → Designing Your Life de Bill Burnett & Dave Evans
-- Perfeccionismo → The Gifts of Imperfection de Brené Brown
-- No puedo decir no → Set Boundaries, Find Peace de Nedra Tawwab
-- Problemas de sustancias → Atomic Habits de James Clear
-- Abrumado en general → Essentialism de Greg McKeown
-
-Hazlo profundamente personalizado usando sus palabras exactas, metáforas de cocina y lenguaje culinario. Esto debe sentirse como un informe de evaluación de un entrenador profesional, chef a chef, fundamentado en la verdad del Evangelio.
-
-CRÍTICO: Solo usa citas que el cliente realmente dijo. Nunca inventes citas. Usa lenguaje específico de cocina en todo momento. Selecciona UN SOLO libro que mejor coincida con su patrón principal.`
-    : `BOOK SELECTION GUIDE - Choose ONE book based on primary pattern:
+BOOK SELECTION GUIDE - Choose ONE book based on primary pattern:
 - Lost passion/Identity crisis → Kitchen Confidential by Anthony Bourdain
 - People management exhaustion → Setting the Table by Danny Meyer
 - Purpose confusion → Find Your Why by Simon Sinek
@@ -826,12 +932,164 @@ CRÍTICO: Solo usa citas que el cliente realmente dijo. Nunca inventes citas. Us
 
 Make it deeply personalized using their exact words, kitchen metaphors, and culinary language. This should feel like a professional coach's assessment report, chef-to-chef, grounded in Gospel truth.
 
-CRITICAL: Only use quotes that the client actually said. Never make up quotes. Use kitchen-specific language throughout. Select ONE book that best matches their primary pattern.`
-}`,
+CRITICAL: Only use quotes that the client actually said. Never make up quotes. Use kitchen-specific language throughout. Select ONE book that best matches their primary pattern.`;
+
+    const response = await anthropic.messages.create({
+      model: "claude-sonnet-4-5-20250929",
+      max_tokens: 7000,
+      system: `${systemPromptBase}
+
+${
+  language === "es"
+    ? `🚨 RECORDATORIO FINAL ABSOLUTO: Tu respuesta DEBE ser SOLO JSON. NADA MÁS. NO escribas texto conversacional. NO escribas "Lo siento" o cualquier otra frase. NO expliques. NO comentes. Tu respuesta DEBE comenzar con { y terminar con }. Si escribes cualquier texto que no sea JSON, la aplicación fallará.`
+    : `CRITICAL FINAL REMINDER: Your response MUST be ONLY JSON. NOTHING ELSE. Do not write conversational text. Do not write explanations. Do not write comments. Your response MUST start with { and end with }. If you write any text that is not JSON, the application will fail.`
+}
+
+${formatExample}
+{
+  "title": "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+  "client_name": "Client's first name",
+  "assessment_date": "Date of assessment",
+  "kitchen_term": "Their exact kitchen term - 'in the weeds', 'burnt', '86'd', etc.",
+  "pattern_analysis": {
+    "pattern_exact_words": "Client's exact words about their frustrating pattern",
+    "pattern_reframe": "What I'm hearing - reframe in chef-owner burnout context",
+    "pattern_trigger": "This pattern shows up most when - their specific trigger",
+    "what_it_protects_from": "Specific fear or emotion - not generic. Example: 'Having to face that you built a kitchen that's destroying you instead of sustaining you'",
+    "what_it_costs": "Their actual answer to 'What would it cost you to stay exactly where you are for another year?' - use ONLY their words",
+    "proof_with_context": "Specific moment of joy/success with context. Example: 'Last Friday when you created that new appetizer—the environment and people were right, and you felt actual joy you wanted to bottle. That wasn't luck. That was you.'",
+    "anchor_habit": "The one thing you never skip - their anchor from assessment",
+    "personalized_chef_truth": "2-3 sentences connecting pattern → protection → cost → possibility in kitchen language"
+  },
+  "roadmap_briefs": {
+    "identity_brief": "Brief: Your identity pattern, what it's costing",
+    "craft_brief": "Brief: Your relationship with craft, where joy still lives",
+    "purpose_brief": "Brief: Your purpose now vs. original why",
+    "environment_brief": "Brief: Your environment reality, biggest obstacle",
+    "missing_brief": "Brief: Where you really are, what you revealed",
+    "seventy_two_brief": "Brief: One specific action sized to your current state",
+    "thirty_day_brief": "Brief: The sustained practice that changes everything"
+  },
+  "domain_breakdown": {
+    "identity": {
+      "current_state": "Current state in chef language (Victim/Fighting Back/Finding Self)",
+      "block": "Primary identity obstacle",
+      "growth_edge": "What's possible when this shifts"
+    },
+    "craft": {
+      "current_state": "Current state in chef language (Survival Mode/Rediscovering/Mastering)",
+      "block": "Primary craft obstacle",
+      "growth_edge": "How craft reconnection unlocks purpose"
+    },
+    "purpose": {
+      "current_state": "Current state in chef language (Lost/Searching/Clear)",
+      "block": "Primary purpose obstacle",
+      "growth_edge": "Path to purpose-driven work"
+    },
+    "environment": {
+      "current_state": "Current state in chef language (Trapped/Exploring Options/Making Moves)",
+      "block": "Primary environmental obstacle",
+      "growth_edge": "What changes when environment aligns"
+    }
+  },
+  "kitchen_energy_assessment": {
+    "primary_state": "Primary state in culinary language - 'in the weeds', 'cooked', 'still got fight', 'barely hanging on'. Example: 'In the Weeds: Running on stress and obligation, productive but exhausted—your body's tight, you remind yourself to breathe'",
+    "regulation_capacity": "How you handle the heat - regulation capacity in kitchen terms. Example: 'Developing: Can stay loose in low-pressure situations, lose capacity when people patterns hit or service chaos starts'",
+    "observable_patterns": ["Physical cue 1 - their exact words", "Emotional cue 2 - their exact words", "Behavioral cue 3 - their exact words"],
+    "energy_reality": "2-3 sentences about their kitchen energy state and what it means for change"
+  },
+  "missing_question_summary": "Reflect what they shared about the missing question, interpret it gently, pastorally.",
+  "thirty_day_protocol": {
+    "urgency_statement": "The cost of staying burnt for another month - specific loss from their answer",
+    "anchor_habit": "Anchor habit for 72-hour action",
+    "specific_action": "Specific action to take",
+    "time_reps": "Time/reps for action",
+    "why_this_works": "Brief explanation tied to their pattern",
+    "book_recommendation": {
+      "title": "ONE book title only",
+      "author": "Author name",
+      "why_now": "2-4 sentences explaining how this book explains THEIR specific chef-owner burnout pattern - make it personally relevant",
+      "asin": "Amazon ASIN if known"
+    },
+    "immediate_practice": "Practice from book applied to their specific kitchen life",
+    "week_1_focus": "Foundation",
+    "week_1_chapters": "Book chapters/section",
+    "week_1_practice": "Daily action tied to their anchor",
+    "week_1_marker": "How they'll know it's working",
+    "week_2_focus": "Pattern Recognition",
+    "week_2_chapters": "Book continued sections",
+    "week_2_practice": "Daily action building on week 1",
+    "week_2_marker": "Observable change in kitchen language",
+    "week_3_focus": "Implementation",
+    "week_3_chapters": "Book final sections",
+    "week_3_practice": "Daily action integrating learning",
+    "week_3_marker": "Observable change in kitchen language",
+    "week_4_focus": "Integration",
+    "week_4_practice": "Integration action combining all three weeks",
+    "week_4_marker": "30-day outcome - specific to their goal",
+    "daily_actions": [
+      "Day 1: [Specific action based on their patterns]",
+      "Day 2: [Another specific action]",
+      "Day 3: [Another specific action]",
+      "Day 4: [Another specific action]",
+      "Day 5: [Another specific action]",
+      "Day 6: [Another specific action]",
+      "Day 7: [Another specific action]",
+      "Day 8: [Another specific action]",
+      "Day 9: [Another specific action]",
+      "Day 10: [Another specific action]",
+      "Day 11: [Another specific action]",
+      "Day 12: [Another specific action]",
+      "Day 13: [Another specific action]",
+      "Day 14: [Another specific action]",
+      "Day 15: [Another specific action]",
+      "Day 16: [Another specific action]",
+      "Day 17: [Another specific action]",
+      "Day 18: [Another specific action]",
+      "Day 19: [Another specific action]",
+      "Day 20: [Another specific action]",
+      "Day 21: [Another specific action]",
+      "Day 22: [Another specific action]",
+      "Day 23: [Another specific action]",
+      "Day 24: [Another specific action]",
+      "Day 25: [Another specific action]",
+      "Day 26: [Another specific action]",
+      "Day 27: [Another specific action]",
+      "Day 28: [Another specific action]",
+      "Day 29: [Another specific action]",
+      "Day 30: [Another specific action]"
+    ]
+  },
+  "bottom_line_full": {
+    "paragraph_1": "The pattern and its origin - 2-3 sentences",
+    "paragraph_2": "What it's costing and why it matters now - 2-3 sentences",
+    "paragraph_3": "The choice ahead and what's required - 2-3 sentences",
+    "emphasis_statement": "Bold emphasis statement - chef-to-chef truth"
+  },
+  "steve_story_note": "Steve's note about his disappearance - integrate when relevant to their story",
+  "pull_quote": "Direct quote from client's assessment that captures their core struggle or insight (ONLY use if they actually said it)",
+  "development_reminders": [
+    "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+    "Your kitchen energy is the foundation—regulate first, then rebuild",
+    "Your patterns have wisdom—honor them while updating them",
+    "You are not your station—your worth is settled in Christ, not your covers"
+  ],
+  "next_steps": {
+    "six_month_date": "Date 6 months from now",
+    "community_link": "Wydaho Warriors Community link",
+    "coaching_link": "Coaching program link",
+    "contact_email": "Contact email"
+  }
+}
+
+`,
       messages: [
         {
           role: "user",
-          content: `Create a comprehensive "Wydaho Warrior Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
+          content:
+            language === "es"
+              ? `Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en esta conversación:\n\n${truncatedHistory}`
+              : `Create a comprehensive "Wydaho Warrior Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
         },
       ],
     });
@@ -847,6 +1105,19 @@ CRITICAL: Only use quotes that the client actually said. Never make up quotes. U
       jsonString = jsonString.replace(/^```json\s*/, "").replace(/\s*```$/, "");
     } else if (jsonString.startsWith("```")) {
       jsonString = jsonString.replace(/^```\s*/, "").replace(/\s*```$/, "");
+    }
+
+    // Check if response starts with conversational text (common error in Spanish)
+    // Look for patterns like "Lo siento", "Parece que", etc. and remove everything before the first {
+    if (!jsonString.startsWith("{")) {
+      // Find the first occurrence of { which should be the start of JSON
+      const firstBraceIndex = jsonString.indexOf("{");
+      if (firstBraceIndex > 0) {
+        console.log(
+          `⚠️ Found text before JSON, removing first ${firstBraceIndex} characters`
+        );
+        jsonString = jsonString.substring(firstBraceIndex);
+      }
     }
 
     // Try to find the JSON object - look for the first complete JSON object
@@ -924,112 +1195,222 @@ CRITICAL: Only use quotes that the client actually said. Never make up quotes. U
         }
       }
 
-      // Fallback: Create a basic report structure
+      // Fallback: Create a basic report structure (language-aware)
       console.log("🔄 Using fallback report structure");
-      return {
-        title:
-          "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
-        overview:
-          "Your personalized assessment has been completed. This report provides insights into your burnout patterns and recommendations for recovery.",
-        current_state_summary:
-          "This assessment has revealed key patterns in your burnout journey and identified specific areas for healing and restoration.",
-        pattern_analysis: {
-          protective_pattern:
-            "Based on your responses, you have protective patterns that serve important functions in your life.",
-          what_it_protects_from:
-            "These patterns protect you from experiences you find challenging.",
-          how_it_serves_them:
-            "These patterns provide you with safety and comfort in difficult situations.",
-          coping_numbing_patterns:
-            "Your current patterns help you navigate daily life and challenges.",
-          success_proof:
-            "You've demonstrated the ability to overcome challenges in the past.",
-          anchor: "Your strongest existing habit that never breaks.",
-        },
-        domain_breakdown: {
-          identity: {
-            current_state:
-              "Your identity shows both strengths and areas for development.",
-            key_strengths: "Key strengths with specific examples",
-            growth_opportunities:
-              "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening",
-          },
-          craft: {
-            current_state:
-              "Your craft shows both strengths and areas for development.",
-            key_strengths: "Key strengths with specific examples",
-            growth_opportunities:
-              "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening",
-          },
-          purpose: {
-            current_state:
-              "Your purpose shows both strengths and areas for development.",
-            key_strengths: "Key strengths with specific examples",
-            growth_opportunities:
-              "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening",
-          },
-          environment: {
-            current_state:
-              "Your environment shows both strengths and areas for development.",
-            key_strengths: "Key strengths with specific examples",
-            growth_opportunities:
-              "Growth opportunities framed as what's in reach",
-            reality_check: "Reality check - what's actually happening",
-          },
-        },
-        energy_assessment: {
-          primary_state:
-            "Your energy shows patterns of both activation and regulation.",
-          regulation_capacity: "Your regulation capacity",
-          observable_patterns: "Observable patterns in your responses",
-          real_talk: "Real talk - direct assessment",
-        },
-        missing_question_summary:
-          "Reflection on what you shared about the missing question.",
-        thirty_day_protocol: {
-          seventy_two_hour_action:
-            "Start with one small, manageable action that builds on your existing strengths.",
-          weekly_practice:
-            "Implement one consistent practice that supports your recovery goals.",
-          thirty_day_focus:
-            "Focus on one key area of healing that will have the most impact.",
-          one_thing_to_86: "One thing to eliminate/stop",
-          progress_markers: [
-            "Notice changes in your daily patterns",
-            "Observe shifts in your stress response",
-            "Track improvements in your target area",
-          ],
-        },
-        bottom_line:
-          "You have the capacity for healing and restoration. The key is to start with what's already working and build from there, grounded in your identity in Christ.",
-        reminder_quote: "Remember: progress, not perfection.",
-        development_reminders: [
-          "Your identity is not 'chef.' You are loved before you perform.",
-          "Healing comes through consistent practice, not more awareness.",
-          "Your protective patterns have wisdom—honor them while updating them.",
-          "Identity shifts over time with deliberate practice—you're becoming who God made you to be.",
-        ],
-        book_recommendations: [
-          {
-            title: "Book title 1",
-            author: "Author name",
-            why: "Why this book fits their profile",
-          },
-          {
-            title: "Book title 2",
-            author: "Author name",
-            why: "Why this book fits their profile",
-          },
-        ],
-        next_steps: {
-          follow_up_assessment: "6-Month Follow-Up Assessment recommended",
-          coaching_options: "Coaching options if available",
-          community: "Community connection options",
-        },
-      };
+      return language === "es"
+        ? {
+            title:
+              "EVALUACIÓN WYDAHO WARRIOR KNIFE CHECK — VERIFICACIÓN DE REALIDAD CHEF PROPIETARIO",
+            overview:
+              "Tu evaluación personalizada ha sido completada. Este informe proporciona información sobre tus patrones de agotamiento y recomendaciones para la recuperación.",
+            current_state_summary:
+              "Esta evaluación ha revelado patrones clave en tu viaje de agotamiento e identificado áreas específicas para la sanación y restauración.",
+            pattern_analysis: {
+              protective_pattern:
+                "Basándote en tus respuestas, tienes patrones protectores que sirven funciones importantes en tu vida.",
+              what_it_protects_from:
+                "Estos patrones te protegen de experiencias que encuentras desafiantes.",
+              how_it_serves_them:
+                "Estos patrones te proporcionan seguridad y comodidad en situaciones difíciles.",
+              coping_numbing_patterns:
+                "Tus patrones actuales te ayudan a navegar la vida diaria y los desafíos.",
+              success_proof:
+                "Has demostrado la capacidad de superar desafíos en el pasado.",
+              anchor: "Tu hábito existente más fuerte que nunca se rompe.",
+            },
+            domain_breakdown: {
+              identity: {
+                current_state:
+                  "Tu identidad muestra tanto fortalezas como áreas para el desarrollo.",
+                key_strengths: "Fortalezas clave con ejemplos específicos",
+                growth_opportunities:
+                  "Oportunidades de crecimiento enmarcadas como lo que está al alcance",
+                reality_check:
+                  "Verificación de realidad - lo que realmente está sucediendo",
+              },
+              craft: {
+                current_state:
+                  "Tu oficio muestra tanto fortalezas como áreas para el desarrollo.",
+                key_strengths: "Fortalezas clave con ejemplos específicos",
+                growth_opportunities:
+                  "Oportunidades de crecimiento enmarcadas como lo que está al alcance",
+                reality_check:
+                  "Verificación de realidad - lo que realmente está sucediendo",
+              },
+              purpose: {
+                current_state:
+                  "Tu propósito muestra tanto fortalezas como áreas para el desarrollo.",
+                key_strengths: "Fortalezas clave con ejemplos específicos",
+                growth_opportunities:
+                  "Oportunidades de crecimiento enmarcadas como lo que está al alcance",
+                reality_check:
+                  "Verificación de realidad - lo que realmente está sucediendo",
+              },
+              environment: {
+                current_state:
+                  "Tu entorno muestra tanto fortalezas como áreas para el desarrollo.",
+                key_strengths: "Fortalezas clave con ejemplos específicos",
+                growth_opportunities:
+                  "Oportunidades de crecimiento enmarcadas como lo que está al alcance",
+                reality_check:
+                  "Verificación de realidad - lo que realmente está sucediendo",
+              },
+            },
+            energy_assessment: {
+              primary_state:
+                "Tu energía muestra patrones de activación y regulación.",
+              regulation_capacity: "Tu capacidad de regulación",
+              observable_patterns: "Patrones observables en tus respuestas",
+              real_talk: "Habla real - evaluación directa",
+            },
+            missing_question_summary:
+              "Reflexión sobre lo que compartiste sobre la pregunta faltante.",
+            thirty_day_protocol: {
+              seventy_two_hour_action:
+                "Comienza con una acción pequeña y manejable que se base en tus fortalezas existentes.",
+              weekly_practice:
+                "Implementa una práctica consistente que apoye tus objetivos de recuperación.",
+              thirty_day_focus:
+                "Enfócate en un área clave de sanación que tendrá el mayor impacto.",
+              one_thing_to_86: "Una cosa para eliminar/detener",
+              progress_markers: [
+                "Nota cambios en tus patrones diarios",
+                "Observa cambios en tu respuesta al estrés",
+                "Rastrea mejoras en tu área objetivo",
+              ],
+            },
+            bottom_line:
+              "Tienes la capacidad para la sanación y restauración. La clave es comenzar con lo que ya está funcionando y construir desde allí, fundamentado en tu identidad en Cristo.",
+            reminder_quote: "Recuerda: progreso, no perfección.",
+            development_reminders: [
+              "Tu identidad no es 'chef'. Eres amado antes de actuar.",
+              "La sanación viene a través de la práctica consistente, no más conciencia.",
+              "Tus patrones protectores tienen sabiduría—honrálos mientras los actualizas.",
+              "Los cambios de identidad con el tiempo con práctica deliberada—te estás convirtiendo en quien Dios te hizo ser.",
+            ],
+            book_recommendations: [
+              {
+                title: "Título del libro 1",
+                author: "Nombre del autor",
+                why: "Por qué este libro se ajusta a su perfil",
+              },
+              {
+                title: "Título del libro 2",
+                author: "Nombre del autor",
+                why: "Por qué este libro se ajusta a su perfil",
+              },
+            ],
+            next_steps: {
+              follow_up_assessment:
+                "Evaluación de seguimiento de 6 meses recomendada",
+              coaching_options: "Opciones de coaching si están disponibles",
+              community: "Opciones de conexión comunitaria",
+            },
+          }
+        : {
+            title:
+              "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
+            overview:
+              "Your personalized assessment has been completed. This report provides insights into your burnout patterns and recommendations for recovery.",
+            current_state_summary:
+              "This assessment has revealed key patterns in your burnout journey and identified specific areas for healing and restoration.",
+            pattern_analysis: {
+              protective_pattern:
+                "Based on your responses, you have protective patterns that serve important functions in your life.",
+              what_it_protects_from:
+                "These patterns protect you from experiences you find challenging.",
+              how_it_serves_them:
+                "These patterns provide you with safety and comfort in difficult situations.",
+              coping_numbing_patterns:
+                "Your current patterns help you navigate daily life and challenges.",
+              success_proof:
+                "You've demonstrated the ability to overcome challenges in the past.",
+              anchor: "Your strongest existing habit that never breaks.",
+            },
+            domain_breakdown: {
+              identity: {
+                current_state:
+                  "Your identity shows both strengths and areas for development.",
+                key_strengths: "Key strengths with specific examples",
+                growth_opportunities:
+                  "Growth opportunities framed as what's in reach",
+                reality_check: "Reality check - what's actually happening",
+              },
+              craft: {
+                current_state:
+                  "Your craft shows both strengths and areas for development.",
+                key_strengths: "Key strengths with specific examples",
+                growth_opportunities:
+                  "Growth opportunities framed as what's in reach",
+                reality_check: "Reality check - what's actually happening",
+              },
+              purpose: {
+                current_state:
+                  "Your purpose shows both strengths and areas for development.",
+                key_strengths: "Key strengths with specific examples",
+                growth_opportunities:
+                  "Growth opportunities framed as what's in reach",
+                reality_check: "Reality check - what's actually happening",
+              },
+              environment: {
+                current_state:
+                  "Your environment shows both strengths and areas for development.",
+                key_strengths: "Key strengths with specific examples",
+                growth_opportunities:
+                  "Growth opportunities framed as what's in reach",
+                reality_check: "Reality check - what's actually happening",
+              },
+            },
+            energy_assessment: {
+              primary_state:
+                "Your energy shows patterns of both activation and regulation.",
+              regulation_capacity: "Your regulation capacity",
+              observable_patterns: "Observable patterns in your responses",
+              real_talk: "Real talk - direct assessment",
+            },
+            missing_question_summary:
+              "Reflection on what you shared about the missing question.",
+            thirty_day_protocol: {
+              seventy_two_hour_action:
+                "Start with one small, manageable action that builds on your existing strengths.",
+              weekly_practice:
+                "Implement one consistent practice that supports your recovery goals.",
+              thirty_day_focus:
+                "Focus on one key area of healing that will have the most impact.",
+              one_thing_to_86: "One thing to eliminate/stop",
+              progress_markers: [
+                "Notice changes in your daily patterns",
+                "Observe shifts in your stress response",
+                "Track improvements in your target area",
+              ],
+            },
+            bottom_line:
+              "You have the capacity for healing and restoration. The key is to start with what's already working and build from there, grounded in your identity in Christ.",
+            reminder_quote: "Remember: progress, not perfection.",
+            development_reminders: [
+              "Your identity is not 'chef.' You are loved before you perform.",
+              "Healing comes through consistent practice, not more awareness.",
+              "Your protective patterns have wisdom—honor them while updating them.",
+              "Identity shifts over time with deliberate practice—you're becoming who God made you to be.",
+            ],
+            book_recommendations: [
+              {
+                title: "Book title 1",
+                author: "Author name",
+                why: "Why this book fits their profile",
+              },
+              {
+                title: "Book title 2",
+                author: "Author name",
+                why: "Why this book fits their profile",
+              },
+            ],
+            next_steps: {
+              follow_up_assessment: "6-Month Follow-Up Assessment recommended",
+              coaching_options: "Coaching options if available",
+              community: "Community connection options",
+            },
+          };
     }
   } catch (error) {
     console.error("Error generating structured plan:", error);

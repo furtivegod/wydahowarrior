@@ -65,7 +65,9 @@ interface SpeechRecognitionHook {
   isSupported: boolean;
 }
 
-export function useSpeechRecognition(): SpeechRecognitionHook {
+export function useSpeechRecognition(
+  language: "en" | "es" = "en"
+): SpeechRecognitionHook {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -84,7 +86,8 @@ export function useSpeechRecognition(): SpeechRecognitionHook {
       // Configure recognition
       recognition.continuous = false;
       recognition.interimResults = false;
-      recognition.lang = "en-US";
+      // Set language based on user preference (en-US for English, es-ES for Spanish)
+      recognition.lang = language === "es" ? "es-ES" : "en-US";
       recognition.maxAlternatives = 1;
 
       // Event handlers
@@ -120,7 +123,14 @@ export function useSpeechRecognition(): SpeechRecognitionHook {
       setIsSupported(false);
       setError("Speech recognition not supported in this browser");
     }
-  }, []);
+  }, [language]);
+
+  // Update language when it changes
+  useEffect(() => {
+    if (recognition) {
+      recognition.lang = language === "es" ? "es-ES" : "en-US";
+    }
+  }, [recognition, language]);
 
   const startListening = useCallback(() => {
     if (recognition && !isListening) {
