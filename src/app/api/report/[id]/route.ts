@@ -181,6 +181,195 @@ function generateHTMLReport(
   sessionDate?: Date | null,
   language: 'en' | 'es' = 'en'
 ) {
+  // PDF static text translations - same as PDF generation
+  const pdfTranslations = {
+    en: {
+      coverTitle: "ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK",
+      coverQuote: "Every second counts, chef.",
+      sectionWhereYouAre: "Where You Are Right Now",
+      sectionCurrentState: "Your Current State",
+      sectionRoadmap: "Your Roadmap",
+      sectionWayForward: "The Way Forward",
+      kitchenTerm: "YOUR KITCHEN TERM",
+      describedLifeAs: "You described your life as:",
+      patternShowsUp: "THE PATTERN THAT KEEPS SHOWING UP",
+      yourPattern: "Your Pattern:",
+      patternShowsUpWhen: "This pattern shows up most when:",
+      whatImHearing: "WHAT I'M HEARING",
+      whatProtecting: "WHAT IT'S PROTECTING YOU FROM",
+      whatCosting: "WHAT IT'S COSTING YOU",
+      yourProof: "YOUR PROOF YOU'RE NOT DONE",
+      yourAnchor: "YOUR ANCHOR",
+      neverSkip: "The one thing you never skip:",
+      chefTruth: "Personalized Chef-to-Chef Truth:",
+      whoAreYou: "WHO ARE YOU WITHOUT THE WHITES?",
+      doYouStillLove: "DO YOU STILL LOVE THE LINE?",
+      signatureDish: "WHAT'S YOUR SIGNATURE DISH?",
+      kitchenVsLife: "THE KITCHEN VS. THE LIFE",
+      missingQuestion: "THE MISSING QUESTION",
+      seventyTwoHour: "72-HOUR ACTION",
+      thirtyDay: "30-DAY PROTOCOL",
+      fourDomains: "The Four Domains - Where You Stand",
+      domainBreakdown: "Domain Breakdown",
+      currentState: "Current State",
+      block: "Block",
+      growthEdge: "Growth Edge",
+      identityStory: "(Identity & Story)",
+      craftMastery: "(Craft & Mastery)",
+      purposeMeaning: "(Purpose & Meaning)",
+      environmentStructure: "(Environment & Structure)",
+      notSpecified: "Not specified",
+      primaryState: "Primary State",
+      handleHeat: "How You Handle the Heat",
+      observablePatterns: "Observable Patterns",
+      energyReality: "The Energy Reality",
+      startHere: "Start Here / Your 30-Day Protocol",
+      yourProtocol: "Your Protocol",
+      step1: "STEP 1: 72-HOUR ACTION",
+      step2Read: "STEP 2: READ THIS NOW",
+      step3Implement: "STEP 3: IMPLEMENT IMMEDIATELY",
+      week1: "WEEK 1:",
+      week2: "WEEK 2:",
+      week3: "WEEK 3:",
+      bookLabel: "📖 Book:",
+      dayLabel: "Day",
+      yourFirst30Days: "YOUR FIRST 30 DAYS",
+      yourDailyActions: "YOUR DAILY ACTIONS (30 DAYS)",
+      practice: "🔄 Practice:",
+      marker: "✓ Marker:",
+      week4: "WEEK 4:",
+      reviewKeySections: "📖 Review key sections that hit hardest",
+      theReality: "The Reality",
+      bottomLine: "Bottom Line",
+      stevesNote: "STEVE'S NOTE: WHY I DISAPPEARED",
+      yourWords: "— Your words, from this assessment",
+      youHaveEverything: "You Have Everything You Need",
+      whatsNext: "What's Next",
+      developmentReminders: "Development Reminders",
+      wordAboutRest: "A WORD ABOUT REST",
+      wordAboutLeaving: "A WORD ABOUT LEAVING",
+      wordAboutCommunity: "A WORD ABOUT COMMUNITY",
+      godRested: "God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)",
+      walkAway: "If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.",
+      twoAreBetter: '"Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)',
+      grindAlone: "You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.",
+      after: "After",
+      for: "for",
+      by: "By",
+      whyThisWorks: "Why this works:",
+      whyThisBook: "Why this book, why now:",
+      bookNote: "Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.",
+      defaultBook: "Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.",
+      patternKeptSafe: "This pattern once kept you safe. Now it's keeping you stuck.",
+      costStayingBurnt: "The cost of staying burnt for another month:",
+      everySecondNext: "Every second counts, chef. Here's what happens next.",
+      sixMonthFollowUp: "6-Month Follow-Up Assessment :",
+      monthlyCheckIns: "Monthly Check-Ins:",
+      trackProgress: "Track progress, troubleshoot blocks, adjust protocol. (Coming soon)",
+      joinCommunity: "Join the Wydaho Warriors Community:",
+      connectWithOthers: "Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.",
+      workWithSteve: "Work With Steve:",
+      readyForTransformation: "Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.",
+      contact: "Contact:",
+      questionsSupport: "Questions? Need support? Email",
+      emergencyResources: "Emergency Resources:",
+      crisisText: 'If you\'re in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line',
+    },
+    es: {
+      coverTitle: "¿ESTÁS QUEMADO?<br>CHEF PROPIETARIO<br>VERIFICACIÓN DE REALIDAD",
+      coverQuote: "Cada segundo cuenta, chef.",
+      sectionWhereYouAre: "Dónde Estás Ahora",
+      sectionCurrentState: "Tu Estado Actual",
+      sectionRoadmap: "Tu Hoja de Ruta",
+      sectionWayForward: "El Camino Hacia Adelante",
+      kitchenTerm: "TU TÉRMINO DE COCINA",
+      describedLifeAs: "Describiste tu vida como:",
+      patternShowsUp: "EL PATRÓN QUE SIGUE APARECIENDO",
+      yourPattern: "Tu Patrón:",
+      patternShowsUpWhen: "Este patrón aparece más cuando:",
+      whatImHearing: "LO QUE ESTOY ESCUCHANDO",
+      whatProtecting: "DE QUÉ TE ESTÁ PROTEGIENDO",
+      whatCosting: "QUÉ TE ESTÁ COSTANDO",
+      yourProof: "TU PRUEBA DE QUE NO ESTÁS TERMINADO",
+      yourAnchor: "TU ANCLA",
+      neverSkip: "La única cosa que nunca saltas:",
+      chefTruth: "Verdad Personalizada Chef a Chef:",
+      whoAreYou: "¿QUIÉN ERES SIN EL UNIFORME?",
+      doYouStillLove: "¿TODAVÍA AMAS LA LÍNEA?",
+      signatureDish: "¿CUÁL ES TU PLATO FIRMA?",
+      kitchenVsLife: "LA COCINA VS. LA VIDA",
+      missingQuestion: "LA PREGUNTA FALTANTE",
+      seventyTwoHour: "ACCIÓN DE 72 HORAS",
+      thirtyDay: "PROTOCOLO DE 30 DÍAS",
+      fourDomains: "Los Cuatro Dominios - Dónde Estás",
+      domainBreakdown: "Desglose de Dominios",
+      currentState: "Estado Actual",
+      block: "Bloqueo",
+      growthEdge: "Borde de Crecimiento",
+      identityStory: "(Identidad e Historia)",
+      craftMastery: "(Oficio y Maestría)",
+      purposeMeaning: "(Propósito y Significado)",
+      environmentStructure: "(Ambiente y Estructura)",
+      notSpecified: "No especificado",
+      primaryState: "Estado Principal",
+      handleHeat: "Cómo Manejas el Calor",
+      observablePatterns: "Patrones Observables",
+      energyReality: "La Realidad de la Energía",
+      startHere: "Comienza Aquí / Tu Protocolo de 30 Días",
+      yourProtocol: "Tu Protocolo",
+      step1: "PASO 1: ACCIÓN DE 72 HORAS",
+      step2Read: "PASO 2: LEE ESTO AHORA",
+      step3Implement: "PASO 3: IMPLEMENTA INMEDIATAMENTE",
+      week1: "SEMANA 1:",
+      week2: "SEMANA 2:",
+      week3: "SEMANA 3:",
+      bookLabel: "📖 Libro:",
+      dayLabel: "Día",
+      yourFirst30Days: "TUS PRIMEROS 30 DÍAS",
+      yourDailyActions: "TUS ACCIONES DIARIAS (30 DÍAS)",
+      practice: "🔄 Práctica:",
+      marker: "✓ Marcador:",
+      week4: "SEMANA 4:",
+      reviewKeySections: "📖 Revisa las secciones clave que más impactaron",
+      theReality: "La Realidad",
+      bottomLine: "Línea Final",
+      stevesNote: "NOTA DE STEVE: POR QUÉ DESAPARECÍ",
+      yourWords: "— Tus palabras, de esta evaluación",
+      youHaveEverything: "Tienes Todo Lo Que Necesitas",
+      whatsNext: "Qué Sigue",
+      developmentReminders: "Recordatorios de Desarrollo",
+      wordAboutRest: "UNA PALABRA SOBRE EL DESCANSO",
+      wordAboutLeaving: "UNA PALABRA SOBRE IRSE",
+      wordAboutCommunity: "UNA PALABRA SOBRE LA COMUNIDAD",
+      godRested: "Dios descansó. Jesús se retiró de las multitudes. El descanso no es debilidad—es obediencia a cómo fuiste diseñado. (Éxodo 20:8-11, Mateo 11:28)",
+      walkAway: "Si necesitas alejarte de tu restaurante, eso no es fracaso. A veces es fidelidad a lo que Dios te está llamando a hacer a continuación. Marco Pierre White se alejó en su apogeo. Tal vez tú también necesitas hacerlo.",
+      twoAreBetter: '"Dos son mejor que uno... si alguno de ellos cae, el otro puede levantarlo." (Eclesiastés 4:9-10)',
+      grindAlone: "No fuiste hecho para moler solo. Hermandad sobre aislamiento. Guerreros sobre cuerpos cálidos.",
+      after: "Después de",
+      for: "por",
+      by: "Por",
+      whyThisWorks: "Por qué esto funciona:",
+      whyThisBook: "Por qué este libro, por qué ahora:",
+      bookNote: "Nota: Sin asignaciones de capítulos, sin estimaciones de tiempo, sin tareas. Solo léelo.",
+      defaultBook: "Kitchen Confidential de Anthony Bourdain - Honestidad cruda sobre la vida en la cocina, te reconecta con por qué empezaste.",
+      patternKeptSafe: "Este patrón alguna vez te mantuvo seguro. Ahora te está manteniendo atascado.",
+      costStayingBurnt: "El costo de quedarte quemado por otro mes:",
+      everySecondNext: "Cada segundo cuenta, chef. Esto es lo que sigue.",
+      sixMonthFollowUp: "Evaluación de Seguimiento de 6 Meses :",
+      monthlyCheckIns: "Chequeos Mensuales:",
+      trackProgress: "Rastrea el progreso, soluciona bloqueos, ajusta el protocolo. (Próximamente)",
+      joinCommunity: "Únete a la Comunidad Wydaho Warriors:",
+      connectWithOthers: "Conéctate con otros chef-propietarios que han estado en las malas hierbas y encontraron la salida. Hermandad sobre moler solo.",
+      workWithSteve: "Trabaja Con Steve:",
+      readyForTransformation: "¿Listo para una transformación más profunda? Coaching de vida diseñado específicamente para chef-propietarios que han perdido su fuego.",
+      contact: "Contacto:",
+      questionsSupport: "¿Preguntas? ¿Necesitas ayuda? Envía un correo a",
+      emergencyResources: "Recursos de Emergencia:",
+      crisisText: 'Si estás en crisis: Línea Nacional de Prevención del Suicidio: 988<br>Envía "HOLA" al 741741 para Crisis Text Line',
+    },
+  };
+
+  const t = pdfTranslations[language];
   const clientName = userName || "Client";
 
   // Get session date for accurate assessment date
@@ -288,6 +477,13 @@ function generateHTMLReport(
   // Extract development reminders (NEW - 4 core reminders)
   const developmentReminders = Array.isArray(planData.development_reminders)
     ? planData.development_reminders
+    : language === "es"
+    ? [
+        "Quemarse es normal en la cultura de cocina—quedarse quemado es una elección",
+        "Tu energía en la cocina es la base—regula primero, luego reconstruye",
+        "Tus patrones tienen sabiduría—hónralos mientras los actualizas",
+        "No eres tu estación—tu valor está establecido en Cristo, no en tus cubiertos",
+      ]
     : [
         "Getting burnt is normal in kitchen culture—staying burnt is a choice",
         "Your kitchen energy is the foundation—regulate first, then rebuild",
@@ -935,9 +1131,8 @@ function generateHTMLReport(
         <!-- PAGE 1: COVER -->
         <div class="page cover">
             <div class="cover-content">
-                <h1>ARE YOU BURNT?<br>CHEF OWNER<br>REALITY CHECK</h1>
-                <div class="client-name">${clientName}</div>
-                <div style="font-size: 18px; font-weight: 500; color: var(--deep-charcoal); margin-top: 60px; font-style: italic; font-family: 'Playfair Display', serif;">Every second counts, chef.</div>
+                <h1>${t.coverTitle}</h1>
+                <div style="font-size: 18px; font-weight: 500; color: var(--deep-charcoal); margin-top: 60px; font-style: italic; font-family: 'Playfair Display', serif;">${t.coverQuote}</div>
                 <div style="font-size: 12px; color: #666; margin-top: 10px;">— Steve Murphy</div>
                 <div style="font-size: 10px; color: #999; margin-top: 80px; letter-spacing: 0.1em;">Culinary Institute of America</div>
                 <div style="font-size: 10px; color: #999; letter-spacing: 0.1em;">Wydaho Warriors LLC</div>
@@ -948,49 +1143,49 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Where You Are Right Now</div>
-                    <div class="section-title">Your Current State</div>
+                    <div class="section-label">${t.sectionWhereYouAre}</div>
+                    <div class="section-title">${t.sectionCurrentState}</div>
                 </div>
                 
                 <div class="sabotage-content">
                     <div class="sabotage-section">
-                        <div class="block-title">YOUR KITCHEN TERM</div>
-                        <div class="sabotage-text">You described your life as: <strong>${kitchenTerm}</strong></div>
+                        <div class="block-title">${t.kitchenTerm}</div>
+                        <div class="sabotage-text">${t.describedLifeAs} <strong>${kitchenTerm}</strong></div>
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">THE PATTERN THAT KEEPS SHOWING UP</div>
-                        <div class="sabotage-text"><strong>Your Pattern:</strong> ${formatTextWithParagraphBreaks(patternExactWords)}</div>
-                        <div class="sabotage-text" style="margin-top: 15px;"><strong>This pattern shows up most when:</strong> ${patternTrigger}</div>
+                        <div class="block-title">${t.patternShowsUp}</div>
+                        <div class="sabotage-text"><strong>${t.yourPattern}</strong> ${formatTextWithParagraphBreaks(patternExactWords)}</div>
+                        <div class="sabotage-text" style="margin-top: 15px;"><strong>${t.patternShowsUpWhen}</strong> ${patternTrigger}</div>
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">WHAT I'M HEARING</div>
+                        <div class="block-title">${t.whatImHearing}</div>
                         <div class="sabotage-text">${formatTextWithParagraphBreaks(patternReframe)}</div>
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">WHAT IT'S PROTECTING YOU FROM</div>
+                        <div class="block-title">${t.whatProtecting}</div>
                         <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItsProtectingFrom)}</div>
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">WHAT IT'S COSTING YOU</div>
+                        <div class="block-title">${t.whatCosting}</div>
                         <div class="sabotage-text">${formatTextWithParagraphBreaks(whatItsCosting)}</div>
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">YOUR PROOF YOU'RE NOT DONE</div>
+                        <div class="block-title">${t.yourProof}</div>
                         <div class="sabotage-text">${formatTextWithParagraphBreaks(proofWithContext)}</div>
                     </div>
                     
                     <div class="sabotage-section">
-                        <div class="block-title">YOUR ANCHOR</div>
-                        <div class="sabotage-text">The one thing you never skip: <strong>${anchorHabit}</strong></div>
+                        <div class="block-title">${t.yourAnchor}</div>
+                        <div class="sabotage-text">${t.neverSkip} <strong>${anchorHabit}</strong></div>
                     </div>
                     
                     <div class="sabotage-section" style="margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.3);">
-                        <div class="sabotage-text"><strong>Personalized Chef-to-Chef Truth:</strong> ${formatTextWithParagraphBreaks(personalizedChefTruth)}</div>
+                        <div class="sabotage-text"><strong>${t.chefTruth}</strong> ${formatTextWithParagraphBreaks(personalizedChefTruth)}</div>
                     </div>
                 </div>
             </div>
@@ -1000,56 +1195,56 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">The Way Forward</div>
-                    <div class="section-title">Your Roadmap</div>
+                    <div class="section-label">${t.sectionWayForward}</div>
+                    <div class="section-title">${t.sectionRoadmap}</div>
                 </div>
                 
                 <div class="roadmap-flow">
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--dark-olive);">🔥</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">WHO ARE YOU WITHOUT THE WHITES?</div>
+                        <div class="roadmap-label">${t.whoAreYou}</div>
                         <div class="roadmap-brief">${identityBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--dark-olive);">🛠</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">DO YOU STILL LOVE THE LINE?</div>
+                        <div class="roadmap-label">${t.doYouStillLove}</div>
                         <div class="roadmap-brief">${craftBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--dark-olive);">🎯</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">WHAT'S YOUR SIGNATURE DISH?</div>
+                        <div class="roadmap-label">${t.signatureDish}</div>
                         <div class="roadmap-brief">${purposeBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--dark-olive);">⚙️</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">THE KITCHEN VS. THE LIFE</div>
+                        <div class="roadmap-label">${t.kitchenVsLife}</div>
                         <div class="roadmap-brief">${environmentBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--dark-olive);">🚨</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">THE MISSING QUESTION</div>
+                        <div class="roadmap-label">${t.missingQuestion}</div>
                         <div class="roadmap-brief">${missingBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
                         <div class="roadmap-arrow"></div>
-                        <div class="roadmap-label">72-HOUR ACTION</div>
+                        <div class="roadmap-label">${t.seventyTwoHour}</div>
                         <div class="roadmap-brief">${seventyTwoBrief}</div>
                     </div>
                     
                     <div class="roadmap-step">
                         <div class="roadmap-letter" style="background: var(--soft-gold); color: var(--deep-charcoal);">→</div>
-                        <div class="roadmap-label">30-DAY PROTOCOL</div>
+                        <div class="roadmap-label">${t.thirtyDay}</div>
                         <div class="roadmap-brief">${thirtyDayBrief}</div>
                     </div>
                 </div>
@@ -1060,40 +1255,40 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">The Four Domains - Where You Stand</div>
-                    <div class="section-title">Domain Breakdown</div>
+                    <div class="section-label">${t.fourDomains}</div>
+                    <div class="section-title">${t.domainBreakdown}</div>
                 </div>
                 
                 <div class="domain-grid">
                     <div class="domain-card">
-                        <div class="domain-card-title">🔥 WHO ARE YOU WITHOUT THE WHITES? (Identity & Story)</div>
+                        <div class="domain-card-title">🔥 ${t.whoAreYou} ${t.identityStory}</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Current State</div>
-                            <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">${t.currentState}</div>
+                            <div class="domain-card-value">${identityDomain.current_state || identityDomain.current_level || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.block}</div>
+                            <div class="domain-card-value">${identityDomain.block || identityDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Growth Edge</div>
-                            <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.growthEdge}</div>
+                            <div class="domain-card-value">${identityDomain.growth_edge || identityDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                     </div>
                     
                     <div class="domain-card">
-                        <div class="domain-card-title">🛠 DO YOU STILL LOVE THE LINE? (Craft & Mastery)</div>
+                        <div class="domain-card-title">🛠 ${t.doYouStillLove} ${t.craftMastery}</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Current State</div>
-                            <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">${t.currentState}</div>
+                            <div class="domain-card-value">${craftDomain.current_state || craftDomain.current_level || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.block}</div>
+                            <div class="domain-card-value">${craftDomain.block || craftDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Growth Edge</div>
-                            <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.growthEdge}</div>
+                            <div class="domain-card-value">${craftDomain.growth_edge || craftDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                     </div>
                 </div>
@@ -1104,40 +1299,40 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">The Four Domains - Where You Stand</div>
-                    <div class="section-title">Domain Breakdown</div>
+                    <div class="section-label">${t.fourDomains}</div>
+                    <div class="section-title">${t.domainBreakdown}</div>
                 </div>
                 
                 <div class="domain-grid">
                     <div class="domain-card">
-                        <div class="domain-card-title">🎯 WHAT'S YOUR SIGNATURE DISH? (Purpose & Meaning)</div>
+                        <div class="domain-card-title">🎯 ${t.signatureDish} ${t.purposeMeaning}</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Current State</div>
-                            <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">${t.currentState}</div>
+                            <div class="domain-card-value">${purposeDomain.current_state || purposeDomain.current_level || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.block}</div>
+                            <div class="domain-card-value">${purposeDomain.block || purposeDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Growth Edge</div>
-                            <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.growthEdge}</div>
+                            <div class="domain-card-value">${purposeDomain.growth_edge || purposeDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                     </div>
                     
                     <div class="domain-card">
-                        <div class="domain-card-title">⚙️ THE KITCHEN VS. THE LIFE (Environment & Reality)</div>
+                        <div class="domain-card-title">⚙️ ${t.kitchenVsLife} ${t.environmentStructure}</div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Current State</div>
-                            <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || "Not specified"}</div>
+                            <div class="domain-card-label">${t.currentState}</div>
+                            <div class="domain-card-value">${environmentDomain.current_state || environmentDomain.current_level || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Block</div>
-                            <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.block}</div>
+                            <div class="domain-card-value">${environmentDomain.block || environmentDomain.growth_opportunities || t.notSpecified}</div>
                         </div>
                         <div class="domain-card-row">
-                            <div class="domain-card-label">Growth Edge</div>
-                            <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || "Not specified"}</div>
+                            <div class="domain-card-label">${t.growthEdge}</div>
+                            <div class="domain-card-value">${environmentDomain.growth_edge || environmentDomain.growth_opportunities || t.notSpecified}</div>
                     </div>
                 </div>
             </div>
@@ -1147,27 +1342,27 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Your Energy State</div>
-                    <div class="section-title">Kitchen Energy<br>Assessment</div>
+                    <div class="section-label">${t.energyState}</div>
+                    <div class="section-title">${t.kitchenEnergy}</div>
                 </div>
                 
                 <div style="margin-top: 50px;">
                     <div class="content-block">
-                        <div class="block-title">Primary State</div>
+                        <div class="block-title">${t.primaryState}</div>
                         <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.primary_state || "")}</div>
                     </div>
                     <div class="content-block">
-                        <div class="block-title">Regulation Capacity</div>
+                        <div class="block-title">${t.handleHeat}</div>
                         <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.regulation_capacity || "")}</div>
                     </div>
                     <div class="content-block">
-                        <div class="block-title">Observable Patterns</div>
+                        <div class="block-title">${t.observablePatterns}</div>
                         <div class="block-content">
                             ${Array.isArray(kitchenEnergy.observable_patterns) ? kitchenEnergy.observable_patterns.map((pattern: string) => `<p>• ${pattern}</p>`).join("") : formatTextWithParagraphBreaks(kitchenEnergy.observable_patterns_text || "")}
                         </div>
                     </div>
                     <div class="content-block">
-                        <div class="block-title">Energy Reality</div>
+                        <div class="block-title">${t.energyReality}</div>
                         <div class="block-content">${formatTextWithParagraphBreaks(kitchenEnergy.energy_reality || "")}</div>
                     </div>
                 </div>
@@ -1179,36 +1374,36 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">Start Here / Your 30-Day Protocol</div>
-                    <div class="section-title">Your Protocol</div>
+                    <div class="section-label">${t.startHere}</div>
+                    <div class="section-title">${t.yourProtocol}</div>
                 </div>
                 
                 <div style="font-size: 14px; line-height: 1.8; margin-bottom: 30px; font-style: italic; color: var(--deep-charcoal);">
-                    ${urgencyStatement || "This pattern once kept you safe. Now it's keeping you stuck."}<br>
-                    The cost of staying burnt for another month: ${whatItsCosting}<br>
-                    Every second counts, chef. Here's what happens next.
+                    ${urgencyStatement || t.patternKeptSafe}<br>
+                    ${t.costStayingBurnt} ${whatItsCosting}<br>
+                    ${t.everySecondNext}
                 </div>
                 
                 <div class="protocol-item">
-                    <div class="protocol-timeline">STEP 1: 72-HOUR ACTION</div>
+                    <div class="protocol-timeline">${t.step1}</div>
                     <div class="protocol-action">
-                        After <strong>${protocolAnchorHabit || anchorHabit}</strong>, <strong>${specificAction}</strong>${timeReps ? ` for ${timeReps}` : ""}
+                        ${t.after} <strong>${protocolAnchorHabit || anchorHabit}</strong>, <strong>${specificAction}</strong>${timeReps ? ` ${t.for} ${timeReps}` : ""}
                     </div>
-                    ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;"><strong>Why this works:</strong> ${whyThisWorks}</div>` : ""}
+                    ${whyThisWorks ? `<div style="font-size: 12px; color: #666; margin-top: 10px; font-style: italic;"><strong>${t.whyThisWorks}</strong> ${whyThisWorks}</div>` : ""}
                 </div>
                 
                 <div class="protocol-item">
-                    <div class="protocol-timeline">STEP 2: READ THIS NOW</div>
+                    <div class="protocol-timeline">${t.step2Read}</div>
                     <div class="protocol-action">
                         ${
                           selectedBook
                             ? `<div style="margin-bottom: 15px;">
                                     <div style="font-size: 18px; font-weight: 600; margin-bottom: 8px; font-family: 'Playfair Display', serif;">📖 ${selectedBook.title}</div>
-                                    <div style="font-size: 14px; color: #666; margin-bottom: 20px;">By ${selectedBook.author}</div>
-                                    <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>Why this book, why now:</strong> ${bookWhyNow || selectedBook.why}</div>
-                                    <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 10px;">Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.</div>
+                                    <div style="font-size: 14px; color: #666; margin-bottom: 20px;">${t.by} ${selectedBook.author}</div>
+                                    <div style="font-size: 13px; line-height: 1.7; margin-bottom: 15px;"><strong>${t.whyThisBook}</strong> ${bookWhyNow || selectedBook.why}</div>
+                                    <div style="font-size: 11px; color: #999; font-style: italic; margin-top: 10px;">${t.bookNote}</div>
                                 </div>`
-                            : `<div style="font-size:15px; line-height:1.7; color:#222;">Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.</div>`
+                            : `<div style="font-size:15px; line-height:1.7; color:#222;">${t.defaultBook}</div>`
                         }
                     </div>
                 </div>
@@ -1216,51 +1411,51 @@ function generateHTMLReport(
                 ${
                   immediatePractice
                     ? `<div class="protocol-item">
-                    <div class="protocol-timeline">STEP 3: IMPLEMENT IMMEDIATELY</div>
+                    <div class="protocol-timeline">${t.step3Implement}</div>
                     <div class="protocol-action">${formatTextWithParagraphBreaks(immediatePractice)}</div>
                 </div>`
                     : ""
                 }
                 
                 <div class="protocol-item" style="margin-top: 50px;">
-                    <div class="protocol-timeline">YOUR FIRST 30 DAYS</div>
+                    <div class="protocol-timeline">${t.yourFirst30Days}</div>
                     ${
                       week1Focus
                         ? `<div style="margin: 20px 0;">
-                        <div style="font-weight: 600; margin-bottom: 8px;">WEEK 1: ${week1Focus}</div>
-                        ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
-                        ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week1Practice}</div>` : ""}
-                        ${week1Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week1Marker}</div>` : ""}
+                        <div style="font-weight: 600; margin-bottom: 8px;">${t.week1} ${week1Focus}</div>
+                        ${week1Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.bookLabel} ${selectedBook?.title || ""}${week1Chapters ? `, ${week1Chapters}` : ""}</div>` : ""}
+                        ${week1Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week1Practice}</div>` : ""}
+                        ${week1Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week1Marker}</div>` : ""}
                     </div>`
                         : ""
                     }
                     ${
                       week2Focus
                         ? `<div style="margin: 20px 0;">
-                        <div style="font-weight: 600; margin-bottom: 8px;">WEEK 2: ${week2Focus}</div>
-                        ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
-                        ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week2Practice}</div>` : ""}
-                        ${week2Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week2Marker}</div>` : ""}
+                        <div style="font-weight: 600; margin-bottom: 8px;">${t.week2} ${week2Focus}</div>
+                        ${week2Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.bookLabel} ${selectedBook?.title || ""}${week2Chapters ? `, ${week2Chapters}` : ""}</div>` : ""}
+                        ${week2Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week2Practice}</div>` : ""}
+                        ${week2Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week2Marker}</div>` : ""}
                     </div>`
                         : ""
                     }
                     ${
                       week3Focus
                         ? `<div style="margin: 20px 0;">
-                        <div style="font-weight: 600; margin-bottom: 8px;">WEEK 3: ${week3Focus}</div>
-                        ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Book: ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
-                        ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week3Practice}</div>` : ""}
-                        ${week3Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week3Marker}</div>` : ""}
+                        <div style="font-weight: 600; margin-bottom: 8px;">${t.week3} ${week3Focus}</div>
+                        ${week3Chapters ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.bookLabel} ${selectedBook?.title || ""}${week3Chapters ? `, ${week3Chapters}` : ""}</div>` : ""}
+                        ${week3Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week3Practice}</div>` : ""}
+                        ${week3Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week3Marker}</div>` : ""}
                     </div>`
                         : ""
                     }
                     ${
                       week4Focus
                         ? `<div style="margin: 20px 0;">
-                        <div style="font-weight: 600; margin-bottom: 8px;">WEEK 4: ${week4Focus}</div>
-                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">📖 Review key sections that hit hardest</div>
-                        ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">🔄 Practice: ${week4Practice}</div>` : ""}
-                        ${week4Marker ? `<div style="font-size: 12px; color: #666;">✓ Marker: ${week4Marker}</div>` : ""}
+                        <div style="font-weight: 600; margin-bottom: 8px;">${t.week4} ${week4Focus}</div>
+                        <div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.reviewKeySections}</div>
+                        ${week4Practice ? `<div style="font-size: 12px; color: #666; margin-bottom: 5px;">${t.practice} ${week4Practice}</div>` : ""}
+                        ${week4Marker ? `<div style="font-size: 12px; color: #666;">${t.marker} ${week4Marker}</div>` : ""}
                     </div>`
                         : ""
                     }
@@ -1269,18 +1464,18 @@ function generateHTMLReport(
                 ${
                   dailyActions && dailyActions.length > 0
                     ? `<div class="protocol-item" style="margin-top: 50px;">
-                        <div class="protocol-timeline">YOUR DAILY ACTIONS (30 DAYS)</div>
+                        <div class="protocol-timeline">${t.yourDailyActions}</div>
                         <div style="margin: 20px 0;">
                           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px 25px; font-size: 11px; line-height: 1.6;">
                             ${dailyActions
                               .map((action: string, index: number) => {
-                                // Remove "Day X:" prefix if it's already in the action text
-                                const actionText = action.replace(
-                                  /^Day \d+:\s*/i,
+                                // Remove "Day X:" or "Día X:" prefix if it's already in the action text
+                                const dayPattern = language === "es" ? /^Día \d+:\s*/i : /^Day \d+:\s*/i;
+                                const actionText = action.replace(dayPattern,
                                   ""
                                 );
                                 return `<div style="display: flex; gap: 10px; margin-bottom: 4px;">
-                                  <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">Day ${index + 1}:</div>
+                                  <div style="font-weight: 600; color: var(--dark-olive); min-width: 55px; flex-shrink: 0;">${t.dayLabel} ${index + 1}:</div>
                                   <div style="color: #666; flex: 1;">${actionText}</div>
                                 </div>`;
                               })
@@ -1306,8 +1501,8 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">The Reality</div>
-                    <div class="section-title">Bottom Line</div>
+                    <div class="section-label">${t.theReality}</div>
+                    <div class="section-title">${t.bottomLine}</div>
                 </div>
                 
                 <div style="margin: 40px 0;">
@@ -1325,7 +1520,7 @@ function generateHTMLReport(
         </div>
         
                 <div style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(201, 169, 110, 0.3);">
-                    <div class="block-title">STEVE'S NOTE: WHY I DISAPPEARED</div>
+                    <div class="block-title">${t.stevesNote}</div>
                     <div class="block-content">${formatTextWithParagraphBreaks(steveStoryNote)}</div>
                 </div>
                 
@@ -1333,7 +1528,7 @@ function generateHTMLReport(
                   pullQuote
                     ? `<div style="margin-top: 40px; padding: 30px; background: var(--cream); border-left: 3px solid var(--soft-gold);">
                     <div class="pull-quote-text" style="font-size: 20px; margin-bottom: 15px;">"${pullQuote}"</div>
-                    <div style="font-size: 11px; letter-spacing: 0.1em; color: #999;">— Your words, from this assessment</div>
+                    <div style="font-size: 11px; letter-spacing: 0.1em; color: #999;">${t.yourWords}</div>
                 </div>`
                     : ""
                 }
@@ -1345,8 +1540,8 @@ function generateHTMLReport(
         <div class="page">
             <div class="page-content">
                 <div class="section-header">
-                    <div class="section-label">You Have Everything You Need</div>
-                    <div class="section-title">What's Next</div>
+                    <div class="section-label">${t.youHaveEverything}</div>
+                    <div class="section-title">${t.whatsNext}</div>
                 </div>
                 
                 <div style="margin: 40px 0;">
@@ -1385,7 +1580,7 @@ function generateHTMLReport(
             <div class="page-content">
                 <div class="section-header">
                     <div class="section-label">Remember</div>
-                    <div class="section-title">Development Reminders</div>
+                    <div class="section-title">${t.developmentReminders}</div>
                 </div>
         
                 ${developmentReminders
@@ -1401,24 +1596,24 @@ function generateHTMLReport(
                   .join("")}
                 
                 <div style="margin-top: 50px; padding-top: 30px;">
-                  <div class="block-title">A WORD ABOUT REST</div>
+                  <div class="block-title">${t.wordAboutRest}</div>
                   <div class="block-content" style="font-size: 12px; line-height: 1.8;">
-                    God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)
+                    ${t.godRested}
                   </div>
                 </div>
                 
                 <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
-                  <div class="block-title">A WORD ABOUT LEAVING</div>
+                  <div class="block-title">${t.wordAboutLeaving}</div>
                   <div class="block-content" style="font-size: 12px; line-height: 1.8;">
-                    If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.
+                    ${t.walkAway}
                   </div>
                 </div>
                 
                 <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(201, 169, 110, 0.2);">
-                  <div class="block-title">A WORD ABOUT COMMUNITY</div>
+                  <div class="block-title">${t.wordAboutCommunity}</div>
                   <div class="block-content" style="font-size: 12px; line-height: 1.8;">
-                    "Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)<br>
-                    You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.
+                    ${t.twoAreBetter}<br>
+                    ${t.grindAlone}
                   </div>
                 </div>
                 
