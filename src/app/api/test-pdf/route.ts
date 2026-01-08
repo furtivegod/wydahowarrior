@@ -25,182 +25,181 @@ export async function GET(request: NextRequest) {
     // This contains fabricated quotes and responses that don't belong to any real user
     const samplePlanData: PlanData = {
       title: "WYDAHO WARRIOR KNIFE CHECK ASSESSMENT — CHEF OWNER REALITY CHECK",
-      client_name: "Maksym",
-      assessment_date: "January 2025",
-      kitchen_term: "Burnt — running on fumes, keeping things going, but with nothing left in reserve",
+      client_name: "Steven",
+      assessment_date: "2025",
+      kitchen_term: "gone",
+      pull_quote: "I will become fearless.",
       pattern_analysis: {
-        pattern_exact_words:
-          "I keep taking on more than I can handle, saying yes out of responsibility, and never creating space to step back or reset",
+        pattern_exact_words: "x",
         pattern_reframe:
-          "What I'm hearing: You've built your identity around being the one who holds everything together. Being needed has become your oxygen—but it's also suffocating you. You can't step back because stepping back means risking irrelevance, and irrelevance means facing the question you've been avoiding: who are you without the grind?",
+          "What I'm hearing is a pattern so close, so embedded, you can't name it yet—or naming it feels too raw. You said 'x' when I asked what pattern keeps showing up. That's the sound of something unspoken, something you've been protecting yourself from seeing clearly. The pattern is this: you stay in motion, stay burnt, stay grinding—because if you stop, you have to face yourself without the whites on.",
         pattern_trigger:
-          "This pattern shows up most when you sense someone needs you or when saying no would mean disappointing someone. The weight of responsibility hits before the first ticket even drops—your body knows you're about to sacrifice yourself again before your mind even processes it.",
+          "This pattern shows up most when you're forced to look at who Steven is outside of 'Chef'—when the service rush ends, when the restaurant sells, when someone asks who you are instead of what you do.",
         what_it_protects_from:
-          "Facing who you are without the kitchen defining you and whether you're still enough if you slow down or step back",
+          "Having to face who you are when you're not producing, not performing, not proving your worth through the work—facing the parts of yourself that don't fit in a kitchen uniform.",
         what_it_costs:
-          "If you stay exactly where you are for another year, you'll lose the last remaining spark of joy you found in that quiet prep moment. You'll cement the belief that your only value is in how much you can sacrifice. You'll teach your nervous system that survival mode is permanent. And you'll drift further from the person who actually chose this work freely—until you can't remember him at all.",
+          "You didn't explicitly say what it would cost to stay exactly where you are, but here's what I heard: staying burnt, staying hidden behind the grind, costs you the fearless version of yourself who could actually love cooking again. It costs you joy. It costs you Sue. It costs you the truth that you're God's child first—not Chef first.",
         proof_with_context:
-          "That quiet prep moment when you were cooking for people you cared about—no rush, no tickets, just presence. That wasn't a fluke, Maksym. That was you remembering what it feels like to cook from intention instead of obligation. The environment was right, the pressure was off, and you felt something you haven't felt in months: permission to just be. That version of you still exists.",
-        anchor_habit: "Showing up early and pushing yourself to be fully ready, even when you're completely drained",
+          "Last June when you made that Peruvian food—it was a challenge, the good kind, the kind that pulled you in and reminded you why you started this. You weren't grinding. You were creating. That wasn't luck. That was you, Steven, showing up for the craft because it mattered—not because you had to prove anything.",
+        anchor_habit: "6am wake up—no matter what, you're up. That discipline runs deeper than motivation. Your body knows that rhythm even when everything else is chaos.",
         personalized_chef_truth:
-          "Brother, you've become so good at being needed that you've forgotten how to exist without the weight. Your body is bracing for a fight before service even starts because it knows what's coming—another round of sacrificing yourself to prove you matter. But here's the truth: you were enough before you became 'chef.' Your worth was settled in Christ before you ever picked up a knife. The pattern of taking on more than you can handle isn't strength—it's fear dressed up as responsibility. And until you face who you are without the kitchen defining you, you'll stay burnt.",
+          "You sold your restaurant because you needed out—relief and grief in the same moment. You said 'gone,' but you're not gone. You're still here, still waking at 6am, still reaching for the pan because something in you needs to create. The pattern that kept you burnt was protection—protection from facing yourself without the title, without the grind. But since Sue showed up on the Oregon coast in September 2023, something shifted. You started knowing you're God's child first, Chef second. That reorder changes everything. The cost of staying hidden is the fearless version of you who could love this craft again—not as identity, but as gift.",
       },
       roadmap_briefs: {
         identity_brief:
-          "Your identity has been swallowed by your role—you're 'chef' before you're Maksym. This pattern of being needed protects you from facing whether you're still enough if you slow down, but it's costing you your soul.",
+          "Your identity got swallowed by the title—'Chef' came before 'Steven.' But since meeting Sue in September 2023, you're anchoring in 'child of God' first. The cost of reverting to 'Chef first' is losing the freedom Sue helped you find.",
         craft_brief:
-          "You still have capacity for joy in your craft—that quiet prep moment proved it. But right now, craft has been replaced by survival. You're cooking from obligation, not intention.",
+          "The fire isn't out—you cooked the other day just because you wanted to. You'd miss service if it disappeared. You love mistakes because they help you grow. The craft still matters—it's just been buried under everything else.",
         purpose_brief:
-          "Being a chef stopped feeling like calling when responsibility replaced curiosity. You've lost the sense of choosing this work freely—now it feels like a trap you can't escape without losing yourself.",
+          "Your purpose shifted when Sue entered your life. You went from performing to prove worth to creating from a settled identity. The question now is what you're cooking for—obligation or gift?",
         environment_brief:
-          "Your environment demands sacrifice as proof of value. The kitchen has become a place where you brace for a fight instead of creating beauty. Your nervous system is screaming before you even walk through the door.",
+          "You sold the restaurant—relief and grief. The environment that was destroying you is gone, but your body still questions what's next. The biggest obstacle is building a new environment that supports Steven, not just Chef.",
         missing_brief:
-          "You revealed the core question haunting you: 'Who am I without the kitchen defining me?' That uncertainty feels heavier than another long service. The answer matters more than you think.",
+          "When I asked about the pattern, you said 'x'—too close to name, too raw to speak. That's where you really are: standing in the space between who you were and who you're becoming, knowing the old protection doesn't fit anymore but unsure what replaces it.",
         seventy_two_brief:
-          "One 10-minute boundary practice sized to your current burnt state—a way to reclaim space without dismantling everything you've built.",
+          "For 72 hours: Wake at 6am (your anchor), then spend 5 minutes before coffee asking God one question: 'Who am I when I'm not performing?' Write down whatever comes—no editing, no judgment.",
         thirty_day_brief:
-          "A sustained nervous system reset combined with identity work that teaches your body it's safe to exist without the grind—before another year passes.",
+          "The sustained practice: Every morning after your 6am wake, read one page from Hero on a Mission, then cook one thing—just for you or Sue—with zero pressure to perform. Let the craft be gift, not grind.",
       },
       domain_breakdown: {
         identity: {
           current_state:
-            "Victim: Your role has consumed your personhood. You're 'chef' before you're Maksym. Your identity is so fused with what you do that imagining life without cooking professionally leaves you with no sense of self. You introduce yourself by function, not by name.",
-          block: "Fear that without the grind, you're not enough. Being needed has become your proof of existence. Letting go of control means risking irrelevance—and irrelevance means facing the terrifying question: who are you when you're not performing?",
+            "Finding Self: 'Chef' came first, but now 'child of God' is becoming the foundation. Sue's presence in September 2023 marked the shift.",
+          block: "The title 'Chef' still tries to define you—especially when you introduce yourself or think about what's next.",
           growth_edge:
-            "When you separate your worth from your performance, you'll discover that you exist before you produce. You'll learn to introduce yourself as Maksym who happens to cook, not as 'chef' who happens to have a name. You'll find permission to be human instead of functional.",
+            "When your identity is settled in Christ, the craft becomes a gift you steward, not a performance you survive. Steven gets to exist outside the whites.",
         },
         craft: {
           current_state:
-            "Survival Mode: You're keeping the line moving but there's nothing left in reserve. Craft has been replaced by obligation—you're cooking to survive, not to create. That quiet prep moment where you felt joy is a distant memory buried under tickets and pressure.",
-          block: "You've lost the sense of choosing this work freely. Responsibility and pressure have replaced curiosity and joy. You're so burnt that the idea of cooking from intention feels impossible—there's no space to even consider it.",
+            "Rediscovering: You still want to get better. You cooked the other day just because. You'd miss service if it was gone. The fire's still there.",
+          block: "The craft got tied to obligation and identity for so long, you're relearning what it feels like to create without proving your worth.",
           growth_edge:
-            "Reconnecting with craft means rediscovering what it feels like to cook without the weight of proving your worth. When you create space to step back, you'll remember why you picked up a knife in the first place. Joy isn't gone—it's just buried under survival.",
+            "When craft reconnects to joy instead of survival, you remember why you started—and cooking becomes worship, not grind.",
         },
         purpose: {
           current_state:
-            "Lost: Being a chef stopped feeling like calling when responsibility replaced curiosity. You've drifted so far from the version of you who chose this work freely that you can't remember what that felt like. Purpose has been replaced by pressure.",
-          block: "You're so deep in survival mode that purpose feels like a luxury you can't afford. The question 'why am I doing this?' is too scary to ask because you're not sure you have an answer anymore—and if you don't, what does that mean about the years you've invested?",
+            "Searching: You know you're not done with cooking, but you're figuring out what it's for now that identity is settled.",
+          block: "Old purpose was tied to performance and proving worth. New purpose hasn't fully formed yet—it's emerging in moments like that Peruvian food in June.",
           growth_edge:
-            "When you regulate your nervous system and reclaim your identity, purpose will emerge naturally. You'll rediscover that cooking for people you care about—with presence, not pressure—is where your calling still lives. Purpose isn't lost; it's just waiting for you to slow down enough to hear it.",
+            "Purpose-driven work flows from settled identity. When you know you're God's child first, the 'why' behind your craft becomes clear—you cook because you're made to create, not because you're trying to earn worth.",
         },
         environment: {
           current_state:
-            "Trapped: Your environment demands sacrifice as proof of value. Your chest tightens, your jaw clenches, and you mentally brace like you're heading into a fight before service even starts. Your nervous system knows what's coming—another round of war, not work.",
-          block: "You can't create space to step back or reset because your environment reinforces the belief that stopping means failing. The kitchen has become a place where your worth is measured by how much you can handle—and you're drowning in that measurement.",
+            "Exploring Options: You sold the restaurant—the environment that was burning you out is gone. Now you're standing in the open space asking what's next.",
+          block: "Your body questions itself when you think about what comes next. The old environment is gone, but you haven't built the new one yet.",
           growth_edge:
-            "When you establish boundaries and shift your environment to support intention instead of obligation, your body will stop bracing for a fight. You'll create space where presence is possible—where you can cook without sacrificing yourself on the altar of responsibility.",
+            "When environment aligns with your settled identity and Sue's presence in your life, you build a kitchen (literal or metaphorical) that sustains you instead of destroying you.",
         },
       },
       kitchen_energy_assessment: {
         primary_state:
-          "Burnt and Running on Fumes: You're keeping things going, but with nothing left in reserve. Your body is in full defense mode before service even starts—chest tight, jaw clenched, bracing for a fight instead of a shift. You're functioning, but your nervous system is screaming. This isn't fatigue sleep can fix—this is survival response that's become your baseline.",
+          "Gone but Not Out: You said 'gone'—you sold the restaurant, the chapter closed. But you're still waking at 6am, still cooking the other day just because. You're in the liminal space between what was and what's next, and your body is asking questions your mind doesn't have answers for yet.",
         regulation_capacity:
-          "Severely Depleted: You're so deep in the weeds that your body stays locked in fight mode even when there's no immediate threat. The dread and pressure hit before anything even starts. You numb with work, screens, and noise because sitting still means facing what you've been avoiding. You've lost access to rest—your nervous system doesn't remember what safety feels like.",
+          "Developing: You've got the 6am anchor—that discipline holds you. You reach for chocolate when you need to quiet the questioning. You love mistakes now instead of letting them wreck you. But when you think about what's next, your body questions itself—that's your nervous system saying it's not sure it's safe to rebuild yet.",
         observable_patterns: [
-          "Chest tightens and jaw clenches before service even begins—full defensive posture",
-          "Heavy sense of dread mixed with pressure hits immediately when thinking about work",
-          "Burying yourself in work, screens, or noise to avoid sitting alone with your thoughts",
+          "Body questions itself when thinking about the future—uncertainty lives somewhere physical",
+          "Reaches for chocolate to quiet the questioning—gentle self-regulation",
+          "6am wake no matter what—anchored rhythm that holds through chaos",
         ],
         energy_reality:
-          "Maksym, your nervous system is stuck in permanent survival mode. Your body knows what's coming before your mind even processes it—another round of sacrifice, another service where you fight instead of create. You're not just tired; you're physiologically burnt. The pattern of taking on more than you can handle has taught your body that rest isn't safe. Until you regulate your nervous system and teach it that you can exist without the grind, every attempt at change will feel like forcing yourself through another service you don't have the energy for.",
+          "Steven, your kitchen energy is in transition. You've got the foundation—that 6am wake, the discipline that runs deeper than motivation. But your nervous system is still processing the sale, the identity shift, the grief and relief living in the same space. The good news: you're still reaching for the craft because you want to, not because you have to. That means the fire isn't out—it's just asking for a different kind of fuel. Regulate first with your anchor, then rebuild from there.",
       },
       missing_question_summary:
-        "Maksym, you revealed the core question haunting you: 'Who am I without the kitchen defining me?' That uncertainty feels heavier than another long service—and that tells me everything. You've built your entire sense of self on being 'chef,' on being the one who holds everything together. The fear isn't just about losing the work—it's about losing yourself. But brother, here's the pastoral truth: you existed before you became 'chef.' Your worth was established in Christ before you ever picked up a knife. The kitchen didn't create you—it revealed something that was already there. The question isn't 'who are you without cooking?'—it's 'who is the Maksym God created underneath all the performance?' That's the question worth asking. And it's terrifying because the answer requires you to let go of control and trust that you're still enough when you're not grinding. But that's also where freedom lives.",
+        "When I asked what pattern keeps showing up, Steven said 'x.' That's the sound of something so close, so embedded, he can't name it yet—or naming it feels too raw. Later, when asked who he'd have to become to love cooking again, he said, 'I will become fearless.' The missing piece is this: Steven's been protecting himself from himself—from the parts that don't fit in the whites, from the vulnerability of being seen without the grind. The 'x' is the unnamed fear that if he stops performing, stops proving, he'll have to face who Steven is when he's not 'Chef.' But since Sue showed up in September 2023, something's shifting. He's starting to know he's God's child first. That reorder is the key—it's what makes fearless possible.",
       thirty_day_protocol: {
         urgency_statement:
-          "If you stay burnt for another month, you'll cement the belief that your only value is in sacrifice. You'll lose more ground with your nervous system. That quiet prep moment where you felt joy? It'll become a memory you can't access anymore. And the version of you who chose this work freely will drift so far away you won't recognize him. The cost isn't theoretical—it's your soul.",
-        anchor_habit: "Showing up early and pushing yourself to be fully ready, even when you're completely drained",
-        specific_action: "10-minute boundary practice before you leave for the kitchen",
-        time_reps: "10 minutes, every morning before leaving for work",
+          "The cost of staying 'gone'—of staying in that liminal space without rebuilding—is losing the fearless version of yourself who could love this craft again. Every day you wait to anchor in your settled identity is another day the questioning takes over.",
+        anchor_habit: "6am wake up",
+        specific_action:
+          "After your 6am wake, before coffee, spend 5 minutes asking God one question: 'Who am I when I'm not performing?' Write down whatever comes—no editing, no judgment.",
+        time_reps: "5 minutes daily, immediately after waking",
         why_this_works:
-          "You're already disciplined about showing up early—now we're redirecting that capacity toward regulating your nervous system instead of just surviving. This practice interrupts the pattern before the dread and pressure hit, teaching your body it's safe to exist without bracing for a fight.",
+          "Your pattern is staying in motion to avoid facing yourself. This practice interrupts that pattern right at your anchor—when your discipline is strongest. It retrains your nervous system to be still and listen before the day's noise starts.",
         book_recommendation: {
-          title: "Set Boundaries, Find Peace",
-          author: "Nedra Glover Tawwab",
+          title: "Hero on a Mission",
+          author: "Donald Miller",
           why_now:
-            "Maksym, this book explains exactly why you keep taking on more than you can handle and saying yes out of responsibility. Tawwab breaks down how people-pleasing and over-functioning destroy you—and how to establish boundaries without guilt. Your pattern isn't about work ethic; it's about believing your worth depends on being needed. This book will show you how to set boundaries that protect your energy while still honoring your responsibilities—because right now, you're sacrificing yourself to prove you matter, and that's not sustainable.",
-          asin: "0593192095",
+            "Steven, you said your identity got swallowed by 'Chef'—the title came before your name. But since meeting Sue in September 2023, you're starting to anchor in 'child of God' first. Hero on a Mission is about rewriting your life story from victim to hero—not through performance, but through clarity about who you are and what you're living for. Miller breaks down the identity trap you've been in: transforming your identity from your work instead of stewarding your work from your identity. This book will help you see the story you've been living (Chef first, burnt out, protecting yourself from yourself) and give you a framework to write a new one—where Steven, child of God, creates because he's made to, not because he's trying to prove worth.",
+          asin: "B08T1XJJ9B",
         },
         immediate_practice:
-          "Morning boundary meditation: Before leaving for the kitchen, sit for 10 minutes and practice saying 'no' to imaginary requests. Let your body feel what it's like to decline without guilt.",
-        week_1_focus: "Foundation: Teaching Your Nervous System It's Safe to Exist Without the Grind",
-        week_1_chapters: "Chapters 1-3: What Are Boundaries?, The Cost of Not Having Boundaries, Boundary Myths",
+          "After reading each day's section in Hero on a Mission, cook one small thing—just for you or Sue—with zero pressure to perform. A perfect omelet. A simple pasta. Let the craft be gift, not grind. Notice what it feels like to create from rest instead of obligation.",
+        week_1_focus: "Foundation: Settled Identity",
+        week_1_chapters: "Introduction + Chapter 1: The Victim, the Villain, the Hero, and the Guide",
         week_1_practice:
-          "Morning boundary meditation (10 minutes before leaving for kitchen): Sit quietly and practice saying 'no' to imaginary requests. Notice where your body tightens. Breathe into that space. Read 15 minutes from the book.",
+          "6am wake → 5 minutes with God ('Who am I when I'm not performing?') → Read one section → Cook one thing with no pressure",
         week_1_marker:
-          "You'll notice the dread and pressure before work softening slightly. Your chest won't tighten as aggressively. You'll catch yourself saying 'yes' automatically and pause—even if you still say yes.",
-        week_2_focus: "Pattern Recognition: Identifying Where You Over-Function",
-        week_2_chapters: "Chapters 4-6: Types of Boundaries, Recognizing Boundary Issues, The People-Pleasing Trap",
+          "You'll know it's working when you start noticing the difference between cooking to prove worth and cooking because you're made to create.",
+        week_2_focus: "Pattern Recognition: Seeing the Story You've Been Living",
+        week_2_chapters: "Chapters 2-4: Becoming a Hero, Creating Your Life Plan, Defining Your Mission",
         week_2_practice:
-          "Continue morning boundary meditation. Add: Journal for 5 minutes after work—list every time you said 'yes' when you wanted to say 'no' and what you were protecting yourself from by saying yes. Read 15 minutes from the book.",
+          "Continue 6am anchor + God question + reading. Add: Journal one moment each day when 'Chef' tries to come before 'Steven.' What triggered it? What would change if you let Steven lead?",
         week_2_marker:
-          "You'll start seeing the pattern clearly: every 'yes' is protecting you from feeling like you're not enough. You'll catch yourself bracing for disappointment when you consider saying 'no.' You'll name the fear out loud at least once.",
-        week_3_focus: "Implementation: Setting One Real Boundary",
-        week_3_chapters: "Chapters 7-9: Setting Boundaries Without Guilt, How to Communicate Boundaries, Dealing With Pushback",
+          "You'll notice the 'x' pattern getting clearer—the moments when you hide behind the grind instead of showing up as yourself.",
+        week_3_focus: "Implementation: Writing the New Story",
+        week_3_chapters: "Chapters 5-7: The Five Characteristics of a Hero, Choosing Your Actions, Building Your Team",
         week_3_practice:
-          "Continue morning meditation. Choose ONE boundary to set this week—something small but real. Practice the script from the book. Say it out loud to yourself before saying it to the person. Read 15 minutes from the book.",
+          "Continue daily rhythm. Add: Share one meal with Sue where you talk about who you're becoming, not what you used to do. Let her reflect back what she sees.",
         week_3_marker:
-          "You'll set one boundary and survive. Your body will feel the discomfort but won't collapse. Someone might push back, but you'll hold the line. You'll realize saying 'no' didn't destroy the relationship or prove you're selfish.",
-        week_4_focus: "Integration: Building a Sustainable Boundary Practice",
+          "You'll start feeling less questioning in your body when you think about what's next—because you're building the new story in real time.",
+        week_4_focus: "Integration: Living From Settled Identity",
         week_4_practice:
-          "Morning boundary meditation becomes non-negotiable. Set one boundary per week moving forward. Journal daily: 'Where did I over-function today? What was I protecting myself from?' Review your 30-day journey and name one specific change in how your body feels before work.",
+          "Continue all three weeks' practices. Add: Write a one-page 'eulogy'—not for your death, but for the burnt-out version of Chef that you sold with the restaurant. Honor what it protected you from, then release it. You're Steven now, child of God, who creates because he's made to.",
         week_4_marker:
-          "After 30 days, your chest won't tighten as aggressively before work. You'll have set at least four real boundaries. You'll catch yourself saying 'yes' automatically and pause more often. Most importantly, you'll start to believe that you can exist without being needed—and that's when everything changes.",
+          "30-day outcome: You'll wake up knowing who you are before you think about what you do. The fearless version of yourself who loves cooking will start showing up—not because the fear is gone, but because your identity is settled.",
         daily_actions: [
-          "Day 1: Morning boundary meditation (10 min). Read Chapter 1. Notice how your body feels when you imagine saying 'no.'",
-          "Day 2: Morning boundary meditation. Read Chapter 1 continued. Write down one time this week you said 'yes' when you wanted to say 'no.'",
-          "Day 3: Morning boundary meditation. Read Chapter 2. Practice saying 'I need to think about that' out loud five times.",
-          "Day 4: Morning boundary meditation. Read Chapter 2 continued. Notice where you brace for disappointment when considering boundaries.",
-          "Day 5: Morning boundary meditation. Read Chapter 3. List three fears that come up when you think about saying 'no.'",
-          "Day 6: Morning boundary meditation. Read Chapter 3 continued. Breathe into the tightness in your chest for 5 minutes.",
-          "Day 7: Rest day. Morning meditation only. Reflect on what you noticed this week about your 'yes' pattern.",
-          "Day 8: Morning boundary meditation. Read Chapter 4. Identify one boundary you need in your kitchen life.",
-          "Day 9: Morning boundary meditation. Read Chapter 4 continued. Journal: 'What am I protecting myself from by not setting boundaries?'",
-          "Day 10: Morning boundary meditation. Read Chapter 5. Notice every time today you say 'yes' automatically.",
-          "Day 11: Morning boundary meditation. Read Chapter 5 continued. Practice saying 'Let me get back to you' instead of automatic 'yes.'",
-          "Day 12: Morning boundary meditation. Read Chapter 6. Write down: 'Who would I disappoint if I set real boundaries?'",
-          "Day 13: Morning boundary meditation. Read Chapter 6 continued. Name the fear out loud: 'I'm afraid that if I say no, I won't be enough.'",
-          "Day 14: Rest day. Morning meditation only. Notice if the dread before work has softened at all.",
-          "Day 15: Morning boundary meditation. Read Chapter 7. Choose ONE small boundary to set this week.",
-          "Day 16: Morning boundary meditation. Read Chapter 7 continued. Write out the exact words you'll use to set your boundary.",
-          "Day 17: Morning boundary meditation. Read Chapter 8. Practice saying your boundary script out loud to yourself five times.",
-          "Day 18: Morning boundary meditation. Read Chapter 8 continued. Set your chosen boundary today. Notice what your body does.",
-          "Day 19: Morning boundary meditation. Read Chapter 9. Journal: 'What happened when I set that boundary? What did I feel?'",
-          "Day 20: Morning boundary meditation. Read Chapter 9 continued. If someone pushed back, practice holding the line without defending.",
-          "Day 21: Rest day. Morning meditation only. Celebrate: You set a boundary and survived. You're still enough.",
-          "Day 22: Morning boundary meditation. Review Chapters 7-9. Identify a second boundary you need to set.",
-          "Day 23: Morning boundary meditation. Finish any remaining chapters. Write your script for boundary #2.",
-          "Day 24: Morning boundary meditation. Practice your second boundary script out loud. Notice where your body resists.",
-          "Day 25: Morning boundary meditation. Set your second boundary today. Breathe through the discomfort.",
-          "Day 26: Morning boundary meditation. Journal: 'What am I learning about my worth outside of being needed?'",
-          "Day 27: Morning boundary meditation. Notice how your nervous system responds before work now versus Day 1.",
-          "Day 28: Morning boundary meditation. Set a third boundary this week—something slightly bigger.",
-          "Day 29: Morning boundary meditation. Journal: 'Who am I becoming as I practice boundaries?'",
-          "Day 30: Morning boundary meditation. Review your 30-day journey. Name three specific changes in how you feel before work. Commit to one boundary per week moving forward.",
+          "Day 1: 6am wake → 5 minutes with God asking 'Who am I when I'm not performing?' → Read Hero Intro → Cook scrambled eggs for yourself, no pressure",
+          "Day 2: 6am wake → God question → Read Chapter 1 on Victim/Hero → Cook one thing → Notice when you feel like a victim of circumstances vs. a hero writing your story",
+          "Day 3: 6am wake → God question → Continue Chapter 1 → Cook one thing → Journal: 'When did Chef come before Steven today?'",
+          "Day 4: 6am wake → God question → Read Chapter 2 on Becoming a Hero → Cook one thing → Identify one choice today where you acted like Steven, not Chef",
+          "Day 5: 6am wake → God question → Continue Chapter 2 → Cook one thing → Share with Sue one thing you're learning about yourself",
+          "Day 6: 6am wake → God question → Read Chapter 3 on Life Plan → Cook one thing → Write down: What does Steven want that Chef never had space for?",
+          "Day 7: 6am wake → God question → Rest day from book, but cook something just for joy → Reflect on the week: What shifted?",
+          "Day 8: 6am wake → God question → Read Chapter 4 on Mission → Cook one thing → Journal: What am I cooking for now that identity is settled?",
+          "Day 9: 6am wake → God question → Continue Chapter 4 → Cook one thing → Notice when your body questions itself—breathe and remind yourself you're God's child first",
+          "Day 10: 6am wake → God question → Finish Chapter 4 → Cook one thing → Identify one moment today when you hid behind the grind instead of showing up as Steven",
+          "Day 11: 6am wake → God question → Read Chapter 5 on Hero Characteristics → Cook one thing → Pick one characteristic you want to grow in",
+          "Day 12: 6am wake → God question → Continue Chapter 5 → Cook one thing → Practice that characteristic today in one small way",
+          "Day 13: 6am wake → God question → Finish Chapter 5 → Cook one thing → Journal: How does the 'x' pattern show up when I'm stressed?",
+          "Day 14: 6am wake → God question → Rest day from book, cook something complex that challenges you → Notice the joy in the challenge",
+          "Day 15: 6am wake → God question → Read Chapter 6 on Choosing Actions → Cook one thing → Identify three actions this week that align with Steven, not Chef-performing",
+          "Day 16: 6am wake → God question → Continue Chapter 6 → Cook one thing → Take the first aligned action",
+          "Day 17: 6am wake → God question → Finish Chapter 6 → Cook one thing → Take the second aligned action",
+          "Day 18: 6am wake → God question → Read Chapter 7 on Building Your Team → Cook one thing → Invite Sue into a conversation about who you're becoming",
+          "Day 19: 6am wake → God question → Continue Chapter 7 → Cook one thing → Share one meal with Sue—talk about the future as Steven, not as Chef",
+          "Day 20: 6am wake → God question → Finish Chapter 7 → Cook one thing → Journal: What does Sue see in me that I'm still learning to see?",
+          "Day 21: 6am wake → God question → Rest day, cook something you loved making before the burnout → Notice what's different now",
+          "Day 22: 6am wake → God question → Review Hero on a Mission highlights → Cook one thing → Start writing your 'eulogy' for the burnt-out Chef",
+          "Day 23: 6am wake → God question → Continue eulogy → Cook one thing → Honor what that version of you protected you from",
+          "Day 24: 6am wake → God question → Finish eulogy → Cook one thing → Release the old story—you're Steven now",
+          "Day 25: 6am wake → God question → No book, just presence → Cook one thing → Ask God: What do You want me to create from this settled identity?",
+          "Day 26: 6am wake → God question → Cook one thing → Practice fearlessness in one small way: say no to something that would pull you back into performing",
+          "Day 27: 6am wake → God question → Cook one thing → Notice your body—is the questioning quieter? Write down what's shifted.",
+          "Day 28: 6am wake → God question → Cook one thing → Share with Sue: Here's who I'm becoming. Here's what I'm building from here.",
+          "Day 29: 6am wake → God question → Cook a full meal for Sue, from settled identity—not performing, just creating → Notice the joy",
+          "Day 30: 6am wake → God question → Cook one thing → Write: Who is Steven now? What does he create? What does he protect? Where does he go from here?",
         ],
       },
       bottom_line_full: {
         paragraph_1:
-          "Maksym, you've built your identity around being the one who holds everything together. Being needed became your oxygen—proof that you matter, evidence of your worth. But that pattern emerged from a terrifying question you've been avoiding: 'Am I still enough if I'm not grinding?' So you kept saying yes, kept taking on more, kept sacrificing yourself to stay relevant. The kitchen became the place where your worth was proven daily—until it became the place that's destroying you.",
+          "Steven, the pattern is this: you stayed in motion, stayed burnt, stayed grinding—because if you stopped, you'd have to face yourself without the whites on. 'Chef' came before 'Steven' for so long that selling the restaurant felt like losing your name. You said 'x' when I asked what pattern keeps showing up—that's the sound of something so close, so embedded, you couldn't name it yet. The pattern was protection. It kept you from facing who you are when you're not performing, not producing, not proving your worth through the work.",
         paragraph_2:
-          "Staying burnt for another year means losing the last spark of joy you felt in that quiet prep moment. It means cementing the belief that your value is measured by how much you can sacrifice. It means teaching your nervous system that survival mode is permanent—that your chest will always tighten, your jaw will always clench, and dread will always hit before the first ticket drops. It means drifting further from the Maksym who chose this work freely until you can't remember him at all. Brother, that's not a life. That's slow suffocation dressed up as responsibility.",
+          "But here's what it's costing you: staying hidden behind the grind costs you the fearless version of yourself who could actually love cooking again. It costs you joy. It costs you the truth that Sue helped you see—that you're God's child first, not Chef first. You met her in September 2023 on the Oregon coast, and something reordered. That reorder is everything. Because when your identity is settled in Christ, the craft becomes a gift you steward instead of a performance you survive.",
         paragraph_3:
-          "The choice ahead is simple but not easy: learn to exist without the grind defining you, or die inside while your body keeps showing up. This isn't about quitting the kitchen—it's about reclaiming your humanity inside it. You have to face the question you've been avoiding: 'Who am I without the kitchen defining me?' The answer is terrifying because it requires letting go of control and trusting that you're still enough when you're not performing. But Maksym, your worth was settled before you ever picked up a knife. Christ already declared you enough. The kitchen didn't create you—it just revealed what was already there. You don't have to earn your existence. You just have to remember it.",
+          "The choice ahead is this: you can stay 'gone,' stay in that liminal space where your body questions itself and you reach for chocolate to quiet the noise—or you can rebuild from your 6am anchor, from your settled identity, from the truth that you're made to create. What's required is daily practice. Five minutes with God before the noise starts. One page of truth about who you are. One act of creation with zero pressure to perform. Thirty days to prove to your nervous system that Steven gets to exist outside the title. You said you'd miss service. You cooked the other day just because. The fire isn't out. It's just asking for a different kind of fuel.",
         emphasis_statement:
-          "**Your worth isn't earned on the line. It was settled before you ever tied your apron. Now you just have to believe it.**",
+          "**You're not gone, Steven. You're becoming fearless. And that version of you? He doesn't need the restaurant to prove he's worth knowing. He already knows whose he is.**",
       },
       steve_story_note:
-        "Maksym, I disappeared from the kitchen for 18 months because I hit the same wall you're facing now. I was burnt, running on fumes, saying yes to everyone while my soul screamed no. My nervous system was wrecked. I didn't know who I was without the grind. So I left—not because I gave up, but because I had to find myself again. I had to learn that my worth wasn't tied to my performance, that I could exist without being needed, that rest wasn't weakness. I'm back now, but I'm different. I cook from intention, not obligation. I set boundaries without guilt. I know who I am before I'm 'chef.' That's what this 30-day protocol is designed to give you—a way to reclaim yourself without having to disappear like I did. You don't have to burn all the way down to rebuild. But you do have to face the question I avoided for too long: who are you when you're not performing? The answer is worth finding, brother.",
-      pull_quote:
-        "I honestly don't know who I'd be without cooking, and that uncertainty feels heavier than another long service",
+        "Steven, I disappeared from my own kitchen for a while—not because I wanted to, but because I had to. The grind, the performance, the hiding behind the whites—it nearly took me out. I'm building Wydaho Warriors because I know what it costs to stay burnt, and I know what it takes to come back. You're not alone in this. The path from 'gone' to 'becoming' is one I've walked, and it's one you don't have to walk alone.",
       development_reminders: [
-        "Getting burnt is normal in kitchen culture — staying burnt is a choice",
-        "Your kitchen energy is the foundation — regulate first, then rebuild",
-        "Your patterns have wisdom — honor them while updating them",
-        "You are not your station — your worth is settled in Christ, not your covers",
+        "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+        "Your kitchen energy is the foundation—regulate first, then rebuild",
+        "Your patterns have wisdom—honor them while updating them",
+        "You are not your station—your worth is settled in Christ, not your covers",
       ],
       next_steps: {
-        six_month_date: "July 2025",
+        six_month_date: "June 2025",
         community_link: "https://wydahowarriors.com/community",
         coaching_link: "https://wydahowarriors.com/coaching",
         contact_email: "steve@wydahowarriors.com",
