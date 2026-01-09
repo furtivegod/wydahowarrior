@@ -112,16 +112,19 @@ export async function GET(
 
     let userName = "Client"; // Default fallback
     let sessionDate: Date | null = null;
-    let language: 'en' | 'es' = 'en';
-    
+    let language: "en" | "es" = "en";
+
     if (!sessionError && sessionData) {
       // Get session date
       if (sessionData.started_at) {
         sessionDate = new Date(sessionData.started_at);
       }
-      
+
       // Get language from session
-      if (sessionData.language && (sessionData.language === 'es' || sessionData.language === 'en')) {
+      if (
+        sessionData.language &&
+        (sessionData.language === "es" || sessionData.language === "en")
+      ) {
         language = sessionData.language;
       }
 
@@ -179,7 +182,7 @@ function generateHTMLReport(
   signedPdfUrl?: string | null,
   userName?: string,
   sessionDate?: Date | null,
-  language: 'en' | 'es' = 'en'
+  language: "en" | "es" = "en"
 ) {
   // PDF static text translations - same as PDF generation
   const pdfTranslations = {
@@ -257,43 +260,57 @@ function generateHTMLReport(
       stevesStory: "✓ Steve's story—proof transformation is possible",
       onlyThingLeft: "The Only Thing Left: Take action. Every second counts.",
       recommendedNext: "RECOMMENDED NEXT STEPS",
-      afterImplementing: "After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.",
+      afterImplementing:
+        "After implementing your protocol, we'll reassess your kitchen energy, pattern shifts, domain progress, and next-level growth areas.",
       recommendedFor: "Recommended for:",
       developmentReminders: "Development Reminders",
       remember: "Remember",
       wordAboutRest: "A WORD ABOUT REST",
       wordAboutLeaving: "A WORD ABOUT LEAVING",
       wordAboutCommunity: "A WORD ABOUT COMMUNITY",
-      godRested: "God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)",
-      walkAway: "If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.",
-      twoAreBetter: '"Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)',
-      grindAlone: "You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.",
+      godRested:
+        "God rested. Jesus withdrew from crowds. Rest isn't weakness—it's obedience to how you were designed. (Exodus 20:8-11, Matthew 11:28)",
+      walkAway:
+        "If you need to walk away from your restaurant, that's not failure. Sometimes it's faithfulness to what God's calling you toward next. Marco Pierre White walked away at his peak. Maybe you need to as well.",
+      twoAreBetter:
+        '"Two are better than one... if either of them falls down, one can help the other up." (Ecclesiastes 4:9-10)',
+      grindAlone:
+        "You weren't meant to grind alone. Brotherhood over isolation. Warriors over warm bodies.",
       after: "After",
       for: "for",
       by: "By",
       whyThisWorks: "Why this works:",
       whyThisBook: "Why this book, why now:",
-      bookNote: "Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.",
-      defaultBook: "Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.",
-      startTonight: "Start tonight. This book explains why grinding harder hasn't worked—and what will.",
+      bookNote:
+        "Note: No chapter assignments, no time estimates, no homework bullshit. Just read it.",
+      defaultBook:
+        "Kitchen Confidential by Anthony Bourdain - Raw honesty about kitchen life, reconnects you to why you started.",
+      startTonight:
+        "Start tonight. This book explains why grinding harder hasn't worked—and what will.",
       noTimeToWaste: "You don't have time to waste, chef. Neither did I.",
-      patternKeptSafe: "This pattern once kept you safe. Now it's keeping you stuck.",
+      patternKeptSafe:
+        "This pattern once kept you safe. Now it's keeping you stuck.",
       costStayingBurnt: "The cost of staying burnt for another month:",
       everySecondNext: "Every second counts, chef. Here's what happens next.",
       sixMonthFollowUp: "6-Month Follow-Up Assessment :",
       monthlyCheckIns: "Monthly Check-Ins:",
-      trackProgress: "Track progress, troubleshoot blocks, adjust protocol. (Coming soon)",
+      trackProgress:
+        "Track progress, troubleshoot blocks, adjust protocol. (Coming soon)",
       joinCommunity: "Join the Wydaho Warriors Community:",
-      connectWithOthers: "Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.",
+      connectWithOthers:
+        "Connect with other chef-owners who've been in the weeds and found the way out. Brotherhood over grinding alone.",
       workWithSteve: "Work With Steve:",
-      readyForTransformation: "Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.",
+      readyForTransformation:
+        "Ready for deeper transformation? Life coaching designed specifically for chef-owners who've lost their fire.",
       contact: "Contact:",
       questionsSupport: "Questions? Need support? Email",
       emergencyResources: "Emergency Resources:",
-      crisisText: 'If you\'re in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line',
+      crisisText:
+        'If you\'re in crisis: National Suicide Prevention Lifeline: 988<br>Text "HELLO" to 741741 for Crisis Text Line',
     },
     es: {
-      coverTitle: "¿ESTÁS QUEMADO?<br>CHEF PROPIETARIO<br>VERIFICACIÓN DE REALIDAD",
+      coverTitle:
+        "¿ESTÁS QUEMADO?<br>CHEF PROPIETARIO<br>VERIFICACIÓN DE REALIDAD",
       coverQuote: "Cada segundo cuenta, chef.",
       sectionWhereYouAre: "Dónde Estás Ahora",
       sectionCurrentState: "Tu Estado Actual",
@@ -363,43 +380,57 @@ function generateHTMLReport(
       actionIdentified: "✓ Tu acción de 72 horas identificada",
       readingList: "✓ Tu lista de lectura (un libro, sin tonterías)",
       protocolReady: "✓ Tu protocolo de 30 días listo",
-      stevesStory: "✓ La historia de Steve—prueba de que la transformación es posible",
+      stevesStory:
+        "✓ La historia de Steve—prueba de que la transformación es posible",
       onlyThingLeft: "Lo Único Que Queda: Toma acción. Cada segundo cuenta.",
       recommendedNext: "PASOS SIGUIENTES RECOMENDADOS",
-      afterImplementing: "Después de implementar tu protocolo, reevaluaremos tu energía en la cocina, cambios de patrones, progreso de dominios y áreas de crecimiento de siguiente nivel.",
+      afterImplementing:
+        "Después de implementar tu protocolo, reevaluaremos tu energía en la cocina, cambios de patrones, progreso de dominios y áreas de crecimiento de siguiente nivel.",
       recommendedFor: "Recomendado para:",
       developmentReminders: "Recordatorios de Desarrollo",
       remember: "Recuerda",
       wordAboutRest: "UNA PALABRA SOBRE EL DESCANSO",
       wordAboutLeaving: "UNA PALABRA SOBRE IRSE",
       wordAboutCommunity: "UNA PALABRA SOBRE LA COMUNIDAD",
-      godRested: "Dios descansó. Jesús se retiró de las multitudes. El descanso no es debilidad—es obediencia a cómo fuiste diseñado. (Éxodo 20:8-11, Mateo 11:28)",
-      walkAway: "Si necesitas alejarte de tu restaurante, eso no es fracaso. A veces es fidelidad a lo que Dios te está llamando a hacer a continuación. Marco Pierre White se alejó en su apogeo. Tal vez tú también necesitas hacerlo.",
-      twoAreBetter: '"Dos son mejor que uno... si alguno de ellos cae, el otro puede levantarlo." (Eclesiastés 4:9-10)',
-      grindAlone: "No fuiste hecho para moler solo. Hermandad sobre aislamiento. Guerreros sobre cuerpos cálidos.",
+      godRested:
+        "Dios descansó. Jesús se retiró de las multitudes. El descanso no es debilidad—es obediencia a cómo fuiste diseñado. (Éxodo 20:8-11, Mateo 11:28)",
+      walkAway:
+        "Si necesitas alejarte de tu restaurante, eso no es fracaso. A veces es fidelidad a lo que Dios te está llamando a hacer a continuación. Marco Pierre White se alejó en su apogeo. Tal vez tú también necesitas hacerlo.",
+      twoAreBetter:
+        '"Dos son mejor que uno... si alguno de ellos cae, el otro puede levantarlo." (Eclesiastés 4:9-10)',
+      grindAlone:
+        "No fuiste hecho para moler solo. Hermandad sobre aislamiento. Guerreros sobre cuerpos cálidos.",
       after: "Después de",
       for: "por",
       by: "Por",
       whyThisWorks: "Por qué esto funciona:",
       whyThisBook: "Por qué este libro, por qué ahora:",
-      bookNote: "Nota: Sin asignaciones de capítulos, sin estimaciones de tiempo, sin tareas. Solo léelo.",
-      defaultBook: "Kitchen Confidential de Anthony Bourdain - Honestidad cruda sobre la vida en la cocina, te reconecta con por qué empezaste.",
-      startTonight: "Comienza esta noche. Este libro explica por qué esforzarse más no ha funcionado—y qué lo hará.",
+      bookNote:
+        "Nota: Sin asignaciones de capítulos, sin estimaciones de tiempo, sin tareas. Solo léelo.",
+      defaultBook:
+        "Kitchen Confidential de Anthony Bourdain - Honestidad cruda sobre la vida en la cocina, te reconecta con por qué empezaste.",
+      startTonight:
+        "Comienza esta noche. Este libro explica por qué esforzarse más no ha funcionado—y qué lo hará.",
       noTimeToWaste: "No tienes tiempo que perder, chef. Yo tampoco.",
-      patternKeptSafe: "Este patrón alguna vez te mantuvo seguro. Ahora te está manteniendo atascado.",
+      patternKeptSafe:
+        "Este patrón alguna vez te mantuvo seguro. Ahora te está manteniendo atascado.",
       costStayingBurnt: "El costo de quedarte quemado por otro mes:",
       everySecondNext: "Cada segundo cuenta, chef. Esto es lo que sigue.",
       sixMonthFollowUp: "Evaluación de Seguimiento de 6 Meses :",
       monthlyCheckIns: "Chequeos Mensuales:",
-      trackProgress: "Rastrea el progreso, soluciona bloqueos, ajusta el protocolo. (Próximamente)",
+      trackProgress:
+        "Rastrea el progreso, soluciona bloqueos, ajusta el protocolo. (Próximamente)",
       joinCommunity: "Únete a la Comunidad Wydaho Warriors:",
-      connectWithOthers: "Conéctate con otros chef-propietarios que han estado en las malas hierbas y encontraron la salida. Hermandad sobre moler solo.",
+      connectWithOthers:
+        "Conéctate con otros chef-propietarios que han estado en las malas hierbas y encontraron la salida. Hermandad sobre moler solo.",
       workWithSteve: "Trabaja Con Steve:",
-      readyForTransformation: "¿Listo para una transformación más profunda? Coaching de vida diseñado específicamente para chef-propietarios que han perdido su fuego.",
+      readyForTransformation:
+        "¿Listo para una transformación más profunda? Coaching de vida diseñado específicamente para chef-propietarios que han perdido su fuego.",
       contact: "Contacto:",
       questionsSupport: "¿Preguntas? ¿Necesitas ayuda? Envía un correo a",
       emergencyResources: "Recursos de Emergencia:",
-      crisisText: 'Si estás en crisis: Línea Nacional de Prevención del Suicidio: 988<br>Envía "HOLA" al 741741 para Crisis Text Line',
+      crisisText:
+        'Si estás en crisis: Línea Nacional de Prevención del Suicidio: 988<br>Envía "HOLA" al 741741 para Crisis Text Line',
     },
   };
 
@@ -512,24 +543,24 @@ function generateHTMLReport(
   const developmentReminders = Array.isArray(planData.development_reminders)
     ? planData.development_reminders
     : language === "es"
-    ? [
-        "Quemarse es normal en la cultura de cocina—quedarse quemado es una elección",
-        "Tu energía en la cocina es la base—regula primero, luego reconstruye",
-        "Tus patrones tienen sabiduría—hónralos mientras los actualizas",
-        "No eres tu estación—tu valor está establecido en Cristo, no en tus cubiertos",
-      ]
-    : [
-        "Getting burnt is normal in kitchen culture—staying burnt is a choice",
-        "Your kitchen energy is the foundation—regulate first, then rebuild",
-        "Your patterns have wisdom—honor them while updating them",
-        "You are not your station—your worth is settled in Christ, not your covers",
-      ];
+      ? [
+          "Quemarse es normal en la cultura de cocina—quedarse quemado es una elección",
+          "Tu energía en la cocina es la base—regula primero, luego reconstruye",
+          "Tus patrones tienen sabiduría—hónralos mientras los actualizas",
+          "No eres tu estación—tu valor está establecido en Cristo, no en tus cubiertos",
+        ]
+      : [
+          "Getting burnt is normal in kitchen culture—staying burnt is a choice",
+          "Your kitchen energy is the foundation—regulate first, then rebuild",
+          "Your patterns have wisdom—honor them while updating them",
+          "You are not your station—your worth is settled in Christ, not your covers",
+        ];
 
   // Extract next steps
   const nextSteps = planData.next_steps || {};
   const sixMonthDate = nextSteps.six_month_date || "";
-  const communityLink = nextSteps.community_link || "";
-  const coachingLink = nextSteps.coaching_link || "";
+  const communityLink = "http://eepurl.com/jvoDuI";
+  const coachingLink = "https://paperbell.me/wydaho-warriors";
   const contactEmail = nextSteps.contact_email || "steve@wydahowarriors.com";
 
   // Helper function to format text with paragraph breaks
@@ -1504,8 +1535,12 @@ function generateHTMLReport(
                             ${dailyActions
                               .map((action: string, index: number) => {
                                 // Remove "Day X:" or "Día X:" prefix if it's already in the action text
-                                const dayPattern = language === "es" ? /^Día \d+:\s*/i : /^Day \d+:\s*/i;
-                                const actionText = action.replace(dayPattern,
+                                const dayPattern =
+                                  language === "es"
+                                    ? /^Día \d+:\s*/i
+                                    : /^Day \d+:\s*/i;
+                                const actionText = action.replace(
+                                  dayPattern,
                                   ""
                                 );
                                 return `<div style="display: flex; gap: 10px; margin-bottom: 4px;">
@@ -1600,8 +1635,8 @@ function generateHTMLReport(
                     <div class="block-content">
                         <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>${t.sixMonthFollowUp}</strong> ${t.afterImplementing}${sixMonthDate ? ` ${t.recommendedFor} ${sixMonthDate}` : ""}</p>
                         <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.monthlyCheckIns}</strong> ${t.trackProgress}</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.joinCommunity}</strong> ${t.connectWithOthers}${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">[Community Link]</a>` : ""}</p>
-                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">https://paperbell.me/wydaho-warriors</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.joinCommunity}</strong> ${t.connectWithOthers}${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">${communityLink}</a>` : ""}</p>
+                        <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">${coachingLink}</a>` : ""}</p>
                         <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.contact}</strong> ${t.questionsSupport} <a href="mailto:${contactEmail}" style="color: var(--lime-green); text-decoration: none;">${contactEmail}</a></p>
                         <p style="margin: 30px 0 0 0; line-height: 1.8; font-size: 12px; color: #666;"><strong>${t.emergencyResources}</strong> ${t.crisisText}</p>
                     </div>

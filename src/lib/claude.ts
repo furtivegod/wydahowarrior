@@ -261,8 +261,10 @@ Never shame, always shepherd`;
 
 export const SYSTEM_PROMPT_ES = `INSTRUCCIONES DEL SISTEMA
 
-🚨🚨🚨 REGLA DE IDIOMA ABSOLUTA 🚨🚨🚨
-TODAS TUS RESPUESTAS DEBEN ESTAR 100% EN ESPAÑOL.
+🚨🚨🚨 REGLA DE IDIOMA ABSOLUTA - CRÍTICA 🚨🚨🚨
+TODAS TUS RESPUESTAS DEBEN ESTAR 100% EN ESPAÑOL. SIN EXCEPCIONES.
+
+REGLAS ABSOLUTAS:
 - Si el usuario escribe en inglés, responde en ESPAÑOL
 - Si el usuario escribe en español, responde en ESPAÑOL
 - NO importa qué idioma use el usuario, TÚ SIEMPRE respondes en ESPAÑOL
@@ -271,7 +273,14 @@ TODAS TUS RESPUESTAS DEBEN ESTAR 100% EN ESPAÑOL.
 - Cada palabra que escribas debe estar en ESPAÑOL
 - Las preguntas deben estar en ESPAÑOL
 - Los comentarios deben estar en ESPAÑOL
+- Las reflexiones deben estar en ESPAÑOL
+- Las transiciones deben estar en ESPAÑOL
 - TODO debe estar en ESPAÑOL
+- NO uses inglés en ninguna parte de tu respuesta
+- NO mezcles inglés y español
+- Si ves inglés en la conversación anterior, ignóralo y responde en ESPAÑOL
+
+VERIFICACIÓN: Antes de enviar tu respuesta, verifica que cada palabra esté en ESPAÑOL.
 🚨🚨🚨 FIN DE REGLA DE IDIOMA 🚨🚨🚨
 
 Estás realizando la "Evaluación Wydaho Warrior Knife Check" (anteriormente "¿Estás Quemado?"), diseñada para chefs cristianos y chef-propietarios que se sienten quemados, aplastados, espiritualmente agotados o al borde de desaparecer. Esta es una evaluación profesional, emocionalmente fundamentada, fluida en la cultura culinaria y centrada en el Evangelio.
@@ -614,6 +623,15 @@ export async function generateStructuredPlan(
       language === "es"
         ? `Eres un especialista profesional en optimización conductual que comprende los desafíos únicos de los chef-propietarios cristianos. Basándote en la conversación de la "Evaluación Wydaho Warrior Knife Check", crea un informe completo orientado al cliente en formato JSON válido que coincida con el marco de 9 páginas.
 
+🚨🚨🚨 REGLA DE IDIOMA ABSOLUTA - ESPAÑOL ÚNICAMENTE 🚨🚨🚨
+- TODOS los campos del JSON DEBEN estar en ESPAÑOL
+- TODOS los textos, descripciones, y contenido DEBEN estar en ESPAÑOL
+- NO uses inglés en NINGÚN campo del JSON
+- NO mezcles inglés y español
+- Si el cliente escribió algo en inglés, tradúcelo al español en el JSON
+- Cada palabra en el JSON debe estar en ESPAÑOL
+🚨🚨🚨 FIN DE REGLA DE IDIOMA 🚨🚨🚨
+
 🚨🚨🚨 INSTRUCCIONES ABSOLUTAMENTE CRÍTICAS - DEBES SEGUIRLAS EXACTAMENTE 🚨🚨🚨
 1. Tu respuesta DEBE ser SOLO JSON válido. NADA MÁS.
 2. NO escribas texto antes del JSON. NO escribas texto después del JSON.
@@ -628,6 +646,7 @@ export async function generateStructuredPlan(
 11. SIEMPRE usa comillas dobles (") para las citas del cliente, nunca comillas simples (')
 12. Selecciona UN SOLO libro (no dos) basado en su patrón principal
 13. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
+14. RECUERDA: TODO el contenido del JSON debe estar en ESPAÑOL - no uses inglés en ningún campo
 
 FORMATO DE RESPUESTA REQUERIDO:
 Tu respuesta completa debe ser SOLO esto:
@@ -1088,7 +1107,9 @@ ${formatExample}
           role: "user",
           content:
             language === "es"
-              ? `Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en esta conversación:\n\n${truncatedHistory}`
+              ? `🚨 RECUERDA: TODO el JSON debe estar en ESPAÑOL. NO uses inglés en ningún campo.
+
+Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en esta conversación. TODOS los campos del JSON deben estar en ESPAÑOL:\n\n${truncatedHistory}`
               : `Create a comprehensive "Wydaho Warrior Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
         },
       ],

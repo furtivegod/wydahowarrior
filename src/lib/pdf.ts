@@ -703,127 +703,212 @@ function generateHTMLReport(
 
   // Extract pattern analysis (NEW STRUCTURE)
   const patternAnalysis = planData.pattern_analysis || {};
-  const kitchenTerm = planData.kitchen_term || "burnt";
+  const kitchenTerm =
+    planData.kitchen_term || (language === "es" ? "quemado" : "burnt");
   const patternExactWords =
     patternAnalysis.pattern_exact_words ||
     patternAnalysis.protective_pattern ||
-    "Your pattern keeps showing up";
+    (language === "es"
+      ? "Tu patrón sigue apareciendo"
+      : "Your pattern keeps showing up");
   const patternReframe =
     patternAnalysis.pattern_reframe ||
-    "What I'm hearing: Your pattern in chef-owner burnout context";
+    (language === "es"
+      ? "Lo que estoy escuchando: Tu patrón en el contexto de agotamiento de chef-propietario"
+      : "What I'm hearing: Your pattern in chef-owner burnout context");
   const patternTrigger =
     patternAnalysis.pattern_trigger ||
-    "This pattern shows up most when you're in the weeds";
+    (language === "es"
+      ? "Este patrón aparece más cuando estás en las malas hierbas"
+      : "This pattern shows up most when you're in the weeds");
   const whatItProtectsFrom =
     patternAnalysis.what_it_protects_from ||
-    "Having to face what's actually burning";
+    (language === "es"
+      ? "Tener que enfrentar lo que realmente está quemando"
+      : "Having to face what's actually burning");
   const whatItCosts =
     patternAnalysis.what_it_costs ||
-    "The cost of staying burnt is real, even if you haven't tallied the full bill yet.";
+    (language === "es"
+      ? "El costo de quedarte quemado es real, incluso si no has calculado la factura completa todavía."
+      : "The cost of staying burnt is real, even if you haven't tallied the full bill yet.");
   const proofWithContext =
     patternAnalysis.proof_with_context ||
     patternAnalysis.success_proof ||
-    "You've proven you can change—like when you created that moment of joy. That wasn't luck. That was you.";
+    (language === "es"
+      ? "Has demostrado que puedes cambiar—como cuando creaste ese momento de alegría. Eso no fue suerte. Ese fuiste tú."
+      : "You've proven you can change—like when you created that moment of joy. That wasn't luck. That was you.");
   const anchorHabit =
     patternAnalysis.anchor_habit ||
     patternAnalysis.anchor ||
-    "The one thing you never skip";
+    (language === "es"
+      ? "La única cosa que nunca saltas"
+      : "The one thing you never skip");
   const personalizedChefTruth =
     patternAnalysis.personalized_chef_truth ||
-    "You're not burnt because you're soft—you're burnt because you've been running on empty while filling everyone else's plates.";
+    (language === "es"
+      ? "No estás quemado porque seas débil—estás quemado porque has estado funcionando vacío mientras llenas los platos de todos los demás."
+      : "You're not burnt because you're soft—you're burnt because you've been running on empty while filling everyone else's plates.");
 
   // Extract roadmap briefs (NEW STRUCTURE)
   const roadmapBriefs = planData.roadmap_briefs || {};
   const identityBrief =
-    roadmapBriefs.identity_brief || "Your identity pattern, what it's costing";
+    roadmapBriefs.identity_brief ||
+    (language === "es"
+      ? "Tu patrón de identidad, lo que te está costando"
+      : "Your identity pattern, what it's costing");
   const craftBrief =
     roadmapBriefs.craft_brief ||
-    "Your relationship with craft, where joy still lives";
+    (language === "es"
+      ? "Tu relación con el oficio, donde todavía vive la alegría"
+      : "Your relationship with craft, where joy still lives");
   const purposeBrief =
-    roadmapBriefs.purpose_brief || "Your purpose now vs. original why";
+    roadmapBriefs.purpose_brief ||
+    (language === "es"
+      ? "Tu propósito ahora vs. el por qué original"
+      : "Your purpose now vs. original why");
   const environmentBrief =
     roadmapBriefs.environment_brief ||
-    "Your environment reality, biggest obstacle";
+    (language === "es"
+      ? "Tu realidad ambiental, el mayor obstáculo"
+      : "Your environment reality, biggest obstacle");
   const missingBrief =
-    roadmapBriefs.missing_brief || "Where you really are, what you revealed";
+    roadmapBriefs.missing_brief ||
+    (language === "es"
+      ? "Dónde realmente estás, lo que revelaste"
+      : "Where you really are, what you revealed");
   const seventyTwoBrief =
     roadmapBriefs.seventy_two_brief ||
-    "One specific action sized to your current state";
+    (language === "es"
+      ? "Una acción específica adaptada a tu estado actual"
+      : "One specific action sized to your current state");
   const thirtyDayBrief =
     roadmapBriefs.thirty_day_brief ||
-    "The sustained practice that changes everything";
+    (language === "es"
+      ? "La práctica sostenida que cambia todo"
+      : "The sustained practice that changes everything");
 
   // Extract domain breakdown (NEW STRUCTURE - identity, craft, purpose, environment)
   const domainBreakdown = planData.domain_breakdown || {};
   const identityDomain = domainBreakdown.identity || {
-    current_state: "Finding Self",
-    block: "Primary identity obstacle",
-    growth_edge: "What's possible when this shifts",
+    current_state: language === "es" ? "Encontrando el Yo" : "Finding Self",
+    block:
+      language === "es"
+        ? "Obstáculo principal de identidad"
+        : "Primary identity obstacle",
+    growth_edge:
+      language === "es"
+        ? "Lo que es posible cuando esto cambia"
+        : "What's possible when this shifts",
   };
   const craftDomain = domainBreakdown.craft || {
-    current_state: "Rediscovering",
-    block: "Primary craft obstacle",
-    growth_edge: "How craft reconnection unlocks purpose",
+    current_state: language === "es" ? "Redescubriendo" : "Rediscovering",
+    block:
+      language === "es"
+        ? "Obstáculo principal del oficio"
+        : "Primary craft obstacle",
+    growth_edge:
+      language === "es"
+        ? "Cómo la reconexión del oficio desbloquea el propósito"
+        : "How craft reconnection unlocks purpose",
   };
   const purposeDomain = domainBreakdown.purpose || {
-    current_state: "Searching",
-    block: "Primary purpose obstacle",
-    growth_edge: "Path to purpose-driven work",
+    current_state: language === "es" ? "Buscando" : "Searching",
+    block:
+      language === "es"
+        ? "Obstáculo principal del propósito"
+        : "Primary purpose obstacle",
+    growth_edge:
+      language === "es"
+        ? "Camino hacia el trabajo impulsado por el propósito"
+        : "Path to purpose-driven work",
   };
   const environmentDomain = domainBreakdown.environment || {
-    current_state: "Exploring Options",
-    block: "Primary environmental obstacle",
-    growth_edge: "What changes when environment aligns",
+    current_state:
+      language === "es" ? "Explorando Opciones" : "Exploring Options",
+    block:
+      language === "es"
+        ? "Obstáculo ambiental principal"
+        : "Primary environmental obstacle",
+    growth_edge:
+      language === "es"
+        ? "Qué cambia cuando el ambiente se alinea"
+        : "What changes when environment aligns",
   };
 
   // Extract kitchen energy assessment (NEW STRUCTURE)
   const kitchenEnergy = planData.kitchen_energy_assessment || {};
   const primaryEnergyState =
     kitchenEnergy.primary_state ||
-    "In the Weeds: Running on stress and obligation";
+    (language === "es"
+      ? "En las Malas Hierbas: Funcionando con estrés y obligación"
+      : "In the Weeds: Running on stress and obligation");
   const regulationCapacity =
     kitchenEnergy.regulation_capacity ||
-    "Developing: Can stay loose in low-pressure situations";
+    (language === "es"
+      ? "Desarrollando: Puede mantenerse relajado en situaciones de baja presión"
+      : "Developing: Can stay loose in low-pressure situations");
   const observablePatterns = Array.isArray(kitchenEnergy.observable_patterns)
     ? kitchenEnergy.observable_patterns
     : kitchenEnergy.observable_patterns_text
       ? [kitchenEnergy.observable_patterns_text]
-      : ["Physical cue", "Emotional cue", "Behavioral cue"];
+      : language === "es"
+        ? ["Señal física", "Señal emocional", "Señal conductual"]
+        : ["Physical cue", "Emotional cue", "Behavioral cue"];
   const energyReality =
     kitchenEnergy.energy_reality ||
-    "You're not running out of steam—you're running on fumes pretending it's fuel.";
+    (language === "es"
+      ? "No te estás quedando sin vapor—estás funcionando con humo fingiendo que es combustible."
+      : "You're not running out of steam—you're running on fumes pretending it's fuel.");
 
   // Extract 30-day protocol (NEW STRUCTURE)
   const thirtyDayProtocol = planData.thirty_day_protocol || {};
   const urgencyStatement =
     thirtyDayProtocol.urgency_statement ||
-    "This pattern once kept you safe. Now it's keeping you stuck.";
+    (language === "es"
+      ? "Este patrón alguna vez te mantuvo seguro. Ahora te está manteniendo atascado."
+      : "This pattern once kept you safe. Now it's keeping you stuck.");
   const protocolAnchorHabit = thirtyDayProtocol.anchor_habit || anchorHabit;
   const specificAction =
     thirtyDayProtocol.specific_action ||
-    "Take 3 deep breaths and ask yourself one question";
-  const timeReps = thirtyDayProtocol.time_reps || "2 minutes";
+    (language === "es"
+      ? "Toma 3 respiraciones profundas y hazte una pregunta"
+      : "Take 3 deep breaths and ask yourself one question");
+  const timeReps =
+    thirtyDayProtocol.time_reps ||
+    (language === "es" ? "2 minutos" : "2 minutes");
   const whyThisWorks =
     thirtyDayProtocol.why_this_works ||
-    "This builds on your existing anchor and creates a new pattern";
+    (language === "es"
+      ? "Esto se basa en tu ancla existente y crea un nuevo patrón"
+      : "This builds on your existing anchor and creates a new pattern");
   const immediatePractice =
     thirtyDayProtocol.immediate_practice ||
-    "Practice from book applied to your specific kitchen life";
+    (language === "es"
+      ? "Práctica del libro aplicada a tu vida específica en la cocina"
+      : "Practice from book applied to your specific kitchen life");
 
   // Weekly breakdown
-  const week1Focus = thirtyDayProtocol.week_1_focus || "Foundation";
+  const week1Focus =
+    thirtyDayProtocol.week_1_focus ||
+    (language === "es" ? "Fundación" : "Foundation");
   const week1Chapters = thirtyDayProtocol.week_1_chapters || "";
   const week1Practice = thirtyDayProtocol.week_1_practice || "";
   const week1Marker = thirtyDayProtocol.week_1_marker || "";
-  const week2Focus = thirtyDayProtocol.week_2_focus || "Pattern Recognition";
+  const week2Focus =
+    thirtyDayProtocol.week_2_focus ||
+    (language === "es" ? "Reconocimiento de Patrones" : "Pattern Recognition");
   const week2Chapters = thirtyDayProtocol.week_2_chapters || "";
   const week2Practice = thirtyDayProtocol.week_2_practice || "";
   const week2Marker = thirtyDayProtocol.week_2_marker || "";
-  const week3Focus = thirtyDayProtocol.week_3_focus || "Implementation";
+  const week3Focus =
+    thirtyDayProtocol.week_3_focus ||
+    (language === "es" ? "Implementación" : "Implementation");
   const week3Chapters = thirtyDayProtocol.week_3_chapters || "";
   const week3Practice = thirtyDayProtocol.week_3_practice || "";
   const week3Marker = thirtyDayProtocol.week_3_marker || "";
-  const week4Focus = thirtyDayProtocol.week_4_focus || "Integration";
+  const week4Focus =
+    thirtyDayProtocol.week_4_focus ||
+    (language === "es" ? "Integración" : "Integration");
   const week4Practice = thirtyDayProtocol.week_4_practice || "";
   const week4Marker = thirtyDayProtocol.week_4_marker || "";
 
