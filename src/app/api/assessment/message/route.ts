@@ -143,22 +143,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if assessment is complete
-    // Check for multiple variations of the completion phrase in both languages
+    // Check for multiple variations of completion phrases in both languages
+    // The final response includes phrases like "thank you for showing up honestly",
+    // "You're not weak. You're burnt.", and "Let's get you out of the weeds."
+    const responseLower = response.toLowerCase();
     const isComplete =
-      // English phrases
-      response.includes("Let's get you out of the weeds.") ||
-      response.includes("Let's get you out of the weeds") ||
-      response.includes("get you out of the weeds") ||
-      response.includes("out of the weeds") ||
-      response.toLowerCase().includes("let's get you out of the weeds") ||
-      response.toLowerCase().includes("get you out of the weeds") ||
-      // Spanish phrases
-      response.includes("Vamos a sacarte de las malas hierbas.") ||
-      response.includes("Vamos a sacarte de las malas hierbas") ||
-      response.includes("sacarte de las malas hierbas") ||
-      response.includes("de las malas hierbas") ||
-      response.toLowerCase().includes("vamos a sacarte de las malas hierbas") ||
-      response.toLowerCase().includes("sacarte de las malas hierbas");
+      // English completion phrases
+      responseLower.includes("let's get you out of the weeds") ||
+      responseLower.includes("get you out of the weeds") ||
+      responseLower.includes("out of the weeds") ||
+      // Additional English phrases from final response
+      (responseLower.includes("thank you for showing up honestly") &&
+        (responseLower.includes("you're not weak") ||
+          responseLower.includes("you're burnt") ||
+          responseLower.includes("burnt doesn't mean done"))) ||
+      // Spanish completion phrases
+      responseLower.includes("vamos a sacarte de las malas hierbas") ||
+      responseLower.includes("sacarte de las malas hierbas") ||
+      responseLower.includes("de las malas hierbas") ||
+      // Additional Spanish phrases from final response
+      (responseLower.includes("gracias por presentarte honestamente") &&
+        (responseLower.includes("no eres débil") ||
+          responseLower.includes("estás quemado") ||
+          responseLower.includes("quemado no significa terminado")));
 
     // If complete, mark session completed so the link can't be reused indefinitely
     if (isComplete) {

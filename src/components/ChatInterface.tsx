@@ -387,48 +387,46 @@ export default function ChatInterface({
                 assistantMessage.content += data.content;
 
                 // Check for completion phrases immediately during streaming
-                // Check for multiple variations of the final phrase in both languages
-                if (
-                  !completionTriggeredRef.current && // English phrases
-                  (assistantMessage.content.includes(
-                    "Let's get you out of the weeds."
-                  ) ||
-                    assistantMessage.content.includes(
-                      "Let's get you out of the weeds"
+                // Check for multiple variations of completion phrases in both languages
+                // The final response includes phrases like "thank you for showing up honestly",
+                // "You're not weak. You're burnt.", and "Let's get you out of the weeds."
+                if (!completionTriggeredRef.current) {
+                  const contentLower = assistantMessage.content.toLowerCase();
+                  const isComplete =
+                    // English completion phrases
+                    contentLower.includes("let's get you out of the weeds") ||
+                    contentLower.includes("get you out of the weeds") ||
+                    contentLower.includes("out of the weeds") ||
+                    // Additional English phrases from final response
+                    (contentLower.includes(
+                      "thank you for showing up honestly"
+                    ) &&
+                      (contentLower.includes("you're not weak") ||
+                        contentLower.includes("you're burnt") ||
+                        contentLower.includes("burnt doesn't mean done"))) ||
+                    // Spanish completion phrases
+                    contentLower.includes(
+                      "vamos a sacarte de las malas hierbas"
                     ) ||
-                    assistantMessage.content.includes(
-                      "get you out of the weeds"
-                    ) ||
-                    assistantMessage.content.includes("out of the weeds") ||
-                    assistantMessage.content
-                      .toLowerCase()
-                      .includes("let's get you out of the weeds") ||
-                    assistantMessage.content
-                      .toLowerCase()
-                      .includes("get you out of the weeds") ||
-                    // Spanish phrases
-                    assistantMessage.content.includes(
-                      "Vamos a sacarte de las malas hierbas."
-                    ) ||
-                    assistantMessage.content.includes(
-                      "Vamos a sacarte de las malas hierbas"
-                    ) ||
-                    assistantMessage.content.includes(
-                      "sacarte de las malas hierbas"
-                    ) ||
-                    assistantMessage.content.includes("de las malas hierbas") ||
-                    assistantMessage.content
-                      .toLowerCase()
-                      .includes("vamos a sacarte de las malas hierbas") ||
-                    assistantMessage.content
-                      .toLowerCase()
-                      .includes("sacarte de las malas hierbas"))
-                ) {
-                  console.log(
-                    "Completion detected during streaming via content phrases"
-                  );
-                  completionTriggeredRef.current = true; // Mark that we detected completion
-                  // Don't set assessmentComplete yet - wait for stream to finish
+                    contentLower.includes("sacarte de las malas hierbas") ||
+                    contentLower.includes("de las malas hierbas") ||
+                    // Additional Spanish phrases from final response
+                    (contentLower.includes(
+                      "gracias por presentarte honestamente"
+                    ) &&
+                      (contentLower.includes("no eres débil") ||
+                        contentLower.includes("estás quemado") ||
+                        contentLower.includes(
+                          "quemado no significa terminado"
+                        )));
+
+                  if (isComplete) {
+                    console.log(
+                      "Completion detected during streaming via content phrases"
+                    );
+                    completionTriggeredRef.current = true; // Mark that we detected completion
+                    // Don't set assessmentComplete yet - wait for stream to finish
+                  }
                 }
               }
 
@@ -689,12 +687,11 @@ export default function ChatInterface({
                         </svg>
                       </div>
                       <h3 className="text-lg font-semibold text-green-800">
-                        Assessment Complete!
+                        {t.assessment.complete}
                       </h3>
                     </div>
                     <p className="text-green-700 font-medium">
-                      Your assessment report will be generated within a few
-                      minutes and will be delivered to your email.
+                      {t.assessment.reportGenerating}
                     </p>
                   </div>
                 </div>
