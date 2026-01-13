@@ -65,26 +65,26 @@ export async function createEmailSequence(
     // Schedule emails with proper day-based delays (in milliseconds)
     const emailSchedule: EmailScheduleItem[] = [
       {
-        delay: 3 * 24 * 60 * 60 * 1000,
-        // delay: 1 * 60 * 1000, // 1 minute
+        // delay: 3 * 24 * 60 * 60 * 1000,
+        delay: 1 * 60 * 1000, // 1 minute
         function: sendPatternRecognitionEmail,
         name: "pattern_recognition",
       }, // 3 days
       {
-        delay: 7 * 24 * 60 * 60 * 1000,
-        // delay: 2 * 60 * 1000, // 2 minutes
+        // delay: 7 * 24 * 60 * 60 * 1000,
+        delay: 2 * 60 * 1000, // 2 minutes
         function: sendEvidence7DayEmail,
         name: "evidence_7day",
       }, // 7 days
       {
-        delay: 14 * 24 * 60 * 60 * 1000,
-        // delay: 3 * 60 * 1000, // 3 minutes
+        // delay: 14 * 24 * 60 * 60 * 1000,
+        delay: 3 * 60 * 1000, // 3 minutes
         function: sendIntegrationThresholdEmail,
         name: "integration_threshold",
       }, // Day 14
       {
-        delay: 30 * 24 * 60 * 60 * 1000,
-        // delay: 4 * 60 * 1000, // 5 minutes
+        // delay: 30 * 24 * 60 * 60 * 1000,
+        delay: 4 * 60 * 1000, // 5 minutes
         function: sendDirectInvitationEmail,
         name: "direct_invitation",
       }, // 30 days
