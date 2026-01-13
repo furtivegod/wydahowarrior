@@ -637,39 +637,43 @@ export async function generateStructuredPlan(
 2. NO escribas texto antes del JSON. NO escribas texto después del JSON.
 3. NO escribas explicaciones. NO escribas comentarios. NO escribas "Lo siento" o cualquier otra frase.
 4. NO respondas como si estuvieras en una conversación. Estás generando un archivo JSON, no conversando.
-5. Tu respuesta DEBE comenzar EXACTAMENTE con el carácter { y terminar EXACTAMENTE con el carácter }
-6. Si tu respuesta no es JSON válido, la aplicación fallará.
-7. Todos los arrays DEBEN contener contenido real
-8. Cada campo debe estar poblado con contenido significativo y personalizado basado en las respuestas del cliente
-9. No se permiten cadenas vacías o marcadores genéricos
-10. Usa lenguaje específico de cocina a lo largo (en las malas hierbas, quemado, cocido, abrumado, 86'd, etc.)
-11. SIEMPRE usa comillas dobles (") para las citas del cliente, nunca comillas simples (')
-12. Selecciona UN SOLO libro (no dos) basado en su patrón principal
-13. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
-14. RECUERDA: TODO el contenido del JSON debe estar en ESPAÑOL - no uses inglés en ningún campo
+5. NO uses markdown (**, #, etc.). NO uses formato de texto. SOLO JSON.
+6. Tu respuesta DEBE comenzar EXACTAMENTE con el carácter { y terminar EXACTAMENTE con el carácter }
+7. Si tu respuesta no es JSON válido, la aplicación fallará completamente.
+8. NO incluyas ningún texto narrativo, análisis, o comentarios fuera del JSON.
+9. Todos los arrays DEBEN contener contenido real
+10. Cada campo debe estar poblado con contenido significativo y personalizado basado en las respuestas del cliente
+11. No se permiten cadenas vacías o marcadores genéricos
+12. Usa lenguaje específico de cocina a lo largo (en las malas hierbas, quemado, cocido, abrumado, 86'd, etc.)
+13. SIEMPRE usa comillas dobles (") para las citas del cliente, nunca comillas simples (')
+14. Selecciona UN SOLO libro (no dos) basado en su patrón principal
+15. Usa sus palabras EXACTAS para kitchen_term, pattern_exact_words y what_it_costs
+16. RECUERDA: TODO el contenido del JSON debe estar en ESPAÑOL - no uses inglés en ningún campo
 
 FORMATO DE RESPUESTA REQUERIDO:
-Tu respuesta completa debe ser SOLO esto:
+Tu respuesta completa debe ser SOLO esto (sin texto antes, sin texto después, sin markdown, sin explicaciones):
 {
   "title": "...",
   "client_name": "...",
   ...
 }
 
-NO escribas nada más. NO agregues texto antes o después. NO expliques. NO comentes. SOLO JSON.`
+IMPORTANTE: Si tu respuesta contiene cualquier texto que no sea JSON (como "**Antes te retabas.**" o cualquier otro texto), la aplicación fallará. Tu respuesta debe ser 100% JSON válido, comenzando con { y terminando con }.`
         : `You are a professional behavioral optimization specialist who understands the unique challenges of Christian chef-owners. Based on the "Wydaho Warrior Knife Check Assessment" conversation, create a comprehensive client-facing report in valid JSON format matching the 9-page framework.
 
 CRITICAL INSTRUCTIONS:
-1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary.
-2. Start your response with { and end with }
+1. Return ONLY valid JSON. No markdown, no explanations, no extra text, no commentary, no narrative text.
+2. Start your response EXACTLY with { and end EXACTLY with }
 3. Do not include any text before or after the JSON object
-4. All arrays MUST contain actual content
-5. Every field must be populated with meaningful, personalized content based on the client's responses
-6. No empty strings or generic placeholders allowed
-7. Use kitchen-specific language throughout (in the weeds, burnt, cooked, slammed, 86'd, etc.)
-8. ALWAYS use double quotes (") for client quotes, never single quotes (')
-9. Select ONE book only (not two) based on their primary pattern
-10. Use their EXACT words for kitchen_term, pattern_exact_words, and what_it_costs`;
+4. Do not use markdown formatting (**, #, etc.). Only JSON.
+5. If your response is not valid JSON starting with {, the application will fail completely.
+6. All arrays MUST contain actual content
+7. Every field must be populated with meaningful, personalized content based on the client's responses
+8. No empty strings or generic placeholders allowed
+9. Use kitchen-specific language throughout (in the weeds, burnt, cooked, slammed, 86'd, etc.)
+10. ALWAYS use double quotes (") for client quotes, never single quotes (')
+11. Select ONE book only (not two) based on their primary pattern
+12. Use their EXACT words for kitchen_term, pattern_exact_words, and what_it_costs`;
 
     // Create language-specific format example
     const formatExample =
@@ -1107,10 +1111,21 @@ ${formatExample}
           role: "user",
           content:
             language === "es"
-              ? `🚨 RECUERDA: TODO el JSON debe estar en ESPAÑOL. NO uses inglés en ningún campo.
+              ? `🚨🚨🚨 INSTRUCCIONES FINALES CRÍTICAS 🚨🚨🚨
+1. Tu respuesta DEBE ser SOLO JSON válido. NADA MÁS.
+2. NO escribas texto antes del JSON. NO escribas texto después del JSON.
+3. NO uses markdown (**, #, etc.). SOLO JSON.
+4. Tu respuesta DEBE comenzar EXACTAMENTE con { y terminar EXACTAMENTE con }
+5. TODO el contenido del JSON debe estar en ESPAÑOL. NO uses inglés en ningún campo.
 
 Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en esta conversación. TODOS los campos del JSON deben estar en ESPAÑOL:\n\n${truncatedHistory}`
-              : `Create a comprehensive "Wydaho Warrior Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
+              : `🚨🚨🚨 CRITICAL FINAL INSTRUCTIONS 🚨🚨🚨
+1. Your response MUST be ONLY valid JSON. NOTHING ELSE.
+2. Do NOT write text before the JSON. Do NOT write text after the JSON.
+3. Do NOT use markdown (**, #, etc.). ONLY JSON.
+4. Your response MUST start EXACTLY with { and end EXACTLY with }
+
+Create a comprehensive "Wydaho Warrior Knife Check Assessment" report based on this conversation:\n\n${truncatedHistory}`,
         },
       ],
     });
@@ -1128,8 +1143,8 @@ Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en e
       jsonString = jsonString.replace(/^```\s*/, "").replace(/\s*```$/, "");
     }
 
-    // Check if response starts with conversational text (common error in Spanish)
-    // Look for patterns like "Lo siento", "Parece que", etc. and remove everything before the first {
+    // Check if response starts with markdown or conversational text
+    // Look for markdown patterns (**, #, etc.) or conversational text
     if (!jsonString.startsWith("{")) {
       // Find the first occurrence of { which should be the start of JSON
       const firstBraceIndex = jsonString.indexOf("{");
@@ -1137,11 +1152,40 @@ Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en e
         console.log(
           `⚠️ Found text before JSON, removing first ${firstBraceIndex} characters`
         );
+        console.log(
+          `⚠️ Text before JSON: ${jsonString.substring(0, Math.min(200, firstBraceIndex))}`
+        );
         jsonString = jsonString.substring(firstBraceIndex);
+      } else {
+        // No { found at all - this is a major problem
+        console.error(
+          "❌ No JSON object found in response! Response starts with:",
+          jsonString.substring(0, 200)
+        );
+        // Try to find any JSON-like structure
+        const anyBraceIndex = jsonString.search(/[\{\[]/);
+        if (anyBraceIndex >= 0) {
+          console.log(
+            `⚠️ Found ${jsonString[anyBraceIndex]} at index ${anyBraceIndex}, extracting from there`
+          );
+          jsonString = jsonString.substring(anyBraceIndex);
+        } else {
+          // No JSON structure found at all - log error and use fallback
+          console.error(
+            "❌ No JSON structure found in Claude response. Response appears to be markdown/text only."
+          );
+          console.error(
+            "❌ Full response preview:",
+            jsonString.substring(0, 500)
+          );
+          // Will fall through to use fallback structure below
+          jsonString = "{}"; // Set to empty JSON to trigger fallback
+        }
       }
     }
 
     // Try to find the JSON object - look for the first complete JSON object
+    // Use a more robust regex that handles nested structures
     const jsonMatch = jsonString.match(/\{[\s\S]*\}/);
     if (jsonMatch) {
       jsonString = jsonMatch[0];
@@ -1150,6 +1194,12 @@ Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en e
       const arrayMatch = jsonString.match(/\[[\s\S]*\]/);
       if (arrayMatch) {
         jsonString = arrayMatch[0];
+      } else {
+        // No JSON structure found - log error and use fallback
+        console.error("❌ No valid JSON structure found in cleaned response");
+        console.error("❌ Response preview:", jsonString.substring(0, 500));
+        // Set to empty JSON to trigger fallback
+        jsonString = "{}";
       }
     }
 
@@ -1161,17 +1211,28 @@ Crea un informe completo de "Evaluación Wydaho Warrior Knife Check" basado en e
 
     try {
       const planData = JSON.parse(jsonString);
-      console.log("✅ Successfully parsed Claude response!");
-      console.log("Report title:", planData.title);
-      console.log(
-        "Progress markers count:",
-        planData.thirty_day_protocol?.progress_markers?.length || 0
-      );
 
-      return planData;
+      // Check if the parsed JSON is empty or missing critical fields
+      if (!planData || Object.keys(planData).length === 0 || !planData.title) {
+        console.error("❌ Parsed JSON is empty or missing critical fields");
+        console.error(
+          "❌ Parsed data:",
+          JSON.stringify(planData, null, 2).substring(0, 500)
+        );
+        // Will fall through to use fallback structure below
+      } else {
+        console.log("✅ Successfully parsed Claude response!");
+        console.log("Report title:", planData.title);
+        console.log(
+          "Progress markers count:",
+          planData.thirty_day_protocol?.progress_markers?.length || 0
+        );
+        return planData;
+      }
     } catch (parseError) {
       console.error("❌ JSON parse error:", parseError);
       console.error("Failed JSON length:", jsonString.length);
+      console.error("Failed JSON preview:", jsonString.substring(0, 500));
 
       // Try to fix incomplete JSON
       let fixedJson = jsonString;
