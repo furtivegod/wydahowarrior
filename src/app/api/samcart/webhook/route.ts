@@ -79,7 +79,27 @@ export async function POST(request: NextRequest) {
 
     // Extract language from custom fields (try multiple possible locations)
     // SamCart custom fields can be in various locations depending on webhook type
+    // IMPORTANT: order.custom_fields is an ARRAY of objects with {name, slug, value}
+
+    // Helper function to extract from array of custom fields
+    const extractFromCustomFieldsArray = (
+      customFields: unknown
+    ): string | null => {
+      if (Array.isArray(customFields)) {
+        const languageField = customFields.find(
+          (f: { name?: string; field_name?: string; value?: string }) =>
+            f.name === "Language" ||
+            f.field_name === "Language" ||
+            f.name === "language"
+        );
+        return languageField?.value || null;
+      }
+      return null;
+    };
+
     const rawLanguage =
+      // Order object custom fields (ARRAY format - this is where it actually is!)
+      extractFromCustomFieldsArray(samcartData.order?.custom_fields) ||
       // Direct custom_fields object (common for lead add events)
       samcartData.custom_fields?.Language ||
       samcartData.custom_fields?.language ||
@@ -88,14 +108,12 @@ export async function POST(request: NextRequest) {
       samcartData.customer?.custom_fields?.Language ||
       samcartData.customer?.custom_fields?.language ||
       samcartData.customer?.custom_fields?.language_preference ||
-      // Order object custom fields
-      samcartData.order?.custom_fields?.Language ||
-      samcartData.order?.custom_fields?.language ||
-      samcartData.order?.custom_fields?.language_preference ||
       // Products array custom fields (sometimes nested here)
       samcartData.products?.[0]?.custom_fields?.Language ||
       samcartData.products?.[0]?.custom_fields?.language ||
       samcartData.products?.[0]?.custom_fields?.language_preference ||
+      // Check if top-level custom_fields is an array
+      extractFromCustomFieldsArray(samcartData.custom_fields) ||
       // Top level fields
       samcartData.Language ||
       samcartData.language ||
@@ -104,13 +122,6 @@ export async function POST(request: NextRequest) {
       samcartData.metadata?.Language ||
       samcartData.metadata?.language ||
       samcartData.metadata?.language_preference ||
-      // Check if custom_fields is an array
-      (Array.isArray(samcartData.custom_fields)
-        ? samcartData.custom_fields.find(
-            (f: { name?: string; field_name?: string; value?: string }) =>
-              f.name === "Language" || f.field_name === "Language"
-          )?.value
-        : null) ||
       null;
 
     // Debug: Log the full custom_fields structure to help identify the location
