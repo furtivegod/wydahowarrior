@@ -2,25 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { Language, getLanguageFromRequest } from "@/lib/i18n";
+import { Language } from "@/lib/i18n";
 
 export default function SuccessPage() {
   const [userEmail, setUserEmail] = useState("your email.");
   const [isLoading, setIsLoading] = useState(true);
-  const [languageUpdated, setLanguageUpdated] = useState(false);
-  const [languageSet, setLanguageSet] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
   const { t, setLanguage } = useLanguage();
 
   useEffect(() => {
-    // LanguageContext will automatically detect from cookie/localStorage/URL
-    // But we can also check URL params explicitly as fallback
+    // Set language from URL param if available, otherwise use session language
     const urlParams = new URLSearchParams(window.location.search);
     const langParam = urlParams.get('lang') as Language;
     if (langParam && (langParam === 'en' || langParam === 'es')) {
       setLanguage(langParam);
     }
-    // If no URL param, LanguageContext will use cookie/localStorage from getLanguageFromRequest()
     
     fetchLatestSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -33,80 +28,11 @@ export default function SuccessPage() {
         const data = await response.json();
         setUserEmail(data.email);
         
-        // Get language from cookie/localStorage (user's preference)
-        // Returns null if not found (don't default to 'en' to avoid overwriting 'es')
-        const detectedLang = getLanguageFromRequest();
-        
-        // If session has a language, use it; otherwise use detected language, otherwise default to 'en'
-        const sessionLang = data.language && (data.language === 'en' || data.language === 'es') 
-          ? data.language 
-          : null;
-        
-        // Use detected language if available, otherwise use session language, otherwise default to 'en'
-        const finalLang = detectedLang || sessionLang || 'en';
-        
-        // Set language in context (only once)
-        if (!languageSet) {
-          setLanguage(finalLang);
-          setLanguageSet(true);
-        }
-        
-        // Update session language and send magic link email
-        // We only do this once per page load
-        if (data.sessionId && !emailSent) {
-          setEmailSent(true); // Mark as sent to prevent multiple calls
-          
-          // Determine the language to use
-          const languageToUse = detectedLang || sessionLang || 'en';
-          
-          // Step 1: Update session language if we have a detected language and it's different
-          if (detectedLang !== null && detectedLang !== sessionLang && !languageUpdated) {
-            setLanguageUpdated(true);
-            try {
-              const updateResponse = await fetch("/api/session/update-language", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  sessionId: data.sessionId,
-                  language: detectedLang,
-                }),
-              });
-              
-              if (updateResponse.ok) {
-                console.log("Session language updated to:", detectedLang);
-              }
-            } catch (updateError) {
-              console.error("Failed to update session language:", updateError);
-              // Continue to send email even if language update fails
-            }
-          }
-          
-          // Step 2: Send magic link email (always send, even if language update failed)
-          try {
-            const emailResponse = await fetch("/api/session/send-magic-link", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                sessionId: data.sessionId,
-                language: languageToUse,
-              }),
-            });
-            
-            if (emailResponse.ok) {
-              console.log("✅ Magic link email sent successfully with language:", languageToUse);
-            } else {
-              const errorData = await emailResponse.json();
-              console.error("Failed to send magic link email:", errorData);
-              setEmailSent(false); // Allow retry on error
-            }
-          } catch (emailError) {
-            console.error("Error sending magic link email:", emailError);
-            setEmailSent(false); // Allow retry on error
-          }
+        // Set language from session if available and not already set from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang') as Language;
+        if (!langParam && data.language && (data.language === 'en' || data.language === 'es')) {
+          setLanguage(data.language);
         }
         
         setIsLoading(false);

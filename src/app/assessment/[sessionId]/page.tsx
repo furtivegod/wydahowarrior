@@ -46,8 +46,9 @@ export default function AssessmentPage({
               ? sessionData.language
               : null;
 
-          // Use client language if available, otherwise use session language, otherwise default to 'en'
-          const finalLanguage = clientLanguage || sessionLang || "en";
+          // Use session language (from webhook/SamCart) as primary source
+          // Fallback to client language if session language not available, otherwise default to 'en'
+          const finalLanguage = sessionLang || clientLanguage || "en";
 
           console.log("=== LANGUAGE DETECTION ===");
           console.log("Client language (cookie/localStorage):", clientLanguage);
@@ -57,34 +58,6 @@ export default function AssessmentPage({
 
           // Set language in context
           setLanguage(finalLanguage);
-
-          // Only update session language if:
-          // 1. We have a client language (not null - meaning user actually selected it)
-          // 2. Session language is different
-          // This prevents overwriting 'es' with 'en' when language preference is not available
-          if (clientLanguage !== null && clientLanguage !== sessionLang) {
-            console.log("Updating session language to:", clientLanguage);
-            try {
-              const updateResponse = await fetch(
-                "/api/session/update-language",
-                {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    sessionId: resolvedParams.sessionId,
-                    language: clientLanguage,
-                  }),
-                }
-              );
-              if (updateResponse.ok) {
-                console.log("Session language updated successfully");
-              }
-            } catch (updateError) {
-              console.error("Failed to update session language:", updateError);
-            }
-          }
         }
       } catch (error) {
         console.error("Failed to fetch session language:", error);

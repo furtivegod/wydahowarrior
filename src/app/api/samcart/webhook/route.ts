@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { sendMagicLink } from "@/lib/email";
+import { Language } from "@/lib/i18n";
 
 export async function POST(request: NextRequest) {
   try {
@@ -75,6 +77,36 @@ export async function POST(request: NextRequest) {
         ? `${customerFirstName} ${customerLastName}`
         : customerFirstName || null;
 
+    // Extract language from custom fields (try multiple possible locations)
+    const rawLanguage =
+      samcartData.custom_fields?.Language ||
+      samcartData.custom_fields?.language_preference ||
+      samcartData.custom_fields?.language ||
+      samcartData.customer?.custom_fields?.Language ||
+      samcartData.customer?.custom_fields?.language_preference ||
+      samcartData.customer?.custom_fields?.language ||
+      samcartData.metadata?.language ||
+      samcartData.order?.custom_fields?.Language ||
+      samcartData.order?.custom_fields?.language ||
+      samcartData.Language ||
+      samcartData.language_preference ||
+      samcartData.language ||
+      null;
+
+    // Normalize the language value (SamCart might send "English", "Spanish", "Español", "en", "es")
+    let normalizedLanguage: Language = "en"; // Default to English
+    if (rawLanguage) {
+      const langLower = String(rawLanguage).toLowerCase();
+      if (
+        langLower.includes("spanish") ||
+        langLower.includes("español") ||
+        langLower === "es" ||
+        langLower === "sp"
+      ) {
+        normalizedLanguage = "es";
+      }
+    }
+
     console.log("Extracted data:", {
       customerEmail,
       orderId,
@@ -83,6 +115,8 @@ export async function POST(request: NextRequest) {
       customerName,
       eventType,
       isLeadAdd,
+      rawLanguage,
+      normalizedLanguage,
     });
 
     // Process both order complete (Charged) and lead add events
@@ -252,12 +286,21 @@ export async function POST(request: NextRequest) {
       console.log("Skipping order creation for lead add event");
     }
 
-    // Create assessment session (without language - will be set by success page)
-    console.log("Creating session for user:", user.id);
+    // Create assessment session with language from SamCart
+    console.log(
+      "Creating session for user:",
+      user.id,
+      "with language:",
+      normalizedLanguage
+    );
 
     const { data: session, error: sessionError } = await supabaseAdmin
       .from("sessions")
-      .insert({ user_id: user.id, status: "active" })
+      .insert({
+        user_id: user.id,
+        status: "active",
+        language: normalizedLanguage,
+      })
       .select("*")
       .single();
 
@@ -285,18 +328,40 @@ export async function POST(request: NextRequest) {
 
     console.log("✅ Session created in database:", sessionId);
 
+    // Send magic link email immediately with the correct language
+    try {
+      const firstName = customerName?.split(" ")[0] || null;
+      await sendMagicLink(
+        customerEmail,
+        sessionId,
+        firstName,
+        normalizedLanguage
+      );
+      console.log(
+        "✅ Magic link email sent immediately with language:",
+        normalizedLanguage
+      );
+    } catch (emailError) {
+      console.error("Failed to send magic link from webhook:", emailError);
+      // Don't fail the webhook - the email can be resent manually if needed
+      // The success page or a retry mechanism can handle this
+    }
+
     return NextResponse.json({
       verified: true,
       event_type: isOrderComplete ? "order_complete" : "lead_add",
       user,
       order: orderRow,
       session_id: sessionId,
+      language: normalizedLanguage,
       debug_info: {
         received_headers: Object.fromEntries(request.headers.entries()),
         received_body: samcartData,
         eventType,
         isLeadAdd,
         isOrderComplete,
+        rawLanguage,
+        normalizedLanguage,
       },
     });
   } catch (error) {
