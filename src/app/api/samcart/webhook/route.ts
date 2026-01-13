@@ -78,33 +78,87 @@ export async function POST(request: NextRequest) {
         : customerFirstName || null;
 
     // Extract language from custom fields (try multiple possible locations)
+    // SamCart custom fields can be in various locations depending on webhook type
     const rawLanguage =
+      // Direct custom_fields object (common for lead add events)
       samcartData.custom_fields?.Language ||
-      samcartData.custom_fields?.language_preference ||
       samcartData.custom_fields?.language ||
+      samcartData.custom_fields?.language_preference ||
+      // Customer object custom fields (common for order events)
       samcartData.customer?.custom_fields?.Language ||
-      samcartData.customer?.custom_fields?.language_preference ||
       samcartData.customer?.custom_fields?.language ||
-      samcartData.metadata?.language ||
+      samcartData.customer?.custom_fields?.language_preference ||
+      // Order object custom fields
       samcartData.order?.custom_fields?.Language ||
       samcartData.order?.custom_fields?.language ||
+      samcartData.order?.custom_fields?.language_preference ||
+      // Products array custom fields (sometimes nested here)
+      samcartData.products?.[0]?.custom_fields?.Language ||
+      samcartData.products?.[0]?.custom_fields?.language ||
+      samcartData.products?.[0]?.custom_fields?.language_preference ||
+      // Top level fields
       samcartData.Language ||
-      samcartData.language_preference ||
       samcartData.language ||
+      samcartData.language_preference ||
+      // Metadata
+      samcartData.metadata?.Language ||
+      samcartData.metadata?.language ||
+      samcartData.metadata?.language_preference ||
+      // Check if custom_fields is an array
+      (Array.isArray(samcartData.custom_fields)
+        ? samcartData.custom_fields.find(
+            (f: { name?: string; field_name?: string; value?: string }) =>
+              f.name === "Language" || f.field_name === "Language"
+          )?.value
+        : null) ||
       null;
+
+    // Debug: Log the full custom_fields structure to help identify the location
+    console.log("=== LANGUAGE EXTRACTION DEBUG ===");
+    console.log(
+      "custom_fields:",
+      JSON.stringify(samcartData.custom_fields, null, 2)
+    );
+    console.log(
+      "customer?.custom_fields:",
+      JSON.stringify(samcartData.customer?.custom_fields, null, 2)
+    );
+    console.log(
+      "order?.custom_fields:",
+      JSON.stringify(samcartData.order?.custom_fields, null, 2)
+    );
+    console.log(
+      "products[0]?.custom_fields:",
+      JSON.stringify(samcartData.products?.[0]?.custom_fields, null, 2)
+    );
+    console.log("Raw language extracted:", rawLanguage);
+    console.log("==================================");
 
     // Normalize the language value (SamCart might send "English", "Spanish", "Español", "en", "es")
     let normalizedLanguage: Language = "en"; // Default to English
     if (rawLanguage) {
-      const langLower = String(rawLanguage).toLowerCase();
+      const langLower = String(rawLanguage).toLowerCase().trim();
+      console.log(
+        "Language normalization - raw:",
+        rawLanguage,
+        "lowercase:",
+        langLower
+      );
+
       if (
         langLower.includes("spanish") ||
         langLower.includes("español") ||
         langLower === "es" ||
-        langLower === "sp"
+        langLower === "sp" ||
+        langLower === "esp"
       ) {
         normalizedLanguage = "es";
+        console.log("✅ Language normalized to: es");
+      } else {
+        console.log("Language normalized to: en (default)");
       }
+    } else {
+      console.log("⚠️ No language found in webhook payload, defaulting to: en");
     }
 
     console.log("Extracted data:", {
@@ -156,10 +210,7 @@ export async function POST(request: NextRequest) {
 
     // Test database connection
     try {
-      const { data: testConnection } = await supabaseAdmin
-        .from("users")
-        .select("count")
-        .limit(1);
+      await supabaseAdmin.from("users").select("count").limit(1);
       console.log("Database connection successful");
     } catch (dbError) {
       console.error("Database connection failed:", dbError);
