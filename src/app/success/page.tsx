@@ -7,16 +7,10 @@ import { Language } from "@/lib/i18n";
 export default function SuccessPage() {
   const [userEmail, setUserEmail] = useState("your email.");
   const [isLoading, setIsLoading] = useState(true);
+  const [languageSet, setLanguageSet] = useState(false);
   const { t, setLanguage } = useLanguage();
 
   useEffect(() => {
-    // Set language from URL param if available, otherwise use session language
-    const urlParams = new URLSearchParams(window.location.search);
-    const langParam = urlParams.get('lang') as Language;
-    if (langParam && (langParam === 'en' || langParam === 'es')) {
-      setLanguage(langParam);
-    }
-    
     fetchLatestSession();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Only run once on mount
@@ -28,11 +22,23 @@ export default function SuccessPage() {
         const data = await response.json();
         setUserEmail(data.email);
         
-        // Set language from session if available and not already set from URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const langParam = urlParams.get('lang') as Language;
-        if (!langParam && data.language && (data.language === 'en' || data.language === 'es')) {
-          setLanguage(data.language);
+        // Prioritize session language (from webhook/SamCart) - this is the source of truth
+        // Set it immediately to override any default from LanguageContext
+        if (!languageSet) {
+          if (data.language && (data.language === 'en' || data.language === 'es')) {
+            setLanguage(data.language);
+            setLanguageSet(true);
+            console.log("✅ Success page language set from session:", data.language);
+          } else {
+            // Fallback to URL param if session language not available
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang') as Language;
+            if (langParam && (langParam === 'en' || langParam === 'es')) {
+              setLanguage(langParam);
+              setLanguageSet(true);
+              console.log("✅ Success page language set from URL:", langParam);
+            }
+          }
         }
         
         setIsLoading(false);

@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       userName: users?.user_name,
       sessionId: sessionData.id,
       startedAt: sessionData.started_at,
-      language: sessionData.language || 'en'
+      language: sessionData.language || null // Don't default to 'en' - let frontend handle fallback
     })
 
   } catch (error) {
