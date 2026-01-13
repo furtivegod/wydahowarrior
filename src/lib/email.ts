@@ -1031,7 +1031,7 @@ export async function sendEvidence7DayEmail(
             
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">${t.evidence7Day.oneConversation}</li>
-              <li style="margin-bottom: 8px;">${t.evidence7Day.oneEvening.replace("{action}", planData?.pattern_analysis?.anchor_habit || (language === "es" ? "acción" : "action")).replace("{escape}", planData?.pattern_analysis?.anchor_habit || (language === "es" ? "tu patrón de escape habitual" : "your usual escape pattern"))}</li>
+              <li style="margin-bottom: 8px;">${t.evidence7Day.oneEvening.replace("{action}", planData?.pattern_analysis?.anchor_habit || (language === "es" ? "acción" : "action")).replace("{escape}", planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.pattern_trigger || (language === "es" ? "tu patrón de escape habitual" : "your usual escape pattern"))}</li>
               <li style="margin-bottom: 8px;">${t.evidence7Day.oneMoment}</li>
             </ul>
             
@@ -1769,7 +1769,7 @@ export async function sendDirectInvitationEmail(
             <ul style="color: #1A1A1A; font-size: 18px; line-height: 1.6; margin: 20px 0; padding-left: 20px; font-family: 'Inter', sans-serif;">
               <li style="margin-bottom: 8px;">${t.directInvitation.caughtYourselfMid}</li>
               <li style="margin-bottom: 8px;">${t.directInvitation.hadHardConversation}</li>
-              <li style="margin-bottom: 8px;">${t.directInvitation.choseAction.replace("{action}", planData?.pattern_analysis?.anchor_habit || (language === "es" ? "acción" : "action")).replace("{escape}", planData?.pattern_analysis?.anchor_habit || (language === "es" ? "[comportamiento de escape]" : "[escape behavior]"))}</li>
+              <li style="margin-bottom: 8px;">${t.directInvitation.choseAction.replace("{action}", planData?.pattern_analysis?.anchor_habit || (language === "es" ? "acción" : "action")).replace("{escape}", planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.pattern_trigger || (language === "es" ? "[comportamiento de escape]" : "[escape behavior]"))}</li>
             </ul>
             
 

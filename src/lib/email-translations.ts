@@ -682,7 +682,8 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
         '<a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">reserva una llamada</a>',
     },
     patternRecognition: {
-      subject: "Probablemente ya te atrapaste haciéndolo",
+      subject:
+        "Tengo curiosidad—desde que leíste tu evaluación, ¿te has atrapado haciendo exactamente lo que describía?",
       greeting:
         "Tengo curiosidad—desde que leíste tu evaluación, ¿te has atrapado haciendo exactamente lo que describía?",
       caughtYourself:
@@ -807,7 +808,7 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
         "La pregunta es: ¿Estás listo para aplicar esa misma capacidad a tu propio sistema nervioso?",
       orAreYouGoing:
         "¿O vas a seguir moliendo a través de los mismos patrones, esperando que cambien mágicamente por sí solos?",
-      cornerTheyWont: "Rincón: no lo harán.",
+      cornerTheyWont: "Rincón: no cambiarán solos.",
       youAlreadyKnow:
         'Ya sabes lo que necesita cambiar. Lo dijiste tú mismo: "{pattern}".',
       theQuestionIsReady:

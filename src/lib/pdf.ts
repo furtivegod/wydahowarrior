@@ -2142,7 +2142,7 @@ function generateHTMLReport(
           <div class="content-block" style="margin-top: 60px;">
             <div class="block-title">${t.recommendedNext}</div>
             <div class="block-content">
-              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>${t.sixMonthFollowUp}</strong> ${t.afterImplementing}${sixMonthDate ? ` ${t.recommendedFor} ${sixMonthDate}` : ""}</p>
+              <p style="margin: 0 0 25px 0; line-height: 1.8;"><strong>${t.sixMonthFollowUp}</strong> ${t.afterImplementing}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.monthlyCheckIns}</strong> ${t.trackProgress}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.joinCommunity}</strong> ${t.connectWithOthers}${communityLink ? ` <a href="${communityLink}" style="color: var(--lime-green); text-decoration: none;">${communityLink}</a>` : ""}</p>
               <p style="margin: 0 0 20px 0; line-height: 1.8;"><strong>${t.workWithSteve}</strong> ${t.readyForTransformation}${coachingLink ? ` <a href="${coachingLink}" style="color: var(--lime-green); text-decoration: none;">${coachingLink}</a>` : ""}</p>
