@@ -1362,9 +1362,9 @@ export async function sendIntegrationThresholdEmail(
               ${t.integrationThreshold.orAreYouGoing}
             </p>
             
-            <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
-              ${t.integrationThreshold.cornerTheyWont}
-            </p>
+            // <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
+            //   ${t.integrationThreshold.cornerTheyWont}
+            // </p>
             
             <p style="font-size: 18px; color: #1A1A1A; margin: 20px 0; line-height: 1.6; font-family: 'Inter', sans-serif;">
               ${t.integrationThreshold.youAlreadyKnow.replace("{pattern}", (planData?.pattern_analysis?.pattern_exact_words || planData?.pattern_analysis?.what_it_costs || (language === "es" ? "sabes lo que necesita cambiar" : "you know what needs to change")).replace(/\.$/, ""))}

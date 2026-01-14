@@ -1148,16 +1148,24 @@ function generateHTMLReport(
   const bottomLineFull = planData.bottom_line_full || {};
   const bottomLinePara1 =
     bottomLineFull.paragraph_1 ||
-    "You built your identity around being the chef who never breaks, never complains, never needs help. That identity served you when you were fighting to prove yourself. But now it's a cage.";
+    (language === "es"
+      ? "Construiste tu identidad alrededor de ser el chef que nunca se rompe, nunca se queja, nunca necesita ayuda. Esa identidad te sirvió cuando estabas luchando para demostrarte a ti mismo. Pero ahora es una jaula."
+      : "You built your identity around being the chef who never breaks, never complains, never needs help. That identity served you when you were fighting to prove yourself. But now it's a cage.");
   const bottomLinePara2 =
     bottomLineFull.paragraph_2 ||
-    "Staying stuck is costing you. More importantly, it's costing you the life you described—the one with purpose over paper, mission over money.";
+    (language === "es"
+      ? "Quedarte atascado te está costando. Más importante, te está costando la vida que describiste—la que tiene propósito sobre papel, misión sobre dinero."
+      : "Staying stuck is costing you. More importantly, it's costing you the life you described—the one with purpose over paper, mission over money.");
   const bottomLinePara3 =
     bottomLineFull.paragraph_3 ||
-    "You have a choice: keep managing the chaos until something breaks, or face what's actually burning and 86 it. This isn't about working harder. You've proven you can grind. This is about working differently.";
+    (language === "es"
+      ? "Tienes una elección: seguir manejando el caos hasta que algo se rompa, o enfrentar lo que realmente está ardiendo y 86arlo. Esto no se trata de trabajar más duro. Has demostrado que puedes moler. Esto se trata de trabajar de manera diferente."
+      : "You have a choice: keep managing the chaos until something breaks, or face what's actually burning and 86 it. This isn't about working harder. You've proven you can grind. This is about working differently.");
   const bottomLineEmphasis =
     bottomLineFull.emphasis_statement ||
-    "You're not stuck because you don't know what to do. You're stuck because you haven't protected your purpose like you protected your sobriety.";
+    (language === "es"
+      ? "No estás atascado porque no sabes qué hacer. Estás atascado porque no has protegido tu propósito como protegiste tu sobriedad."
+      : "You're not stuck because you don't know what to do. You're stuck because you haven't protected your purpose like you protected your sobriety.");
 
   // Extract Steve's story
   const steveStoryNote =

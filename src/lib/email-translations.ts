@@ -683,11 +683,11 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
     },
     patternRecognition: {
       subject:
-        "Tengo curiosidad—desde que leíste tu evaluación, ¿te has atrapado haciendo exactamente lo que describía?",
+        "Tengo curiosidad—desde que leíste tu evaluación, ¿Te has encontrado a ti mismo haciendo exactamente lo que describía?",
       greeting:
-        "Tengo curiosidad—desde que leíste tu evaluación, ¿te has atrapado haciendo exactamente lo que describía?",
+        "Tengo curiosidad—desde que leíste tu evaluación, ¿Te has encontrado a ti mismo haciendo exactamente lo que describía?",
       caughtYourself:
-        "Tengo curiosidad—desde que leíste tu evaluación, ¿te has atrapado haciendo exactamente lo que describía?",
+        "Tengo curiosidad—desde que leíste tu evaluación, ¿Te has encontrado a ti mismo haciendo exactamente lo que describía?",
       maybeClarity:
         'Tal vez tuviste claridad sobre tu próximo paso, luego inmediatamente comenzaste a investigar "la forma correcta" de hacerlo en lugar de simplemente comenzar.',
       orFeltMotivated:
