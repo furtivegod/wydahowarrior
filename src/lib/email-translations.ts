@@ -808,7 +808,7 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
         "La pregunta es: ¿Estás listo para aplicar esa misma capacidad a tu propio sistema nervioso?",
       orAreYouGoing:
         "¿O vas a seguir moliendo a través de los mismos patrones, esperando que cambien mágicamente por sí solos?",
-      cornerTheyWont: "Rincón: no cambiarán solos.",
+      cornerTheyWont: "No cambiarán solos.",
       youAlreadyKnow:
         'Ya sabes lo que necesita cambiar. Lo dijiste tú mismo: "{pattern}".',
       theQuestionIsReady:
@@ -945,7 +945,7 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
       path3FollowDesc:
         "Videos semanales sobre agotamiento, límites, fe y encontrar tu fuego de nuevo. Historias reales. Soluciones reales.",
       path3FollowButton: "Seguir en YouTube",
-      cornerOneLastThing: "RINCÓN—UNA ÚLTIMA COSA:",
+      cornerOneLastThing: "UNA ÚLTIMA COSA:",
       january2024Disappeared:
         "En enero de 2024, desaparecí. No porque fuera débil. Porque pensé que se suponía que debía manejar todo solo.",
       iWasWrong: "Estaba equivocado.",
