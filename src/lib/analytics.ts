@@ -15,7 +15,7 @@ export function initAnalytics() {
         api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com',
         autocapture: false,
         disable_session_recording: true,
-        loaded: (posthog: typeof import('posthog-js').default) => {
+        loaded: () => {
           console.log('Analytics initialized')
         }
       })
