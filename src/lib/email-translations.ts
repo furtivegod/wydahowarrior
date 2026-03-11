@@ -389,7 +389,7 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
       thatMattersLine: "That matters more than you realize.",
       backstoryLine:
         "I built this assessment after I sabotaged my own environment.",
-      twiceLine: "Twice.",
+      twiceLine: "<em>Twice</em>.",
       becauseLine:
         "Not because I was weak.<br/><br/>Because I was carrying weight I didn’t understand.",
       courageLine:
@@ -420,7 +420,7 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
       smallVsSustainableLine:
         "Small doesn’t mean insignificant. Small means sustainable.",
       destinationLine:
-        "While our journeys look different, we share the same destination: freedom in your own skin.<br/><br/>Keep it simple this week. One shift.",
+        "While our journeys look different, we share the same destination: freedom in your own skin.<br/><br/>Keep it simple this week. <br/>One shift.",
       signoffLabel: "Your Warrior,",
       signoffName: "Chef Steve",
       bibleVerse:
@@ -438,7 +438,7 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
       clarityLine: "Fresh air.<br/>Clarity.<br/>Light.",
       enoughForNowLine:
         "It’s okay if you feel unsettled.<br/>It’s okay if you feel exposed.<br/>It’s okay if you feel nothing at all.<br/><br/>You don’t need to be fixed. <br/>You need to be understood.<br/><br/>And sometimes the first person who needs to understand you…",
-      isYouLine: "is you.",
+      isYouLine: "<em>is you</em>.",
       noPlessure:
         "No pressure. <br/>Just awareness. <br/><br/>That’s enough for now.",
       signoffLabel: "Your Warrior,",

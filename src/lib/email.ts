@@ -927,7 +927,7 @@ export async function sendDay6NotAloneEmail(
                     <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.strengthLine}</p>
                     <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.inviteLine}</p>
                     <div style="text-align:center;margin:24px 0;">
-                      <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="background-color:#7ED321;color:#FFFFFF;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:18px;font-weight:600;display:inline-block;">
+                      <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15">
                         ${t.bookFreeCall}
                       </a>
                     </div>
