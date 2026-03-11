@@ -17,7 +17,7 @@ export async function sendMagicLink(
   email: string,
   sessionId: string,
   firstName?: string,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Email service called with:", { email, sessionId, firstName });
 
@@ -224,7 +224,7 @@ export async function sendReportEmail(
   pdfUrl: string,
   pdfBuffer?: Buffer,
   planData?: PlanData,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Sending report email to:", email);
 
@@ -407,7 +407,7 @@ export async function sendReportEmail(
       else {
         personalizedPS = t.report.psFallback.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
     }
@@ -613,13 +613,360 @@ export async function sendReportEmail(
   }
 }
 
+// Day 1: I'm proud of you
+export async function sendDay1ProudEmail(
+  email: string,
+  userName: string,
+  _planData?: PlanData,
+  language: Language = "en",
+) {
+  console.log("Sending Day 1 proud email to:", email);
+
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY not configured");
+  }
+
+  const firstName =
+    userName?.split(" ")[0] ||
+    email
+      .split("@")[0]
+      .split(".")[0]
+      .replace(/^\w/, (c) => c.toUpperCase());
+
+  const t = emailTranslations[language].day1Proud;
+  const subject = t.subject.replace("{firstName}", firstName);
+
+  const { data, error } = await resend.emails.send({
+    from: DEFAULT_FROM_EMAIL,
+    to: [email],
+    subject,
+    html: `
+      <!DOCTYPE html>
+      <html lang="${language}">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+      </head>
+      <body style="margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background-color:#F5F3ED;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F3ED;padding:40px 20px;">
+          <tr>
+            <td align="center">
+              <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <tr><td height="40"></td></tr>
+                <tr>
+                  <td align="center" style="padding:0 40px;">
+                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height:120px;width:auto;" />
+                  </td>
+                </tr>
+                <tr><td height="30"></td></tr>
+                <tr>
+                  <td style="padding:0 40px;">
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 20px;">
+                      <strong style="font-family:'Playfair Display',serif;font-size:22px;color:#3D4D2E;">Chef ${firstName},</strong>
+                    </p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.introLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.auditLines}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.youDidLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.thatMattersLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.ctaLine}</p>
+                    <p style="font-size:18px; font-weight: 600; color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.backstoryLine}</p>
+                    <p style="font-size:18px; font-family: 'Italic', sans-serif; color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.twiceLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.becauseLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.courageLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.noFixingLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 8px;">
+                      ${t.signoffLabel}<br/>
+                      ${t.signoffName}
+                    </p>
+                    <p style="font-size:14px;color:#666;line-height:1.6;font-style:italic;margin:16px 0 0;">
+                      ${t.bibleVerse}
+                    </p>
+                  </td>
+                </tr>
+                <tr><td height="40"></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `,
+  });
+
+  if (error) {
+    console.error("Resend API error (Day 1 proud):", error);
+    throw new Error(`Resend API error: ${JSON.stringify(error)}`);
+  }
+}
+
+// Day 3: These small shifts
+export async function sendDay3SmallShiftsEmail(
+  email: string,
+  userName: string,
+  _planData?: PlanData,
+  language: Language = "en",
+) {
+  console.log("Sending Day 3 small shifts email to:", email);
+
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY not configured");
+  }
+
+  const firstName =
+    userName?.split(" ")[0] ||
+    email
+      .split("@")[0]
+      .split(".")[0]
+      .replace(/^\w/, (c) => c.toUpperCase());
+
+  const t = emailTranslations[language].day3SmallShifts;
+  const subject = t.subject.replace("{firstName}", firstName);
+
+  const { data, error } = await resend.emails.send({
+    from: DEFAULT_FROM_EMAIL,
+    to: [email],
+    subject,
+    html: `
+      <!DOCTYPE html>
+      <html lang="${language}">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+      </head>
+      <body style="margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background-color:#F5F3ED;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F3ED;padding:40px 20px;">
+          <tr>
+            <td align="center">
+              <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <tr><td height="40"></td></tr>
+                <tr>
+                  <td align="center" style="padding:0 40px;">
+                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height:120px;width:auto;" />
+                  </td>
+                </tr>
+                <tr><td height="30"></td></tr>
+                <tr>
+                  <td style="padding:0 40px;">
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 20px;">
+                      <strong style="font-family:'Playfair Display',serif;font-size:22px;color:#3D4D2E;">${t.greetingLine}</strong>
+                    </p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.rebuildKitchenLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.stationListLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.oneChangeLine}</p>
+                    <p style="font-size:18px; font-weight: 600; color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.bulletIntroLine}</p>
+                    <ul style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px 20px;padding:0;">
+                      <li>${t.bulletPause}</li>
+                      <li>${t.bulletNotToday}</li>
+                      <li>${t.bulletLeaveWork}</li>
+                    </ul>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.thatsItLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.smallVsSustainableLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.destinationLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 8px;">
+                      ${t.signoffLabel}<br/>
+                      ${t.signoffName}
+                    </p>
+                    <p style="font-size:14px;color:#666;line-height:1.6;font-style:italic;margin:16px 0 0;">
+                      ${t.bibleVerse}
+                    </p>
+                  </td>
+                </tr>
+                <tr><td height="40"></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `,
+  });
+
+  if (error) {
+    console.error("Resend API error (Day 3 small shifts):", error);
+    throw new Error(`Resend API error: ${JSON.stringify(error)}`);
+  }
+}
+
+// Day 5: Awakening, not crisis
+export async function sendDay5AwakeningEmail(
+  email: string,
+  userName: string,
+  _planData?: PlanData,
+  language: Language = "en",
+) {
+  console.log("Sending Day 5 awakening email to:", email);
+
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY not configured");
+  }
+
+  const firstName =
+    userName?.split(" ")[0] ||
+    email
+      .split("@")[0]
+      .split(".")[0]
+      .replace(/^\w/, (c) => c.toUpperCase());
+
+  const t = emailTranslations[language].day5Awakening;
+  const subject = t.subject.replace("{firstName}", firstName);
+  const greeting = t.greetingLine.replace("{firstName}", firstName);
+
+  const { data, error } = await resend.emails.send({
+    from: DEFAULT_FROM_EMAIL,
+    to: [email],
+    subject,
+    html: `
+      <!DOCTYPE html>
+      <html lang="${language}">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+      </head>
+      <body style="margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background-color:#F5F3ED;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F3ED;padding:40px 20px;">
+          <tr>
+            <td align="center">
+              <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <tr><td height="40"></td></tr>
+                <tr>
+                  <td align="center" style="padding:0 40px;">
+                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height:120px;width:auto;" />
+                  </td>
+                </tr>
+                <tr><td height="30"></td></tr>
+                <tr>
+                  <td style="padding:0 40px;">
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 20px;">
+                      <strong style="font-family:'Playfair Display',serif;font-size:22px;color:#3D4D2E;">${greeting}</strong>
+                    </p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.readCarefullyLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.awakeningLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.crisisVsAwakeningLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.windowLine}</p>
+                    <p style="font-size:18px; font-weight: 600; color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.openWinLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.clarityLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.enoughForNowLine}</p>
+                    <p style="font-size:18px; font-family: 'Italic', sans-serif; color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.isYouLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.noPlessure}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 8px;">
+                      ${t.signoffLabel}<br/>
+                      ${t.signoffName}
+                    </p>
+                    <p style="font-size:14px;color:#666;line-height:1.6;font-style:italic;margin:16px 0 0;">
+                      ${t.bibleVerse}
+                    </p>
+                  </td>
+                </tr>
+                <tr><td height="40"></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `,
+  });
+
+  if (error) {
+    console.error("Resend API error (Day 5 awakening):", error);
+    throw new Error(`Resend API error: ${JSON.stringify(error)}`);
+  }
+}
+
+// Day 6: Are you carrying this alone?
+export async function sendDay6NotAloneEmail(
+  email: string,
+  userName: string,
+  _planData?: PlanData,
+  language: Language = "en",
+) {
+  console.log("Sending Day 6 not-alone email to:", email);
+
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error("RESEND_API_KEY not configured");
+  }
+
+  const firstName =
+    userName?.split(" ")[0] ||
+    email
+      .split("@")[0]
+      .split(".")[0]
+      .replace(/^\w/, (c) => c.toUpperCase());
+
+  const t = emailTranslations[language].day6NotAlone;
+  const subject = t.subject.replace("{firstName}", firstName);
+  const greeting = t.greetingLine.replace("{firstName}", firstName);
+
+  const { data, error } = await resend.emails.send({
+    from: DEFAULT_FROM_EMAIL,
+    to: [email],
+    subject,
+    html: `
+      <!DOCTYPE html>
+      <html lang="${language}">
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+      </head>
+      <body style="margin:0;padding:0;font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background-color:#F5F3ED;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F3ED;padding:40px 20px;">
+          <tr>
+            <td align="center">
+              <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="background-color:#FFFFFF;border-radius:8px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+                <tr><td height="40"></td></tr>
+                <tr>
+                  <td align="center" style="padding:0 40px;">
+                    <img src="${process.env.NEXT_PUBLIC_APP_URL}/WW_logo.png" alt="Wydaho Warrior Knife Check Assessment Logo" style="height:120px;width:auto;" />
+                  </td>
+                </tr>
+                <tr><td height="30"></td></tr>
+                <tr>
+                  <td style="padding:0 40px;">
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 20px;">
+                      <strong style="font-family:'Playfair Display',serif;font-size:22px;color:#3D4D2E;">${greeting}</strong>
+                    </p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.decisionIntroLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.decisionQuestionLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.triedAloneLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.strengthLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.inviteLine}</p>
+                    <div style="text-align:center;margin:24px 0;">
+                      <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="background-color:#7ED321;color:#FFFFFF;padding:14px 32px;border-radius:8px;text-decoration:none;font-size:18px;font-weight:600;display:inline-block;">
+                        ${t.bookFreeCall}
+                      </a>
+                    </div>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 16px;">${t.noPressureLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 24px;">${t.notTimeLine}</p>
+                    <p style="font-size:18px;color:#1A1A1A;line-height:1.6;margin:0 0 8px;">
+                      ${t.signoffLine}
+                    </p>
+                    <p style="font-size:14px;color:#666;line-height:1.6;font-style:italic;margin:16px 0 0;">
+                      ${t.bibleVerse}
+                    </p>
+                    <a href="https://app.paperbell.com/checkout/packages/156555" style="background-color: #7ED321; color: white; padding: 16px 32px; text-decoration: none; border-radius: 8px; font-size: 18px; font-weight: bold; display: inline-block; font-family: 'Inter', sans-serif;">
+                      ${t.buttonLabel}
+                    </a>
+                  </td>
+                </tr>
+                <tr><td height="40"></td></tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `,
+  });
+
+  if (error) {
+    console.error("Resend API error (Day 6 not-alone):", error);
+    throw new Error(`Resend API error: ${JSON.stringify(error)}`);
+  }
+}
+
 // Email 2: Pattern Recognition (48 hours)
 
 export async function sendPatternRecognitionEmail(
   email: string,
   userName: string,
   planData?: PlanData,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Sending pattern recognition email to:", email);
 
@@ -661,7 +1008,7 @@ export async function sendPatternRecognitionEmail(
       ) {
         personalizedPS = t.patternRecognition.psSympathetic.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
       // Check for avoidance/shutdown (dorsal shutdown) - English and Spanish
@@ -681,7 +1028,7 @@ export async function sendPatternRecognitionEmail(
       ) {
         personalizedPS = t.patternRecognition.psDorsal.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
       // Check for stress regression
@@ -692,14 +1039,14 @@ export async function sendPatternRecognitionEmail(
       ) {
         personalizedPS = t.patternRecognition.psRegression.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
       // Generic fallback
       else {
         personalizedPS = t.patternRecognition.psGeneric.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
     }
@@ -879,7 +1226,7 @@ export async function sendEvidence7DayEmail(
   email: string,
   userName: string,
   planData?: PlanData,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Sending evidence 7-day email to:", email);
 
@@ -958,7 +1305,7 @@ export async function sendEvidence7DayEmail(
       else {
         personalizedPS = t.evidence7Day.psGeneric.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
     }
@@ -1151,7 +1498,7 @@ export async function sendIntegrationThresholdEmail(
   email: string,
   userName: string,
   planData?: PlanData,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Sending integration threshold email to:", email);
 
@@ -1243,7 +1590,7 @@ export async function sendIntegrationThresholdEmail(
       else {
         personalizedPS = t.integrationThreshold.psGeneric.replace(
           "{bookCall}",
-          t.integrationThreshold.bookCall
+          t.integrationThreshold.bookCall,
         );
       }
     }
@@ -1451,7 +1798,7 @@ export async function sendCompoundEffectEmail(
   email: string,
   userName: string,
   planData?: PlanData,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Sending compound effect email to:", email);
 
@@ -1475,7 +1822,7 @@ export async function sendCompoundEffectEmail(
       } else {
         personalizedPS = t.compoundEffect.psGeneric.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
     }
@@ -1658,7 +2005,7 @@ export async function sendDirectInvitationEmail(
   email: string,
   userName: string,
   planData?: PlanData,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   console.log("Sending direct invitation email to:", email);
 
@@ -1686,12 +2033,12 @@ export async function sendDirectInvitationEmail(
       if (futureVision && futureVision.length > 10) {
         personalizedPS = t.directInvitation.psTuesdayWhere.replace(
           "{futureVision}",
-          futureVision
+          futureVision,
         );
       } else {
         personalizedPS = t.directInvitation.psGeneric.replace(
           "{bookCall}",
-          bookCallLink
+          bookCallLink,
         );
       }
     }

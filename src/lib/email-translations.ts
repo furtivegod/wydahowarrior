@@ -47,6 +47,70 @@ export interface EmailTranslations {
     bookCall: string;
     bookCallGeneric: string;
   };
+  day1Proud: {
+    subject: string;
+    introLine: string;
+    auditLines: string;
+    youDidLine: string;
+    thatMattersLine: string;
+    backstoryLine: string;
+    twiceLine: string;
+    becauseLine: string;
+    courageLine: string;
+    noFixingLine: string;
+    ctaLine: string;
+    signoffLabel: string;
+    signoffName: string;
+    bibleVerse: string;
+  };
+  day3SmallShifts: {
+    subject: string;
+    greetingLine: string;
+    rebuildKitchenLine: string;
+    stationListLine: string;
+    oneChangeLine: string;
+    bulletIntroLine: string;
+    bulletPause: string;
+    bulletNotToday: string;
+    bulletLeaveWork: string;
+    thatsItLine: string;
+    smallVsSustainableLine: string;
+    destinationLine: string;
+    signoffLabel: string;
+    signoffName: string;
+    bibleVerse: string;
+  };
+  day5Awakening: {
+    subject: string;
+    greetingLine: string;
+    readCarefullyLine: string;
+    awakeningLine: string;
+    crisisVsAwakeningLine: string;
+    windowLine: string;
+    openWinLine: string;
+    clarityLine: string;
+    enoughForNowLine: string;
+    isYouLine: string;
+    noPlessure: string;
+    signoffLabel: string;
+    signoffName: string;
+    bibleVerse: string;
+  };
+  day6NotAlone: {
+    subject: string;
+    greetingLine: string;
+    decisionIntroLine: string;
+    decisionQuestionLine: string;
+    triedAloneLine: string;
+    strengthLine: string;
+    inviteLine: string;
+    noPressureLine: string;
+    notTimeLine: string;
+    buttonLabel: string;
+    bookFreeCall: string;
+    signoffLine: string;
+    bibleVerse: string;
+  };
   patternRecognition: {
     subject: string;
     greeting: string;
@@ -315,6 +379,93 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
         '<a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>',
       bookCallGeneric:
         '<a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">book a call</a>',
+    },
+    day1Proud: {
+      subject: "I’m proud of you, {firstName}. Here’s Why…",
+      introLine: "Very few chefs take the time to look at their own patterns.",
+      auditLines:
+        "They’ll audit food cost.<br/>They’ll inspect a line cook.<br/>They’ll rewrite a menu.<br/>But they won’t audit themselves.",
+      youDidLine: "You did.",
+      thatMattersLine: "That matters more than you realize.",
+      backstoryLine:
+        "I built this assessment after I sabotaged my own environment.",
+      twiceLine: "Twice.",
+      becauseLine:
+        "Not because I was weak.<br/><br/>Because I was carrying weight I didn’t understand.",
+      courageLine:
+        "Taking this assessment isn’t small.<br/>It’s not casual.<br/>It’s not “just clicking buttons.”<br/>It’s courage.",
+      noFixingLine:
+        "No fixing today.<br/>No action plan.<br/>No pressure.<br/><br/>Just this…<br/>I’m proud of you.<br/><br/>Rest in that for a minute.",
+      ctaLine:
+        'I’d love to chat with you, chef to chef… you can <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color:#7ED321;text-decoration:underline;">book a FREE call here</a>.',
+      signoffLabel: "Your Warrior,",
+      signoffName: "Chef Steve Murphy",
+      bibleVerse:
+        '"Come to me, all who are weary and burdened, and I will give you rest.” — Matthew 11:28',
+    },
+    day3SmallShifts: {
+      subject: "{firstName}, These Small Shifts",
+      greetingLine: "Chef,",
+      rebuildKitchenLine:
+        "We don’t rebuild a kitchen by tearing down the whole building in one day, right?",
+      stationListLine:
+        "We adjust one station.<br/>We sharpen one knife.<br/>We clean one surface.",
+      oneChangeLine:
+        "One intentional change, done consistently, alters the entire system.",
+      bulletIntroLine: "Maybe it’s simple steps like…",
+      bulletPause: "Pausing before reacting",
+      bulletNotToday: "Saying “not today” to an old escape",
+      bulletLeaveWork: "Leaving work at work",
+      thatsItLine: "That’s it.",
+      smallVsSustainableLine:
+        "Small doesn’t mean insignificant. Small means sustainable.",
+      destinationLine:
+        "While our journeys look different, we share the same destination: freedom in your own skin.<br/><br/>Keep it simple this week. One shift.",
+      signoffLabel: "Your Warrior,",
+      signoffName: "Chef Steve",
+      bibleVerse:
+        '"Do not conform to the pattern of this world, but be transformed by the renewing of your mind.” — Romans 12:2',
+    },
+    day5Awakening: {
+      subject: "{firstName}, This isn’t a crisis…but let me tell you…",
+      greetingLine: "Chef {firstName},",
+      readCarefullyLine: "Read this carefully.",
+      awakeningLine: "This isn’t a crisis. <br/><br/>It’s an awakening.",
+      crisisVsAwakeningLine:
+        "A crisis says something is broken.<br/>An awakening says something is ready.",
+      windowLine: "The assessment didn’t expose failure.",
+      openWinLine: "It opened a window in a closed kitchen.",
+      clarityLine: "Fresh air.<br/>Clarity.<br/>Light.",
+      enoughForNowLine:
+        "It’s okay if you feel unsettled.<br/>It’s okay if you feel exposed.<br/>It’s okay if you feel nothing at all.<br/><br/>You don’t need to be fixed. <br/>You need to be understood.<br/><br/>And sometimes the first person who needs to understand you…",
+      isYouLine: "is you.",
+      noPlessure:
+        "No pressure. <br/>Just awareness. <br/><br/>That’s enough for now.",
+      signoffLabel: "Your Warrior,",
+      signoffName: "Chef Steve",
+      bibleVerse:
+        '"You have searched me, Lord, and you know me.” — Psalm 139:1–2',
+    },
+    day6NotAlone: {
+      subject: "{firstName}, Are you carrying this alone?",
+      greetingLine: "{firstName},",
+      decisionIntroLine:
+        "There’s a moment after awareness where you get to decide…",
+      decisionQuestionLine:
+        "Do I carry this alone?<br/>Or do I build with someone?",
+      triedAloneLine:
+        "I tried to carry it alone. <br/>That’s how I disappeared.",
+      strengthLine: "Strength isn’t isolation. <br/>Strength is alignment.",
+      inviteLine:
+        "If you want to talk through what surfaced in your assessment—not in a therapy chair, not in a corporate coaching room… but chef to chef—book a free call.",
+      noPressureLine: "No pressure. <br/>No pitch. <br/>Just clarity.",
+      notTimeLine:
+        "If now’s not the time, that’s okay too. <br/><br/>But you don’t have to bring the kitchen home with you anymore.",
+      buttonLabel: "Book Your FREE Chef Clarity Call",
+      bookFreeCall: "Book a free call",
+      signoffLine: "Every second counts.<br/>Chef Steve",
+      bibleVerse:
+        "“Carry each other’s burdens, and in this way you will fulfill the law of Christ.” — Galatians 6:2",
     },
     patternRecognition: {
       subject: "You probably already caught yourself doing it",
@@ -680,6 +831,91 @@ export const emailTranslations: Record<"en" | "es", EmailTranslations> = {
         '<a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">reserva una llamada</a>',
       bookCallGeneric:
         '<a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color: #7ED321; text-decoration: underline;">reserva una llamada</a>',
+    },
+    day1Proud: {
+      subject: "Estoy orgulloso de ti, {firstName}. Te explico por qué…",
+      introLine:
+        "Muy pocos chefs se toman el tiempo de mirar sus propios patrones.",
+      auditLines:
+        "Revisan el costo de los alimentos.<br/>Inspeccionan a un cocinero de línea.<br/>Reescriben un menú.<br/>Pero no se auditan a sí mismos.",
+      youDidLine: "Tú sí lo hiciste.",
+      thatMattersLine: "Eso importa más de lo que te das cuenta.",
+      backstoryLine:
+        "Construí esta evaluación después de sabotear mi propio entorno.",
+      twiceLine: "Dos veces.",
+      becauseLine:
+        "No porque fuera débil.<br/><br/>Sino porque estaba cargando un peso que no entendía.",
+      courageLine:
+        "Hacer esta evaluación no es poca cosa.<br/>No es casual.<br/>No es “solo hacer clic en botones”.<br/>Es valentía.",
+      noFixingLine:
+        "Hoy no hay nada que arreglar.<br/>No hay un plan de acción.<br/>No hay presión.<br/><br/>Solo esto…<br/>Estoy orgulloso de ti.<br/><br/>Descansa en eso por un minuto.",
+      ctaLine:
+        'Me encantaría hablar contigo, chef con chef… puedes <a href="https://app.paperbell.com/checkout/bookings/new?package_id=156554&tab=2025-12-15" style="color:#7ED321;text-decoration:underline;">reservar una llamada GRATIS aquí</a>.',
+      signoffLabel: "Tu Guerrero,",
+      signoffName: "Chef Steve Murphy",
+      bibleVerse:
+        '"Venid a mí todos los que estáis trabajados y cargados, y yo os haré descansar." — Mateo 11:28',
+    },
+    day3SmallShifts: {
+      subject: "{firstName}, Estos Pequeños Cambios",
+      greetingLine: "Chef,",
+      rebuildKitchenLine:
+        "No reconstruimos una cocina derribando todo el edificio en un solo día, ¿verdad?",
+      stationListLine:
+        "Ajustamos una estación.<br/>Afilamos un cuchillo.<br/>Limpiamos una superficie.",
+      oneChangeLine:
+        "Un cambio intencional, hecho de forma consistente, altera todo el sistema.",
+      bulletIntroLine: "Tal vez sean pasos simples como…",
+      bulletPause: "Pausar antes de reaccionar",
+      bulletNotToday: "Decir “hoy no” a un viejo escape",
+      bulletLeaveWork: "Dejar el trabajo en el trabajo",
+      thatsItLine: "Eso es todo.",
+      smallVsSustainableLine:
+        "Pequeño no significa insignificante. Pequeño significa sostenible.",
+      destinationLine:
+        "Aunque nuestros caminos se vean diferentes, compartimos el mismo destino: libertad en tu propia piel.<br/><br/>Mantenlo simple esta semana. Un cambio.",
+      signoffLabel: "Tu Guerrero,",
+      signoffName: "Chef Steve",
+      bibleVerse:
+        '"No os conforméis a este mundo, sino transformaos por medio de la renovación de vuestro entendimiento." — Romanos 12:2',
+    },
+    day5Awakening: {
+      subject: "{firstName}, Esto no es una crisis… déjame explicarte…",
+      greetingLine: "Chef {firstName},",
+      readCarefullyLine: "Lee esto con atención.",
+      awakeningLine: "Esto no es una crisis. Es un despertar.",
+      crisisVsAwakeningLine:
+        "Una crisis dice que algo está roto.<br/>Un despertar dice que algo está listo.",
+      windowLine: "La evaluación no expuso un fracaso.",
+      openWinLine: "Abrió una ventana en una cocina cerrada.",
+      clarityLine: "Aire fresco. Claridad. Luz.",
+      enoughForNowLine:
+        "Está bien si te sientes inquieto.<br/>Está bien si te sientes expuesto.<br/>Está bien si no sientes nada en absoluto.<br/><br/>No necesitas que te arreglen. Necesitas ser entendido.<br/><br/>Y a veces la primera persona que necesita entenderte…<br/><br/>",
+      isYouLine: "eres tú.",
+      noPlessure: "Sin presión. Solo conciencia. Eso es suficiente por ahora.",
+      signoffLabel: "Tu Guerrero,",
+      signoffName: "Chef Steve",
+      bibleVerse:
+        '"Oh Jehová, tú me has examinado y conocido." — Salmo 139:1–2',
+    },
+    day6NotAlone: {
+      subject: "{firstName}, ¿Estás cargando esto solo?",
+      greetingLine: "{firstName},",
+      decisionIntroLine:
+        "Hay un momento después de la conciencia en el que puedes decidir…",
+      decisionQuestionLine: "¿Cargo esto solo?<br/>¿O construyo con alguien?",
+      triedAloneLine: "Yo intenté cargarlo solo. Así fue como desaparecí.",
+      strengthLine: "La fuerza no es aislamiento. La fuerza es alineamiento.",
+      inviteLine:
+        "Si quieres hablar de lo que salió en tu evaluación—no en un sillón de terapia, no en una sala de coaching corporativo… sino chef con chef—reserva una llamada gratuita.",
+      noPressureLine: "Sin presión. Sin discurso de venta. Solo claridad.",
+      notTimeLine:
+        "Si ahora no es el momento, también está bien. Pero ya no tienes que llevarte la cocina a casa.",
+      buttonLabel: "Reserva Tu Llamada de Claridad Chef GRATIS",
+      bookFreeCall: "Reserva una llamada gratuita",
+      signoffLine: "Cada segundo cuenta.<br/>Chef Steve",
+      bibleVerse:
+        '"Sobrellevad los unos las cargas de los otros, y cumplid así la ley de Cristo." — Gálatas 6:2',
     },
     patternRecognition: {
       subject:
