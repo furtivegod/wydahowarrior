@@ -27,7 +27,7 @@ export async function createEmailSequence(
   sessionId: string,
   userEmail: string,
   userName: string,
-  language: Language = "en"
+  language: Language = "en",
 ) {
   try {
     console.log("Creating email sequence for user:", userId);
@@ -47,7 +47,7 @@ export async function createEmailSequence(
 
     if (existingEmails && existingEmails.length > 0) {
       console.log(
-        "Email sequence already exists for this user/session, skipping creation"
+        "Email sequence already exists for this user/session, skipping creation",
       );
       return true;
     }
@@ -61,7 +61,7 @@ export async function createEmailSequence(
       function: (
         email: string,
         userName: string,
-        planData?: PlanData
+        planData?: PlanData,
       ) => Promise<void>;
       name: string;
     };
@@ -70,64 +70,64 @@ export async function createEmailSequence(
     const emailSchedule: EmailScheduleItem[] = [
       {
         // Day 1
-        // delay: 1 * 24 * 60 * 60 * 1000,
-        delay: 1 * 60 * 1000, // 1 minute after assessment
+        delay: 1 * 24 * 60 * 60 * 1000,
+        // delay: 1 * 60 * 1000, // 1 minute after assessment
         function: sendDay1ProudEmail,
         name: "day1_proud",
       },
       {
         // Day 2
-        // delay: 2 * 24 * 60 * 60 * 1000,
-        delay: 2 * 60 * 1000, // 2 minutes
+        delay: 2 * 24 * 60 * 60 * 1000,
+        // delay: 2 * 60 * 1000, // 2 minutes
         function: sendPatternRecognitionEmail,
         name: "pattern_recognition",
       },
       {
         // Day 3
-        // delay: 3 * 24 * 60 * 60 * 1000,
-        delay: 3 * 60 * 1000, // 3 minutes
+        delay: 3 * 24 * 60 * 60 * 1000,
+        // delay: 3 * 60 * 1000, // 3 minutes
         function: sendDay3SmallShiftsEmail,
         name: "day3_small_shifts",
       },
       {
         // Day 5
-        // delay: 5 * 24 * 60 * 60 * 1000,
-        delay: 4 * 60 * 1000, // 4 minutes
+        delay: 5 * 24 * 60 * 60 * 1000,
+        // delay: 4 * 60 * 1000, // 4 minutes
         function: sendDay5AwakeningEmail,
         name: "day5_awakening",
       },
       {
         // Day 6
-        // delay: 6 * 24 * 60 * 60 * 1000,
-        delay: 5 * 60 * 1000, // 5 minutes
+        delay: 6 * 24 * 60 * 60 * 1000,
+        // delay: 5 * 60 * 1000, // 5 minutes
         function: sendDay6NotAloneEmail,
         name: "day6_not_alone",
       },
       {
         // Day 7
-        // delay: 7 * 24 * 60 * 60 * 1000,
-        delay: 6 * 60 * 1000, // 6 minutes
+        delay: 7 * 24 * 60 * 60 * 1000,
+        // delay: 6 * 60 * 1000, // 6 minutes
         function: sendEvidence7DayEmail,
         name: "evidence_7day",
       },
       {
         // Day 14
-        // delay: 14 * 24 * 60 * 60 * 1000,
-        delay: 7 * 60 * 1000, // 7 minutes
+        delay: 14 * 24 * 60 * 60 * 1000,
+        // delay: 7 * 60 * 1000, // 7 minutes
         function: sendIntegrationThresholdEmail,
         name: "integration_threshold",
       },
-      {
-        // Day 21
-        // delay: 21 * 24 * 60 * 60 * 1000,
-        delay: 8 * 60 * 1000, // 8 minutes
-        function: sendCompoundEffectEmail,
-        name: "compound_effect",
-      },
+      // {
+      //   // Day 21
+      //   delay: 21 * 24 * 60 * 60 * 1000,
+      //   // delay: 8 * 60 * 1000, // 8 minutes
+      //   function: sendCompoundEffectEmail,
+      //   name: "compound_effect",
+      // },
       {
         // Day 30
-        // delay: 30 * 24 * 60 * 60 * 1000,
-        delay: 9 * 60 * 1000, // 9 minutes
+        delay: 30 * 24 * 60 * 60 * 1000,
+        // delay: 9 * 60 * 1000, // 9 minutes
         function: sendDirectInvitationEmail,
         name: "direct_invitation",
       },
@@ -152,10 +152,10 @@ export async function createEmailSequence(
       if (insertError) {
         console.error(
           `Failed to schedule email ${emailItem.name}:`,
-          insertError
+          insertError,
         );
         throw new Error(
-          `Failed to schedule email ${emailItem.name}: ${insertError.message}`
+          `Failed to schedule email ${emailItem.name}: ${insertError.message}`,
         );
       }
     }
@@ -228,7 +228,7 @@ export async function processEmailQueue() {
 
         if (planError || !planOutput) {
           console.warn(
-            `No plan data found for session ${email.session_id}, sending generic email.`
+            `No plan data found for session ${email.session_id}, sending generic email.`,
           );
         }
 
@@ -244,7 +244,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "pattern_recognition":
@@ -252,7 +252,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "day3_small_shifts":
@@ -260,7 +260,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "day5_awakening":
@@ -268,7 +268,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "day6_not_alone":
@@ -276,7 +276,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "evidence_7day":
@@ -284,7 +284,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "integration_threshold":
@@ -292,7 +292,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "compound_effect":
@@ -300,7 +300,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           case "direct_invitation":
@@ -308,7 +308,7 @@ export async function processEmailQueue() {
               email.email,
               firstName || "Client",
               planOutput?.plan_json,
-              language
+              language,
             );
             break;
           default:
@@ -329,18 +329,18 @@ export async function processEmailQueue() {
         if (updateError) {
           console.error(
             `Failed to update email status for ${email.id}:`,
-            updateError
+            updateError,
           );
         }
 
         processed++;
         console.log(
-          `Email sent successfully: ${email.email_type} to ${email.email}`
+          `Email sent successfully: ${email.email_type} to ${email.email}`,
         );
       } catch (error) {
         console.error(
           `Failed to send email ${email.id} (${email.email_type}):`,
-          error
+          error,
         );
 
         // Mark as failed with error details
@@ -357,7 +357,7 @@ export async function processEmailQueue() {
         if (failUpdateError) {
           console.error(
             `Failed to update failed email status for ${email.id}:`,
-            failUpdateError
+            failUpdateError,
           );
         }
 
