@@ -70,50 +70,50 @@ export async function createEmailSequence(
     const emailSchedule: EmailScheduleItem[] = [
       {
         // Day 1
-        // delay: 1 * 24 * 60 * 60 * 1000,
-        delay: 1 * 60 * 1000, // 1 minute after assessment
+        delay: 1 * 24 * 60 * 60 * 1000,
+        // delay: 1 * 60 * 1000, // 1 minute after assessment
         function: sendDay1ProudEmail,
         name: "day1_proud",
       },
       {
         // Day 2
-        // delay: 2 * 24 * 60 * 60 * 1000,
-        delay: 2 * 60 * 1000, // 2 minutes
+        delay: 2 * 24 * 60 * 60 * 1000,
+        // delay: 2 * 60 * 1000, // 2 minutes
         function: sendPatternRecognitionEmail,
         name: "pattern_recognition",
       },
       {
         // Day 3
-        // delay: 3 * 24 * 60 * 60 * 1000,
-        delay: 3 * 60 * 1000, // 3 minutes
+        delay: 3 * 24 * 60 * 60 * 1000,
+        // delay: 3 * 60 * 1000, // 3 minutes
         function: sendDay3SmallShiftsEmail,
         name: "day3_small_shifts",
       },
       {
         // Day 5
-        // delay: 5 * 24 * 60 * 60 * 1000,
-        delay: 4 * 60 * 1000, // 4 minutes
+        delay: 5 * 24 * 60 * 60 * 1000,
+        // delay: 4 * 60 * 1000, // 4 minutes
         function: sendDay5AwakeningEmail,
         name: "day5_awakening",
       },
       {
         // Day 6
-        // delay: 6 * 24 * 60 * 60 * 1000,
-        delay: 5 * 60 * 1000, // 5 minutes
+        delay: 6 * 24 * 60 * 60 * 1000,
+        // delay: 5 * 60 * 1000, // 5 minutes
         function: sendDay6NotAloneEmail,
         name: "day6_not_alone",
       },
       {
         // Day 7
-        // delay: 7 * 24 * 60 * 60 * 1000,
-        delay: 6 * 60 * 1000, // 6 minutes
+        delay: 7 * 24 * 60 * 60 * 1000,
+        // delay: 6 * 60 * 1000, // 6 minutes
         function: sendEvidence7DayEmail,
         name: "evidence_7day",
       },
       {
         // Day 14
-        // delay: 14 * 24 * 60 * 60 * 1000,
-        delay: 7 * 60 * 1000, // 7 minutes
+        delay: 14 * 24 * 60 * 60 * 1000,
+        // delay: 7 * 60 * 1000, // 7 minutes
         function: sendIntegrationThresholdEmail,
         name: "integration_threshold",
       },
@@ -126,8 +126,8 @@ export async function createEmailSequence(
       // },
       {
         // Day 30
-        // delay: 30 * 24 * 60 * 60 * 1000,
-        delay: 8 * 60 * 1000, // 8 minutes
+        delay: 30 * 24 * 60 * 60 * 1000,
+        // delay: 8 * 60 * 1000, // 8 minutes
         function: sendDirectInvitationEmail,
         name: "direct_invitation",
       },
