@@ -62,7 +62,8 @@ export async function createEmailSequence(
         email: string,
         userName: string,
         planData?: PlanData,
-      ) => Promise<void>;
+        language?: Language,
+      ) => Promise<void | string | undefined>;
       name: string;
     };
 

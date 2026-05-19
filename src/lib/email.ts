@@ -204,6 +204,7 @@ export async function sendMagicLink(
         </html>
 
       `,
+      tags: [{ name: "email_type", value: "magic_link" }],
     });
 
     if (error) {
@@ -212,6 +213,7 @@ export async function sendMagicLink(
     }
 
     console.log("Magic link email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send magic link:", error);
     throw error;
@@ -418,11 +420,12 @@ export async function sendReportEmail(
       subject: string;
       html: string;
       attachments?: Array<{ filename: string; content: string; type?: string }>;
+      tags?: Array<{ name: string; value: string }>;
     } = {
       from: DEFAULT_FROM_EMAIL,
       to: [email],
-
       subject: t.report.subject,
+      tags: [{ name: "email_type", value: "report" }],
       html: `
         <!DOCTYPE html>
         <html lang="${language}">
@@ -607,6 +610,7 @@ export async function sendReportEmail(
     }
 
     console.log("Report email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send report email:", error);
     throw error;
@@ -690,12 +694,15 @@ export async function sendDay1ProudEmail(
       </body>
       </html>
     `,
+    tags: [{ name: "email_type", value: "day1_proud" }],
   });
 
   if (error) {
     console.error("Resend API error (Day 1 proud):", error);
     throw new Error(`Resend API error: ${JSON.stringify(error)}`);
   }
+
+  return data?.id;
 }
 
 // Day 3: These small shifts
@@ -777,12 +784,15 @@ export async function sendDay3SmallShiftsEmail(
       </body>
       </html>
     `,
+    tags: [{ name: "email_type", value: "day3_small_shifts" }],
   });
 
   if (error) {
     console.error("Resend API error (Day 3 small shifts):", error);
     throw new Error(`Resend API error: ${JSON.stringify(error)}`);
   }
+
+  return data?.id;
 }
 
 // Day 5: Awakening, not crisis
@@ -862,12 +872,15 @@ export async function sendDay5AwakeningEmail(
       </body>
       </html>
     `,
+    tags: [{ name: "email_type", value: "day5_awakening" }],
   });
 
   if (error) {
     console.error("Resend API error (Day 5 awakening):", error);
     throw new Error(`Resend API error: ${JSON.stringify(error)}`);
   }
+
+  return data?.id;
 }
 
 // Day 6: Are you carrying this alone?
@@ -952,12 +965,15 @@ export async function sendDay6NotAloneEmail(
       </body>
       </html>
     `,
+    tags: [{ name: "email_type", value: "day6_not_alone" }],
   });
 
   if (error) {
     console.error("Resend API error (Day 6 not-alone):", error);
     throw new Error(`Resend API error: ${JSON.stringify(error)}`);
   }
+
+  return data?.id;
 }
 
 // Email 2: Pattern Recognition (48 hours)
@@ -1206,6 +1222,7 @@ export async function sendPatternRecognitionEmail(
         </html>
 
       `,
+      tags: [{ name: "email_type", value: "pattern_recognition" }],
     });
 
     if (error) {
@@ -1214,6 +1231,7 @@ export async function sendPatternRecognitionEmail(
     }
 
     console.log("Pattern recognition email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send pattern recognition email:", error);
     throw error;
@@ -1478,6 +1496,7 @@ export async function sendEvidence7DayEmail(
         </html>
 
       `,
+      tags: [{ name: "email_type", value: "evidence_7day" }],
     });
 
     if (error) {
@@ -1486,6 +1505,7 @@ export async function sendEvidence7DayEmail(
     }
 
     console.log("Evidence 7-day email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send evidence 7-day email:", error);
     throw error;
@@ -1778,6 +1798,7 @@ export async function sendIntegrationThresholdEmail(
         </html>
 
       `,
+      tags: [{ name: "email_type", value: "integration_threshold" }],
     });
 
     if (error) {
@@ -1786,6 +1807,7 @@ export async function sendIntegrationThresholdEmail(
     }
 
     console.log("Integration threshold email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send integration threshold email:", error);
     throw error;
@@ -1985,6 +2007,7 @@ export async function sendCompoundEffectEmail(
         </html>
 
       `,
+      tags: [{ name: "email_type", value: "compound_effect" }],
     });
 
     if (error) {
@@ -1993,6 +2016,7 @@ export async function sendCompoundEffectEmail(
     }
 
     console.log("Compound effect email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send compound effect email:", error);
     throw error;
@@ -2348,6 +2372,7 @@ export async function sendDirectInvitationEmail(
         </html>
 
       `,
+      tags: [{ name: "email_type", value: "direct_invitation" }],
     });
 
     if (error) {
@@ -2356,6 +2381,7 @@ export async function sendDirectInvitationEmail(
     }
 
     console.log("Direct invitation email sent successfully:", data?.id);
+    return data?.id;
   } catch (error) {
     console.error("Failed to send direct invitation email:", error);
     throw error;
